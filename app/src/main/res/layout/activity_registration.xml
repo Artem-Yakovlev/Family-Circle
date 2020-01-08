@@ -34,7 +34,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/login_page_app_name"
                 android:textColor="@color/colorAppName"
-                android:textSize="@dimen/registration_page_app_name"
+                android:textSize="@dimen/login_page_app_name"
                 android:layout_gravity="center_vertical" />
 
             <TextView
@@ -48,6 +48,59 @@
                 android:layout_marginRight="5dp"/>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal">
+
+        <!-- Email input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:hint="@string/login_page_email_hint"
+            android:theme="@style/LoginPageTextEditStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:drawableRight="@drawable/ic_email_blue_24dp"
+                android:textSize="@dimen/login_page_input"
+                android:drawableEnd="@drawable/ic_email_blue_24dp"
+                android:inputType="textEmailAddress"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Password input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:hint="@string/login_page_password_hint"
+            android:theme="@style/LoginPageTextEditStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:drawableRight="@drawable/ic_lock_blue_24dp"
+                android:textSize="@dimen/login_page_input"
+                android:drawableEnd="@drawable/ic_lock_blue_24dp"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        
 
     </LinearLayout>
 

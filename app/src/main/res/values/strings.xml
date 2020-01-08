@@ -4,5 +4,8 @@
     <!-- Login page-->
     <string name="login_page_app_name">Family circle</string>
     <string name="login_page_app_tagline">Be a family</string>
+    <string name="login_page_email_hint">Email</string>
+    <string name="login_page_password_hint">Password</string>
+    <string name="login_page_forgot_password">Forgot password?</string>
 
 </resources>
