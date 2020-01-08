@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,7 +77,9 @@
                 android:drawableRight="@drawable/ic_email_blue_24dp"
                 android:textSize="@dimen/login_page_input"
                 android:drawableEnd="@drawable/ic_email_blue_24dp"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,11 +99,42 @@
                 android:drawableRight="@drawable/ic_lock_blue_24dp"
                 android:textSize="@dimen/login_page_input"
                 android:drawableEnd="@drawable/ic_lock_blue_24dp"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        
+        <LinearLayout
+            android:layout_marginTop="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_login_buttons"
+                android:text="@string/login_page_sign_in_button"
+                android:textSize="@dimen/login_page_button" />
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_login_buttons"
+                android:text="@string/login_page_sign_up_button"
+                android:textSize="@dimen/login_page_button" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

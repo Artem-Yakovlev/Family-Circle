@@ -3,4 +3,5 @@
     <!-- Login page-->
     <dimen name="login_page_app_name">24sp</dimen>
     <dimen name="login_page_input">18sp</dimen>
+    <dimen name="login_page_button">14sp</dimen>
 </resources>
