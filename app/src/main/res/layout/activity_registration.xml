@@ -71,6 +71,7 @@
             android:theme="@style/LoginPageTextEditStyle">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_page_email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -93,6 +94,7 @@
             android:theme="@style/LoginPageTextEditStyle">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_page_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -113,6 +115,7 @@
             android:gravity="center_horizontal">
 
             <Button
+                android:id="@+id/login_page_sign_in_button"
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
