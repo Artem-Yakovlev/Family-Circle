@@ -10,4 +10,7 @@
     <color name="colorAppTagLine">#4ca9fc</color>
     <color name="colorButtonLogin">#FFF</color>
 
+    <!-- Registration page-->
+    <color name="colorImageBorder">#4ca9fc</color>
+
 </resources>

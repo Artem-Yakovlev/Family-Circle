@@ -15,7 +15,8 @@
     <string name="empty_necessary_field_warning">Necessary field</string>
     <string name="wrong_login_password">Wrong login or password</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Registration check-->
+    <string name="registration_page_create_account">Create new account</string>
 
 </resources>
