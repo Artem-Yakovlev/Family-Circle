@@ -10,4 +10,8 @@
     <string name="login_page_sign_in_button">Sign in</string>
     <string name="login_page_sign_up_button">Sign up</string>
 
+
+    <!-- Data check-->
+    <string name="empty_necessary_field_warning">Necessary field</string>
+
 </resources>
