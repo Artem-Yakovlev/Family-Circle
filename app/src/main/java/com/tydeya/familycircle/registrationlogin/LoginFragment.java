@@ -11,9 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +31,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private Button signInButton;
+    private Button signUpButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,19 +51,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         emailInput = rootView.findViewById(R.id.login_page_email_input);
         passwordInput = rootView.findViewById(R.id.login_page_password_input);
+
         signInButton = rootView.findViewById(R.id.login_page_sign_in_button);
         signInButton.setOnClickListener(this);
+
+        signUpButton = rootView.findViewById(R.id.login_page_sign_up_button);
+        signUpButton.setOnClickListener(this);
 
         return rootView;
     }
 
     @Override
     public void onClick(final View view) {
-        if (view.equals(signInButton)){
+        if (view.equals(signInButton)) {
 
-
-
-            if (!DataConfirming.isEmptyCheck(emailInput) & !DataConfirming.isEmptyCheck(passwordInput)){
+            if (!DataConfirming.isEmptyCheck(emailInput) & !DataConfirming.isEmptyCheck(passwordInput)) {
 
                 String userEmail = String.valueOf(emailInput.getText());
                 String userPass = String.valueOf(passwordInput.getText());
@@ -74,15 +79,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                             getResources().getText(R.string.login_page_sign_in_button)
                                                     + " success", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(view.getContext(),
-                                            getResources().getText(R.string.login_page_sign_in_button)
-                                                    + " unsuccessfully", Toast.LENGTH_LONG).show();
+                                    Snackbar
+                                            .make(view.getRootView().findViewById(R.id.fragment_login_main_layout),
+                                                    R.string.wrong_login_password,
+                                                    Snackbar.LENGTH_SHORT)
+                                            .show();
                                 }
                             }
                         });
 
             }
+        } else if (view.equals(signUpButton)) {
+
         }
+
     }
 
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".registrationlogin.LoginFragment"
-android:orientation="vertical"
-android:background="@color/colorWhite">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registrationlogin.LoginFragment"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:id="@+id/fragment_login_main_layout">
 
     <!-- Logo and tag line-->
     <LinearLayout
@@ -130,6 +131,7 @@ android:background="@color/colorWhite">
             android:layout_height="wrap_content"/>
 
         <Button
+            android:id="@+id/login_page_sign_up_button"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
