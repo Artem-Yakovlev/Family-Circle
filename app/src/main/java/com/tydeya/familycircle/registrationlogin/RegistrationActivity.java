@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
+import androidx.navigation.NavHostController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -24,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tydeya.familycircle.R;
 
-public class RegistrationActivity extends AppCompatActivity implements FragmentSwitcher {
+public class RegistrationActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
 
@@ -37,17 +39,9 @@ public class RegistrationActivity extends AppCompatActivity implements FragmentS
 
         Fragment loginFragment = new LoginFragment();
 
-        switchFragment(loginFragment);
 
 
-    }
 
-
-    @Override
-    public void switchFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.registration_activity_main_fragment, fragment);
-        fragmentTransaction.commit();
     }
 
 }

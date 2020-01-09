@@ -11,7 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,7 +20,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.tydeya.familycircle.R;
 
 
@@ -32,6 +32,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private TextInputEditText passwordInput;
     private Button signInButton;
     private Button signUpButton;
+
+    NavController navController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
+        navController = NavHostFragment.findNavController(this);
+
         auth = FirebaseAuth.getInstance();
 
         emailInput = rootView.findViewById(R.id.login_page_email_input);
@@ -58,6 +62,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         signUpButton = rootView.findViewById(R.id.login_page_sign_up_button);
         signUpButton.setOnClickListener(this);
 
+
         return rootView;
     }
 
@@ -65,7 +70,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(final View view) {
         if (view.equals(signInButton)) {
 
-            if (!DataConfirming.isEmptyCheck(emailInput) & !DataConfirming.isEmptyCheck(passwordInput)) {
+            if (!DataConfirming.isEmptyNecessaryCheck(emailInput, true) &
+                    !DataConfirming.isEmptyNecessaryCheck(passwordInput, true)) {
 
                 String userEmail = String.valueOf(emailInput.getText());
                 String userPass = String.valueOf(passwordInput.getText());
@@ -79,8 +85,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                             getResources().getText(R.string.login_page_sign_in_button)
                                                     + " success", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Snackbar
-                                            .make(view.getRootView().findViewById(R.id.fragment_login_main_layout),
+                                    Snackbar.make(view.getRootView().findViewById(
+                                                    R.id.fragment_login_main_layout),
                                                     R.string.wrong_login_password,
                                                     Snackbar.LENGTH_SHORT)
                                             .show();
@@ -91,6 +97,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }
         } else if (view.equals(signUpButton)) {
 
+            if (!DataConfirming.isEmptyNecessaryCheck(emailInput, false) &&
+                    !DataConfirming.isEmptyNecessaryCheck(passwordInput, false)){
+                Bundle bundle = new Bundle();
+                bundle.putString("EmailFromLogin", String.valueOf(emailInput.getText()));
+                bundle.putString("PasswordFromLogin", String.valueOf(passwordInput.getText()));
+                navController.navigate(R.id.registrationFragment, bundle);
+            } else {
+                navController.navigate(R.id.registrationFragment);
+            }
         }
 
     }

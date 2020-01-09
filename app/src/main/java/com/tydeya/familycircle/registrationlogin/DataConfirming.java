@@ -5,13 +5,16 @@ import com.tydeya.familycircle.R;
 
 class DataConfirming {
 
-    public static boolean isEmptyCheck(TextInputEditText textInputEditText){
+    public static boolean isEmptyNecessaryCheck(TextInputEditText textInputEditText,
+                                                boolean attention){
         assert textInputEditText.getText() != null;
 
         if (textInputEditText.getText().toString().equals("")){
-            textInputEditText.setError(textInputEditText.getContext()
+            if (attention){
+                textInputEditText.setError(textInputEditText.getContext()
                     .getResources()
                     .getString(R.string.empty_necessary_field_warning));
+            }
             return true;
         }
         return false;
