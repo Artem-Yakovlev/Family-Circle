@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFF</color>
+    <color name="colorGray">#999594</color>
 
     <!-- Login page-->
     <color name="colorAppName">#0186fd</color>

@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".registrationlogin.RegistrationFragment"
-    android:background="@color/colorAppTagLine">
+    android:background="@color/colorAppTagLine"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
@@ -76,7 +78,7 @@
                         android:theme="@style/LoginPageTextEditStyle">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/login_page_email_input"
+                            android:id="@+id/registration_page_email_input"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins"
@@ -99,7 +101,7 @@
                         android:theme="@style/LoginPageTextEditStyle">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/login_page_password_input"
+                            android:id="@+id/registration_page_password_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins"
@@ -117,12 +119,129 @@
 
             </LinearLayout>
 
+            <!-- Name and surname inputs-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <!-- Name input-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:hint="@string/registration_page_name"
+                    android:theme="@style/LoginPageTextEditStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registration_page_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="@dimen/registration_page_input"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Surname input-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:hint="@string/registration_page_surname"
+                    android:theme="@style/LoginPageTextEditStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registration_page_surname_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="@dimen/registration_page_input"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Date input-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/person_cardview_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@color/colorWhite"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal|center_vertical">
+
+                        <TextView
+                            android:id="@+id/textDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/registration_page_date"
+                            android:textSize="@dimen/registration_page_input"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Phone input-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:hint="@string/registration_page_phone_number"
+                    android:theme="@style/LoginPageTextEditStyle"
+                    android:layout_marginBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registration_page_phone_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="@dimen/registration_page_input"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:inputType="phone"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- CheckBox-->
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_page_rule_checkbox"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/colorGray"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="@dimen/registration_page_input"
+                    android:fontFamily="@font/poppins" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/background_login_buttons"
+        android:text="@string/registration_page_create_button"
+        android:textSize="@dimen/registration_page_input"
+        android:fontFamily="@font/poppins"/>
 
 </LinearLayout>

@@ -32,8 +32,6 @@ dependencies {
 
     // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-    // test variant
-    implementation 'com.mikhaellopez:circularimageview:4.1.1'
 
     // Beautiful EditTexts and various InputTexts
     implementation 'com.google.android.material:material:1.0.0'
