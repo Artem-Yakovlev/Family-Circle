@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:paddingTop="80dp"
+    android:paddingTop="60dp"
     android:paddingLeft="40dp"
     android:paddingRight="40dp">
 
     <ImageView
         android:id="@+id/start_presentation_slide_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:src="@drawable/ic_start_presentation_happy_foreground"
         android:layout_marginBottom="@dimen/start_presentation_margin_between_title_and_text"/>
 

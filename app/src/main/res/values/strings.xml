@@ -27,7 +27,13 @@
 
     <!--                    First start presentation                    -->
     <string name="start_presentation_page_start_use">Start using</string>
+    <string name="start_presentation_page_from">from</string>
+    <string name="start_presentation_team">TYDEYA</string>
 
+    <!-- Application presentation main text-->
+    <string name="start_presentation_app_title">Family Circle</string>
+    <string name="start_presentation_app_text">It is a modern application for family communication
+        through various tracking systems. Called to make your family\'s life easier!</string>
 
     <!-- Happy family text -->
     <string name="start_presentation_happy_family_title">Happy Family</string>
@@ -49,5 +55,8 @@
         With the help of Family Circle, your family will become closer and more united.
         Thanks to its extensive functionality, you can live happier and more productive
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

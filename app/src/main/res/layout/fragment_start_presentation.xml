@@ -14,10 +14,10 @@
 
 
     <LinearLayout
-        android:id="@+id/first_presentation_slide_button"
+        android:id="@+id/start_presentation_slide_dots"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
     </LinearLayout>
@@ -40,6 +40,29 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_presentation_page_from"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/colorGray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_presentation_team"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 

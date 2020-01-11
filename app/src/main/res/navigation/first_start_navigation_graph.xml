@@ -9,5 +9,14 @@
         android:id="@+id/startPresentationFragment"
         android:name="com.tydeya.familycircle.firststart.StartPresentationFragment"
         android:label="fragment_start_presentation"
-        tools:layout="@layout/fragment_start_presentation" />
+        tools:layout="@layout/fragment_start_presentation" >
+        <action
+            android:id="@+id/action_startPresentationFragment_to_startInputNumberFragment"
+            app:destination="@id/startInputNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startInputNumberFragment"
+        android:name="com.tydeya.familycircle.firststart.StartInputNumberFragment"
+        android:label="fragment_start_input_number"
+        tools:layout="@layout/fragment_start_input_number" />
 </navigation>

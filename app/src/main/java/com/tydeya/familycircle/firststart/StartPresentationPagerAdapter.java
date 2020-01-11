@@ -19,16 +19,19 @@ class StartPresentationPagerAdapter extends PagerAdapter {
 
     // Information for pages of slide
     private int[] presentationImages = {
+            R.drawable.start_presentation_app_logo,
             R.drawable.ic_start_presentation_happy_foreground,
             R.drawable.ic_start_presentation_achievement_foreground,
             R.drawable.ic_start_presentation_productivity_foreground};
 
     private int[] presentationTitles = {
+            R.string.start_presentation_app_title,
             R.string.start_presentation_happy_family_title,
             R.string.start_presentation_achievement_title,
             R.string.start_presentation_productivity_title};
 
     private int[] presentationTexts = {
+            R.string.start_presentation_app_text,
             R.string.start_presentation_happy_family_text,
             R.string.start_presentation_achievement_text,
             R.string.start_presentation_productivity_text};
