@@ -7,6 +7,7 @@
                 android:left="40dp" android:right="40dp"/>
         </shape>
     </item>
+    <!--TODO: api 16 crashes of following bitmap from vector code :( -->
     <item>
         <bitmap android:src="@drawable/ic_circle_logo"/>
     </item>

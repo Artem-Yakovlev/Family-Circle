@@ -18,5 +18,14 @@
         android:id="@+id/startInputNumberFragment"
         android:name="com.tydeya.familycircle.firststart.StartInputNumberFragment"
         android:label="fragment_start_input_number"
-        tools:layout="@layout/fragment_start_input_number" />
+        tools:layout="@layout/fragment_start_input_number" >
+        <action
+            android:id="@+id/action_startInputNumberFragment_to_getCodeFromSmsFragment"
+            app:destination="@id/getCodeFromSmsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getCodeFromSmsFragment"
+        android:name="com.tydeya.familycircle.firststart.GetCodeFromSmsFragment"
+        android:label="fragment_get_code_from_sms"
+        tools:layout="@layout/fragment_get_code_from_sms" />
 </navigation>

@@ -17,7 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.tydeya.familycircle.R;
 
 
-public class StartPresentationFragment extends Fragment implements View.OnClickListener {
+public class StartPresentationFragment extends Fragment {
 
     private View root;
     private ViewPager startPresentationViewPager;
@@ -45,7 +45,7 @@ public class StartPresentationFragment extends Fragment implements View.OnClickL
         startPresentationViewPager.addOnPageChangeListener(changePageListener);
 
         startButton = root.findViewById(R.id.start_presentation_start_button);
-        startButton.setOnClickListener(this);
+        startButton.setOnClickListener(view -> navController.navigate(R.id.startInputNumberFragment));
 
         return root;
     }
@@ -91,11 +91,4 @@ public class StartPresentationFragment extends Fragment implements View.OnClickL
 
         }
     };
-
-    @Override
-    public void onClick(View view) {
-        if (view.equals(startButton)){
-            navController.navigate(R.id.startInputNumberFragment);
-        }
-    }
 }
