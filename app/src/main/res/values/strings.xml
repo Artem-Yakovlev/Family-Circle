@@ -64,6 +64,7 @@
     <string name="start_input_number_hint">Your phone number</string>
     <string name="start_input_number_warning_sms_cost">Carrier SMS charges may apply</string>
     <string name="start_input_number_next_button">Next</string>
+    <string name="start_input_number_invalid_error">This phone number is not valid</string>
 
     <!--                      Get code from sms for verify-->
     <string name="get_code_page_header">Phone number verification:</string>
