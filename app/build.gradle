@@ -46,5 +46,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
+    //Country code picker for phone number input
+    implementation 'com.hbb20:ccp:2.3.5'
 
 }

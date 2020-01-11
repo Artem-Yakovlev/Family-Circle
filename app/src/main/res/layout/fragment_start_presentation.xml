@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".firststart.StartPresentationFragment"
-    android:orientation="vertical">
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".firststart.StartPresentationFragment">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/start_presentation_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 
     <LinearLayout
@@ -25,43 +26,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start_presentation_start_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"
-            android:textColor="@color/colorWhite"
-            android:text="@string/start_presentation_page_start_use"
-            android:theme="@style/FormButton"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:paddingLeft="50dp"
-            android:paddingRight="50dp"/>
+            android:paddingRight="50dp"
+            android:text="@string/start_presentation_page_start_use"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textColor="@color/colorWhite"
+            android:theme="@style/FormButton" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:orientation="vertical"
         android:gravity="center_horizontal|bottom"
+        android:orientation="vertical"
         android:paddingBottom="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_presentation_page_from"
             android:fontFamily="@font/poppins_medium"
-            android:textColor="@color/colorGray"/>
+            android:text="@string/start_presentation_page_from"
+            android:textColor="@color/colorGray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_presentation_team"
             android:fontFamily="@font/poppins_bold"
+            android:text="@string/start_presentation_team"
             android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
