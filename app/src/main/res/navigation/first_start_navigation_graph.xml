@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/first_start_navigation_graph"
+    app:startDestination="@id/startPresentationFragment">
+
+    <fragment
+        android:id="@+id/startPresentationFragment"
+        android:name="com.tydeya.familycircle.firststart.StartPresentationFragment"
+        android:label="fragment_start_presentation"
+        tools:layout="@layout/fragment_start_presentation" />
+</navigation>

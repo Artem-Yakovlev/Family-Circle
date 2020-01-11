@@ -19,4 +19,8 @@
         <item name="android:textColor">@color/colorAppTagLine</item>
     </style>
 
+    <!-- First presentation start use button-->
+    <style name="FormButton" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/colorModernPrimary</item>
+    </style>
 </resources>

@@ -11,17 +11,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".registrationlogin.RegistrationActivity">
+        <activity android:name=".firststart.FirstStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivity">
+        <activity android:name=".registrationlogin.RegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN2" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN3" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -30,7 +36,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>

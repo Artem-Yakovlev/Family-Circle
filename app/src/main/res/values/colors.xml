@@ -14,4 +14,10 @@
     <!-- Registration page-->
     <color name="colorImageBorder">#4ca9fc</color>
 
+    <!-- Modern design colors-->
+    <color name="colorModernPrimary">#4ca9fc</color>
+    <color name="colorModernPrimaryDark">#0186fd</color>
+    <color name="colorModernPrimaryLight">#00ACD4</color>
+    <color name="colorModernPrimaryTransparent">#E4FBFD</color>
+
 </resources>
