@@ -24,11 +24,15 @@ public class StartInputNumberFragment extends Fragment {
     private CountryCodePicker countryPicker;
     private TextInputEditText phoneNumberInput;
 
+    //private FirebaseAuth firebaseAuth;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_start_input_number, container, false);
+
+        //firebaseAuth = FirebaseAuth.getInstance();
 
         // Processing of country code picker
         countryPicker = root.findViewById(R.id.start_input_phone_number_ccp);
@@ -40,7 +44,7 @@ public class StartInputNumberFragment extends Fragment {
         nextButton = root.findViewById(R.id.start_input_phone_number_next);
         nextButton.setOnClickListener(view -> {
             if (countryPicker.isValidFullNumber()){
-                sendVerificationCode();
+                //sendVerificationCode();
                 navController.navigate(R.id.getCodeFromSmsFragment);
             } else {
                 phoneNumberInput.setError(root.getContext().
@@ -55,10 +59,35 @@ public class StartInputNumberFragment extends Fragment {
     /*
      * This method sends verification code through firebase
      * */
+    /*
     private void sendVerificationCode(){
-
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+79056644712",        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                getActivity(),               // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
 
     }
+
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
+            new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @Override
+        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+            Log.d("ASMR", true + "");
+        }
+
+        @Override
+        public void onVerificationFailed(@NonNull FirebaseException e) {
+            Log.d("ASMR", false + " " + e.toString());
+        }
+
+        @Override
+        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            Log.d("ASMR", s);
+        }
+    };*/
 
 }
 
