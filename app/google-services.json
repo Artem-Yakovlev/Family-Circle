@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "870961462222",
+    "firebase_url": "https://familycircle-31b08.firebaseio.com",
+    "project_id": "familycircle-31b08",
+    "storage_bucket": "familycircle-31b08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870961462222:android:c13bb7b1ebaf49be18099f",
+        "android_client_info": {
+          "package_name": "com.tydeya.familycircle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870961462222-42droqr7dqspr8qfmdko917u7l71k1ec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tydeya.familycircle",
+            "certificate_hash": "253407076d899ef7eeca1aa6f4902e1bce564279"
+          }
+        },
+        {
+          "client_id": "870961462222-sso5a272rbjthsvcs75457gmq5d0qotl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMmej08jn6AK9M2Ci2utEsX9LGGsrba-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870961462222-sso5a272rbjthsvcs75457gmq5d0qotl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

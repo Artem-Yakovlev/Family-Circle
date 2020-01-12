@@ -5,14 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 import com.tydeya.familycircle.R;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class StartInputNumberFragment extends Fragment {
@@ -24,7 +31,9 @@ public class StartInputNumberFragment extends Fragment {
     private CountryCodePicker countryPicker;
     private TextInputEditText phoneNumberInput;
 
-    //private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
+
+    private String codeSent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +41,7 @@ public class StartInputNumberFragment extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_start_input_number, container, false);
 
-        //firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         // Processing of country code picker
         countryPicker = root.findViewById(R.id.start_input_phone_number_ccp);
@@ -44,8 +53,7 @@ public class StartInputNumberFragment extends Fragment {
         nextButton = root.findViewById(R.id.start_input_phone_number_next);
         nextButton.setOnClickListener(view -> {
             if (countryPicker.isValidFullNumber()){
-                //sendVerificationCode();
-                navController.navigate(R.id.getCodeFromSmsFragment);
+                sendVerificationCode();
             } else {
                 phoneNumberInput.setError(root.getContext().
                         getResources().
@@ -59,10 +67,11 @@ public class StartInputNumberFragment extends Fragment {
     /*
      * This method sends verification code through firebase
      * */
-    /*
     private void sendVerificationCode(){
+        assert getActivity() != null;
+
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+79056644712",        // Phone number to verify
+                countryPicker.getFullNumberWithPlus(),        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 getActivity(),               // Activity (for callback binding)
@@ -70,24 +79,26 @@ public class StartInputNumberFragment extends Fragment {
 
     }
 
-    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
             new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            Log.d("ASMR", true + "");
+
         }
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Log.d("ASMR", false + " " + e.toString());
+
         }
 
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            Log.d("ASMR", s);
+            Bundle bundle = new Bundle();
+            bundle.putString("userCodeId", s);
+            navController.navigate(R.id.getCodeFromSmsFragment, bundle);
         }
-    };*/
+    };
 
 }
 

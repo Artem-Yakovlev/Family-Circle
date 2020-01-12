@@ -27,5 +27,10 @@
         android:id="@+id/getCodeFromSmsFragment"
         android:name="com.tydeya.familycircle.firststart.GetCodeFromSmsFragment"
         android:label="fragment_get_code_from_sms"
-        tools:layout="@layout/fragment_get_code_from_sms" />
+        tools:layout="@layout/fragment_get_code_from_sms" >
+        <argument
+            android:name="userCodeId"
+            app:argType="string"
+            android:defaultValue="-" />
+    </fragment>
 </navigation>

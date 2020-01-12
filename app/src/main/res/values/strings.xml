@@ -72,5 +72,6 @@
         enter the code from SMS: </string>
     <string name="get_code_page_enter_hint">Enter 6-digit code</string>
     <string name="get_code_page_reset_sms">Reset message</string>
+    <string name="get_code_page_verify_code_button">Accept</string>
 
 </resources>

@@ -3,7 +3,7 @@ package com.tydeya.familycircle.registrationlogin;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.R;
 
-class DataConfirming {
+public class DataConfirming {
 
     public static boolean isEmptyNecessaryCheck(TextInputEditText textInputEditText,
                                                 boolean attention){
