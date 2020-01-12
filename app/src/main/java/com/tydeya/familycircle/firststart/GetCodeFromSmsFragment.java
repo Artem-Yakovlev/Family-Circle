@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -25,6 +27,7 @@ public class GetCodeFromSmsFragment extends Fragment {
     private MaterialButton acceptCodeButton;
     private TextInputEditText codeInput;
     private String userCodeId;
+    private NavController navController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +35,8 @@ public class GetCodeFromSmsFragment extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_get_code_from_sms, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        navController = NavHostFragment.findNavController(this);
 
         assert getArguments() != null;
         userCodeId = getArguments().getString("userCodeId", "");
@@ -60,14 +65,16 @@ public class GetCodeFromSmsFragment extends Fragment {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(root.getContext(), "It's ok sign in", Toast.LENGTH_LONG).show();
+                        navController.navigate(R.id.createNewAccount);
                     } else {
-                        // Sign in failed, display a message and update the UI
 
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            Toast.makeText(root.getContext(), "It's not ok", Toast.LENGTH_LONG).show();
+                            Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
+                                    .show();
+
                         } else {
-                            Toast.makeText(root.getContext(), "It's ok sign up", Toast.LENGTH_LONG).show();
+                            Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
+                                    .show();
                         }
                     }
                 });

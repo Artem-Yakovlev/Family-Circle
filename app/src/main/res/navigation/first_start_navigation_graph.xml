@@ -32,5 +32,13 @@
             android:name="userCodeId"
             app:argType="string"
             android:defaultValue="-" />
+        <action
+            android:id="@+id/action_getCodeFromSmsFragment_to_createNewAccount"
+            app:destination="@id/createNewAccount" />
     </fragment>
+    <fragment
+        android:id="@+id/createNewAccount"
+        android:name="com.tydeya.familycircle.CreateNewAccount"
+        android:label="fragment_create_new_account"
+        tools:layout="@layout/fragment_create_new_account" />
 </navigation>

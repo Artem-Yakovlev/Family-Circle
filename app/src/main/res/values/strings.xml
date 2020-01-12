@@ -66,12 +66,15 @@
     <string name="start_input_number_next_button">Next</string>
     <string name="start_input_number_invalid_error">This phone number is not valid</string>
 
-    <!--                      Get code from sms for verify-->
+    <!--                      Get code from sms for verify             -->
     <string name="get_code_page_header">Phone number verification:</string>
     <string name="get_code_page_reason">To verify your phone number,
         enter the code from SMS: </string>
     <string name="get_code_page_enter_hint">Enter 6-digit code</string>
     <string name="get_code_page_reset_sms">Reset message</string>
     <string name="get_code_page_verify_code_button">Accept</string>
+    <string name="get_code_page_invalid_code">The code is incorrect</string>
+
+    <!--                      Create new account page                   -->
 
 </resources>
