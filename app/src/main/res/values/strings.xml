@@ -76,5 +76,8 @@
     <string name="get_code_page_invalid_code">The code is incorrect</string>
 
     <!--                      Create new account page                   -->
+    <string name="create_account_page_name">Your name</string>
+    <string name="create_account_page_header">Create new account:</string>
+    <string name="create_account_page_reason">Enter your name and optionally provide a photo</string>
 
 </resources>
