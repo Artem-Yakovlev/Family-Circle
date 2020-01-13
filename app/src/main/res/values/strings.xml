@@ -21,7 +21,6 @@
     <string name="registration_page_name">Your name</string>
     <string name="registration_page_surname">Your surname</string>
     <string name="registration_page_phone_number">Your phone number</string>
-    <string name="registration_page_date">Select a your birth date</string>
     <string name="registration_page_rule_checkbox">I agree to sell my soul</string>
     <string name="registration_page_create_button">Create</string>
 
@@ -79,5 +78,7 @@
     <string name="create_account_page_name">Your name</string>
     <string name="create_account_page_header">Create new account:</string>
     <string name="create_account_page_reason">Enter your name and optionally provide a photo</string>
+    <string name="create_account_page_select_birth">Select a your birth date</string>
+
 
 </resources>
