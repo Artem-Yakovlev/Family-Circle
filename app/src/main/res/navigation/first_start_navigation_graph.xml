@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/createNewAccount"
-        android:name="com.tydeya.familycircle.CreateNewAccount"
+        android:name="com.tydeya.familycircle.firststart.CreateNewAccount"
         android:label="fragment_create_new_account"
         tools:layout="@layout/fragment_create_new_account" />
 </navigation>
