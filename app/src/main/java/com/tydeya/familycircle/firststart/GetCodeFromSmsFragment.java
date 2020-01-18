@@ -15,7 +15,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.tydeya.familycircle.R;
@@ -28,7 +27,6 @@ public class GetCodeFromSmsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private MaterialButton acceptCodeButton;
     private TextInputEditText codeInput;
-    private String userCodeId;
     private NavController navController;
 
     @Override
@@ -50,9 +48,6 @@ public class GetCodeFromSmsFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         navController = NavHostFragment.findNavController(this);
 
-        assert getArguments() != null;
-        userCodeId = getArguments().getString("userCodeId", "");
-
         acceptCodeButton.setOnClickListener(v -> {
             if (!DataConfirming.isEmptyNecessaryCheck(codeInput, true)) {
                 verifyCode();
@@ -61,8 +56,12 @@ public class GetCodeFromSmsFragment extends Fragment {
     }
 
     private void verifyCode() {
-        assert  codeInput.getText() != null;
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(userCodeId, codeInput.getText().toString());
+        assert codeInput.getText() != null && getArguments() != null;
+
+        String userCodeId = getArguments().getString("userCodeId", "");
+
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(userCodeId,
+                codeInput.getText().toString());
         signInWithPhoneAuthCredential(credential);
     }
 
@@ -74,15 +73,8 @@ public class GetCodeFromSmsFragment extends Fragment {
                     if (task.isSuccessful()) {
                         navController.navigate(R.id.createNewAccountFragment);
                     } else {
-
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
-                                    .show();
-
-                        } else {
-                            Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
-                                    .show();
-                        }
+                        Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
+                                .show();
                     }
                 });
     }

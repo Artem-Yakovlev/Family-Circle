@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,26 +45,31 @@ public class StartInputNumberFragment extends Fragment {
 
                 @Override
                 public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                    closeLoadingDialog();
+                    navController.navigate(R.id.createNewAccountFragment);
                 }
 
                 @Override
                 public void onVerificationFailed(@NonNull FirebaseException e) {
-
+                    closeLoadingDialog();
+                    Toast.makeText(getContext(), "Authentication failed", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onCodeSent(@NonNull String s,
                                        @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                     super.onCodeSent(s, forceResendingToken);
-
-                    if (loadingDialog.isShowing()){
-                        loadingDialog.cancel();
-                    }
+                    closeLoadingDialog();
 
                     Bundle bundle = new Bundle();
                     bundle.putString("userCodeId", s);
                     navController.navigate(R.id.getCodeFromSmsFragment, bundle);
+                }
+
+                private void closeLoadingDialog(){
+                    if (loadingDialog.isShowing()){
+                        loadingDialog.cancel();
+                    }
                 }
             };
 
