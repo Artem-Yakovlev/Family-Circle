@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -32,25 +34,30 @@ public class GetCodeFromSmsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_get_code_from_sms, container, false);
-        firebaseAuth = FirebaseAuth.getInstance();
 
+        root = inflater.inflate(R.layout.fragment_get_code_from_sms, container, false);
+
+        acceptCodeButton = root.findViewById(R.id.get_code_page_button);
+        codeInput = root.findViewById(R.id.get_code_page_input);
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        firebaseAuth = FirebaseAuth.getInstance();
         navController = NavHostFragment.findNavController(this);
 
         assert getArguments() != null;
         userCodeId = getArguments().getString("userCodeId", "");
 
-        acceptCodeButton = root.findViewById(R.id.get_code_page_button);
-        codeInput = root.findViewById(R.id.get_code_page_input);
-
-        acceptCodeButton.setOnClickListener(view -> {
+        acceptCodeButton.setOnClickListener(v -> {
             if (!DataConfirming.isEmptyNecessaryCheck(codeInput, true)) {
                 verifyCode();
             }
         });
-
-        return root;
     }
 
     private void verifyCode() {
@@ -65,7 +72,7 @@ public class GetCodeFromSmsFragment extends Fragment {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), task -> {
                     if (task.isSuccessful()) {
-                        navController.navigate(R.id.createNewAccount);
+                        navController.navigate(R.id.createNewAccountFragment);
                     } else {
 
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -22,40 +24,39 @@ import com.tydeya.familycircle.R;
 import static android.app.Activity.RESULT_OK;
 
 
-public class CreateNewAccount extends Fragment {
+public class CreateNewAccountFragment extends Fragment {
 
     private CardView dateCard;
     private CardView photoCard;
     private ImageView userPhoto;
-    private TextView birthdate;
+    private TextView birthDate;
     private View root;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
 
         dateCard = root.findViewById(R.id.create_account_page_date_card);
         photoCard = root.findViewById(R.id.create_account_page_photo_card);
         userPhoto = root.findViewById(R.id.create_account_page_add_photo);
-        birthdate = root.findViewById(R.id.create_account_page_date_text);
-
-        dateCard.setOnClickListener(new DatePickerOnclickListener(birthdate));
-
-        photoCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .setCropShape(CropImageView.CropShape.OVAL)
-                        .setAspectRatio(1,1)
-                        .start((Activity) view.getContext());
-            }
-        });
+        birthDate = root.findViewById(R.id.create_account_page_date_text);
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        dateCard.setOnClickListener(new DatePickerOnclickListener(birthDate));
+
+        photoCard.setOnClickListener(v -> CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .setAspectRatio(1,1)
+                .start((Activity) v.getContext()));
     }
 
     @Override

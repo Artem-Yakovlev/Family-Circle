@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingTop="60dp"
     android:paddingBottom="30dp"
-    tools:context=".firststart.CreateNewAccount">
+    tools:context=".firststart.CreateNewAccountFragment">
 
     <!-- Header  -->
     <LinearLayout

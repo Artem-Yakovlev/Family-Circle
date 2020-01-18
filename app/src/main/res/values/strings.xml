@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FamilyCircle</string>
 
+    <!--                    Main                                    -->
+    <string name="loading_text">"Loading. Please wait…"</string>
+
     <!--                    Login page                              -->
     <string name="login_page_app_name">Family circle</string>
     <string name="login_page_app_tagline">Be a family</string>
@@ -79,6 +82,5 @@
     <string name="create_account_page_header">Create new account:</string>
     <string name="create_account_page_reason">Enter your name and optionally provide a photo</string>
     <string name="create_account_page_select_birth">Select a your birth date</string>
-
 
 </resources>

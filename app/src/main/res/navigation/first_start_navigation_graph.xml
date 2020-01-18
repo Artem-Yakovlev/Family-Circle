@@ -33,12 +33,12 @@
             app:argType="string"
             android:defaultValue="-" />
         <action
-            android:id="@+id/action_getCodeFromSmsFragment_to_createNewAccount"
-            app:destination="@id/createNewAccount" />
+            android:id="@+id/action_getCodeFromSmsFragment_to_createNewAccountFragment2"
+            app:destination="@id/createNewAccountFragment" />
     </fragment>
     <fragment
-        android:id="@+id/createNewAccount"
-        android:name="com.tydeya.familycircle.firststart.CreateNewAccount"
+        android:id="@+id/createNewAccountFragment"
+        android:name="com.tydeya.familycircle.firststart.CreateNewAccountFragment"
         android:label="fragment_create_new_account"
         tools:layout="@layout/fragment_create_new_account" />
 </navigation>
