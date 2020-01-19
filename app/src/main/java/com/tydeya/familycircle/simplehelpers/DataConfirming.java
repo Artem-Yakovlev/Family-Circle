@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.registrationlogin;
+package com.tydeya.familycircle.simplehelpers;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.R;

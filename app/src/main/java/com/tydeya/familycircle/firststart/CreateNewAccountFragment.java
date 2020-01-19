@@ -1,10 +1,6 @@
 package com.tydeya.familycircle.firststart;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.tydeya.familycircle.R;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class CreateNewAccountFragment extends Fragment {
@@ -50,30 +43,14 @@ public class CreateNewAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        assert getActivity() != null;
+
         dateCard.setOnClickListener(new DatePickerOnclickListener(birthDate));
 
         photoCard.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setAspectRatio(1,1)
-                .start((Activity) v.getContext()));
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("ASMR", requestCode + " | " + resultCode);
-        // Processing of cropped photo
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri imageUri = result.getUri();
-                Glide.with(this)
-                        .load(imageUri)
-                        .into(userPhoto);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
-        }
+                .start(getActivity()));
     }
 }

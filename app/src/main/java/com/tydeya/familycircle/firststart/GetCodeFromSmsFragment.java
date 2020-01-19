@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.registrationlogin.DataConfirming;
+import com.tydeya.familycircle.simplehelpers.DataConfirming;
 
 
 public class GetCodeFromSmsFragment extends Fragment {
