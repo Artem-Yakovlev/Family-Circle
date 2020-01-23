@@ -82,5 +82,6 @@
     <string name="create_account_page_header">Create new account:</string>
     <string name="create_account_page_reason">Enter your name and optionally provide a photo</string>
     <string name="create_account_page_select_birth">Select a your birth date</string>
+    <string name="main_activity_registred_user">This user is registered</string>
 
 </resources>
