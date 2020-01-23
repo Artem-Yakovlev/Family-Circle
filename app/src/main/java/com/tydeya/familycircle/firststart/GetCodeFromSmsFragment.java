@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.firststart;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
+import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 
 
 public class GetCodeFromSmsFragment extends Fragment {
@@ -28,6 +30,7 @@ public class GetCodeFromSmsFragment extends Fragment {
     private MaterialButton acceptCodeButton;
     private TextInputEditText codeInput;
     private NavController navController;
+    private ProgressDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +59,12 @@ public class GetCodeFromSmsFragment extends Fragment {
     }
 
     private void verifyCode() {
-        assert codeInput.getText() != null && getArguments() != null;
+        assert codeInput.getText() != null && getArguments() != null && getActivity() != null;
+
+        KeyboardHelper.hideKeyboard(getActivity());
+
+        loadingDialog = ProgressDialog.show(getContext(), null,
+                getString(R.string.loading_text), true);
 
         String userCodeId = getArguments().getString("userCodeId", "");
 
@@ -70,6 +78,11 @@ public class GetCodeFromSmsFragment extends Fragment {
 
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), task -> {
+
+                    if (loadingDialog.isShowing()){
+                        loadingDialog.cancel();
+                    }
+
                     if (task.isSuccessful()) {
                         navController.navigate(R.id.createNewAccountFragment);
                     } else {

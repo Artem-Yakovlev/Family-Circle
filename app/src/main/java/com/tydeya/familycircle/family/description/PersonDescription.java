@@ -1,8 +1,7 @@
 package com.tydeya.familycircle.family.description;
 
+import android.icu.util.Calendar;
 import android.net.Uri;
-
-import java.util.Calendar;
 
 public class PersonDescription extends Description {
     private Calendar birthDate;
