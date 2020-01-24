@@ -48,7 +48,8 @@
             android:layout_height="wrap_content"
             android:maxLength="6"
             android:textAlignment="gravity"
-            android:textSize="@dimen/get_code_page_input_text_size" />
+            android:textSize="@dimen/get_code_page_input_text_size"
+            android:inputType="number"/>
 
     </LinearLayout>
 
@@ -90,7 +91,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins"
-            android:textColor="@color/get_code_page_resend_sms_color"
+            android:textColor="@color/colorGray"
             android:text="@string/minute_timer"/>
 
     </LinearLayout>

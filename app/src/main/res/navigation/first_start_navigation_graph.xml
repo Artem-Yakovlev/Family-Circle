@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_start_input_number" >
         <action
             android:id="@+id/action_startInputNumberFragment_to_getCodeFromSmsFragment"
-            app:destination="@id/getCodeFromSmsFragment" />
+            app:destination="@+id/getCodeFromSmsFragment" />
     </fragment>
     <fragment
         android:id="@+id/getCodeFromSmsFragment"
@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_getCodeFromSmsFragment_to_createNewAccountFragment2"
             app:destination="@id/createNewAccountFragment" />
+        <argument
+            android:name="userPhoneNumber"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/createNewAccountFragment"

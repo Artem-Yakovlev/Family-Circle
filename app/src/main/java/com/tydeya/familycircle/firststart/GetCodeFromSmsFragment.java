@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +19,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class GetCodeFromSmsFragment extends Fragment {
@@ -37,6 +41,27 @@ public class GetCodeFromSmsFragment extends Fragment {
     private CountDownTimer resendSmsTimer;
     private Button resendButton;
     private TextView resendTimerTextView;
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks authCallbacks =
+            new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                @Override
+                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                    Toast.makeText(getContext(), "Authentication success", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onVerificationFailed(@NonNull FirebaseException e) {
+                    Toast.makeText(getContext(), "Authentication failed", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onCodeSent(@NonNull String s,
+                                       @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                    super.onCodeSent(s, forceResendingToken);
+                    Toast.makeText(getContext(), "Code sent", Toast.LENGTH_LONG).show();
+                }
+            };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,12 +86,21 @@ public class GetCodeFromSmsFragment extends Fragment {
 
         resendSmsTimer = new CountDownTimer(60000, 1000) {
 
+            private StringBuffer timerStringBuffer;
+
             @Override
             public void onTick(long l) {
-                resendTimerTextView.setText( new StringBuffer()
-                        .append((l/60000)/1000)
-                        .append(":")
-                        .append((l%60000)/1000));
+
+                timerStringBuffer = new StringBuffer();
+                timerStringBuffer.append((l/60000)/1000).append(":");
+
+                if ((l%60000)/1000 < 10){
+                    timerStringBuffer.append("0");
+                }
+
+                timerStringBuffer.append((l%60000)/1000);
+                resendTimerTextView.setText(timerStringBuffer);
+
             }
 
             @Override
@@ -83,10 +117,23 @@ public class GetCodeFromSmsFragment extends Fragment {
 
         resendButton.setOnClickListener(v -> {
             resendButton.setEnabled(false);
+            resendSms();
             resendSmsTimer.start();
         });
 
-        resendSmsTimer.start();
+        resendButton.callOnClick();
+
+    }
+
+    private void resendSms(){
+        assert getArguments() != null && getActivity() != null;
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                getArguments().getString("userPhoneNumber"),
+                60,
+                TimeUnit.SECONDS,
+                getActivity(),
+                authCallbacks);
     }
 
     private void verifyCode() {

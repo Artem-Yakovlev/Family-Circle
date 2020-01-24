@@ -63,6 +63,7 @@ public class StartInputNumberFragment extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("userCodeId", s);
+                    bundle.putString("userPhoneNumber", countryPicker.getFullNumberWithPlus());
                     navController.navigate(R.id.getCodeFromSmsFragment, bundle);
                 }
 
