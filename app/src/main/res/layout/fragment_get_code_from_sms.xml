@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingLeft="15dp"
     android:paddingTop="20dp"
@@ -16,10 +17,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/get_code_page_header"
             android:fontFamily="@font/poppins_bold"
-            android:textSize="@dimen/start_input_number_header"
-            android:textColor="@color/colorPrimary"/>
+            android:text="@string/get_code_page_header"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/start_input_number_header" />
 
     </LinearLayout>
 
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:maxLength="6"
             android:textAlignment="gravity"
-            android:textSize="@dimen/get_code_page_input_text_size"/>
+            android:textSize="@dimen/get_code_page_input_text_size" />
 
     </LinearLayout>
 
@@ -59,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/get_code_page_enter_hint"/>
+            android:text="@string/get_code_page_enter_hint" />
 
     </LinearLayout>
 
@@ -67,7 +68,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="80dp">
+        android:paddingTop="40dp">
+
+        <Button
+            android:id="@+id/get_code_page_sms_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/get_code_page_reset_sms"
+            android:textColor="@color/get_code_page_resend_sms_color"
+            android:background="@drawable/get_code_page_resend_sms_btn_selector"
+            android:drawableStart="@drawable/get_code_page_resend_sms_pic_selector"
+            android:drawablePadding="10dp"/>
+
+        <TextView
+            android:id="@+id/get_code_page_resend_timer"
+            android:layout_marginStart="40dp"
+            android:gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/get_code_page_resend_sms_color"
+            android:text="@string/minute_timer"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center_horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/get_code_page_button"

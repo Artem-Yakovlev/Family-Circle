@@ -2,9 +2,12 @@ package com.tydeya.familycircle.firststart;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +34,9 @@ public class GetCodeFromSmsFragment extends Fragment {
     private TextInputEditText codeInput;
     private NavController navController;
     private ProgressDialog loadingDialog;
+    private CountDownTimer resendSmsTimer;
+    private Button resendButton;
+    private TextView resendTimerTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +46,8 @@ public class GetCodeFromSmsFragment extends Fragment {
 
         acceptCodeButton = root.findViewById(R.id.get_code_page_button);
         codeInput = root.findViewById(R.id.get_code_page_input);
+        resendButton = root.findViewById(R.id.get_code_page_sms_button);
+        resendTimerTextView = root.findViewById(R.id.get_code_page_resend_timer);
 
         return root;
     }
@@ -51,11 +59,34 @@ public class GetCodeFromSmsFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         navController = NavHostFragment.findNavController(this);
 
+        resendSmsTimer = new CountDownTimer(60000, 1000) {
+
+            @Override
+            public void onTick(long l) {
+                resendTimerTextView.setText( new StringBuffer()
+                        .append((l/60000)/1000)
+                        .append(":")
+                        .append((l%60000)/1000));
+            }
+
+            @Override
+            public void onFinish() {
+                resendButton.setEnabled(true);
+            }
+        };
+
         acceptCodeButton.setOnClickListener(v -> {
             if (!DataConfirming.isEmptyNecessaryCheck(codeInput, true)) {
                 verifyCode();
             }
         });
+
+        resendButton.setOnClickListener(v -> {
+            resendButton.setEnabled(false);
+            resendSmsTimer.start();
+        });
+
+        resendSmsTimer.start();
     }
 
     private void verifyCode() {
