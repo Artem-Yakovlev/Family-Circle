@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#4ca9fc</color>
+    <color name="colorPrimaryDark">#0186fd</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorGray">#999594</color>
+    <color name="colorTransparentGray">#E0E0E0</color>
+
+    <!-- Login page-->
+    <color name="colorAppName">#0186fd</color>
+    <color name="colorAppTagLine">#4ca9fc</color>
+    <color name="colorButtonLogin">#FFF</color>
+
+    <!-- Registration page-->
+    <color name="colorImageBorder">#4ca9fc</color>
+
+    <!-- Modern design colors-->
+    <color name="colorModernPrimary">#4ca9fc</color>
+    <color name="colorModernPrimaryDark">#0186fd</color>
+    <color name="colorModernPrimaryLight">#00ACD4</color>
+    <color name="colorModernPrimaryTransparent">#E4FBFD</color>
+
 </resources>

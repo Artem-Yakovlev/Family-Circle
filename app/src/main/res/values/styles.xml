@@ -1,11 +1,37 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAppTagLine</item>
     </style>
 
+
+    <!-- Login page-->
+    <style name="LoginPageTextEditStyle">
+        <item name="colorControlNormal">@color/colorAppTagLine</item>
+        <item name="colorControlActivated">@color/colorAppTagLine</item>
+        <item name="colorControlHighlight" >@color/colorAppTagLine</item>
+        <item name="colorAccent">@color/colorAppTagLine</item>
+        <item name="android:textColorHint">@color/colorAppTagLine</item>
+        <item name="android:textColor">@color/colorAppTagLine</item>
+    </style>
+
+    <!-- First presentation start use button-->
+    <style name="FormButton" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/colorModernPrimary</item>
+    </style>
+
+    <!-- Start input phone number page-->
+    <style name="StartInputPhoneNumberInputStyle">
+        <item name="colorControlNormal">@color/colorAppTagLine</item>
+        <item name="colorControlActivated">@color/colorAppTagLine</item>
+        <item name="colorControlHighlight" >@color/colorAppTagLine</item>
+        <item name="colorAccent">@color/colorAppTagLine</item>
+        <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:textColor">@color/colorAppTagLine</item>
+    </style>
 </resources>
