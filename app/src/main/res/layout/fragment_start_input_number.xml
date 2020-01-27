@@ -8,7 +8,7 @@
     android:paddingLeft="15dp"
     android:paddingTop="20dp"
     android:paddingRight="15dp"
-    tools:context=".firststart.StartInputNumberFragment">
+    tools:context=".firststart.authorization.StartInputNumberFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

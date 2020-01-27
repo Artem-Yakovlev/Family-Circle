@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart;
+package com.tydeya.familycircle.firststart.authorization;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

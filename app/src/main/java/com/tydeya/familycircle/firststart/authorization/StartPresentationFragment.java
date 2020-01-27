@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart;
+package com.tydeya.familycircle.firststart.authorization;
 
 import android.os.Bundle;
 import android.text.Html;

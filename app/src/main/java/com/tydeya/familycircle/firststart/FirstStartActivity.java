@@ -1,22 +1,28 @@
 package com.tydeya.familycircle.firststart;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-import com.bumptech.glide.Glide;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
 
 public class FirstStartActivity extends AppCompatActivity {
+
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_start);
+
+        navController = Navigation.findNavController(this,
+                R.id.first_start_activity_main_navigation);
+
     }
 
     @Override
@@ -24,18 +30,27 @@ public class FirstStartActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            assert navController.getCurrentDestination() != null;
+
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri imageUri = result.getUri();
-                ImageView addPhotoImageView = findViewById(R.id.create_account_page_add_photo);
-                addPhotoImageView.setPadding(0,0,0,0);
 
-                Glide.with(this)
-                        .load(imageUri)
-                        .into(addPhotoImageView);
+            if (navController.getCurrentDestination().getId() == R.id.createNewAccountFragment) {
 
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
+                ImageCropperUsable imageCropperUsable = (ImageCropperUsable) getSupportFragmentManager()
+                        .findFragmentById(R.id.createNewAccountFragment);
+
+                assert imageCropperUsable != null;
+
+                if (resultCode == RESULT_OK) {
+
+                    imageCropperUsable.imageCroppedSuccessfully(result);
+
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+
+                    imageCropperUsable.imageCroppedWithError(result);
+
+                }
             }
         }
     }

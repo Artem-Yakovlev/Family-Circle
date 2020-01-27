@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingTop="60dp"
     android:paddingBottom="30dp"
-    tools:context=".firststart.CreateNewAccountFragment">
+    tools:context=".firststart.accountcreation.views.CreateNewAccountFragment">
 
     <!-- Header  -->
     <LinearLayout
@@ -133,7 +133,7 @@
         android:gravity="center_horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/start_input_phone_number_next"
+            android:id="@+id/create_account_main_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"

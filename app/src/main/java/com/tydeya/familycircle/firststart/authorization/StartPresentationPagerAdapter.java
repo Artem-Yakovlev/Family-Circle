@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart;
+package com.tydeya.familycircle.firststart.authorization;
 
 import android.content.Context;
 import android.view.LayoutInflater;
