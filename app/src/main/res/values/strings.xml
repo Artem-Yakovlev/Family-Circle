@@ -86,4 +86,9 @@
     <string name="get_code_page_resend">Resend SMS</string>
     <string name="minute_timer">1:00</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_family_title">Family selection not yet available</string>
+    <string name="select_family_text">In the future, this section will have the opportunity to select or create a family account, but at the moment this section is under development, so all users are in the same family, but you can easily make friends with other users!</string>
+
 </resources>

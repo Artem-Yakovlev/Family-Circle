@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +28,7 @@ import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsabl
 import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.family.member.ActiveMemberBuilder;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
+import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -43,16 +46,14 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private TextView birthDateText;
     private TextInputEditText nameText;
     private Button createAccountButton;
-    private View root;
-
-
+    private NavController navController;
     private ActiveMemberBuilder activeMemberBuilder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
+        View root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
 
         dateCard = root.findViewById(R.id.create_account_page_date_card);
         photoCard = root.findViewById(R.id.create_account_page_photo_card);
@@ -67,6 +68,8 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        navController = NavHostFragment.findNavController(this);
 
         assert getActivity() != null;
 
@@ -93,7 +96,10 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         activeMemberBuilder.setName(nameText.getText().toString());
 
         ActiveMember activeMember = activeMemberBuilder.getResult();
+        User user = User.getInstance();
+        user.setFamilyMember(activeMember);
 
+        navController.navigate(R.id.selectFamilyFragment);
     }
 
     @Override
