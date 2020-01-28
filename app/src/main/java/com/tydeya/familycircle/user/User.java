@@ -10,4 +10,6 @@ class User {
     private ArrayList<Family> families;
     private Settings userSettings;
     private User instance;
+
+
 }

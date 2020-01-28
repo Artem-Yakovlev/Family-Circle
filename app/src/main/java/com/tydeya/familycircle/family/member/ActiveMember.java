@@ -1,11 +1,12 @@
 package com.tydeya.familycircle.family.member;
 
-import android.icu.util.Calendar;
 import android.net.Uri;
 
 import com.tydeya.familycircle.family.management.AccessLevel;
 import com.tydeya.familycircle.family.management.IdentificationCode;
 import com.tydeya.familycircle.family.management.Plan;
+
+import java.util.Calendar;
 
 public class ActiveMember extends FamilyMember {
     private IdentificationCode id;

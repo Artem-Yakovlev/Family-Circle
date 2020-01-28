@@ -23,6 +23,8 @@ import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresenter;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
+import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.familycircle.family.member.ActiveMemberBuilder;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 
 import java.lang.ref.WeakReference;
@@ -35,8 +37,6 @@ import java.util.Locale;
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
         ImageCropperUsable {
 
-
-
     private CardView dateCard;
     private CardView photoCard;
     private ImageView userPhotoImage;
@@ -45,8 +45,8 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private Button createAccountButton;
     private View root;
 
-    private Boolean birthDateChanged = false;
-    private Boolean userPhotoAdded = false;
+
+    private ActiveMemberBuilder activeMemberBuilder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,9 +84,15 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
                 createAccount();
             }
         });
+
+        activeMemberBuilder = new ActiveMemberBuilder();
     }
 
     private void createAccount() {
+        assert nameText.getText() != null;
+        activeMemberBuilder.setName(nameText.getText().toString());
+
+        ActiveMember activeMember = activeMemberBuilder.getResult();
 
     }
 
@@ -95,10 +101,10 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         assert getContext() != null;
 
-        birthDateChanged = true;
-
         Calendar calendar = new GregorianCalendar(selectedDateYear, selectedDateMonth,
                 selectedDateDay);
+
+        activeMemberBuilder.setBirthDate(calendar);
 
         String DATE_TEXT_PATTERN_SKELETON = "yyyy-MM-dd";
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
@@ -120,7 +126,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
                 .load(imageUri)
                 .into(userPhotoImage);
 
-        userPhotoAdded = true;
+        activeMemberBuilder.setImageUri(imageUri);
     }
 
     @Override
