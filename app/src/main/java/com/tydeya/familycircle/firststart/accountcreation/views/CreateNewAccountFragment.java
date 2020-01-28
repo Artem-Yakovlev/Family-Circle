@@ -35,6 +35,8 @@ import java.util.Locale;
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
         ImageCropperUsable {
 
+
+
     private CardView dateCard;
     private CardView photoCard;
     private ImageView userPhotoImage;
@@ -43,7 +45,8 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private Button createAccountButton;
     private View root;
 
-    private Boolean isBirthDateChanged = false;
+    private Boolean birthDateChanged = false;
+    private Boolean userPhotoAdded = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +95,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         assert getContext() != null;
 
-        isBirthDateChanged = true;
+        birthDateChanged = true;
 
         Calendar calendar = new GregorianCalendar(selectedDateYear, selectedDateMonth,
                 selectedDateDay);
@@ -116,6 +119,8 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
+
+        userPhotoAdded = true;
     }
 
     @Override

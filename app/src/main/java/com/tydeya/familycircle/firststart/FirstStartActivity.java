@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.tydeya.familycircle.R;
@@ -37,19 +38,18 @@ public class FirstStartActivity extends AppCompatActivity {
 
             if (navController.getCurrentDestination().getId() == R.id.createNewAccountFragment) {
 
-                ImageCropperUsable imageCropperUsable = (ImageCropperUsable) getSupportFragmentManager()
-                        .findFragmentById(R.id.createNewAccountFragment);
+                NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.first_start_activity_main_navigation);
+
+                assert navHostFragment != null;
+                ImageCropperUsable imageCropperUsable = (ImageCropperUsable) navHostFragment
+                        .getChildFragmentManager().getFragments().get(0);
 
                 assert imageCropperUsable != null;
-
                 if (resultCode == RESULT_OK) {
-
                     imageCropperUsable.imageCroppedSuccessfully(result);
-
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-
                     imageCropperUsable.imageCroppedWithError(result);
-
                 }
             }
         }
