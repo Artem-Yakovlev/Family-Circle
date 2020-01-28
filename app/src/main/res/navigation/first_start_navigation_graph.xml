@@ -9,7 +9,7 @@
         android:id="@+id/startPresentationFragment"
         android:name="com.tydeya.familycircle.firststart.authorization.StartPresentationFragment"
         android:label="fragment_start_presentation"
-        tools:layout="@layout/fragment_start_presentation" >
+        tools:layout="@layout/fragment_start_presentation">
         <action
             android:id="@+id/action_startPresentationFragment_to_startInputNumberFragment"
             app:destination="@id/startInputNumberFragment" />
