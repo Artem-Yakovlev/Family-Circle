@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.member.FamilyMember;
-
-import java.util.ArrayList;
+import com.tydeya.familycircle.user.User;
 
 public class MainLivePage extends Fragment {
 
@@ -24,11 +22,11 @@ public class MainLivePage extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
 
-        ArrayList<FamilyMember> familyMembers = new ArrayList<>();
         recyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
-        recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), familyMembers);
+        recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), User.getInstance().getFamily().familyMembers);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
         return root;
     }
 }
