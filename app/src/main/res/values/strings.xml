@@ -86,4 +86,14 @@
     <string name="get_code_page_resend">Resend SMS</string>
     <string name="minute_timer">1:00</string>
 
+    <string name="select_family_title">Family selection not yet available</string>
+    <string name="select_family_text">In the future, this section will have the opportunity to select or create a family account, but at the moment this section is under development, so all users are in the same family, but you can easily make friends with other users!</string>
+
+    <string name="bottom_menu_action_live">live</string>
+    <string name="bottom_menu_action_settings">settings</string>
+    <string name="bottom_menu_action_map">map</string>
+    <string name="bottom_menu_action_message">message</string>
+    <string name="bottom_menu_action_plan">plan</string>
+    <string name="bottom_menu_action_panel">panel</string>
+
 </resources>

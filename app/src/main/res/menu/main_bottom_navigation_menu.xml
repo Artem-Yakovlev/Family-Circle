@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_menu_action_tape"
+        android:icon="@drawable/ic_bottom_menu_action_tape_24dp"
+        android:title="@string/bottom_menu_action_live"/>
+
+    <item
+        android:id="@+id/bottom_menu_action_plan"
+        android:icon="@drawable/ic_bottom_menu_action_plan_24dp"
+        android:title="@string/bottom_menu_action_plan"/>
+
+    <item
+        android:id="@+id/bottom_menu_action_message"
+        android:icon="@drawable/ic_bottom_menu_action_message_24dp"
+        android:title="@string/bottom_menu_action_message"/>
+
+    <item
+        android:id="@+id/bottom_menu_action_map"
+        android:icon="@drawable/ic_bottom_menu_action_map_24dp"
+        android:title="@string/bottom_menu_action_map"/>
+
+    <item
+        android:id="@+id/bottom_menu_action_panel"
+        android:icon="@drawable/ic_bottom_menu_action_panel_24dp"
+        android:title="@string/bottom_menu_action_panel"/>
+
+</menu>

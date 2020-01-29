@@ -1,10 +1,11 @@
 package com.tydeya.familycircle.family.member;
 
-import android.icu.util.Calendar;
 import android.net.Uri;
 
 import com.tydeya.familycircle.family.contact.PersonContact;
 import com.tydeya.familycircle.family.description.PersonDescription;
+
+import java.util.Calendar;
 
 public abstract class FamilyMember {
     private String name;

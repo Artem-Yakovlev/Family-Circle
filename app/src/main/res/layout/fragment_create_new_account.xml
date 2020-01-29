@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingTop="60dp"
     android:paddingBottom="30dp"
-    tools:context=".firststart.CreateNewAccountFragment">
+    tools:context=".firststart.accountcreation.views.CreateNewAccountFragment">
 
     <!-- Header  -->
     <LinearLayout
@@ -42,25 +42,27 @@
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/create_account_page_photo_card"
-            android:layout_width="124dp"
-            android:layout_height="124dp"
-            android:background="@color/colorPrimary"
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/circle_image_background"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="80dp">
+            android:gravity="center_vertical|center_horizontal">
 
-            <ImageView
+            <cn.gavinliu.android.lib.shapedimageview.ShapedImageView
                 android:id="@+id/create_account_page_add_photo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_add_a_photo_black_24dp" />
+                android:layout_width="124dp"
+                android:layout_height="124dp"
+                android:background="@drawable/circle_image_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="20dp"
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                app:shape_mode="circle" />
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -133,7 +135,7 @@
         android:gravity="center_horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/start_input_phone_number_next"
+            android:id="@+id/create_account_main_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"
