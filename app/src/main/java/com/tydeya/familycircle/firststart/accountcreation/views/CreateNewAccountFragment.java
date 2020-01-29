@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,13 +35,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
+
 
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
         ImageCropperUsable {
 
     private CardView dateCard;
-    private CardView photoCard;
-    private ImageView userPhotoImage;
+    private ShapedImageView userPhotoImage;
     private TextView birthDateText;
     private TextInputEditText nameText;
     private Button createAccountButton;
@@ -56,7 +56,6 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         View root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
 
         dateCard = root.findViewById(R.id.create_account_page_date_card);
-        photoCard = root.findViewById(R.id.create_account_page_photo_card);
         userPhotoImage = root.findViewById(R.id.create_account_page_add_photo);
         birthDateText = root.findViewById(R.id.create_account_page_date_text);
         createAccountButton = root.findViewById(R.id.create_account_main_button);
@@ -76,7 +75,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this),
                 Calendar.getInstance()));
 
-        photoCard.setOnClickListener(v -> CropImage.activity()
+        userPhotoImage.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setAspectRatio(1, 1)
@@ -127,11 +126,9 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     public void imageCroppedSuccessfully(CropImage.ActivityResult activityResult) {
         Uri imageUri = activityResult.getUri();
         userPhotoImage.setPadding(0, 0, 0, 0);
-
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
-
         activeMemberBuilder.setImageUri(imageUri);
     }
 
