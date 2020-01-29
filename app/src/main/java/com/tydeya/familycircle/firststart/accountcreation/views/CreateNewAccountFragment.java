@@ -74,7 +74,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this),
                 Calendar.getInstance()));
-
+        //TODO set max and min size for cropping!
         userPhotoImage.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setCropShape(CropImageView.CropShape.OVAL)
