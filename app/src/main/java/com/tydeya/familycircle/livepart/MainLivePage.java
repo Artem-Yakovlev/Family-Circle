@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
@@ -25,7 +26,7 @@ public class MainLivePage extends Fragment {
         recyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
         recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), User.getInstance().getFamily().familyMembers);
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
 
         return root;
     }

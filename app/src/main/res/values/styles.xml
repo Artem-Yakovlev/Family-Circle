@@ -34,4 +34,5 @@
         <item name="android:textColorHint">@color/colorGray</item>
         <item name="android:textColor">@color/colorAppTagLine</item>
     </style>
+
 </resources>
