@@ -18,7 +18,7 @@ public class User {
     private User() {
         Family testFamily = new Family();
 
-        String[] names = new String[]{"Сергей Петрович", "Мариша", "Джасик", "Петька",
+        String[] names = new String[]{"Сергей Петрович", "Мариша Авдротьевна", "Джасик", "Петька",
                 "Николай", "Гоша", "Зина", "Вика Евдотьевна"};
         testFamily.familyMembers = new ArrayList<>();
 

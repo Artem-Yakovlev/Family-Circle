@@ -59,6 +59,7 @@ public class FamilyMembersRecyclerView
 
             userShapedImage = itemView.findViewById(R.id.family_member_live_page_image);
             nameText = itemView.findViewById(R.id.family_member_live_page_text);
+            nameText.setSelected(true);
         }
 
         void setNameText(String name) {
