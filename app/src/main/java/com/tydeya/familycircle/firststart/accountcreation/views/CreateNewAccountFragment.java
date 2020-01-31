@@ -95,7 +95,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         ActiveMember activeMember = activeMemberBuilder.build();
         User user = User.getInstance();
-        user.setFamilyMember(activeMember);
+        user.setUserFamilyMember(activeMember);
 
         navController.navigate(R.id.selectFamilyFragment);
     }

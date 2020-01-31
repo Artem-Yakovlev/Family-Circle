@@ -17,8 +17,8 @@ public class Family {
     private ArrayList<FamilyMember> familyMembers;
     private Attachments attachments;
 
-    public Family(IdentificationCode id, FamilyDescription familyDescription, FamilyContact familyContact, ArrayList<FamilyMember> familyMembers) {
-        this.id = id;
+    public Family(FamilyDescription familyDescription, FamilyContact familyContact,
+                  ArrayList<FamilyMember> familyMembers) {
         this.familyDescription = familyDescription;
         this.familyContact = familyContact;
         this.familyMembers = familyMembers;

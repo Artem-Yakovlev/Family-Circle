@@ -55,6 +55,5 @@ dependencies {
 
     //Code from sms catcher
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
-    implementation 'com.google.firebase:firebase-database:19.2.0'
 
 }

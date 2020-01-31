@@ -7,6 +7,10 @@ public class PersonContact extends Contact {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }

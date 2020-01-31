@@ -14,11 +14,14 @@ public class ActiveMember extends FamilyMember {
     private AccessLevel accessLevel;
     private Plan plan;
 
+    public ActiveMember(String name){
+        super(name);
+    }
+
     ActiveMember(String name, Calendar birthDate, Uri imageUri,
                  String descriptionText, String phoneNumber) {
         super(name, birthDate, imageUri, descriptionText, phoneNumber);
     }
-
 
     public static class Builder {
 
