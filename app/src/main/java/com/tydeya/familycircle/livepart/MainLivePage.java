@@ -15,16 +15,13 @@ import com.tydeya.familycircle.user.User;
 
 public class MainLivePage extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter recyclerViewAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
 
-        recyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
-        recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), User.getInstance().getFamily().familyMembers);
+        RecyclerView recyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
+        RecyclerView.Adapter recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), User.getInstance().getFamily().familyMembers);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
 
