@@ -14,6 +14,6 @@ public class Family {
     private FamilyDescription familyDescription;
     private FamilyContact familyContact;
     private Plan familyPlan;
-    private ArrayList<FamilyMember> familyMembers;
+    public ArrayList<FamilyMember> familyMembers;
     private Attachments attachments;
 }

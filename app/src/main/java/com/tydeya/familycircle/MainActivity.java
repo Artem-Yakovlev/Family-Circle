@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
+        
         if (auth.getCurrentUser() == null) {
             Intent intent = new Intent(this, FirstStartActivity.class);
             startActivity(intent);

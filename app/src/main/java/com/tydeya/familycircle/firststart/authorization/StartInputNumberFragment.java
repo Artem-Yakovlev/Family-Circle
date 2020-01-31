@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.firststart.authorization;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * In this fragment, the user enters his phone number for registration and goes to the next page.
+ *
  * @author Artem Yakovlev
  **/
 
@@ -67,8 +69,8 @@ public class StartInputNumberFragment extends Fragment {
                     navController.navigate(R.id.getCodeFromSmsFragment, bundle);
                 }
 
-                private void closeLoadingDialog(){
-                    if (loadingDialog.isShowing()){
+                private void closeLoadingDialog() {
+                    if (loadingDialog.isShowing()) {
                         loadingDialog.cancel();
                     }
                 }
@@ -97,8 +99,8 @@ public class StartInputNumberFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         nextButton.setOnClickListener(v -> {
-            if (countryPicker.isValidFullNumber()){
-                sendVerificationCode();
+            if (countryPicker.isValidFullNumber()) {
+                verifyPhoneNumber();
             } else {
                 phoneNumberInput.setError(root.getContext()
                         .getResources().getString(R.string.start_input_number_invalid_error));
@@ -106,10 +108,32 @@ public class StartInputNumberFragment extends Fragment {
         });
     }
 
+
+    private void verifyPhoneNumber() {
+
+        StringBuilder questionText = new StringBuilder(getResources().getString(R.string.first_start_input_number_correct_text));
+        questionText.append(" ").append(countryPicker.getFullNumberWithPlus()).append(" ?");
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+        alertDialogBuilder.setTitle(getResources().getString(R.string.first_start_input_number_correct_title));
+        alertDialogBuilder.setMessage(questionText);
+
+        alertDialogBuilder.setPositiveButton(getResources().getString(R.string.first_start_input_number_correct_yes),
+                (dialogInterface, i) -> sendVerificationCode());
+
+        alertDialogBuilder.setNegativeButton(getResources().getString(R.string.first_start_input_number_correct_no),
+                ((dialogInterface, i) -> {
+                }));
+
+        AlertDialog isCorrectNumberDialog = alertDialogBuilder.create();
+        isCorrectNumberDialog.show();
+    }
+
     /**
      * This method sends verification code through firebase and shows loading dialog
      **/
-    private void sendVerificationCode(){
+    private void sendVerificationCode() {
         assert getActivity() != null;
 
         KeyboardHelper.hideKeyboard(getActivity());
