@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,9 +20,9 @@ public class MainLivePage extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
 
         RecyclerView recyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
-        RecyclerView.Adapter recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), User.getInstance().getFamily().familyMembers);
+        RecyclerView.Adapter recyclerViewAdapter = new FamilyMembersRecyclerView(getContext(), User.getInstance().getFamily().getFamilyMembers());
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 
         return root;
     }

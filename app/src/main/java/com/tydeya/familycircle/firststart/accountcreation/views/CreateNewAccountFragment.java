@@ -25,7 +25,6 @@ import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresent
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
 import com.tydeya.familycircle.family.member.ActiveMember;
-import com.tydeya.familycircle.family.member.ActiveMemberBuilder;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.user.User;
 
@@ -47,7 +46,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private TextInputEditText nameText;
     private Button createAccountButton;
     private NavController navController;
-    private ActiveMemberBuilder activeMemberBuilder;
+    private ActiveMember.Builder activeMemberBuilder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,14 +86,14 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
             }
         });
 
-        activeMemberBuilder = new ActiveMemberBuilder();
+        activeMemberBuilder = new ActiveMember.Builder();
     }
 
     private void createAccount() {
         assert nameText.getText() != null;
         activeMemberBuilder.setName(nameText.getText().toString());
 
-        ActiveMember activeMember = activeMemberBuilder.getResult();
+        ActiveMember activeMember = activeMemberBuilder.build();
         User user = User.getInstance();
         user.setFamilyMember(activeMember);
 

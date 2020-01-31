@@ -14,6 +14,37 @@ public class Family {
     private FamilyDescription familyDescription;
     private FamilyContact familyContact;
     private Plan familyPlan;
-    public ArrayList<FamilyMember> familyMembers;
+    private ArrayList<FamilyMember> familyMembers;
     private Attachments attachments;
+
+    public Family(IdentificationCode id, FamilyDescription familyDescription, FamilyContact familyContact, ArrayList<FamilyMember> familyMembers) {
+        this.id = id;
+        this.familyDescription = familyDescription;
+        this.familyContact = familyContact;
+        this.familyMembers = familyMembers;
+    }
+
+    public FamilyDescription getFamilyDescription() {
+        return familyDescription;
+    }
+
+    public void setFamilyDescription(FamilyDescription familyDescription) {
+        this.familyDescription = familyDescription;
+    }
+
+    public FamilyContact getFamilyContact() {
+        return familyContact;
+    }
+
+    public void setFamilyContact(FamilyContact familyContact) {
+        this.familyContact = familyContact;
+    }
+
+    public ArrayList<FamilyMember> getFamilyMembers() {
+        return familyMembers;
+    }
+
+    public void setFamilyMembers(ArrayList<FamilyMember> familyMembers) {
+        this.familyMembers = familyMembers;
+    }
 }

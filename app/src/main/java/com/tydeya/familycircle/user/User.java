@@ -16,17 +16,17 @@ public class User {
 
 
     private User() {
+        /*
         Family testFamily = new Family();
         testFamily.familyMembers = new ArrayList<>();
         families = new ArrayList<>();
-        families.add(testFamily);
+        families.add(testFamily);*/
     }
 
     public static synchronized User getInstance() {
         if (instance == null) {
             instance = new User();
         }
-
         return instance;
     }
 
