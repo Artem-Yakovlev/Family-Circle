@@ -55,12 +55,54 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingRight="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/background_for_message_button_family_view"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="28"
+                                android:textSize="25dp"
+                                android:textColor="@color/colorWhite"
+                                android:fontFamily="@font/poppins_medium"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:textColor="@color/colorWhite"
+                                android:text="January"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Konstantin Grigorich Mecharyackov"
                     android:textSize="20sp"
