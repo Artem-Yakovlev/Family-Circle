@@ -21,4 +21,6 @@
     <color name="colorModernPrimaryLight">#00ACD4</color>
     <color name="colorModernPrimaryTransparent">#E4FBFD</color>
 
+    <color name="colorOrange">#FF8C00</color>
+
 </resources>

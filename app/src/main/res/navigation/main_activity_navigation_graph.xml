@@ -8,5 +8,14 @@
         android:id="@+id/mainLivePage"
         android:name="com.tydeya.familycircle.livepart.MainLivePage"
         android:label="fragment_main_live_page"
-        tools:layout="@layout/fragment_main_live_page" />
+        tools:layout="@layout/fragment_main_live_page" >
+        <action
+            android:id="@+id/action_mainLivePage_to_familyMemberViewFragment"
+            app:destination="@id/familyMemberViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/familyMemberViewFragment"
+        android:name="com.tydeya.familycircle.personviewpage.FamilyMemberViewFragment"
+        android:label="fragment_family_member_view"
+        tools:layout="@layout/fragment_family_member_view" />
 </navigation>
