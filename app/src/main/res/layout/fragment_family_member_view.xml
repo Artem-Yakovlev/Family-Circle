@@ -171,4 +171,10 @@
 
     </RelativeLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/family_member_view_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="-25dp" />
+
 </LinearLayout>
