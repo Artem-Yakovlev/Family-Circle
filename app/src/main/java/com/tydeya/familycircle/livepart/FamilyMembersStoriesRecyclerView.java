@@ -14,17 +14,21 @@ import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.family.member.FamilyMember;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
-public class FamilyMembersRecyclerView
-        extends RecyclerView.Adapter<FamilyMembersRecyclerView.FamilyMemberViewHolder> {
+public class FamilyMembersStoriesRecyclerView
+        extends RecyclerView.Adapter<FamilyMembersStoriesRecyclerView.FamilyMemberViewHolder> {
 
     private Context context;
     private ArrayList<FamilyMember> familyMembers;
+    private WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener;
 
-    FamilyMembersRecyclerView(Context context, ArrayList<FamilyMember> familyMembers) {
+    FamilyMembersStoriesRecyclerView(Context context, ArrayList<FamilyMember> familyMembers,
+                                     WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
+        this.onClickMemberStoryListener = onClickMemberStoryListener;
         this.context = context;
         this.familyMembers = familyMembers;
     }
@@ -36,7 +40,7 @@ public class FamilyMembersRecyclerView
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
         return new FamilyMemberViewHolder(layoutInflater.inflate(R.layout.cardview_family_member_live_page,
-                parent, false));
+                parent, false), onClickMemberStoryListener);
     }
 
     @Override
@@ -49,17 +53,19 @@ public class FamilyMembersRecyclerView
         return familyMembers.size();
     }
 
-    static class FamilyMemberViewHolder extends RecyclerView.ViewHolder {
+    static class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView nameText;
         private ShapedImageView userShapedImage;
+        private WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener;
 
-        FamilyMemberViewHolder(@NonNull View itemView) {
+        FamilyMemberViewHolder(@NonNull View itemView, WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
             super(itemView);
-            
+            this.onClickMemberStoryListener = onClickMemberStoryListener;
             userShapedImage = itemView.findViewById(R.id.family_member_live_page_image);
             nameText = itemView.findViewById(R.id.family_member_live_page_text);
             nameText.setSelected(true);
+            itemView.setOnClickListener(this);
         }
 
         void setNameText(String name) {
@@ -71,6 +77,16 @@ public class FamilyMembersRecyclerView
                     .load(imageUri)
                     .into(userShapedImage);
         }
+
+        @Override
+        public void onClick(View view) {
+            onClickMemberStoryListener.get().onClickMemberStory(getAdapterPosition());
+        }
+    }
+
+    public interface OnClickMemberStoryListener {
+
+        void onClickMemberStory(int position);
     }
 
 }

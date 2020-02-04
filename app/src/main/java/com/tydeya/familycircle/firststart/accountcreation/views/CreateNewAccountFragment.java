@@ -2,7 +2,6 @@ package com.tydeya.familycircle.firststart.accountcreation.views;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +22,15 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresenter;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
+import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
 import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
@@ -109,15 +107,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
                 selectedDateDay);
 
         activeMemberBuilder.setBirthDate(calendar);
-
-        String DATE_TEXT_PATTERN_SKELETON = "yyyy-MM-dd";
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
-                DATE_TEXT_PATTERN_SKELETON);
-
-        SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
-        String output = format.format(calendar.getTime());
-
-        birthDateText.setText(output);
+        birthDateText.setText(DateRefactoring.getDateLocaleText(calendar));
         birthDateText.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
     }
 

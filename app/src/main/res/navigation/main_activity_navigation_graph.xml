@@ -17,5 +17,9 @@
         android:id="@+id/familyMemberViewFragment"
         android:name="com.tydeya.familycircle.personviewpage.FamilyMemberViewFragment"
         android:label="fragment_family_member_view"
-        tools:layout="@layout/fragment_family_member_view" />
+        tools:layout="@layout/fragment_family_member_view">
+        <argument
+            android:name="personPosition"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -26,4 +26,5 @@ public class PersonDescription extends Description {
         return zodiacSign;
     }
 
+
 }

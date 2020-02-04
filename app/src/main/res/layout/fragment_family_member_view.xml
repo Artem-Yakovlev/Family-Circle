@@ -45,7 +45,7 @@
         <androidx.cardview.widget.CardView
 
             android:layout_width="340dp"
-            android:layout_height="210dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             tools:ignore="RtlHardcoded">
@@ -55,98 +55,81 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="90dp"
                     android:orientation="horizontal"
                     android:gravity="right">
 
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:orientation="vertical">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/background_for_message_button_family_view"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="28"
-                                android:textSize="25dp"
-                                android:textColor="@color/colorWhite"
-                                android:fontFamily="@font/poppins_medium"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_medium"
-                                android:textColor="@color/colorWhite"
-                                android:text="January"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="Konstantin Grigorich Mecharyackov"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="bottom"
-                    android:paddingBottom="5dp">
+                    android:orientation="vertical"
+                    android:gravity="bottom">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/family_member_view_name_text"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_for_family_block_orange"
                         android:fontFamily="@font/poppins_medium"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="@string/family_group_brother"
-                        android:textColor="@color/colorWhite" />
+                        android:text="Konstantin Grigorich Mecharyackov"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/family_member_view_birthdate_text"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_for_family_block_purple"
-                        android:fontFamily="@font/poppins_medium"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:textColor="@color/colorWhite"
-                        android:text="HSE-NN"/>
+                        android:text="28.02.2002"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_medium"/>
 
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_for_family_block_red"
-                        android:fontFamily="@font/poppins_medium"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:textColor="@color/colorWhite"
-                        android:text="GEMINI"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="bottom">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_for_family_block_orange"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="@string/family_group_brother"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_for_family_block_purple"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/colorWhite"
+                            android:text="HSE-NN"/>
+
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_for_family_block_red"
+                            android:fontFamily="@font/poppins_medium"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/colorWhite"
+                            android:text="GEMINI"/>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -155,7 +138,7 @@
         </androidx.cardview.widget.CardView>
 
         <cn.gavinliu.android.lib.shapedimageview.ShapedImageView
-            android:id="@+id/create_account_page_add_photo"
+            android:id="@+id/family_view_photo"
             android:layout_width="124dp"
             android:layout_height="124dp"
             android:layout_centerHorizontal="true"
@@ -172,7 +155,7 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/family_member_view_recycler_view"
+        android:id="@+id/family_member_view_live_tape_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_marginTop="-25dp" />
