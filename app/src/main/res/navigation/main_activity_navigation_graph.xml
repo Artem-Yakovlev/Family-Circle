@@ -22,4 +22,24 @@
             android:name="personPosition"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/mainConversationPage"
+        android:name="com.tydeya.familycircle.conversationpart.MainConversationPage"
+        android:label="fragment_main_conversation_page"
+        tools:layout="@layout/fragment_main_conversation_page" />
+    <fragment
+        android:id="@+id/mainPlanPage"
+        android:name="com.tydeya.familycircle.planpart.MainPlanPage"
+        android:label="fragment_main_plan_page"
+        tools:layout="@layout/fragment_main_plan_page" />
+    <fragment
+        android:id="@+id/mainMapPage"
+        android:name="com.tydeya.familycircle.mappart.MainMapPage"
+        android:label="fragment_main_map_page"
+        tools:layout="@layout/fragment_main_map_page" />
+    <fragment
+        android:id="@+id/mainPanelPage"
+        android:name="com.tydeya.familycircle.panelpart.MainPanelPage"
+        android:label="fragment_main_panel_page"
+        tools:layout="@layout/fragment_main_panel_page" />
 </navigation>
