@@ -29,7 +29,6 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
         navController = NavHostFragment.findNavController(this);
-
         familyStoriesRecyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
 
         return root;

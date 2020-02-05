@@ -8,12 +8,14 @@
     tools:context=".personviewpage.FamilyMemberViewFragment">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/family_member_view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
         app:title="@string/family_member_view_toolbar_title"
         app:titleTextColor="@color/colorWhite">
+
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -153,11 +155,5 @@
             tools:targetApi="lollipop" />
 
     </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/family_member_view_live_tape_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginTop="-25dp" />
 
 </LinearLayout>
