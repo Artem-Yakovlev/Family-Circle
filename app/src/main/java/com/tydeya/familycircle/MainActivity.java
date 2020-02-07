@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,13 +17,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.main_bottom_navigation_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.mainLivePage,
-                R.id.mainPlanPage, R.id.mainConversationPage, R.id.mainMapPage, R.id.mainPanelPage)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.main_fragment_container);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
+        NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
+        NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
     }
 
     @Override
@@ -39,4 +34,5 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
         }
     }
+
 }
