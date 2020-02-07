@@ -8,11 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.family.conversation.Conversation;
+import com.tydeya.familycircle.family.conversation.FamilyConversation;
+import com.tydeya.familycircle.family.conversation.Message;
 
-public class MainConversationPage extends Fragment {
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+public class MainConversationPage extends Fragment implements MainConversationRecyclerViewAdapter.OnClickConversationListener{
 
     private RecyclerView recyclerView;
 
@@ -27,5 +34,24 @@ public class MainConversationPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ArrayList<Message> messages = new ArrayList<>();
+        Conversation conversation1 = new FamilyConversation(messages, "Main conf");
+        Conversation conversation2 = new FamilyConversation(messages, "Second conf");
+        ArrayList<Conversation> conversations = new ArrayList<>();
+        conversations.add(conversation1);
+        conversations.add(conversation2);
+
+        MainConversationRecyclerViewAdapter recyclerViewAdapter = new MainConversationRecyclerViewAdapter(getContext(),
+                conversations, new WeakReference<>(this));
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                RecyclerView.VERTICAL, false));
+    }
+
+    @Override
+    public void onClickConversation(int position) {
+
     }
 }

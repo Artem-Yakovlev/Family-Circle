@@ -56,17 +56,26 @@ public class MainConversationRecyclerViewAdapter
     static class FamilyConversationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView nameText;
+        private TextView lastMessageText;
         private ShapedImageView userShapedImage;
         private WeakReference<OnClickConversationListener> onClickConversationListener;
 
         FamilyConversationViewHolder(@NonNull View itemView, WeakReference<OnClickConversationListener> onClickConversationListener) {
             super(itemView);
             this.onClickConversationListener = onClickConversationListener;
+
+            nameText = itemView.findViewById(R.id.conversation_page_card_name);
+            lastMessageText = itemView.findViewById(R.id.conversation_page_card_last_message);
+            userShapedImage = itemView.findViewById(R.id.conversation_page_card_image);
             itemView.setOnClickListener(this);
         }
 
         void setNameText(String name) {
             nameText.setText(name);
+        }
+
+        void setLastMessageText(String lastMessage) {
+            lastMessageText.setText(lastMessage);
         }
 
         void setImage(Uri imageUri) {
