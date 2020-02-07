@@ -18,7 +18,7 @@ import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
 
-public class MainLivePage extends Fragment implements FamilyMembersStoriesRecyclerView.OnClickMemberStoryListener {
+public class MainLivePage extends Fragment implements FamilyMembersStoriesRecyclerViewAdapter.OnClickMemberStoryListener {
 
     private NavController navController;
     private View root;
@@ -39,7 +39,7 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView.Adapter recyclerViewAdapter = new FamilyMembersStoriesRecyclerView(getContext(),
+        RecyclerView.Adapter recyclerViewAdapter = new FamilyMembersStoriesRecyclerViewAdapter(getContext(),
                 User.getInstance().getFamily().getFamilyMembers(), new WeakReference<>(this));
 
         familyStoriesRecyclerView.setAdapter(recyclerViewAdapter);

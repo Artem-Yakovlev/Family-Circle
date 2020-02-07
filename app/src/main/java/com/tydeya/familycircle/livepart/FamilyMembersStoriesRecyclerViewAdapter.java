@@ -19,15 +19,15 @@ import java.util.ArrayList;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
-public class FamilyMembersStoriesRecyclerView
-        extends RecyclerView.Adapter<FamilyMembersStoriesRecyclerView.FamilyMemberViewHolder> {
+public class FamilyMembersStoriesRecyclerViewAdapter
+        extends RecyclerView.Adapter<FamilyMembersStoriesRecyclerViewAdapter.FamilyMemberViewHolder> {
 
     private Context context;
     private ArrayList<FamilyMember> familyMembers;
     private WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener;
 
-    FamilyMembersStoriesRecyclerView(Context context, ArrayList<FamilyMember> familyMembers,
-                                     WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
+    FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<FamilyMember> familyMembers,
+                                            WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
         this.onClickMemberStoryListener = onClickMemberStoryListener;
         this.context = context;
         this.familyMembers = familyMembers;
