@@ -2,6 +2,8 @@ package com.tydeya.familycircle.family.conversation;
 
 import android.net.Uri;
 
+import com.tydeya.familycircle.family.conversation.messages.Message;
+
 import java.util.ArrayList;
 
 public abstract class Conversation {

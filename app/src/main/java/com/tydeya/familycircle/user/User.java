@@ -1,6 +1,9 @@
 package com.tydeya.familycircle.user;
 
 import com.tydeya.familycircle.family.Family;
+import com.tydeya.familycircle.family.conversation.FamilyConversation;
+import com.tydeya.familycircle.family.conversation.messages.Message;
+import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
 import com.tydeya.familycircle.family.description.FamilyDescription;
 import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.family.member.FamilyMember;
@@ -40,7 +43,21 @@ public class User {
         familyMembers.add(new ActiveMember("Елена Яковлева"));
         familyMembers.add(new PassiveMember("Владимир Яковлев"));
 
-        Family testFamily = new Family(testDescription, null, familyMembers);
+
+        ArrayList<Message> messages = new ArrayList<>();
+        messages.add(new PersonMessage(null, "Hello", new ActiveMember("Ирина Яковлева")));
+        messages.add(new PersonMessage(null, "What are you thinking about today weather?", new ActiveMember("Елена Яковлева")));
+        messages.add(new PersonMessage(null, "Nothing...", new ActiveMember("Елена Яковлева")));
+        messages.add(new PersonMessage(null, ":)", new ActiveMember("Артем Яковлев")));
+        messages.add(new PersonMessage(null, "It's very strange monologue!", userFamilyMember));
+        FamilyConversation conversation1 = new FamilyConversation(messages, "Main conf");
+        FamilyConversation conversation2 = new FamilyConversation(messages, "Second conf");
+        ArrayList<FamilyConversation> conversations = new ArrayList<>();
+        conversations.add(conversation1);
+        conversations.add(conversation2);
+
+
+        Family testFamily = new Family(testDescription, null, familyMembers, conversations);
         families.add(testFamily);
     }
 

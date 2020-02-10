@@ -15,8 +15,7 @@ public class DateRefactoring {
                 DATE_TEXT_PATTERN_SKELETON);
 
         SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
-        String output = format.format(calendar.getTime());
-        return output;
+        return format.format(calendar.getTime());
     }
 
 }

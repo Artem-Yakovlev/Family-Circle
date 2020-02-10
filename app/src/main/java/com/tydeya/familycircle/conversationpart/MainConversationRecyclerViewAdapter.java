@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.conversation.Conversation;
+import com.tydeya.familycircle.family.conversation.FamilyConversation;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -23,10 +23,10 @@ public class MainConversationRecyclerViewAdapter
         extends RecyclerView.Adapter<MainConversationRecyclerViewAdapter.FamilyConversationViewHolder> {
 
     private Context context;
-    private ArrayList<Conversation> conversations;
+    private ArrayList<FamilyConversation> conversations;
     private WeakReference<OnClickConversationListener> onClickConversationListener;
 
-    MainConversationRecyclerViewAdapter(Context context, ArrayList<Conversation> conversations,
+    MainConversationRecyclerViewAdapter(Context context, ArrayList<FamilyConversation> conversations,
                                         WeakReference<OnClickConversationListener> onClickConversationListener) {
         this.onClickConversationListener = onClickConversationListener;
         this.context = context;
