@@ -51,7 +51,7 @@ public class User {
         messages.add(new PersonMessage(null, ":)", new ActiveMember("Артем Яковлев")));
         messages.add(new PersonMessage(null, "It's very strange monologue!", userFamilyMember));
         FamilyConversation conversation1 = new FamilyConversation(messages, "Main conf");
-        FamilyConversation conversation2 = new FamilyConversation(messages, "Second conf");
+        FamilyConversation conversation2 = new FamilyConversation(new ArrayList<>(), "Second conf");
         ArrayList<FamilyConversation> conversations = new ArrayList<>();
         conversations.add(conversation1);
         conversations.add(conversation2);

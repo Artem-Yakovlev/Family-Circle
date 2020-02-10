@@ -38,13 +38,14 @@ public class CorrespondenceFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), User.getInstance().getFamily().getFamilyConversations().get(0).getMessages());
+        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), User.getInstance().getFamily().getFamilyConversations()
+                .get(MessagingActivity.correspondencePosition).getMessages());
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         sendButton.setOnClickListener((view -> {
             if (!inputField.getText().toString().equals("")) {
                 PersonMessage actualMessage = new PersonMessage(null, inputField.getText().toString(), User.getInstance().getUserFamilyMember());
-                User.getInstance().getFamily().getFamilyConversations().get(0).getMessages().add(actualMessage);
+                User.getInstance().getFamily().getFamilyConversations().get(MessagingActivity.correspondencePosition).getMessages().add(actualMessage);
                 inputField.setText("");
                 chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
             }
