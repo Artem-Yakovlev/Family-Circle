@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".conversationpart.chatpart.MessagingActivity"></activity>
+        <activity android:name=".conversationpart.chatpart.MessagingActivity" android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".firststart.FirstStartActivity"
             android:screenOrientation="portrait" />

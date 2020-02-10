@@ -10,7 +10,8 @@
         android:id="@+id/message_text_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/message_text_item_background_blue"
         android:fontFamily="@font/poppins"
         android:maxWidth="300dp"
@@ -21,18 +22,17 @@
         android:text="Hi mark! What are you thinking about my new pants?"
         android:textColor="@color/colorWhite"
         android:textSize="13sp"
-        android:layout_marginRight="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/message_text_time"
-        android:text="11:40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
-        app:layout_constraintLeft_toRightOf="@+id/message_text_body"
         android:layout_marginLeft="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/message_text_body" />
+        android:text="11:40"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/message_text_body"
+        app:layout_constraintLeft_toRightOf="@+id/message_text_body" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
