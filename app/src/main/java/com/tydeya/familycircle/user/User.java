@@ -7,7 +7,6 @@ import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
 import com.tydeya.familycircle.family.description.FamilyDescription;
 import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.family.member.FamilyMember;
-import com.tydeya.familycircle.family.member.PassiveMember;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,11 +36,12 @@ public class User {
         activeMemberBuilder.setPhoneNumber("+79056644712");
         userFamilyMember = activeMemberBuilder.build();
 
+        /*
         familyMembers.add(new ActiveMember("Ирина Яковлева"));
         familyMembers.add(new ActiveMember("Дмитрий Яковлев"));
         familyMembers.add(new ActiveMember("Анастасия Дмитриева"));
         familyMembers.add(new ActiveMember("Елена Яковлева"));
-        familyMembers.add(new PassiveMember("Владимир Яковлев"));
+        familyMembers.add(new PassiveMember("Владимир Яковлев"));*/
 
 
         ArrayList<Message> messages = new ArrayList<>();
