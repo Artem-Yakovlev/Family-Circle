@@ -1,11 +1,14 @@
 package com.tydeya.familycircle.conversationpart.chatpart;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
 import com.tydeya.familycircle.user.User;
@@ -50,5 +55,25 @@ public class CorrespondenceFragment extends Fragment {
                 chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
             }
         }));
+
+        Context context = getContext();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        /*
+        Task<QuerySnapshot> querySnapshotTask = firebaseFirestore.collection("/Families").get();
+        querySnapshotTask.addOnSuccessListener(queryDocumentSnapshots -> {
+            Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
+        });
+        querySnapshotTask.addOnFailureListener(e -> {
+            Toast.makeText(context, "Suck", Toast.LENGTH_LONG).show();
+        });*/
+
+        DocumentReference documentReference = firebaseFirestore.collection("Families").document("Yakovlev-nn");
+        documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            Toast.makeText(context, documentSnapshot.getString("name"), Toast.LENGTH_LONG).show();
+        });
+        documentReference.get().addOnFailureListener(e -> {
+            Log.d("ASMR", e.toString());
+        });
     }
 }
