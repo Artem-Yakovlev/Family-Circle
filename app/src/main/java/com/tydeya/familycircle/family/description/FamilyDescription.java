@@ -7,4 +7,6 @@ public class FamilyDescription extends Description {
     public FamilyDescription(String text, Uri photo) {
         super(text, photo);
     }
+
+
 }

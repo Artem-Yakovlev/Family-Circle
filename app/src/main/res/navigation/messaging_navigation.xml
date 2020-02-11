@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/messaging_navigation"
+    app:startDestination="@id/correspondenceFragment2">
+
+    <fragment
+        android:id="@+id/correspondenceFragment2"
+        android:name="com.tydeya.familycircle.conversationpart.chatpart.CorrespondenceFragment"
+        android:label="fragment_correspondence"
+        tools:layout="@layout/fragment_correspondence" />
+</navigation>

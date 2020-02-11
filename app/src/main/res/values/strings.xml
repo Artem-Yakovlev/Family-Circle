@@ -108,4 +108,12 @@
         <item>Important</item>
     </string-array>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="family_member_view_toolbar_title">Profile</string>
+    <string name="family_group_brother">Brother</string>
+    <string name="family_member_view_datebirthd_not_known">Date of birth not known</string>
+    <string name="main_live_page_toolbar_title">Last news</string>
+    <string name="main_conversation_page_toolbar_title">Conversation</string>
+
 </resources>

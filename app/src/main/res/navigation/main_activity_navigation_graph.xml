@@ -8,5 +8,38 @@
         android:id="@+id/mainLivePage"
         android:name="com.tydeya.familycircle.livepart.MainLivePage"
         android:label="fragment_main_live_page"
-        tools:layout="@layout/fragment_main_live_page" />
+        tools:layout="@layout/fragment_main_live_page" >
+        <action
+            android:id="@+id/action_mainLivePage_to_familyMemberViewFragment"
+            app:destination="@id/familyMemberViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/familyMemberViewFragment"
+        android:name="com.tydeya.familycircle.personviewpage.FamilyMemberViewFragment"
+        android:label="fragment_family_member_view"
+        tools:layout="@layout/fragment_family_member_view">
+        <argument
+            android:name="personPosition"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainConversationPage"
+        android:name="com.tydeya.familycircle.conversationpart.MainConversationPage"
+        android:label="fragment_main_conversation_page"
+        tools:layout="@layout/fragment_main_conversation_page" />
+    <fragment
+        android:id="@+id/mainPlanPage"
+        android:name="com.tydeya.familycircle.planpart.MainPlanPage"
+        android:label="fragment_main_plan_page"
+        tools:layout="@layout/fragment_main_plan_page" />
+    <fragment
+        android:id="@+id/mainMapPage"
+        android:name="com.tydeya.familycircle.mappart.MainMapPage"
+        android:label="fragment_main_map_page"
+        tools:layout="@layout/fragment_main_map_page" />
+    <fragment
+        android:id="@+id/mainPanelPage"
+        android:name="com.tydeya.familycircle.panelpart.MainPanelPage"
+        android:label="fragment_main_panel_page"
+        tools:layout="@layout/fragment_main_panel_page" />
 </navigation>

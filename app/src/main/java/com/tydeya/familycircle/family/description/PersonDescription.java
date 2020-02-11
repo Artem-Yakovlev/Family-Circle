@@ -11,6 +11,7 @@ public class PersonDescription extends Description {
     public PersonDescription(String text, Uri photo, Calendar birthDate) {
         super(text, photo);
         this.birthDate = birthDate;
+        this.zodiacSign = ZodiacSign.getZodiacSign(birthDate);
     }
 
     public Calendar getBirthDate() {
@@ -24,5 +25,6 @@ public class PersonDescription extends Description {
     public ZodiacSign getZodiacSign() {
         return zodiacSign;
     }
+
 
 }

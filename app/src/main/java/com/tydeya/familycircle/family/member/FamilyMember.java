@@ -12,6 +12,10 @@ public abstract class FamilyMember {
     private PersonContact contact;
     private PersonDescription description;
 
+    FamilyMember(String name){
+        this.name = name;
+    }
+
     FamilyMember(String name, Calendar birthDate, Uri imageUri, String descriptionText, String phoneNumber){
         this.name = name;
         this.contact = new PersonContact(phoneNumber);
