@@ -23,14 +23,18 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.accountsynchronization.AccountIsExistResultRecipient;
+import com.tydeya.familycircle.accountsynchronization.AccountPhoneSynchronizationTool;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 
-public class GetCodeFromSmsFragment extends Fragment {
+public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistResultRecipient {
 
     private View root;
     private FirebaseAuth firebaseAuth;
@@ -92,13 +96,13 @@ public class GetCodeFromSmsFragment extends Fragment {
             public void onTick(long l) {
 
                 timerStringBuffer = new StringBuffer();
-                timerStringBuffer.append((l/60000)/1000).append(":");
+                timerStringBuffer.append((l / 60000) / 1000).append(":");
 
-                if ((l%60000)/1000 < 10){
+                if ((l % 60000) / 1000 < 10) {
                     timerStringBuffer.append("0");
                 }
 
-                timerStringBuffer.append((l%60000)/1000);
+                timerStringBuffer.append((l % 60000) / 1000);
                 resendTimerTextView.setText(timerStringBuffer);
 
             }
@@ -125,7 +129,7 @@ public class GetCodeFromSmsFragment extends Fragment {
 
     }
 
-    private void resendSms(){
+    private void resendSms() {
         assert getArguments() != null && getActivity() != null;
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -153,20 +157,37 @@ public class GetCodeFromSmsFragment extends Fragment {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         assert getActivity() != null;
+        assert getArguments() != null;
 
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), task -> {
 
-                    if (loadingDialog.isShowing()){
+                    if (loadingDialog.isShowing()) {
                         loadingDialog.cancel();
                     }
 
                     if (task.isSuccessful()) {
-                        navController.navigate(R.id.createNewAccountFragment);
+                        AccountPhoneSynchronizationTool accountPhoneSynchronizationTool =
+                                new AccountPhoneSynchronizationTool(new WeakReference<>(this));
                     } else {
                         Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 });
+    }
+
+    @Override
+    public void isExist(QuerySnapshot queryDocumentSnapshots) {
+        Toast.makeText(getContext(), "Exist", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void isNotExist() {
+        Toast.makeText(getContext(), "Not exist", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void isError() {
+        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
     }
 }
