@@ -2,6 +2,7 @@ package com.tydeya.familycircle.firststart.accountcreation.views;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
 import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
+import com.tydeya.familycircle.synchronization.accountcreate.CreateSyncAccountTool;
+import com.tydeya.familycircle.synchronization.accountcreate.SyncAccountCreatedRecipient;
 import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
@@ -36,7 +39,7 @@ import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
 
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
-        ImageCropperUsable {
+        ImageCropperUsable, SyncAccountCreatedRecipient {
 
     private CardView dateCard;
     private ShapedImageView userPhotoImage;
@@ -90,12 +93,16 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private void createAccount() {
         assert nameText.getText() != null;
         activeMemberBuilder.setName(nameText.getText().toString());
+        activeMemberBuilder.setPhoneNumber(getArguments().getString("phone_number"));
 
         ActiveMember activeMember = activeMemberBuilder.build();
         User user = User.getInstance();
         user.setUserFamilyMember(activeMember);
 
-        navController.navigate(R.id.selectFamilyFragment);
+
+
+        CreateSyncAccountTool createSyncAccountTool = new CreateSyncAccountTool(new WeakReference<>(this));
+        createSyncAccountTool.CreateAccount(user.getUserFamilyMember());
     }
 
     @Override
@@ -124,5 +131,15 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     @Override
     public void imageCroppedWithError(CropImage.ActivityResult activityResult) {
 
+    }
+
+    @Override
+    public void accountSuccessfullyCreated() {
+        navController.navigate(R.id.selectFamilyFragment);
+    }
+
+    @Override
+    public void accountCreationFailed(Exception e) {
+        Log.d("ASMR", e.toString());
     }
 }

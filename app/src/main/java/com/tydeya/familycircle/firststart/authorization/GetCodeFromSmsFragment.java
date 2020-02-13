@@ -25,8 +25,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.accountsynchronization.AccountIsExistResultRecipient;
-import com.tydeya.familycircle.accountsynchronization.AccountPhoneSynchronizationTool;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountIsExistResultRecipient;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountPhoneSynchronizationTool;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 
@@ -179,8 +179,10 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
 
     @Override
     public void isNotExist() {
+        Bundle bundle = new Bundle();
+        bundle.putString("phone_number", getArguments().getString("userPhoneNumber"));
         closeLoadingDialog();
-        navController.navigate(R.id.createNewAccountFragment);
+        navController.navigate(R.id.createNewAccountFragment, bundle);
     }
 
     @Override

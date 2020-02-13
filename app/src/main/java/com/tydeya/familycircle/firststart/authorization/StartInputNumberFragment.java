@@ -22,8 +22,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hbb20.CountryCodePicker;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.accountsynchronization.AccountIsExistResultRecipient;
-import com.tydeya.familycircle.accountsynchronization.AccountPhoneSynchronizationTool;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountIsExistResultRecipient;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountPhoneSynchronizationTool;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 
 import java.lang.ref.WeakReference;
@@ -158,8 +158,10 @@ public class StartInputNumberFragment extends Fragment implements AccountIsExist
 
     @Override
     public void isNotExist() {
+        Bundle bundle = new Bundle();
+        bundle.putString("phone_number", countryPicker.getFullNumberWithPlus());
         closeLoadingDialog();
-        navController.navigate(R.id.createNewAccountFragment);
+        navController.navigate(R.id.createNewAccountFragment, bundle);
     }
 
     @Override

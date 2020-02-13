@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.accountsynchronization;
+package com.tydeya.familycircle.synchronization.accountexisting;
 
 import com.google.firebase.firestore.QuerySnapshot;
 
