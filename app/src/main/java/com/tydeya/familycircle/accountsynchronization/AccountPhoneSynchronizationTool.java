@@ -30,7 +30,7 @@ public class AccountPhoneSynchronizationTool {
             }
         });
         querySnapshotTask.addOnFailureListener(e -> {
-            accountIsExistResultRecipient.get().isError();
+            accountIsExistResultRecipient.get().isError(e);
         });
     }
 }

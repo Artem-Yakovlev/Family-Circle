@@ -3,12 +3,12 @@ package com.tydeya.familycircle.firststart.authorization;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,19 +51,16 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
 
                 @Override
                 public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                    Toast.makeText(getContext(), "Authentication success", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onVerificationFailed(@NonNull FirebaseException e) {
-                    Toast.makeText(getContext(), "Authentication failed", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onCodeSent(@NonNull String s,
                                        @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                     super.onCodeSent(s, forceResendingToken);
-                    Toast.makeText(getContext(), "Code sent", Toast.LENGTH_LONG).show();
                 }
             };
 
@@ -162,14 +159,12 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), task -> {
 
-                    if (loadingDialog.isShowing()) {
-                        loadingDialog.cancel();
-                    }
-
                     if (task.isSuccessful()) {
                         AccountPhoneSynchronizationTool accountPhoneSynchronizationTool =
                                 new AccountPhoneSynchronizationTool(new WeakReference<>(this));
+                        accountPhoneSynchronizationTool.isAccountWithPhoneExist(getArguments().getString("userPhoneNumber"));
                     } else {
+                        closeLoadingDialog();
                         Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
                                 .show();
                     }
@@ -178,16 +173,25 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
 
     @Override
     public void isExist(QuerySnapshot queryDocumentSnapshots) {
-        Toast.makeText(getContext(), "Exist", Toast.LENGTH_LONG).show();
+        closeLoadingDialog();
+        navController.navigate(R.id.selectFamilyFragment);
     }
 
     @Override
     public void isNotExist() {
-        Toast.makeText(getContext(), "Not exist", Toast.LENGTH_LONG).show();
+        closeLoadingDialog();
+        navController.navigate(R.id.createNewAccountFragment);
     }
 
     @Override
-    public void isError() {
-        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+    public void isError(Exception e) {
+        closeLoadingDialog();
+        Log.d("ASMR", e.toString());
+    }
+
+    private void closeLoadingDialog() {
+        if (loadingDialog.isShowing()) {
+            loadingDialog.cancel();
+        }
     }
 }

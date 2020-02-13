@@ -8,5 +8,5 @@ public interface AccountIsExistResultRecipient {
 
     void isNotExist();
 
-    void isError();
+    void isError(Exception e);
 }
