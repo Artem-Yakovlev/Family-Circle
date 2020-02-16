@@ -88,4 +88,10 @@ public class FamilyMembersStoriesRecyclerViewAdapter
         void onClickMemberStory(int position);
     }
 
+    public void refreshData(ArrayList<FamilyMember> familyMembers) {
+        this.familyMembers.clear();
+        this.familyMembers = familyMembers;
+        notifyDataSetChanged();
+    }
+
 }

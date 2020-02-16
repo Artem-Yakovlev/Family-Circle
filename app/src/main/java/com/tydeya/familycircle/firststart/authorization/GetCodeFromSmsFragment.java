@@ -3,12 +3,12 @@ package com.tydeya.familycircle.firststart.authorization;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,14 +23,18 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountIsExistResultRecipient;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountPhoneSynchronizationTool;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 
-public class GetCodeFromSmsFragment extends Fragment {
+public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistResultRecipient {
 
     private View root;
     private FirebaseAuth firebaseAuth;
@@ -47,19 +51,16 @@ public class GetCodeFromSmsFragment extends Fragment {
 
                 @Override
                 public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                    Toast.makeText(getContext(), "Authentication success", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onVerificationFailed(@NonNull FirebaseException e) {
-                    Toast.makeText(getContext(), "Authentication failed", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onCodeSent(@NonNull String s,
                                        @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                     super.onCodeSent(s, forceResendingToken);
-                    Toast.makeText(getContext(), "Code sent", Toast.LENGTH_LONG).show();
                 }
             };
 
@@ -92,13 +93,13 @@ public class GetCodeFromSmsFragment extends Fragment {
             public void onTick(long l) {
 
                 timerStringBuffer = new StringBuffer();
-                timerStringBuffer.append((l/60000)/1000).append(":");
+                timerStringBuffer.append((l / 60000) / 1000).append(":");
 
-                if ((l%60000)/1000 < 10){
+                if ((l % 60000) / 1000 < 10) {
                     timerStringBuffer.append("0");
                 }
 
-                timerStringBuffer.append((l%60000)/1000);
+                timerStringBuffer.append((l % 60000) / 1000);
                 resendTimerTextView.setText(timerStringBuffer);
 
             }
@@ -125,7 +126,7 @@ public class GetCodeFromSmsFragment extends Fragment {
 
     }
 
-    private void resendSms(){
+    private void resendSms() {
         assert getArguments() != null && getActivity() != null;
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -153,20 +154,46 @@ public class GetCodeFromSmsFragment extends Fragment {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         assert getActivity() != null;
+        assert getArguments() != null;
 
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), task -> {
 
-                    if (loadingDialog.isShowing()){
-                        loadingDialog.cancel();
-                    }
-
                     if (task.isSuccessful()) {
-                        navController.navigate(R.id.createNewAccountFragment);
+                        AccountPhoneSynchronizationTool accountPhoneSynchronizationTool =
+                                new AccountPhoneSynchronizationTool(new WeakReference<>(this));
+                        accountPhoneSynchronizationTool.isAccountWithPhoneExist(getArguments().getString("userPhoneNumber"));
                     } else {
+                        closeLoadingDialog();
                         Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 });
+    }
+
+    @Override
+    public void isExist(QuerySnapshot queryDocumentSnapshots) {
+        closeLoadingDialog();
+        navController.navigate(R.id.selectFamilyFragment);
+    }
+
+    @Override
+    public void isNotExist() {
+        Bundle bundle = new Bundle();
+        bundle.putString("phone_number", getArguments().getString("userPhoneNumber"));
+        closeLoadingDialog();
+        navController.navigate(R.id.createNewAccountFragment, bundle);
+    }
+
+    @Override
+    public void isError(Exception e) {
+        closeLoadingDialog();
+        Log.d("ASMR", e.toString());
+    }
+
+    private void closeLoadingDialog() {
+        if (loadingDialog.isShowing()) {
+            loadingDialog.cancel();
+        }
     }
 }

@@ -3,10 +3,10 @@ package com.tydeya.familycircle.firststart.authorization;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +19,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hbb20.CountryCodePicker;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountIsExistResultRecipient;
+import com.tydeya.familycircle.synchronization.accountexisting.AccountPhoneSynchronizationTool;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,7 +35,7 @@ import java.util.concurrent.TimeUnit;
  * @author Artem Yakovlev
  **/
 
-public class StartInputNumberFragment extends Fragment {
+public class StartInputNumberFragment extends Fragment implements AccountIsExistResultRecipient {
 
     private View root;
     private NavController navController;
@@ -42,19 +46,20 @@ public class StartInputNumberFragment extends Fragment {
 
     private ProgressDialog loadingDialog;
 
+    private AccountPhoneSynchronizationTool accountPhoneSynchronizationTool;
+
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks authCallbacks =
             new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
                 @Override
                 public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                    closeLoadingDialog();
-                    navController.navigate(R.id.createNewAccountFragment);
+                    accountPhoneSynchronizationTool.isAccountWithPhoneExist(countryPicker.getFullNumberWithPlus());
                 }
 
                 @Override
                 public void onVerificationFailed(@NonNull FirebaseException e) {
                     closeLoadingDialog();
-                    Toast.makeText(getContext(), "Authentication failed", Toast.LENGTH_LONG).show();
+                    Log.d("ASMR", "Auth failed: " + e.toString());
                 }
 
                 @Override
@@ -67,12 +72,6 @@ public class StartInputNumberFragment extends Fragment {
                     bundle.putString("userCodeId", s);
                     bundle.putString("userPhoneNumber", countryPicker.getFullNumberWithPlus());
                     navController.navigate(R.id.getCodeFromSmsFragment, bundle);
-                }
-
-                private void closeLoadingDialog() {
-                    if (loadingDialog.isShowing()) {
-                        loadingDialog.cancel();
-                    }
                 }
             };
 
@@ -106,6 +105,8 @@ public class StartInputNumberFragment extends Fragment {
                         .getResources().getString(R.string.start_input_number_invalid_error));
             }
         });
+        accountPhoneSynchronizationTool =
+                new AccountPhoneSynchronizationTool(new WeakReference<>(this));
     }
 
 
@@ -149,5 +150,29 @@ public class StartInputNumberFragment extends Fragment {
                 authCallbacks);
     }
 
+    @Override
+    public void isExist(QuerySnapshot queryDocumentSnapshots) {
+        closeLoadingDialog();
+        navController.navigate(R.id.selectFamilyFragment);
+    }
+
+    @Override
+    public void isNotExist() {
+        Bundle bundle = new Bundle();
+        bundle.putString("phone_number", countryPicker.getFullNumberWithPlus());
+        closeLoadingDialog();
+        navController.navigate(R.id.createNewAccountFragment, bundle);
+    }
+
+    @Override
+    public void isError(Exception e) {
+        Log.d("ASMR", e.toString());
+    }
+
+    private void closeLoadingDialog() {
+        if (loadingDialog.isShowing()) {
+            loadingDialog.cancel();
+        }
+    }
 }
 
