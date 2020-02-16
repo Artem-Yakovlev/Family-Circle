@@ -10,7 +10,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.firststart.FirstStartActivity;
-import com.tydeya.familycircle.user.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         assert navHostFragment != null;
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+        if (!dataChecked) {
+            getDataAboutUser();
+        }
     }
 
     @Override
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
         } else {
             dataChecked = true;
-            User.getInstance().updateDataFromServer(auth.getCurrentUser().getPhoneNumber());
+            //User.getInstance().updateDataFromServer(auth.getCurrentUser().getPhoneNumber(), () ->{});
         }
     }
 

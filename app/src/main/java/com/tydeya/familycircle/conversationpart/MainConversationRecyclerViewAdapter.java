@@ -95,5 +95,11 @@ public class MainConversationRecyclerViewAdapter
         void onClickConversation(int position);
     }
 
+    void refreshData(ArrayList<FamilyConversation> conversations) {
+        this.conversations.clear();
+        this.conversations = conversations;
+        notifyDataSetChanged();
+    }
+
 }
 

@@ -20,10 +20,12 @@ import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
 
-public class MainConversationPage extends Fragment implements MainConversationRecyclerViewAdapter.OnClickConversationListener {
+public class MainConversationPage extends Fragment implements MainConversationRecyclerViewAdapter.OnClickConversationListener,
+ConversationUpdatedResultRecipient{
 
     private RecyclerView recyclerView;
     private NavController navController;
+    private MainConversationRecyclerViewAdapter recyclerViewAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +33,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
         View root = inflater.inflate(R.layout.fragment_main_conversation_page, container, false);
         recyclerView = root.findViewById(R.id.main_conversation_page_recycler_view);
         navController = NavHostFragment.findNavController(this);
+        User.getInstance().updateConversationData(this);
         return root;
     }
 
@@ -38,7 +41,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MainConversationRecyclerViewAdapter recyclerViewAdapter = new MainConversationRecyclerViewAdapter(getContext(),
+        recyclerViewAdapter = new MainConversationRecyclerViewAdapter(getContext(),
                 User.getInstance().getFamily().getFamilyConversations(), new WeakReference<>(this));
         recyclerView.setAdapter(recyclerViewAdapter);
 
@@ -52,5 +55,10 @@ public class MainConversationPage extends Fragment implements MainConversationRe
         intent.putExtra("correspondencePosition", position);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void conversationDataUpdated() {
+        recyclerViewAdapter.refreshData(User.getInstance().getFamily().getFamilyConversations());
     }
 }
