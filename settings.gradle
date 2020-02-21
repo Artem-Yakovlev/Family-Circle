@@ -1,2 +1,5 @@
 include ':app'
 rootProject.name='FamilyCircle'
+include ':data'
+include ':domain'
+include ':usecases'
