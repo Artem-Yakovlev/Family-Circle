@@ -6,7 +6,7 @@
     app:startDestination="@id/mainLivePage">
     <fragment
         android:id="@+id/mainLivePage"
-        android:name="com.tydeya.familycircle.livepart.MainLivePage"
+        android:name="com.tydeya.familycircle.ui.mainlivepage.details.MainLiveFragment"
         android:label="fragment_main_live_page"
         tools:layout="@layout/fragment_main_live_page" >
         <action
