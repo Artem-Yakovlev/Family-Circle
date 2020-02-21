@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.conversation.messages.Message;
-import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
+import com.tydeya.domain.messages.Message;
+import com.tydeya.domain.messages.PersonMessage;
 import com.tydeya.familycircle.user.User;
 
 import java.util.ArrayList;

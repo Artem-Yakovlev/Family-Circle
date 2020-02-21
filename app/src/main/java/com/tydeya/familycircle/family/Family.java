@@ -1,12 +1,12 @@
 package com.tydeya.familycircle.family;
 
-import com.tydeya.familycircle.family.contact.FamilyContact;
+import com.tydeya.domain.contact.FamilyContact;
 import com.tydeya.familycircle.family.conversation.FamilyConversation;
-import com.tydeya.familycircle.family.description.FamilyDescription;
-import com.tydeya.familycircle.family.management.IdentificationCode;
-import com.tydeya.familycircle.family.management.Plan;
-import com.tydeya.familycircle.family.material.Attachments;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.domain.description.FamilyDescription;
+import com.tydeya.domain.management.IdentificationCode;
+import com.tydeya.domain.management.Plan;
+import com.tydeya.domain.material.Attachments;
+import com.tydeya.domain.member.FamilyMember;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,9 @@
-package com.tydeya.familycircle.family.member;
+package com.tydeya.domain.member;
 
-import android.net.Uri;
 
-import com.tydeya.familycircle.family.management.AccessLevel;
-import com.tydeya.familycircle.family.management.IdentificationCode;
-import com.tydeya.familycircle.family.management.Plan;
+import com.tydeya.domain.management.AccessLevel;
+import com.tydeya.domain.management.IdentificationCode;
+import com.tydeya.domain.management.Plan;
 
 import java.util.Calendar;
 
@@ -18,16 +17,16 @@ public class ActiveMember extends FamilyMember {
         super(name);
     }
 
-    ActiveMember(String name, Calendar birthDate, Uri imageUri,
+    ActiveMember(String name, Calendar birthDate, String imageAddress,
                  String descriptionText, String phoneNumber) {
-        super(name, birthDate, imageUri, descriptionText, phoneNumber);
+        super(name, birthDate, imageAddress, descriptionText, phoneNumber);
     }
 
     public static class Builder {
 
         private String name;
         private Calendar birthDate;
-        private Uri imageUri;
+        private String imageAddress;
         private String descriptionText;
         private String phoneNumber;
 
@@ -43,8 +42,8 @@ public class ActiveMember extends FamilyMember {
             this.birthDate = birthDate;
         }
 
-        public void setImageUri(Uri imageUri) {
-            this.imageUri = imageUri;
+        public void setImageAddress(String imageAddress) {
+            this.imageAddress = imageAddress;
         }
 
         public void setDescriptionText(String descriptionText) {
@@ -56,7 +55,7 @@ public class ActiveMember extends FamilyMember {
         }
 
         public ActiveMember build() {
-            return new ActiveMember(name, birthDate, imageUri, descriptionText, phoneNumber);
+            return new ActiveMember(name, birthDate, imageAddress, descriptionText, phoneNumber);
         }
     }
 

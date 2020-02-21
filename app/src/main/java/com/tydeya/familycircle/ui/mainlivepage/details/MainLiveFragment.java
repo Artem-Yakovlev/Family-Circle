@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.domain.member.FamilyMember;
 import com.tydeya.familycircle.ui.mainlivepage.abstraction.LivePagePresenter;
 import com.tydeya.familycircle.ui.mainlivepage.abstraction.LivePageView;
 import com.tydeya.familycircle.ui.mainlivepage.details.membersstoriesadapter.FamilyMembersStoriesRecyclerViewAdapter;

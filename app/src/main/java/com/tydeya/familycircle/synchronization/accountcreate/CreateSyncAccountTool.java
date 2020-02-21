@@ -3,7 +3,7 @@ package com.tydeya.familycircle.synchronization.accountcreate;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
-import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.domain.member.ActiveMember;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;

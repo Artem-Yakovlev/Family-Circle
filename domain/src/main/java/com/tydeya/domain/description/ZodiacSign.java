@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.family.description;
+package com.tydeya.domain.description;
 
 import java.util.Calendar;
 

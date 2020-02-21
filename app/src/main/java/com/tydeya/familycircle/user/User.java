@@ -9,11 +9,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.conversationpart.ConversationUpdatedResultRecipient;
 import com.tydeya.familycircle.family.Family;
 import com.tydeya.familycircle.family.conversation.FamilyConversation;
-import com.tydeya.familycircle.family.conversation.messages.Message;
-import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
-import com.tydeya.familycircle.family.description.FamilyDescription;
-import com.tydeya.familycircle.family.member.ActiveMember;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.domain.messages.Message;
+import com.tydeya.domain.messages.PersonMessage;
+import com.tydeya.domain.description.FamilyDescription;
+import com.tydeya.domain.member.ActiveMember;
+import com.tydeya.domain.member.FamilyMember;
 
 import java.util.ArrayList;
 import java.util.Calendar;

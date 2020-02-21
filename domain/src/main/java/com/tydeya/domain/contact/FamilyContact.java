@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.family.contact;
+package com.tydeya.domain.contact;
 
 public class FamilyContact extends Contact {
 }

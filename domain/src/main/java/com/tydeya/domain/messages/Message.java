@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.family.conversation.messages;
+package com.tydeya.domain.messages;
 
 import java.util.Calendar;
 
@@ -6,7 +6,7 @@ public abstract class Message {
     private Calendar time;
     private String text;
 
-    public Message(Calendar time, String text) {
+    Message(Calendar time, String text) {
         this.time = time;
         this.text = text;
     }

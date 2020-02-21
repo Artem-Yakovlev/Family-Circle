@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.family.conversation.messages;
+package com.tydeya.domain.messages;
 
 import java.util.Calendar;
 

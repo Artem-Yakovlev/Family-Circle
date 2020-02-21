@@ -1,9 +1,8 @@
-package com.tydeya.familycircle.family.member;
+package com.tydeya.domain.member;
 
-import android.net.Uri;
 
-import com.tydeya.familycircle.family.contact.PersonContact;
-import com.tydeya.familycircle.family.description.PersonDescription;
+import com.tydeya.domain.contact.PersonContact;
+import com.tydeya.domain.description.PersonDescription;
 
 import java.util.Calendar;
 
@@ -16,10 +15,10 @@ public abstract class FamilyMember {
         this.name = name;
     }
 
-    FamilyMember(String name, Calendar birthDate, Uri imageUri, String descriptionText, String phoneNumber){
+    FamilyMember(String name, Calendar birthDate, String imageAddress, String descriptionText, String phoneNumber){
         this.name = name;
         this.contact = new PersonContact(phoneNumber);
-        this.description = new PersonDescription(descriptionText, imageUri, birthDate);
+        this.description = new PersonDescription(descriptionText, imageAddress, birthDate);
     }
 
     public String getName() {

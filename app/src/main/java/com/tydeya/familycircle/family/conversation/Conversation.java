@@ -2,7 +2,7 @@ package com.tydeya.familycircle.family.conversation;
 
 import android.net.Uri;
 
-import com.tydeya.familycircle.family.conversation.messages.Message;
+import com.tydeya.domain.messages.Message;
 
 import java.util.ArrayList;
 

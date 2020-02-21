@@ -3,8 +3,8 @@ package com.tydeya.familycircle.family.conversation;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.tydeya.familycircle.family.conversation.messages.Message;
-import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.domain.messages.Message;
+import com.tydeya.domain.member.ActiveMember;
 
 import java.util.ArrayList;
 

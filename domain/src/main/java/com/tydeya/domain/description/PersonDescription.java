@@ -1,6 +1,4 @@
-package com.tydeya.familycircle.family.description;
-
-import android.net.Uri;
+package com.tydeya.domain.description;
 
 import java.util.Calendar;
 
@@ -8,8 +6,8 @@ public class PersonDescription extends Description {
     private Calendar birthDate;
     private ZodiacSign zodiacSign;
 
-    public PersonDescription(String text, Uri photo, Calendar birthDate) {
-        super(text, photo);
+    public PersonDescription(String text, String photoAddress, Calendar birthDate) {
+        super(text, photoAddress);
         this.birthDate = birthDate;
         this.zodiacSign = ZodiacSign.getZodiacSign(birthDate);
     }

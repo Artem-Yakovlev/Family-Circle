@@ -25,7 +25,7 @@ import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresent
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
-import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.domain.member.ActiveMember;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.synchronization.accountcreate.CreateSyncAccountTool;
 import com.tydeya.familycircle.synchronization.accountcreate.SyncAccountCreatedRecipient;
@@ -125,7 +125,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
-        activeMemberBuilder.setImageUri(imageUri);
+        activeMemberBuilder.setImageAddress(imageUri);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.tydeya.familycircle;
 
-import com.tydeya.familycircle.family.description.PersonDescription;
-import com.tydeya.familycircle.family.description.ZodiacSign;
+import com.tydeya.domain.description.PersonDescription;
+import com.tydeya.domain.description.ZodiacSign;
 
 import org.junit.Assert;
 import org.junit.Before;

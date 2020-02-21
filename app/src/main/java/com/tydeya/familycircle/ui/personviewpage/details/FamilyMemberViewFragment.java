@@ -15,7 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.domain.member.FamilyMember;
 import com.tydeya.familycircle.ui.personviewpage.abstraction.FamilyMemberView;
 import com.tydeya.familycircle.user.User;
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
+import com.tydeya.domain.messages.PersonMessage;
 import com.tydeya.familycircle.user.User;
 
 public class CorrespondenceFragment extends Fragment {

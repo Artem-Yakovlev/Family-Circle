@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.domain.member.FamilyMember;
 
 import java.util.ArrayList;
 
