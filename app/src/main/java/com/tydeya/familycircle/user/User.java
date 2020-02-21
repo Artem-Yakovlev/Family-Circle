@@ -109,6 +109,7 @@ public class User {
                 FamilyConversation conversation = new FamilyConversation(messages,
                         queryDocumentSnapshots.getDocuments().get(i).get("name").toString());
                 conversations.add(conversation);
+
             }
             getFamily().setFamilyConversations(conversations);
             conversationUpdatedResultRecipient.conversationDataUpdated();

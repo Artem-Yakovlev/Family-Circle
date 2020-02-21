@@ -41,7 +41,9 @@ public class CorrespondenceFragment extends Fragment {
         chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), User.getInstance().getFamily().getFamilyConversations()
                 .get(MessagingActivity.correspondencePosition).getMessages());
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
+
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+
         sendButton.setOnClickListener((view -> {
             if (!inputField.getText().toString().equals("")) {
                 PersonMessage actualMessage = new PersonMessage(null, inputField.getText().toString(), User.getInstance().getUserFamilyMember());
