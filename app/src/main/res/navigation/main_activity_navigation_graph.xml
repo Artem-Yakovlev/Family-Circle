@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/familyMemberViewFragment"
-        android:name="com.tydeya.familycircle.personviewpage.FamilyMemberViewFragment"
+        android:name="com.tydeya.familycircle.ui.personviewpage.details.FamilyMemberViewFragment"
         android:label="fragment_family_member_view"
         tools:layout="@layout/fragment_family_member_view">
         <argument
@@ -29,17 +29,17 @@
         tools:layout="@layout/fragment_main_conversation_page" />
     <fragment
         android:id="@+id/mainPlanPage"
-        android:name="com.tydeya.familycircle.planpart.MainPlanPage"
+        android:name="com.tydeya.familycircle.ui.planpage.details.MainPlanPage"
         android:label="fragment_main_plan_page"
         tools:layout="@layout/fragment_main_plan_page" />
     <fragment
         android:id="@+id/mainMapPage"
-        android:name="com.tydeya.familycircle.mappart.MainMapPage"
+        android:name="com.tydeya.familycircle.ui.mappage.details.MainMapPage"
         android:label="fragment_main_map_page"
         tools:layout="@layout/fragment_main_map_page" />
     <fragment
         android:id="@+id/mainPanelPage"
-        android:name="com.tydeya.familycircle.panelpart.MainPanelPage"
+        android:name="com.tydeya.familycircle.ui.menupage.details.MainPanelPage"
         android:label="fragment_main_panel_page"
         tools:layout="@layout/fragment_main_panel_page" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.personviewpage;
+package com.tydeya.familycircle.ui.personviewpage.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,10 +16,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.familycircle.ui.personviewpage.abstraction.FamilyMemberView;
 import com.tydeya.familycircle.user.User;
 
 
-public class FamilyMemberViewFragment extends Fragment {
+public class FamilyMemberViewFragment extends Fragment implements FamilyMemberView {
 
     private TextView nameText;
     private TextView birthdateText;
@@ -28,8 +29,7 @@ public class FamilyMemberViewFragment extends Fragment {
     private Toolbar toolbar;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_family_member_view, container, false);
 
@@ -43,7 +43,7 @@ public class FamilyMemberViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        // TODO Need to refactoring with help of data module
         assert getArguments() != null;
         personPosition = getArguments().getInt("personPosition", -1);
         if (personPosition == -1) {

@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.panelpart;
+package com.tydeya.familycircle.ui.planpage.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +10,14 @@ import androidx.fragment.app.Fragment;
 import com.tydeya.familycircle.R;
 
 
-public class MainPanelPage extends Fragment {
+public class MainPlanPage extends Fragment {
 
-    private View root;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        root = inflater.inflate(R.layout.fragment_main_panel_page, container, false);
-        return root;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_main_plan_page, container, false);
     }
+
 }

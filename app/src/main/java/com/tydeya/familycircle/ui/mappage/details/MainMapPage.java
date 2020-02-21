@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.mappart;
+package com.tydeya.familycircle.ui.mappage.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
