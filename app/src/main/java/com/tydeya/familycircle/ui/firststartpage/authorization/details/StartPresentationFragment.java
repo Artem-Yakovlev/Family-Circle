@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart.authorization;
+package com.tydeya.familycircle.ui.firststartpage.authorization.details;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,9 +17,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.ui.firststartpage.authorization.abstraction.StartPresentationPagerListener;
 
 
-public class StartPresentationFragment extends Fragment {
+public class StartPresentationFragment extends Fragment implements StartPresentationPagerListener {
 
     private View root;
     private ViewPager startPresentationViewPager;
@@ -32,22 +35,23 @@ public class StartPresentationFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_start_presentation, container, false);
-
         navController = NavHostFragment.findNavController(this);
 
         startPresentationViewPager = root.findViewById(R.id.start_presentation_view_pager);
-        startPresentationPagerAdapter = new StartPresentationPagerAdapter(root.getContext());
-        startPresentationViewPager.setAdapter(startPresentationPagerAdapter);
-
         dotsLayout = root.findViewById(R.id.start_presentation_slide_dots);
-        createDotsIndicator(dotsLayout);
-
-        startPresentationViewPager.addOnPageChangeListener(changePageListener);
-
         startButton = root.findViewById(R.id.start_presentation_start_button);
-        startButton.setOnClickListener(view -> navController.navigate(R.id.startInputNumberFragment));
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        startPresentationPagerAdapter = new StartPresentationPagerAdapter(root.getContext());
+        startPresentationViewPager.setAdapter(startPresentationPagerAdapter);
+        createDotsIndicator(dotsLayout);
+        startPresentationViewPager.addOnPageChangeListener(new StartPresentationOnPageListener(this));
+        startButton.setOnClickListener(v -> navController.navigate(R.id.startInputNumberFragment));
     }
 
     private void createDotsIndicator(LinearLayout linearLayout) {
@@ -67,28 +71,14 @@ public class StartPresentationFragment extends Fragment {
         }
     }
 
-    private ViewPager.OnPageChangeListener changePageListener = new ViewPager.OnPageChangeListener(){
-
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+    @Override
+    public void onPageSelected(int position) {
+        for (TextView dot : dots) {
+            dot.setTextColor(getResources().getColor(R.color.colorTransparentGray));
         }
 
-        @Override
-        public void onPageSelected(int position) {
-
-            for (TextView dot : dots) {
-                dot.setTextColor(getResources().getColor(R.color.colorTransparentGray));
-            }
-
-            if (dots.length > 0){
-                dots[position].setTextColor(getResources().getColor(R.color.colorPrimary));
-            }
+        if (dots.length > 0){
+            dots[position].setTextColor(getResources().getColor(R.color.colorPrimary));
         }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    };
+    }
 }

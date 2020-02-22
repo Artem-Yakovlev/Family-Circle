@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startPresentationFragment"
-        android:name="com.tydeya.familycircle.firststart.authorization.StartPresentationFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.authorization.details.StartPresentationFragment"
         android:label="fragment_start_presentation"
         tools:layout="@layout/fragment_start_presentation">
         <action

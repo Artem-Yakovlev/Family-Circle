@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart.authorization;
+package com.tydeya.familycircle.ui.firststartpage.authorization.details;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -69,7 +69,6 @@ class StartPresentationPagerAdapter extends PagerAdapter {
         image.setImageResource(this.presentationImages[position]);
         title.setText(this.presentationTitles[position]);
         text.setText(this.presentationTexts[position]);
-
         container.addView(view);
         return view;
     }
