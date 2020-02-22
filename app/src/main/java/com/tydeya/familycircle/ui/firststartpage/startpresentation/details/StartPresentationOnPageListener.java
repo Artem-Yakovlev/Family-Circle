@@ -1,8 +1,8 @@
-package com.tydeya.familycircle.ui.firststartpage.authorization.details;
+package com.tydeya.familycircle.ui.firststartpage.startpresentation.details;
 
 import androidx.viewpager.widget.ViewPager;
 
-import com.tydeya.familycircle.ui.firststartpage.authorization.abstraction.StartPresentationPagerListener;
+import com.tydeya.familycircle.ui.firststartpage.startpresentation.abstraction.StartPresentationPagerListener;
 
 public class StartPresentationOnPageListener implements ViewPager.OnPageChangeListener {
 

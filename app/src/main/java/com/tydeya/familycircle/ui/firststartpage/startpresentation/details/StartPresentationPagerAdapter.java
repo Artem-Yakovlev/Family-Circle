@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.firststartpage.authorization.details;
+package com.tydeya.familycircle.ui.firststartpage.startpresentation.details;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.tydeya.familycircle.R;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingLeft="15dp"
     android:paddingTop="20dp"
@@ -46,10 +46,10 @@
             android:id="@+id/get_code_page_input"
             android:layout_width="@dimen/get_code_page_input_width"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:maxLength="6"
             android:textAlignment="gravity"
-            android:textSize="@dimen/get_code_page_input_text_size"
-            android:inputType="number"/>
+            android:textSize="@dimen/get_code_page_input_text_size" />
 
     </LinearLayout>
 
@@ -75,24 +75,24 @@
             android:id="@+id/get_code_page_sms_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/get_code_page_resend_sms_btn_selector"
+            android:drawableStart="@drawable/get_code_page_resend_sms_pic_selector"
+            android:drawablePadding="10dp"
             android:fontFamily="@font/poppins"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/get_code_page_reset_sms"
-            android:textColor="@color/get_code_page_resend_sms_color"
-            android:background="@drawable/get_code_page_resend_sms_btn_selector"
-            android:drawableStart="@drawable/get_code_page_resend_sms_pic_selector"
-            android:drawablePadding="10dp"/>
+            android:textColor="@color/get_code_page_resend_sms_color" />
 
         <TextView
             android:id="@+id/get_code_page_resend_timer"
-            android:layout_marginStart="40dp"
-            android:gravity="center_vertical"
-            android:layout_width="30dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
             android:fontFamily="@font/poppins"
-            android:textColor="@color/colorGray"
-            android:text="@string/minute_timer"/>
+            android:gravity="center_vertical"
+            android:text="@string/minute_timer"
+            android:textColor="@color/colorGray" />
 
     </LinearLayout>
 

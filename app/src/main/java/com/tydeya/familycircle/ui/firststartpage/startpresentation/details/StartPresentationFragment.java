@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.firststartpage.authorization.details;
+package com.tydeya.familycircle.ui.firststartpage.startpresentation.details;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.ui.firststartpage.authorization.abstraction.StartPresentationPagerListener;
+import com.tydeya.familycircle.ui.firststartpage.startpresentation.abstraction.StartPresentationPagerListener;
 
 
 public class StartPresentationFragment extends Fragment implements StartPresentationPagerListener {
