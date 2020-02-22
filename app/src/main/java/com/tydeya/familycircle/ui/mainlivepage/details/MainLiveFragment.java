@@ -13,15 +13,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.tydeya.familycircle.R;
 import com.tydeya.domain.member.FamilyMember;
+import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.ui.mainlivepage.abstraction.LivePagePresenter;
 import com.tydeya.familycircle.ui.mainlivepage.abstraction.LivePageView;
 import com.tydeya.familycircle.ui.mainlivepage.details.membersstoriesadapter.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.mainlivepage.details.membersstoriesadapter.OnClickMemberStoryListener;
 import com.tydeya.familycircle.user.DataUpdatedResultRecipient;
-import com.tydeya.familycircle.user.User;
 
 import java.util.ArrayList;
 
@@ -41,14 +39,15 @@ public class MainLiveFragment extends Fragment implements OnClickMemberStoryList
         View root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
         navController = NavHostFragment.findNavController(this);
         familyStoriesRecyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
-        User.getInstance().updateDataFromServer(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), this);
+        //User.getInstance().updateDataFromServer(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), this);
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setRecyclerView(User.getInstance().getFamily().getFamilyMembers());
+        //TODO Mock: family members
+        setRecyclerView(new ArrayList<>());
         livePagePresenter = new SimpleLivePagePresenter(this, null);
 
     }
@@ -60,7 +59,7 @@ public class MainLiveFragment extends Fragment implements OnClickMemberStoryList
 
     @Override
     public void familyMemberUpdated() {
-        recyclerViewAdapter.refreshData(User.getInstance().getFamily().getFamilyMembers());
+        //recyclerViewAdapter.refreshData(User.getInstance().getFamily().getFamilyMembers());
     }
 
     @Override

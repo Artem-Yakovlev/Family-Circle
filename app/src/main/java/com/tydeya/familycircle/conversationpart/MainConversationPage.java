@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.conversationpart.chatpart.MessagingActivity;
-import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 public class MainConversationPage extends Fragment implements MainConversationRecyclerViewAdapter.OnClickConversationListener,
 ConversationUpdatedResultRecipient{
@@ -33,7 +33,7 @@ ConversationUpdatedResultRecipient{
         View root = inflater.inflate(R.layout.fragment_main_conversation_page, container, false);
         recyclerView = root.findViewById(R.id.main_conversation_page_recycler_view);
         navController = NavHostFragment.findNavController(this);
-        User.getInstance().updateConversationData(this);
+        //User.getInstance().updateConversationData(this);
         return root;
     }
 
@@ -42,7 +42,7 @@ ConversationUpdatedResultRecipient{
         super.onViewCreated(view, savedInstanceState);
 
         recyclerViewAdapter = new MainConversationRecyclerViewAdapter(getContext(),
-                User.getInstance().getFamily().getFamilyConversations(), new WeakReference<>(this));
+                new ArrayList<>(), new WeakReference<>(this));
         recyclerView.setAdapter(recyclerViewAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
@@ -59,6 +59,6 @@ ConversationUpdatedResultRecipient{
 
     @Override
     public void conversationDataUpdated() {
-        recyclerViewAdapter.refreshData(User.getInstance().getFamily().getFamilyConversations());
+        //recyclerViewAdapter.refreshData(User.getInstance().getFamily().getFamilyConversations());
     }
 }

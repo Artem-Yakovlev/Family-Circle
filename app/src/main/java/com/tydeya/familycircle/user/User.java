@@ -1,35 +1,12 @@
 package com.tydeya.familycircle.user;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.domain.description.FamilyDescription;
-import com.tydeya.domain.member.ActiveMember;
-import com.tydeya.domain.member.FamilyMember;
-import com.tydeya.domain.messages.ChatMessage;
-import com.tydeya.familycircle.conversationpart.ConversationUpdatedResultRecipient;
-import com.tydeya.familycircle.family.Family;
-import com.tydeya.familycircle.family.conversation.FamilyConversation;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+;
 
 public class User {
 
-    private ActiveMember userFamilyMember;
-    private int actualFamily = 0;
-    private ArrayList<Family> families;
-    private Settings userSettings;
-
-    private static volatile User instance;
-
 
     private User() {
-
+        /*
         families = new ArrayList<>();
         FamilyDescription testDescription = new FamilyDescription("Это тестовая семья", null);
         ArrayList<FamilyMember> familyMembers = new ArrayList<>();
@@ -49,16 +26,10 @@ public class User {
 
 
         Family testFamily = new Family(testDescription, null, familyMembers, conversations);
-        families.add(testFamily);
+        families.add(testFamily);*/
     }
 
-    public static synchronized User getInstance() {
-        if (instance == null) {
-            instance = new User();
-        }
-        return instance;
-    }
-
+    /*
     public void updateDataFromServer(String phoneNumber, DataUpdatedResultRecipient recipient) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         Task<QuerySnapshot> userDataTask = firebaseFirestore.collection("/Users")
@@ -113,19 +84,5 @@ public class User {
             getFamily().setFamilyConversations(conversations);
             conversationUpdatedResultRecipient.conversationDataUpdated();
         });
-    }
-
-
-
-    public ActiveMember getUserFamilyMember() {
-        return userFamilyMember;
-    }
-
-    public void setUserFamilyMember(ActiveMember userFamilyMember) {
-        this.userFamilyMember = userFamilyMember;
-    }
-
-    public Family getFamily() {
-        return families.get(actualFamily);
-    }
+    }*/
 }

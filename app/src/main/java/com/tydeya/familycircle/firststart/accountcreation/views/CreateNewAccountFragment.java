@@ -20,16 +20,14 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+import com.tydeya.domain.member.ActiveMember;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresenter;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
-import com.tydeya.domain.member.ActiveMember;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
-import com.tydeya.familycircle.synchronization.accountcreate.CreateSyncAccountTool;
 import com.tydeya.familycircle.synchronization.accountcreate.SyncAccountCreatedRecipient;
-import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
@@ -95,14 +93,13 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         activeMemberBuilder.setName(nameText.getText().toString());
         activeMemberBuilder.setPhoneNumber(getArguments().getString("phone_number"));
 
-        ActiveMember activeMember = activeMemberBuilder.build();
-        User user = User.getInstance();
-        user.setUserFamilyMember(activeMember);
+        //TODO Mock: Create new account
+        //ActiveMember activeMember = activeMemberBuilder.build();
+        //User user = User.getInstance();
+        //user.setUserFamilyMember(activeMember);
 
-
-
-        CreateSyncAccountTool createSyncAccountTool = new CreateSyncAccountTool(new WeakReference<>(this));
-        createSyncAccountTool.CreateAccount(user.getUserFamilyMember());
+        //CreateSyncAccountTool createSyncAccountTool = new CreateSyncAccountTool(new WeakReference<>(this));
+        //createSyncAccountTool.CreateAccount(user.getUserFamilyMember());
     }
 
     @Override

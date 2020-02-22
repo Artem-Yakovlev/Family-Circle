@@ -13,11 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.tydeya.domain.member.FamilyMember;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
-import com.tydeya.domain.member.FamilyMember;
 import com.tydeya.familycircle.ui.personviewpage.abstraction.FamilyMemberView;
-import com.tydeya.familycircle.user.User;
 
 
 public class FamilyMemberViewFragment extends Fragment implements FamilyMemberView {
@@ -50,7 +49,8 @@ public class FamilyMemberViewFragment extends Fragment implements FamilyMemberVi
             throw new IllegalArgumentException("personPosition is not found");
         }
 
-        familyMember = User.getInstance().getFamily().getFamilyMembers().get(personPosition);
+        //TODO Mock: person account
+        //familyMember = User.getInstance().getFamily().getFamilyMembers().get(personPosition);
 
         nameText.setText(familyMember.getName());
         if (familyMember.getDescription() != null && familyMember.getDescription().getBirthDate() != null) {

@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.user.User;
+
+import java.util.ArrayList;
 
 public class CorrespondenceFragment extends Fragment {
 
@@ -37,8 +38,9 @@ public class CorrespondenceFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), User.getInstance().getFamily().getFamilyConversations()
-                .get(MessagingActivity.correspondencePosition).getChatMessages());
+        //TODO MOCK chat messages
+
+        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), new ArrayList<>());
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
 
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
