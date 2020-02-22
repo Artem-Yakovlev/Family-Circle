@@ -1,22 +1,17 @@
 package com.tydeya.familycircle.family;
 
 import com.tydeya.domain.contact.FamilyContact;
-import com.tydeya.familycircle.family.conversation.FamilyConversation;
 import com.tydeya.domain.description.FamilyDescription;
-import com.tydeya.domain.management.IdentificationCode;
-import com.tydeya.domain.management.Plan;
-import com.tydeya.domain.material.Attachments;
 import com.tydeya.domain.member.FamilyMember;
+import com.tydeya.familycircle.family.conversation.FamilyConversation;
 
 import java.util.ArrayList;
 
 public class Family {
-    private IdentificationCode id;
+    private long id;
     private FamilyDescription familyDescription;
     private FamilyContact familyContact;
-    private Plan familyPlan;
     private ArrayList<FamilyMember> familyMembers;
-    private Attachments attachments;
     private ArrayList<FamilyConversation> familyConversations;
 
     public Family(FamilyDescription familyDescription, FamilyContact familyContact,

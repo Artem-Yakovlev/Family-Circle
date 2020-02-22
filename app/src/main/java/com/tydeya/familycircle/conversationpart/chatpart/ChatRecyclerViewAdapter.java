@@ -11,25 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tydeya.domain.messages.ChatMessage;
 import com.tydeya.familycircle.R;
-import com.tydeya.domain.messages.Message;
-import com.tydeya.domain.messages.PersonMessage;
-import com.tydeya.familycircle.user.User;
 
 import java.util.ArrayList;
 
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ChatMessageViewHolder> {
 
     private Context context;
-    private ArrayList<Message> messages;
+    private ArrayList<ChatMessage> chatMessages;
     private static final int OUTGOING_MESSAGE_VIEW_TYPE = 0;
     private static final int INBOX_MESSAGE_VIEW_TYPE = 1;
     private static final int INFORMATION_MESSAGE_VIEW_TYPE = 2;
 
 
-    ChatRecyclerViewAdapter(Context context, ArrayList<Message> messages) {
+    ChatRecyclerViewAdapter(Context context, ArrayList<ChatMessage> chatMessages) {
         this.context = context;
-        this.messages = messages;
+        this.chatMessages = chatMessages;
     }
 
     @NonNull
@@ -50,15 +48,18 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        if (((PersonMessage) messages.get(position)).getAuthor() == User.getInstance().getUserFamilyMember()) {
-            return OUTGOING_MESSAGE_VIEW_TYPE;
-        } else {
-            return INBOX_MESSAGE_VIEW_TYPE;
-        }
+        //TODO MESSAGE TYPE SWITCHER
+        //if (((PersonMessage) messages.get(position)).getAuthor() == User.getInstance().getUserFamilyMember()) {
+        //    return OUTGOING_MESSAGE_VIEW_TYPE;
+        //} else {
+        //    return INBOX_MESSAGE_VIEW_TYPE;
+        //}
+        return 1;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChatRecyclerViewAdapter.ChatMessageViewHolder holder, int position) {
+        /*
         switch (getItemViewType(position)) {
             case OUTGOING_MESSAGE_VIEW_TYPE:
                 holder.setMessageText(messages.get(position).getText());
@@ -67,12 +68,12 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 holder.setAuthorText(((PersonMessage) messages.get(position)).getAuthor().getName());
                 holder.setMessageText(messages.get(position).getText());
                 break;
-        }
+        }*/
     }
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return chatMessages.size();
     }
 
     static class ChatMessageViewHolder extends RecyclerView.ViewHolder {

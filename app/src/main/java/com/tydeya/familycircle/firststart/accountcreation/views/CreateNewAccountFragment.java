@@ -125,7 +125,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
-        activeMemberBuilder.setImageAddress(imageUri);
+        //activeMemberBuilder.setImageAddress(imageUri);
     }
 
     @Override

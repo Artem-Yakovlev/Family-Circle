@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.R;
-import com.tydeya.domain.messages.PersonMessage;
 import com.tydeya.familycircle.user.User;
 
 public class CorrespondenceFragment extends Fragment {
@@ -39,15 +38,15 @@ public class CorrespondenceFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), User.getInstance().getFamily().getFamilyConversations()
-                .get(MessagingActivity.correspondencePosition).getMessages());
+                .get(MessagingActivity.correspondencePosition).getChatMessages());
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
 
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         sendButton.setOnClickListener((view -> {
             if (!inputField.getText().toString().equals("")) {
-                PersonMessage actualMessage = new PersonMessage(null, inputField.getText().toString(), User.getInstance().getUserFamilyMember());
-                User.getInstance().getFamily().getFamilyConversations().get(MessagingActivity.correspondencePosition).getMessages().add(actualMessage);
+                //PersonMessage actualMessage = new PersonMessage(null, inputField.getText().toString(), User.getInstance().getUserFamilyMember());
+                //User.getInstance().getFamily().getFamilyConversations().get(MessagingActivity.correspondencePosition).getMessages().add(actualMessage);
                 inputField.setText("");
                 chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
             }

@@ -6,14 +6,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.familycircle.conversationpart.ConversationUpdatedResultRecipient;
-import com.tydeya.familycircle.family.Family;
-import com.tydeya.familycircle.family.conversation.FamilyConversation;
-import com.tydeya.domain.messages.Message;
-import com.tydeya.domain.messages.PersonMessage;
 import com.tydeya.domain.description.FamilyDescription;
 import com.tydeya.domain.member.ActiveMember;
 import com.tydeya.domain.member.FamilyMember;
+import com.tydeya.domain.messages.ChatMessage;
+import com.tydeya.familycircle.conversationpart.ConversationUpdatedResultRecipient;
+import com.tydeya.familycircle.family.Family;
+import com.tydeya.familycircle.family.conversation.FamilyConversation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,13 +35,13 @@ public class User {
         ArrayList<FamilyMember> familyMembers = new ArrayList<>();
 
 
-        ArrayList<Message> messages = new ArrayList<>();
-        messages.add(new PersonMessage(null, "Hello", new ActiveMember("Ирина Яковлева")));
-        messages.add(new PersonMessage(null, "What are you thinking about today weather?", new ActiveMember("Елена Яковлева")));
-        messages.add(new PersonMessage(null, "Nothing...", new ActiveMember("Елена Яковлева")));
-        messages.add(new PersonMessage(null, ":)", new ActiveMember("Дмитрий Яковлев")));
+        ArrayList<ChatMessage> chatMessages = new ArrayList<>();
+        //messages.add(new PersonMessage(null, "Hello", new ActiveMember("Ирина Яковлева")));
+        //messages.add(new PersonMessage(null, "What are you thinking about today weather?", new ActiveMember("Елена Яковлева")));
+        //messages.add(new PersonMessage(null, "Nothing...", new ActiveMember("Елена Яковлева")));
+        //messages.add(new PersonMessage(null, ":)", new ActiveMember("Дмитрий Яковлев")));
 
-        FamilyConversation conversation1 = new FamilyConversation(messages, "Main conf");
+        FamilyConversation conversation1 = new FamilyConversation(chatMessages, "Main conf");
         FamilyConversation conversation2 = new FamilyConversation(new ArrayList<>(), "Second conf");
         ArrayList<FamilyConversation> conversations = new ArrayList<>();
         conversations.add(conversation1);
@@ -83,8 +82,8 @@ public class User {
         activeMemberBuilder.setName(documentSnapshot.get("name").toString());
         activeMemberBuilder.setPhoneNumber(documentSnapshot.get("phone_number").toString());
         userFamilyMember = activeMemberBuilder.build();
-        getFamily().getFamilyConversations().get(actualFamily).getMessages()
-                .add(new PersonMessage(null, "It's very strange monologue!", userFamilyMember));
+        //getFamily().getFamilyConversations().get(actualFamily).getMessages()
+        //        .add(new PersonMessage(null, "It's very strange monologue!", userFamilyMember));
     }
 
     private void updateFamilyMemberData(@NonNull QuerySnapshot queryDocumentSnapshots, String phoneNumber, DataUpdatedResultRecipient recipient) {
@@ -104,9 +103,9 @@ public class User {
         conversationDataTask.addOnSuccessListener(queryDocumentSnapshots -> {
             ArrayList<FamilyConversation> conversations = new ArrayList<>();
             for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                ArrayList<Message> messages = new ArrayList<>();
+                ArrayList<ChatMessage> chatMessages = new ArrayList<>();
 
-                FamilyConversation conversation = new FamilyConversation(messages,
+                FamilyConversation conversation = new FamilyConversation(chatMessages,
                         queryDocumentSnapshots.getDocuments().get(i).get("name").toString());
                 conversations.add(conversation);
 

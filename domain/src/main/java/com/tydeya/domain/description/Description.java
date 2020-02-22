@@ -4,7 +4,7 @@ public abstract class Description {
     private String text;
     private String photoAddress;
 
-    public Description(String text, String photoAddress) {
+    Description(String text, String photoAddress) {
         this.text = text;
         this.photoAddress = photoAddress;
     }

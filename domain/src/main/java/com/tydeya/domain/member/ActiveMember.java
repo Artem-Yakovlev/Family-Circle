@@ -1,17 +1,11 @@
 package com.tydeya.domain.member;
 
 
-import com.tydeya.domain.management.AccessLevel;
-import com.tydeya.domain.management.IdentificationCode;
-import com.tydeya.domain.management.Plan;
-
 import java.util.Calendar;
 
 public class ActiveMember extends FamilyMember {
 
-    private IdentificationCode id;
-    private AccessLevel accessLevel;
-    private Plan plan;
+    private long id;
 
     public ActiveMember(String name){
         super(name);
