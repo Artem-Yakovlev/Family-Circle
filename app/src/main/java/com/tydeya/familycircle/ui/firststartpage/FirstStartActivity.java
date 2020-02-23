@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart;
+package com.tydeya.familycircle.ui.firststartpage;
 
 import android.content.Intent;
 import android.os.Bundle;

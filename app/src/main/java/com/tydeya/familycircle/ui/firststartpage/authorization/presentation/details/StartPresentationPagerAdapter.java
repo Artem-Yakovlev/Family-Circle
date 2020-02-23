@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart.authorization;
+package com.tydeya.familycircle.ui.firststartpage.authorization.presentation.details;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.tydeya.familycircle.R;
 
-class StartPresentationPagerAdapter extends PagerAdapter {
+public class StartPresentationPagerAdapter extends PagerAdapter {
 
     // Data for adapter
     private Context context;
@@ -37,7 +36,7 @@ class StartPresentationPagerAdapter extends PagerAdapter {
             R.string.start_presentation_achievement_text,
             R.string.start_presentation_productivity_text};
 
-    StartPresentationPagerAdapter(Context context){
+    public StartPresentationPagerAdapter(Context context){
         this.context = context;
     }
 

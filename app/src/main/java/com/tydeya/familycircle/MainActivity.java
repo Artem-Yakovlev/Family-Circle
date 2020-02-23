@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.tydeya.familycircle.firststart.FirstStartActivity;
+import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 
 public class MainActivity extends AppCompatActivity {
 
