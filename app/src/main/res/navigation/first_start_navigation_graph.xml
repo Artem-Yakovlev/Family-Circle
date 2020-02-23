@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/startInputNumberFragment"
-        android:name="com.tydeya.familycircle.firststart.authorization.StartInputNumberFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.details.StartInputNumberFragment"
         android:label="fragment_start_input_number"
         tools:layout="@layout/fragment_start_input_number" >
         <action
