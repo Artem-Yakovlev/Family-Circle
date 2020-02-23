@@ -1,26 +1,34 @@
 package com.tydeya.familycircle.ui.firststartpage.startinputnumber.details;
 
-import com.tydeya.familycircle.framework.accountexistingcheckup.abstraction.AccountExistingCheckUpRecipient;
-import com.tydeya.familycircle.framework.accountexistingcheckup.abstraction.AccountExistingCheckUpTool;
-import com.tydeya.familycircle.framework.accountexistingcheckup.details.AccountExistingCheckUpToolImpl;
-import com.tydeya.familycircle.framework.phoneverification.abstraction.PhoneVerificationHandler;
-import com.tydeya.familycircle.framework.phoneverification.abstraction.PhoneVerificationResultRecipient;
 import com.tydeya.familycircle.ui.firststartpage.startinputnumber.abstraction.StartInputNumberPresenter;
 import com.tydeya.familycircle.ui.firststartpage.startinputnumber.abstraction.StartInputNumberView;
+import com.tydeya.usecases.mainlivepage.firststart.abstraction.AccountExistingInteractor;
+import com.tydeya.usecases.mainlivepage.firststart.abstraction.AccountExistingInteractorCallbacks;
+import com.tydeya.usecases.mainlivepage.firststart.abstraction.VerificationInteractor;
+import com.tydeya.usecases.mainlivepage.firststart.abstraction.VerificationInteractorCallbacks;
+import com.tydeya.usecases.mainlivepage.firststart.details.AccountExistingInteractorImpl;
+import com.tydeya.usecases.mainlivepage.firststart.details.VerificationInteractorImpl;
 
-public class StartInputNumberPresenterImpl implements StartInputNumberPresenter, PhoneVerificationResultRecipient, AccountExistingCheckUpRecipient {
+public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
+        VerificationInteractorCallbacks, AccountExistingInteractorCallbacks {
 
     private StartInputNumberView startInputNumberView;
-    private PhoneVerificationHandler phoneVerificationHandler;
-    private AccountExistingCheckUpTool accountExistingCheckUpTool;
+    //TODO Inject this objects
+    private AccountExistingInteractor accountExistingInteractor;
+    private VerificationInteractor verificationInteractor;
 
-    StartInputNumberPresenterImpl(StartInputNumberView startInputNumberView, PhoneVerificationHandler phoneVerificationHandler) {
+    StartInputNumberPresenterImpl(StartInputNumberView startInputNumberView) {
         this.startInputNumberView = startInputNumberView;
-        this.phoneVerificationHandler = phoneVerificationHandler;
+        accountExistingInteractor = new AccountExistingInteractorImpl(this);
+        verificationInteractor = new VerificationInteractorImpl(this);
     }
 
+    /**
+     * View callbacks
+     */
+
     @Override
-    public void onAcceptButtonClick(boolean isPhoneNumberCorrect) {
+    public void onNextButtonClick(boolean isPhoneNumberCorrect) {
         if (isPhoneNumberCorrect) {
             startInputNumberView.phoneNumberCountryCorrect();
         } else {
@@ -29,9 +37,13 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
     }
 
     @Override
-    public void sendVerificationCode(String fullPhoneNumber) {
-        phoneVerificationHandler.verifyPhone(this, fullPhoneNumber);
+    public void verifyDialogPositiveButton(String fullPhoneNumber) {
+        verificationInteractor.verifyPhoneNumber(this, fullPhoneNumber);
     }
+
+    /**
+     * Authentication callbacks
+     */
 
     @Override
     public void onCodeSent(String userCodeId) {
@@ -40,14 +52,17 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
 
     @Override
     public void verificationSuccess(String fullPhoneNumber) {
-        accountExistingCheckUpTool = new AccountExistingCheckUpToolImpl();
-        accountExistingCheckUpTool.isExist(fullPhoneNumber, this);
+        accountExistingInteractor.accountIsExist(this, fullPhoneNumber);
     }
 
     @Override
     public void verificationFailure(Exception e) {
         startInputNumberView.verificationFailure(e);
     }
+
+    /**
+     * Account exiting tool callbacks
+     */
 
     @Override
     public void accountExistingCheckUpResult(boolean isAccountExist) {

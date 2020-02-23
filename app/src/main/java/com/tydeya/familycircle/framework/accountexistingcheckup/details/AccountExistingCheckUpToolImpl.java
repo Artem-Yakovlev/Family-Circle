@@ -5,8 +5,8 @@ import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.familycircle.framework.accountexistingcheckup.abstraction.AccountExistingCheckUpRecipient;
-import com.tydeya.familycircle.framework.accountexistingcheckup.abstraction.AccountExistingCheckUpTool;
+import com.tydeya.data.accountsync.abstraction.AccountExistingCheckUpRecipient;
+import com.tydeya.data.accountsync.abstraction.AccountExistingCheckUpTool;
 
 public class AccountExistingCheckUpToolImpl implements AccountExistingCheckUpTool {
 

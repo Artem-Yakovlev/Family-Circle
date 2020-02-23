@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.framework.phoneverification.abstraction;
+package com.tydeya.data.accountsync.abstraction;
 
 public interface PhoneVerificationHandler {
     void verifyPhone(PhoneVerificationResultRecipient recipient, String fullPhoneNumber);

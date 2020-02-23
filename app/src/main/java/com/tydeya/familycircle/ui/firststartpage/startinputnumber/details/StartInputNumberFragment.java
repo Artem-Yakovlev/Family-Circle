@@ -17,7 +17,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.hbb20.CountryCodePicker;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.framework.phoneverification.details.PhoneVerificationHandlerImpl;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 import com.tydeya.familycircle.ui.firststartpage.startinputnumber.abstraction.StartInputNumberPresenter;
 import com.tydeya.familycircle.ui.firststartpage.startinputnumber.abstraction.StartInputNumberView;
@@ -60,8 +59,8 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new StartInputNumberPresenterImpl(this, new PhoneVerificationHandlerImpl());
-        nextButton.setOnClickListener(v -> presenter.onAcceptButtonClick(countryPicker.isValidFullNumber()));
+        presenter = new StartInputNumberPresenterImpl(this);
+        nextButton.setOnClickListener(v -> presenter.onNextButtonClick(countryPicker.isValidFullNumber()));
     }
 
     @Override
@@ -73,7 +72,7 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
                     KeyboardHelper.hideKeyboard(getActivity());
                     loadingDialog = ProgressDialog.show(getContext(), null, getString(R.string.loading_text),
                             true);
-                    presenter.sendVerificationCode(countryPicker.getFullNumberWithPlus());
+                    presenter.verifyDialogPositiveButton(countryPicker.getFullNumberWithPlus());
                 },
                 ((dialogInterface, i) -> {
                 })).show();

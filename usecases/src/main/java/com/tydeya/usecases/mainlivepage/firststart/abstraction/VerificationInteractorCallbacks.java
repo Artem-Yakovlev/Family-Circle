@@ -1,6 +1,7 @@
-package com.tydeya.familycircle.framework.phoneverification.abstraction;
+package com.tydeya.usecases.mainlivepage.firststart.abstraction;
 
-public interface PhoneVerificationResultRecipient {
+public interface VerificationInteractorCallbacks {
+
     void onCodeSent(String userCodeId);
 
     void verificationSuccess(String fullPhoneNumber);
