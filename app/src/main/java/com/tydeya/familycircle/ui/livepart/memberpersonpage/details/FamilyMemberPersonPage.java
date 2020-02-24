@@ -15,7 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.familyInteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 
 import javax.inject.Inject;

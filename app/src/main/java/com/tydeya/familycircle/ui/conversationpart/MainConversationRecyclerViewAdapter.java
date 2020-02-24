@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.conversationpart;
+package com.tydeya.familycircle.ui.conversationpart;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.conversation.FamilyConversation;
+import com.tydeya.familycircle.domain.conversation.Conversation;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
@@ -23,11 +22,11 @@ public class MainConversationRecyclerViewAdapter
         extends RecyclerView.Adapter<MainConversationRecyclerViewAdapter.FamilyConversationViewHolder> {
 
     private Context context;
-    private ArrayList<FamilyConversation> conversations;
-    private WeakReference<OnClickConversationListener> onClickConversationListener;
+    private ArrayList<Conversation> conversations;
+    private OnClickConversationListener onClickConversationListener;
 
-    MainConversationRecyclerViewAdapter(Context context, ArrayList<FamilyConversation> conversations,
-                                        WeakReference<OnClickConversationListener> onClickConversationListener) {
+    MainConversationRecyclerViewAdapter(Context context, ArrayList<Conversation> conversations,
+                                        OnClickConversationListener onClickConversationListener) {
         this.onClickConversationListener = onClickConversationListener;
         this.context = context;
         this.conversations = conversations;
@@ -45,7 +44,7 @@ public class MainConversationRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MainConversationRecyclerViewAdapter.FamilyConversationViewHolder holder, int position) {
-        holder.setNameText(conversations.get(position).getName());
+        holder.setNameText(conversations.get(position).getDescription().getTitle());
     }
 
     @Override
@@ -58,9 +57,9 @@ public class MainConversationRecyclerViewAdapter
         private TextView nameText;
         private TextView lastMessageText;
         private ShapedImageView userShapedImage;
-        private WeakReference<OnClickConversationListener> onClickConversationListener;
+        private OnClickConversationListener onClickConversationListener;
 
-        FamilyConversationViewHolder(@NonNull View itemView, WeakReference<OnClickConversationListener> onClickConversationListener) {
+        FamilyConversationViewHolder(@NonNull View itemView, OnClickConversationListener onClickConversationListener) {
             super(itemView);
             this.onClickConversationListener = onClickConversationListener;
 
@@ -86,7 +85,7 @@ public class MainConversationRecyclerViewAdapter
 
         @Override
         public void onClick(View view) {
-            onClickConversationListener.get().onClickConversation(getAdapterPosition());
+            onClickConversationListener.onClickConversation(getAdapterPosition());
         }
     }
 
@@ -95,7 +94,7 @@ public class MainConversationRecyclerViewAdapter
         void onClickConversation(int position);
     }
 
-    void refreshData(ArrayList<FamilyConversation> conversations) {
+    void refreshData(ArrayList<Conversation> conversations) {
         this.conversations.clear();
         this.conversations = conversations;
         notifyDataSetChanged();

@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.data.familyInteractor.abstraction;
+package com.tydeya.familycircle.data.familyinteractor.abstraction;
 
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 

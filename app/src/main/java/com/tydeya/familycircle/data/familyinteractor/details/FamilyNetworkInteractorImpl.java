@@ -1,11 +1,11 @@
-package com.tydeya.familycircle.data.familyInteractor.details;
+package com.tydeya.familycircle.data.familyinteractor.details;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyNetworkInteractor;
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyNetworkInteractorCallback;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractor;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.contacts.details.FamilyMemberContacts;
 import com.tydeya.familycircle.domain.familymember.description.details.FamilyMemberDescription;

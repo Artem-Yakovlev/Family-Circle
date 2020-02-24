@@ -1,9 +1,9 @@
-package com.tydeya.familycircle.data.familyInteractor.details;
+package com.tydeya.familycircle.data.familyinteractor.details;
 
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyInteractorCallback;
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyInteractorObservable;
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyNetworkInteractor;
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyNetworkInteractorCallback;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorCallback;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorObservable;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractor;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
 import com.tydeya.familycircle.domain.family.Family;
 import com.tydeya.familycircle.domain.family.description.FamilyDescription;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;

@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainConversationPage"
-        android:name="com.tydeya.familycircle.conversationpart.MainConversationPage"
+        android:name="com.tydeya.familycircle.ui.conversationpart.MainConversationPage"
         android:label="fragment_main_conversation_page"
         tools:layout="@layout/fragment_main_conversation_page" />
     <fragment

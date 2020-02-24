@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.conversationpart;
+package com.tydeya.familycircle.ui.conversationpart;
 
 public interface ConversationUpdatedResultRecipient {
     void conversationDataUpdated();

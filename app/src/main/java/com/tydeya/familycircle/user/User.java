@@ -6,7 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.familycircle.conversationpart.ConversationUpdatedResultRecipient;
+import com.tydeya.familycircle.ui.conversationpart.ConversationUpdatedResultRecipient;
 import com.tydeya.familycircle.family.Family;
 import com.tydeya.familycircle.family.conversation.FamilyConversation;
 import com.tydeya.familycircle.family.conversation.messages.Message;

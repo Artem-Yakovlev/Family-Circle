@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyInteractorCallback;
-import com.tydeya.familycircle.data.familyInteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorCallback;
+import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
 
 import javax.inject.Inject;
 

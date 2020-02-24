@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".conversationpart.chatpart.MessagingActivity"
+            android:name=".ui.conversationpart.chatpart.MessagingActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.firststartpage.FirstStartActivity"
