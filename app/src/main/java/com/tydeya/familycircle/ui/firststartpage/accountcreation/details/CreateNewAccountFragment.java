@@ -27,11 +27,8 @@ import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
 import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
-import com.tydeya.familycircle.synchronization.accountcreate.CreateSyncAccountTool;
-import com.tydeya.familycircle.synchronization.accountcreate.SyncAccountCreatedRecipient;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountPresenter;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountView;
-import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
@@ -41,7 +38,7 @@ import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
 
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
-        ImageCropperUsable, SyncAccountCreatedRecipient, CreateNewAccountView {
+        ImageCropperUsable, CreateNewAccountView {
 
     private CardView dateCard;
     private ShapedImageView userPhotoImage;
@@ -72,7 +69,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         super.onViewCreated(view, savedInstanceState);
         assert getActivity() != null && nameText.getText() != null;
 
-        presenter = new CreateNewAccountPresenterImpl(this);
+        presenter = new CreateNewAccountPresenterImpl(this, getArguments().getString("phone_number"));
 
         dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this), Calendar.getInstance()));
 
@@ -85,32 +82,15 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         createAccountButton.setOnClickListener(v -> presenter.onClickCreateAccount(nameText.getText().toString()));
 
-        activeMemberBuilder = new ActiveMember.Builder();
-    }
-
-    private void createAccount() {
-
-        assert nameText.getText() != null;
-        activeMemberBuilder.setName(nameText.getText().toString());
-        activeMemberBuilder.setPhoneNumber(getArguments().getString("phone_number"));
-
-        ActiveMember activeMember = activeMemberBuilder.build();
-        User user = User.getInstance();
-        user.setUserFamilyMember(activeMember);
-
-        CreateSyncAccountTool createSyncAccountTool = new CreateSyncAccountTool(new WeakReference<>(this));
-        createSyncAccountTool.CreateAccount(user.getUserFamilyMember());
     }
 
     @Override
     public void dateChanged(int selectedDateYear, int selectedDateMonth, int selectedDateDay) {
 
         assert getContext() != null;
+        Calendar calendar = new GregorianCalendar(selectedDateYear, selectedDateMonth, selectedDateDay);
 
-        Calendar calendar = new GregorianCalendar(selectedDateYear, selectedDateMonth,
-                selectedDateDay);
-
-        activeMemberBuilder.setBirthDate(calendar);
+        presenter.birthDateChanged(DateRefactoring.getDateLocaleText(calendar));
         birthDateText.setText(DateRefactoring.getDateLocaleText(calendar));
         birthDateText.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
     }
@@ -131,17 +111,17 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     }
 
     @Override
-    public void accountSuccessfullyCreated() {
+    public void invalidName() {
+        DataConfirming.isEmptyNecessaryCheck(nameText, true);
+    }
+
+    @Override
+    public void accountCreated() {
         navController.navigate(R.id.selectFamilyFragment);
     }
 
     @Override
-    public void accountCreationFailed(Exception e) {
-        Log.d("ASMR", e.toString());
-    }
+    public void accountCreationFailure() {
 
-    @Override
-    public void invalidName() {
-        DataConfirming.isEmptyNecessaryCheck(nameText, true);
     }
 }
