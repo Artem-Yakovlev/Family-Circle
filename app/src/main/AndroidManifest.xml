@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,13 +19,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".conversationpart.chatpart.MessagingActivity"
+            android:name=".ui.conversationpart.chatpart.MessagingActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".firststart.FirstStartActivity"
+            android:name=".ui.firststartpage.FirstStartActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

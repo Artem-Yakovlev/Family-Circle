@@ -6,7 +6,7 @@
     app:startDestination="@id/mainLivePage">
     <fragment
         android:id="@+id/mainLivePage"
-        android:name="com.tydeya.familycircle.livepart.MainLivePage"
+        android:name="com.tydeya.familycircle.ui.livepart.main.details.MainLivePage"
         android:label="fragment_main_live_page"
         tools:layout="@layout/fragment_main_live_page" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/familyMemberViewFragment"
-        android:name="com.tydeya.familycircle.personviewpage.FamilyMemberViewFragment"
+        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.FamilyMemberPersonPage"
         android:label="fragment_family_member_view"
         tools:layout="@layout/fragment_family_member_view">
         <argument
@@ -24,22 +24,22 @@
     </fragment>
     <fragment
         android:id="@+id/mainConversationPage"
-        android:name="com.tydeya.familycircle.conversationpart.MainConversationPage"
+        android:name="com.tydeya.familycircle.ui.conversationpart.MainConversationPage"
         android:label="fragment_main_conversation_page"
         tools:layout="@layout/fragment_main_conversation_page" />
     <fragment
         android:id="@+id/mainPlanPage"
-        android:name="com.tydeya.familycircle.planpart.MainPlanPage"
+        android:name="com.tydeya.familycircle.ui.planpart.MainPlanPage"
         android:label="fragment_main_plan_page"
         tools:layout="@layout/fragment_main_plan_page" />
     <fragment
         android:id="@+id/mainMapPage"
-        android:name="com.tydeya.familycircle.mappart.MainMapPage"
+        android:name="com.tydeya.familycircle.ui.mappart.MainMapPage"
         android:label="fragment_main_map_page"
         tools:layout="@layout/fragment_main_map_page" />
     <fragment
         android:id="@+id/mainPanelPage"
-        android:name="com.tydeya.familycircle.panelpart.MainPanelPage"
+        android:name="com.tydeya.familycircle.ui.panelpart.MainPanelPage"
         android:label="fragment_main_panel_page"
         tools:layout="@layout/fragment_main_panel_page" />
 </navigation>
