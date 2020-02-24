@@ -26,8 +26,11 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         prepareFamilyMemberData();
     }
 
-    Family getActualFamily() {
-        return families.get(actualFamilyIndex);
+    public Family getActualFamily() {
+        if (families.size() != 0) {
+            return families.get(actualFamilyIndex);
+        }
+        return new Family(0, new FamilyDescription("Test family"), new ArrayList<>());
     }
 
     private void prepareFamilyMemberData() {
@@ -50,7 +53,9 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
 
     @Override
     public void subscribe(FamilyInteractorCallback callback) {
-        observers.add(callback);
+        if (!observers.contains(callback)) {
+            observers.add(callback);
+        }
     }
 
     @Override

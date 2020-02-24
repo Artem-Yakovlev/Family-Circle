@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.livepart;
+package com.tydeya.familycircle.ui.livepart.details;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.member.OldFamilyMember;
+import com.tydeya.familycircle.domain.familymember.FamilyMember;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
@@ -23,14 +22,14 @@ public class FamilyMembersStoriesRecyclerViewAdapter
         extends RecyclerView.Adapter<FamilyMembersStoriesRecyclerViewAdapter.FamilyMemberViewHolder> {
 
     private Context context;
-    private ArrayList<OldFamilyMember> oldFamilyMembers;
-    private WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener;
+    private ArrayList<FamilyMember> members;
+    private OnClickMemberStoryListener onClickMemberStoryListener;
 
-    FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<OldFamilyMember> oldFamilyMembers,
-                                            WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
+    FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<FamilyMember> members,
+                                            OnClickMemberStoryListener onClickMemberStoryListener) {
         this.onClickMemberStoryListener = onClickMemberStoryListener;
         this.context = context;
-        this.oldFamilyMembers = oldFamilyMembers;
+        this.members = members;
     }
 
     @NonNull
@@ -45,21 +44,21 @@ public class FamilyMembersStoriesRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull FamilyMemberViewHolder holder, int position) {
-        holder.setNameText(oldFamilyMembers.get(position).getName());
+        holder.setNameText(members.get(position).getDescription().getName());
     }
 
     @Override
     public int getItemCount() {
-        return oldFamilyMembers.size();
+        return members.size();
     }
 
     static class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView nameText;
         private ShapedImageView userShapedImage;
-        private WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener;
+        private OnClickMemberStoryListener onClickMemberStoryListener;
 
-        FamilyMemberViewHolder(@NonNull View itemView, WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
+        FamilyMemberViewHolder(@NonNull View itemView, OnClickMemberStoryListener onClickMemberStoryListener) {
             super(itemView);
             this.onClickMemberStoryListener = onClickMemberStoryListener;
             userShapedImage = itemView.findViewById(R.id.family_member_live_page_image);
@@ -79,7 +78,7 @@ public class FamilyMembersStoriesRecyclerViewAdapter
 
         @Override
         public void onClick(View view) {
-            onClickMemberStoryListener.get().onClickMemberStory(getAdapterPosition());
+            onClickMemberStoryListener.onClickMemberStory(getAdapterPosition());
         }
     }
 
@@ -88,9 +87,9 @@ public class FamilyMembersStoriesRecyclerViewAdapter
         void onClickMemberStory(int position);
     }
 
-    public void refreshData(ArrayList<OldFamilyMember> oldFamilyMembers) {
-        this.oldFamilyMembers.clear();
-        this.oldFamilyMembers = oldFamilyMembers;
+    void refreshData(ArrayList<FamilyMember> oldFamilyMembers) {
+        this.members.clear();
+        this.members = oldFamilyMembers;
         notifyDataSetChanged();
     }
 

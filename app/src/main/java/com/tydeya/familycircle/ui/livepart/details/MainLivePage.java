@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.livepart;
+package com.tydeya.familycircle.ui.livepart.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,22 +13,18 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familyInteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.data.familyInteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.user.DataUpdatedResultRecipient;
-import com.tydeya.familycircle.user.User;
-
-import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
 public class MainLivePage extends Fragment implements FamilyMembersStoriesRecyclerViewAdapter.OnClickMemberStoryListener,
-        DataUpdatedResultRecipient
+        FamilyInteractorCallback
 {
 
     private NavController navController;
-    private View root;
     private RecyclerView familyStoriesRecyclerView;
     private FamilyMembersStoriesRecyclerViewAdapter recyclerViewAdapter;
 
@@ -38,10 +34,11 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
+        View root = inflater.inflate(R.layout.fragment_main_live_page, container, false);
         navController = NavHostFragment.findNavController(this);
+
         familyStoriesRecyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
-        User.getInstance().updateDataFromServer(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), this);
+
         return root;
     }
 
@@ -49,16 +46,17 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        App.getComponent().injectFragment(this);
+        familyInteractor.subscribe(this);
 
         recyclerViewAdapter = new FamilyMembersStoriesRecyclerViewAdapter(getContext(),
-                User.getInstance().getFamily().getOldFamilyMembers(), new WeakReference<>(this));
+                familyInteractor.getActualFamily().getFamilyMembers(), this);
 
         familyStoriesRecyclerView.setAdapter(recyclerViewAdapter);
         familyStoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 RecyclerView.HORIZONTAL, false));
 
     }
-
     @Override
     public void onClickMemberStory(int position) {
         Bundle bundle = new Bundle();
@@ -67,7 +65,19 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
     }
 
     @Override
-    public void familyMemberUpdated() {
-        recyclerViewAdapter.refreshData(User.getInstance().getFamily().getOldFamilyMembers());
+    public void memberDataUpdated() {
+        recyclerViewAdapter.refreshData(familyInteractor.getActualFamily().getFamilyMembers());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        familyInteractor.unsubscribe(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        familyInteractor.subscribe(this);
     }
 }
