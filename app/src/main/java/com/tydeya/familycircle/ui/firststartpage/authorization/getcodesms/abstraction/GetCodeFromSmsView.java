@@ -11,4 +11,8 @@ public interface GetCodeFromSmsView {
     void accountIsExist();
 
     void accountIsNotExistButVerificationIsSuccess(String fullPhoneNumber);
+
+    void timerTick(String timeDown);
+
+    void timerFinish();
 }

@@ -12,23 +12,36 @@ import com.tydeya.familycircle.framework.accountsync.details.AccountExistingChec
 import com.tydeya.familycircle.framework.signInWithCode.abstraction.SignInWithPhoneCodeTool;
 import com.tydeya.familycircle.framework.signInWithCode.abstraction.SignInWithPhoneCodeToolCallback;
 import com.tydeya.familycircle.framework.signInWithCode.details.SignInWithPhoneCodeToolImpl;
+import com.tydeya.familycircle.framework.verification.abstraction.AuthResendSmsTool;
+import com.tydeya.familycircle.framework.verification.details.AuthResendSmsToolImpl;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsPresenter;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
+import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.ResendCountDownTimerCallback;
 
 public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, SignInWithPhoneCodeToolCallback,
-        AccountExistingCheckUpCallback {
+        AccountExistingCheckUpCallback, ResendCountDownTimerCallback {
 
     private GetCodeFromSmsView view;
     private SignInWithPhoneCodeTool signInWithPhoneCodeTool;
     private AccountExistingCheckUp accountExistingCheckUp;
     private String phoneNumber;
 
+    private AuthResendSmsTool authResendSmsTool;
+    private ResendCountDownTimer resendTimer;
+
+
     GetCodeFromSmsPresenterImpl(GetCodeFromSmsView getCodeFromSmsView, FirebaseAuth firebaseAuth, String phoneNumber) {
         this.view = getCodeFromSmsView;
         this.signInWithPhoneCodeTool = new SignInWithPhoneCodeToolImpl(this, firebaseAuth);
         this.accountExistingCheckUp = new AccountExistingCheckUpImpl(this);
+        this.authResendSmsTool = new AuthResendSmsToolImpl();
         this.phoneNumber = phoneNumber;
+        this.resendTimer = new ResendCountDownTimer(this);
     }
+
+    /**
+     * Accept button processing
+     **/
 
     @Override
     public void onClickAcceptButton(String codeFromInput) {
@@ -49,6 +62,20 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
             return false;
         }
         return true;
+    }
+
+    /**
+     * Resend button processing
+     * */
+
+    @Override
+    public void onClickResendButton(Activity activity) {
+        resendTimer.start();
+        resendSms(activity);
+    }
+
+    private void resendSms(Activity activity) {
+        authResendSmsTool.resendSms(activity, phoneNumber);
     }
 
     /**
@@ -77,5 +104,19 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
     @Override
     public void accountIsNotExist() {
         view.accountIsNotExistButVerificationIsSuccess(phoneNumber);
+    }
+
+    /**
+     * Resend count down timer callbacks
+     */
+
+    @Override
+    public void timerTickGetText(String timeDown) {
+        view.timerTick(timeDown);
+    }
+
+    @Override
+    public void timerFinish() {
+        view.timerFinish();
     }
 }

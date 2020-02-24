@@ -2,7 +2,6 @@ package com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.detai
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +17,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsPresenter;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsView {
@@ -37,27 +31,8 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
     private TextInputEditText codeInput;
     private NavController navController;
     private ProgressDialog loadingDialog;
-    private CountDownTimer resendSmsTimer;
     private Button resendButton;
     private TextView resendTimerTextView;
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks authCallbacks =
-            new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-                @Override
-                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                }
-
-                @Override
-                public void onVerificationFailed(@NonNull FirebaseException e) {
-                }
-
-                @Override
-                public void onCodeSent(@NonNull String s,
-                                       @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                    super.onCodeSent(s, forceResendingToken);
-                }
-            };
 
     private GetCodeFromSmsPresenter presenter;
 
@@ -84,52 +59,15 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
         presenter = new GetCodeFromSmsPresenterImpl(this, FirebaseAuth.getInstance(),
                 getArguments().getString("userPhoneNumber"));
 
-        resendSmsTimer = new CountDownTimer(60000, 1000) {
-
-            private StringBuffer timerStringBuffer;
-
-            @Override
-            public void onTick(long l) {
-
-                timerStringBuffer = new StringBuffer();
-                timerStringBuffer.append((l / 60000) / 1000).append(":");
-
-                if ((l % 60000) / 1000 < 10) {
-                    timerStringBuffer.append("0");
-                }
-
-                timerStringBuffer.append((l % 60000) / 1000);
-                resendTimerTextView.setText(timerStringBuffer);
-
-            }
-
-            @Override
-            public void onFinish() {
-                resendButton.setEnabled(true);
-            }
-        };
-
         acceptCodeButton.setOnClickListener(v -> presenter.onClickAcceptButton(codeInput.getText().toString()));
 
         resendButton.setOnClickListener(v -> {
             resendButton.setEnabled(false);
-            resendSms();
-            resendSmsTimer.start();
+            presenter.onClickResendButton(getActivity());
         });
 
         resendButton.callOnClick();
 
-    }
-
-    private void resendSms() {
-        assert getArguments() != null && getActivity() != null;
-
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                getArguments().getString("userPhoneNumber"),
-                60,
-                TimeUnit.SECONDS,
-                getActivity(),
-                authCallbacks);
     }
 
     /**
@@ -175,6 +113,21 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
         closeLoadingDialog();
         navController.navigate(R.id.createNewAccountFragment, bundle);
     }
+
+    /**
+     * Timer callbacks
+     */
+
+    @Override
+    public void timerTick(String timeDown) {
+        resendTimerTextView.setText(timeDown);
+    }
+
+    @Override
+    public void timerFinish() {
+        resendButton.setEnabled(true);
+    }
+
 
     private void closeLoadingDialog() {
         if (loadingDialog.isShowing()) {
