@@ -14,26 +14,32 @@ import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 public class MainActivity extends AppCompatActivity {
 
     private boolean dataChecked = false;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getDataAboutUser();
+        verificationCheck();
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
-        NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         assert navHostFragment != null;
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
-        if (!dataChecked) {
-            getDataAboutUser();
-        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (!dataChecked) {
-            getDataAboutUser();
+        verificationCheck();
+    }
+
+    private void verificationCheck() {
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() == null) {
+            Intent intent = new Intent(this, FirstStartActivity.class);
+            startActivity(intent);
+            this.finish();
         }
     }
 
