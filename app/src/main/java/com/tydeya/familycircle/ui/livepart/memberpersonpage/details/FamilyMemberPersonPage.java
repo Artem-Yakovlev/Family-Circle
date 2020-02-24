@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.personviewpage;
+package com.tydeya.familycircle.ui.livepart.memberpersonpage.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,23 +13,28 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
-import com.tydeya.familycircle.family.member.OldFamilyMember;
-import com.tydeya.familycircle.user.User;
+import com.tydeya.familycircle.data.familyInteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.familymember.FamilyMember;
+
+import javax.inject.Inject;
 
 
-public class FamilyMemberViewFragment extends Fragment {
+public class FamilyMemberPersonPage extends Fragment {
 
     private TextView nameText;
     private TextView birthdateText;
     private int personPosition;
-    private OldFamilyMember oldFamilyMember;
+    private FamilyMember member;
     private Toolbar toolbar;
 
+    @Inject
+    FamilyInteractor familyInteractor;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        App.getComponent().injectFragment(this);
 
         View root = inflater.inflate(R.layout.fragment_family_member_view, container, false);
 
@@ -37,12 +42,12 @@ public class FamilyMemberViewFragment extends Fragment {
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         toolbar = root.findViewById(R.id.family_member_view_toolbar);
 
+        setCurrentData();
+
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void setCurrentData() {
 
         assert getArguments() != null;
         personPosition = getArguments().getInt("personPosition", -1);
@@ -50,14 +55,20 @@ public class FamilyMemberViewFragment extends Fragment {
             throw new IllegalArgumentException("personPosition is not found");
         }
 
-        oldFamilyMember = User.getInstance().getFamily().getOldFamilyMembers().get(personPosition);
+        member = familyInteractor.getActualFamily().getFamilyMembers().get(personPosition);
 
-        nameText.setText(oldFamilyMember.getName());
-        if (oldFamilyMember.getDescription() != null && oldFamilyMember.getDescription().getBirthDate() != null) {
-            birthdateText.setText(DateRefactoring.getDateLocaleText(oldFamilyMember.getDescription().getBirthDate()));
+
+        nameText.setText(member.getDescription().getName());
+        if (member.getDescription() != null && member.getDescription().getBirthDate() != null) {
+            birthdateText.setText(member.getDescription().getBirthDate());
         } else {
             birthdateText.setText(getResources().getString(R.string.family_member_view_datebirthd_not_known));
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);

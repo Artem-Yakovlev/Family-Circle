@@ -6,7 +6,7 @@
     app:startDestination="@id/mainLivePage">
     <fragment
         android:id="@+id/mainLivePage"
-        android:name="com.tydeya.familycircle.ui.livepart.details.MainLivePage"
+        android:name="com.tydeya.familycircle.ui.livepart.main.details.MainLivePage"
         android:label="fragment_main_live_page"
         tools:layout="@layout/fragment_main_live_page" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/familyMemberViewFragment"
-        android:name="com.tydeya.familycircle.personviewpage.FamilyMemberViewFragment"
+        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.FamilyMemberPersonPage"
         android:label="fragment_family_member_view"
         tools:layout="@layout/fragment_family_member_view">
         <argument

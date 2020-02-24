@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.livepart.details;
+package com.tydeya.familycircle.ui.livepart.main.details;
 
 import android.content.Context;
 import android.net.Uri;

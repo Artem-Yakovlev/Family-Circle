@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.livepart.details;
+package com.tydeya.familycircle.ui.livepart.main.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,7 +41,6 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
 
         return root;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
