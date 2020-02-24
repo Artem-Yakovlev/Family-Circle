@@ -115,5 +115,6 @@
     <string name="family_member_view_datebirthd_not_known">Date of birth not known</string>
     <string name="main_live_page_toolbar_title">Last news</string>
     <string name="main_conversation_page_toolbar_title">Conversation</string>
+    <string name="get_code_from_sms_page_invalid_code_alert">The code must contains 6 digits!</string>
 
 </resources>

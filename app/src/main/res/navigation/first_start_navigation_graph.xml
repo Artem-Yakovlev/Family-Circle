@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCodeFromSmsFragment"
-        android:name="com.tydeya.familycircle.firststart.authorization.GetCodeFromSmsFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.details.GetCodeFromSmsFragment"
         android:label="fragment_get_code_from_sms"
         tools:layout="@layout/fragment_get_code_from_sms" >
         <argument

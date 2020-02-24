@@ -8,7 +8,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUp;
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallbacks;
+import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback;
 import com.tydeya.familycircle.framework.accountsync.details.AccountExistingCheckUpImpl;
 import com.tydeya.familycircle.framework.verification.abstraction.AuthVerificationCallback;
 import com.tydeya.familycircle.framework.verification.abstraction.AuthVerificationTool;
@@ -19,7 +19,7 @@ import com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.abstr
 import java.lang.ref.WeakReference;
 
 public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
-        AuthVerificationCallback, AccountExistingCheckUpCallbacks {
+        AuthVerificationCallback, AccountExistingCheckUpCallback {
 
     private WeakReference<StartInputNumberView> startInputNumberView;
     private AuthVerificationTool authVerificationTool;

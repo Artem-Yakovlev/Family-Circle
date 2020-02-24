@@ -1,9 +1,8 @@
-package com.tydeya.familycircle.firststart.authorization;
+package com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.details;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +22,17 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.synchronization.accountexisting.AccountIsExistResultRecipient;
-import com.tydeya.familycircle.synchronization.accountexisting.AccountPhoneSynchronizationTool;
-import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.simplehelpers.KeyboardHelper;
+import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsPresenter;
+import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 
-public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistResultRecipient {
+public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsView {
 
     private View root;
-    private FirebaseAuth firebaseAuth;
     private MaterialButton acceptCodeButton;
     private TextInputEditText codeInput;
     private NavController navController;
@@ -64,11 +59,13 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
                 }
             };
 
+    private GetCodeFromSmsPresenter presenter;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_get_code_from_sms, container, false);
+        navController = NavHostFragment.findNavController(this);
 
         acceptCodeButton = root.findViewById(R.id.get_code_page_button);
         codeInput = root.findViewById(R.id.get_code_page_input);
@@ -82,8 +79,10 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        navController = NavHostFragment.findNavController(this);
+        assert codeInput.getText() != null && getArguments() != null;
+
+        presenter = new GetCodeFromSmsPresenterImpl(this, FirebaseAuth.getInstance(),
+                getArguments().getString("userPhoneNumber"));
 
         resendSmsTimer = new CountDownTimer(60000, 1000) {
 
@@ -110,11 +109,7 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
             }
         };
 
-        acceptCodeButton.setOnClickListener(v -> {
-            if (!DataConfirming.isEmptyNecessaryCheck(codeInput, true)) {
-                verifyCode();
-            }
-        });
+        acceptCodeButton.setOnClickListener(v -> presenter.onClickAcceptButton(codeInput.getText().toString()));
 
         resendButton.setOnClickListener(v -> {
             resendButton.setEnabled(false);
@@ -137,58 +132,48 @@ public class GetCodeFromSmsFragment extends Fragment implements AccountIsExistRe
                 authCallbacks);
     }
 
-    private void verifyCode() {
-        assert codeInput.getText() != null && getArguments() != null && getActivity() != null;
+    /**
+     * Presenter check code callbacks
+     */
 
-        KeyboardHelper.hideKeyboard(getActivity());
-
-        loadingDialog = ProgressDialog.show(getContext(), null,
-                getString(R.string.loading_text), true);
-
-        String userCodeId = getArguments().getString("userCodeId", "");
-
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(userCodeId,
-                codeInput.getText().toString());
-        signInWithPhoneAuthCredential(credential);
-    }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        assert getActivity() != null;
-        assert getArguments() != null;
-
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), task -> {
-
-                    if (task.isSuccessful()) {
-                        AccountPhoneSynchronizationTool accountPhoneSynchronizationTool =
-                                new AccountPhoneSynchronizationTool(new WeakReference<>(this));
-                        accountPhoneSynchronizationTool.isAccountWithPhoneExist(getArguments().getString("userPhoneNumber"));
-                    } else {
-                        closeLoadingDialog();
-                        Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG)
-                                .show();
-                    }
-                });
+    @Override
+    public void invalidCodeFormatAlert() {
+        codeInput.setError(getString(R.string.get_code_from_sms_page_invalid_code_alert));
     }
 
     @Override
-    public void isExist(QuerySnapshot queryDocumentSnapshots) {
+    public void codeFormatIsValid() {
+        assert codeInput.getText() != null && getArguments() != null && getActivity() != null;
+        KeyboardHelper.hideKeyboard(getActivity());
+        loadingDialog = ProgressDialog.show(getContext(), null, getString(R.string.loading_text), true);
+
+        presenter.signInWithCode(getArguments().getString("userCodeId", ""),
+                codeInput.getText().toString(), getActivity());
+
+    }
+
+    @Override
+    public void codeIsInvalid() {
+        closeLoadingDialog();
+        Snackbar.make(root, R.string.get_code_page_invalid_code, Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * Account existing checker callbacks
+     */
+
+    @Override
+    public void accountIsExist() {
         closeLoadingDialog();
         navController.navigate(R.id.selectFamilyFragment);
     }
 
     @Override
-    public void isNotExist() {
+    public void accountIsNotExistButVerificationIsSuccess(String fullPhoneNumber) {
         Bundle bundle = new Bundle();
-        bundle.putString("phone_number", getArguments().getString("userPhoneNumber"));
+        bundle.putString("phone_number", fullPhoneNumber);
         closeLoadingDialog();
         navController.navigate(R.id.createNewAccountFragment, bundle);
-    }
-
-    @Override
-    public void isError(Exception e) {
-        closeLoadingDialog();
-        Log.d("ASMR", e.toString());
     }
 
     private void closeLoadingDialog() {

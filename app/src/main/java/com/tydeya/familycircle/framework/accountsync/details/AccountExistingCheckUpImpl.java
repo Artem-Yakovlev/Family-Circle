@@ -4,13 +4,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUp;
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallbacks;
+import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback;
 
 public class AccountExistingCheckUpImpl implements AccountExistingCheckUp {
 
-    private AccountExistingCheckUpCallbacks callbacks;
+    private AccountExistingCheckUpCallback callbacks;
 
-    public AccountExistingCheckUpImpl(AccountExistingCheckUpCallbacks callbacks) {
+
+    public AccountExistingCheckUpImpl(AccountExistingCheckUpCallback callbacks) {
         this.callbacks = callbacks;
     }
 
@@ -18,8 +19,11 @@ public class AccountExistingCheckUpImpl implements AccountExistingCheckUp {
     public void isAccountWithPhoneExist(String fullPhoneNumber) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
+        String USERS_COLLECTION = "Users";
+        String PHONE_NUMBER_PROPERTY = "phone_number";
+
         Task<QuerySnapshot> querySnapshotTask = firebaseFirestore
-                .collection("Users").whereEqualTo("phone_number", fullPhoneNumber).get();
+                .collection(USERS_COLLECTION).whereEqualTo(PHONE_NUMBER_PROPERTY, fullPhoneNumber).get();
 
         querySnapshotTask.addOnSuccessListener(queryDocumentSnapshots -> {
 
