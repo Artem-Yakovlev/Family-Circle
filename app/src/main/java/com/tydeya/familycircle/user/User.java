@@ -12,8 +12,8 @@ import com.tydeya.familycircle.family.conversation.FamilyConversation;
 import com.tydeya.familycircle.family.conversation.messages.Message;
 import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
 import com.tydeya.familycircle.family.description.FamilyDescription;
-import com.tydeya.familycircle.family.member.ActiveMember;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.familycircle.family.member.ActiveMemberOld;
+import com.tydeya.familycircle.family.member.OldFamilyMember;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 
 public class User {
 
-    private ActiveMember userFamilyMember;
+    private ActiveMemberOld userFamilyMember;
     private int actualFamily = 0;
     private ArrayList<Family> families;
     private Settings userSettings;
@@ -33,14 +33,14 @@ public class User {
 
         families = new ArrayList<>();
         FamilyDescription testDescription = new FamilyDescription("Это тестовая семья", null);
-        ArrayList<FamilyMember> familyMembers = new ArrayList<>();
+        ArrayList<OldFamilyMember> oldFamilyMembers = new ArrayList<>();
 
 
         ArrayList<Message> messages = new ArrayList<>();
-        messages.add(new PersonMessage(null, "Hello", new ActiveMember("Ирина Яковлева")));
-        messages.add(new PersonMessage(null, "What are you thinking about today weather?", new ActiveMember("Елена Яковлева")));
-        messages.add(new PersonMessage(null, "Nothing...", new ActiveMember("Елена Яковлева")));
-        messages.add(new PersonMessage(null, ":)", new ActiveMember("Дмитрий Яковлев")));
+        messages.add(new PersonMessage(null, "Hello", new ActiveMemberOld("Ирина Яковлева")));
+        messages.add(new PersonMessage(null, "What are you thinking about today weather?", new ActiveMemberOld("Елена Яковлева")));
+        messages.add(new PersonMessage(null, "Nothing...", new ActiveMemberOld("Елена Яковлева")));
+        messages.add(new PersonMessage(null, ":)", new ActiveMemberOld("Дмитрий Яковлев")));
 
         FamilyConversation conversation1 = new FamilyConversation(messages, "Main conf");
         FamilyConversation conversation2 = new FamilyConversation(new ArrayList<>(), "Second conf");
@@ -49,7 +49,7 @@ public class User {
         conversations.add(conversation2);
 
 
-        Family testFamily = new Family(testDescription, null, familyMembers, conversations);
+        Family testFamily = new Family(testDescription, null, oldFamilyMembers, conversations);
         families.add(testFamily);
     }
 
@@ -77,7 +77,7 @@ public class User {
     }
 
     private void updateUserMemberData(DocumentSnapshot documentSnapshot) {
-        ActiveMember.Builder activeMemberBuilder = new ActiveMember.Builder();
+        ActiveMemberOld.Builder activeMemberBuilder = new ActiveMemberOld.Builder();
         //TODO fix birthDate
         activeMemberBuilder.setBirthDate(new GregorianCalendar(2001, Calendar.JANUARY, 28));
         activeMemberBuilder.setName(documentSnapshot.get("name").toString());
@@ -88,10 +88,10 @@ public class User {
     }
 
     private void updateFamilyMemberData(@NonNull QuerySnapshot queryDocumentSnapshots, String phoneNumber, DataUpdatedResultRecipient recipient) {
-        getFamily().setFamilyMembers(new ArrayList<>());
+        getFamily().setOldFamilyMembers(new ArrayList<>());
         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
             if (!documentSnapshot.get("phone_number").toString().equals(phoneNumber)) {
-                getFamily().getFamilyMembers().add(new ActiveMember(documentSnapshot.get("name").toString()));
+                getFamily().getOldFamilyMembers().add(new ActiveMemberOld(documentSnapshot.get("name").toString()));
             }
         }
         recipient.familyMemberUpdated();
@@ -117,11 +117,11 @@ public class User {
 
 
 
-    public ActiveMember getUserFamilyMember() {
+    public ActiveMemberOld getUserFamilyMember() {
         return userFamilyMember;
     }
 
-    public void setUserFamilyMember(ActiveMember userFamilyMember) {
+    public void setUserFamilyMember(ActiveMemberOld userFamilyMember) {
         this.userFamilyMember = userFamilyMember;
     }
 

@@ -4,23 +4,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.tydeya.familycircle.family.conversation.messages.Message;
-import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.familycircle.family.member.ActiveMemberOld;
 
 import java.util.ArrayList;
 
 public class FamilyConversation extends Conversation implements Parcelable {
 
-    private ArrayList<ActiveMember> members;
+    private ArrayList<ActiveMemberOld> members;
 
     public FamilyConversation(ArrayList<Message> messages, String name) {
         super(messages, name);
     }
 
-    public ArrayList<ActiveMember> getMembers() {
+    public ArrayList<ActiveMemberOld> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<ActiveMember> members) {
+    public void setMembers(ArrayList<ActiveMemberOld> members) {
         this.members = members;
     }
 

@@ -8,18 +8,18 @@ import com.tydeya.familycircle.family.management.Plan;
 
 import java.util.Calendar;
 
-public class ActiveMember extends FamilyMember {
+public class ActiveMemberOld extends OldFamilyMember {
 
     private IdentificationCode id;
     private AccessLevel accessLevel;
     private Plan plan;
 
-    public ActiveMember(String name){
+    public ActiveMemberOld(String name){
         super(name);
     }
 
-    ActiveMember(String name, Calendar birthDate, Uri imageUri,
-                 String descriptionText, String phoneNumber) {
+    ActiveMemberOld(String name, Calendar birthDate, Uri imageUri,
+                    String descriptionText, String phoneNumber) {
         super(name, birthDate, imageUri, descriptionText, phoneNumber);
     }
 
@@ -55,8 +55,8 @@ public class ActiveMember extends FamilyMember {
             this.phoneNumber = phoneNumber;
         }
 
-        public ActiveMember build() {
-            return new ActiveMember(name, birthDate, imageUri, descriptionText, phoneNumber);
+        public ActiveMemberOld build() {
+            return new ActiveMemberOld(name, birthDate, imageUri, descriptionText, phoneNumber);
         }
     }
 

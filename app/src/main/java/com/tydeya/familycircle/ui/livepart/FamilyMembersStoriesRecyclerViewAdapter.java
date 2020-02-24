@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.livepart;
+package com.tydeya.familycircle.ui.livepart;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.familycircle.family.member.OldFamilyMember;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -23,14 +23,14 @@ public class FamilyMembersStoriesRecyclerViewAdapter
         extends RecyclerView.Adapter<FamilyMembersStoriesRecyclerViewAdapter.FamilyMemberViewHolder> {
 
     private Context context;
-    private ArrayList<FamilyMember> familyMembers;
+    private ArrayList<OldFamilyMember> oldFamilyMembers;
     private WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener;
 
-    FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<FamilyMember> familyMembers,
+    FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<OldFamilyMember> oldFamilyMembers,
                                             WeakReference<OnClickMemberStoryListener> onClickMemberStoryListener) {
         this.onClickMemberStoryListener = onClickMemberStoryListener;
         this.context = context;
-        this.familyMembers = familyMembers;
+        this.oldFamilyMembers = oldFamilyMembers;
     }
 
     @NonNull
@@ -45,12 +45,12 @@ public class FamilyMembersStoriesRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull FamilyMemberViewHolder holder, int position) {
-        holder.setNameText(familyMembers.get(position).getName());
+        holder.setNameText(oldFamilyMembers.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return familyMembers.size();
+        return oldFamilyMembers.size();
     }
 
     static class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -88,9 +88,9 @@ public class FamilyMembersStoriesRecyclerViewAdapter
         void onClickMemberStory(int position);
     }
 
-    public void refreshData(ArrayList<FamilyMember> familyMembers) {
-        this.familyMembers.clear();
-        this.familyMembers = familyMembers;
+    public void refreshData(ArrayList<OldFamilyMember> oldFamilyMembers) {
+        this.oldFamilyMembers.clear();
+        this.oldFamilyMembers = oldFamilyMembers;
         notifyDataSetChanged();
     }
 

@@ -15,7 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.familycircle.family.member.OldFamilyMember;
 import com.tydeya.familycircle.user.User;
 
 
@@ -24,7 +24,7 @@ public class FamilyMemberViewFragment extends Fragment {
     private TextView nameText;
     private TextView birthdateText;
     private int personPosition;
-    private FamilyMember familyMember;
+    private OldFamilyMember oldFamilyMember;
     private Toolbar toolbar;
 
     @Override
@@ -50,11 +50,11 @@ public class FamilyMemberViewFragment extends Fragment {
             throw new IllegalArgumentException("personPosition is not found");
         }
 
-        familyMember = User.getInstance().getFamily().getFamilyMembers().get(personPosition);
+        oldFamilyMember = User.getInstance().getFamily().getOldFamilyMembers().get(personPosition);
 
-        nameText.setText(familyMember.getName());
-        if (familyMember.getDescription() != null && familyMember.getDescription().getBirthDate() != null) {
-            birthdateText.setText(DateRefactoring.getDateLocaleText(familyMember.getDescription().getBirthDate()));
+        nameText.setText(oldFamilyMember.getName());
+        if (oldFamilyMember.getDescription() != null && oldFamilyMember.getDescription().getBirthDate() != null) {
+            birthdateText.setText(DateRefactoring.getDateLocaleText(oldFamilyMember.getDescription().getBirthDate()));
         } else {
             birthdateText.setText(getResources().getString(R.string.family_member_view_datebirthd_not_known));
         }

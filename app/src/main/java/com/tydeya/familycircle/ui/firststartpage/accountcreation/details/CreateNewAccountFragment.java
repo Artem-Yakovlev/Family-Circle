@@ -25,7 +25,7 @@ import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresent
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
 import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
-import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.familycircle.family.member.ActiveMemberOld;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountPresenter;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountView;
@@ -46,7 +46,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private TextInputEditText nameText;
     private Button createAccountButton;
     private NavController navController;
-    private ActiveMember.Builder activeMemberBuilder;
+    private ActiveMemberOld.Builder activeMemberBuilder;
     private CreateNewAccountPresenter presenter;
 
     @Override

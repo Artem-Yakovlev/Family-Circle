@@ -7,16 +7,16 @@ import com.tydeya.familycircle.family.description.PersonDescription;
 
 import java.util.Calendar;
 
-public abstract class FamilyMember {
+public abstract class OldFamilyMember {
     private String name;
     private PersonContact contact;
     private PersonDescription description;
 
-    FamilyMember(String name){
+    OldFamilyMember(String name){
         this.name = name;
     }
 
-    FamilyMember(String name, Calendar birthDate, Uri imageUri, String descriptionText, String phoneNumber){
+    OldFamilyMember(String name, Calendar birthDate, Uri imageUri, String descriptionText, String phoneNumber){
         this.name = name;
         this.contact = new PersonContact(phoneNumber);
         this.description = new PersonDescription(descriptionText, imageUri, birthDate);

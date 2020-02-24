@@ -6,7 +6,7 @@ import com.tydeya.familycircle.family.description.FamilyDescription;
 import com.tydeya.familycircle.family.management.IdentificationCode;
 import com.tydeya.familycircle.family.management.Plan;
 import com.tydeya.familycircle.family.material.Attachments;
-import com.tydeya.familycircle.family.member.FamilyMember;
+import com.tydeya.familycircle.family.member.OldFamilyMember;
 
 import java.util.ArrayList;
 
@@ -15,15 +15,15 @@ public class Family {
     private FamilyDescription familyDescription;
     private FamilyContact familyContact;
     private Plan familyPlan;
-    private ArrayList<FamilyMember> familyMembers;
+    private ArrayList<OldFamilyMember> oldFamilyMembers;
     private Attachments attachments;
     private ArrayList<FamilyConversation> familyConversations;
 
     public Family(FamilyDescription familyDescription, FamilyContact familyContact,
-                  ArrayList<FamilyMember> familyMembers, ArrayList<FamilyConversation> familyConversations) {
+                  ArrayList<OldFamilyMember> oldFamilyMembers, ArrayList<FamilyConversation> familyConversations) {
         this.familyDescription = familyDescription;
         this.familyContact = familyContact;
-        this.familyMembers = familyMembers;
+        this.oldFamilyMembers = oldFamilyMembers;
         this.familyConversations = familyConversations;
     }
 
@@ -43,12 +43,12 @@ public class Family {
         this.familyContact = familyContact;
     }
 
-    public ArrayList<FamilyMember> getFamilyMembers() {
-        return familyMembers;
+    public ArrayList<OldFamilyMember> getOldFamilyMembers() {
+        return oldFamilyMembers;
     }
 
-    public void setFamilyMembers(ArrayList<FamilyMember> familyMembers) {
-        this.familyMembers = familyMembers;
+    public void setOldFamilyMembers(ArrayList<OldFamilyMember> oldFamilyMembers) {
+        this.oldFamilyMembers = oldFamilyMembers;
     }
 
     public ArrayList<FamilyConversation> getFamilyConversations() {

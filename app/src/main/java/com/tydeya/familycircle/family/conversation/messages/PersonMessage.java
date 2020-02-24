@@ -2,25 +2,25 @@ package com.tydeya.familycircle.family.conversation.messages;
 
 import android.net.Uri;
 
-import com.tydeya.familycircle.family.member.ActiveMember;
+import com.tydeya.familycircle.family.member.ActiveMemberOld;
 
 import java.util.Calendar;
 
 public class PersonMessage extends Message {
 
-    private ActiveMember author;
+    private ActiveMemberOld author;
     private Uri imageUri;
 
-    public PersonMessage(Calendar time, String text, ActiveMember author) {
+    public PersonMessage(Calendar time, String text, ActiveMemberOld author) {
         super(time, text);
         this.author = author;
     }
 
-    public ActiveMember getAuthor() {
+    public ActiveMemberOld getAuthor() {
         return author;
     }
 
-    public void setAuthor(ActiveMember author) {
+    public void setAuthor(ActiveMemberOld author) {
         this.author = author;
     }
 }
