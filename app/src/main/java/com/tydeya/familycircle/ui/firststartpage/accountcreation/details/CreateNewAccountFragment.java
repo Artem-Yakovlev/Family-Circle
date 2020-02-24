@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart.accountcreation.views;
+package com.tydeya.familycircle.ui.firststartpage.accountcreation.details;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +29,8 @@ import com.tydeya.familycircle.family.member.ActiveMember;
 import com.tydeya.familycircle.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.synchronization.accountcreate.CreateSyncAccountTool;
 import com.tydeya.familycircle.synchronization.accountcreate.SyncAccountCreatedRecipient;
+import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountPresenter;
+import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountView;
 import com.tydeya.familycircle.user.User;
 
 import java.lang.ref.WeakReference;
@@ -39,7 +41,7 @@ import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
 
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
-        ImageCropperUsable, SyncAccountCreatedRecipient {
+        ImageCropperUsable, SyncAccountCreatedRecipient, CreateNewAccountView {
 
     private CardView dateCard;
     private ShapedImageView userPhotoImage;
@@ -48,12 +50,13 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private Button createAccountButton;
     private NavController navController;
     private ActiveMember.Builder activeMemberBuilder;
+    private CreateNewAccountPresenter presenter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
+        navController = NavHostFragment.findNavController(this);
 
         dateCard = root.findViewById(R.id.create_account_page_date_card);
         userPhotoImage = root.findViewById(R.id.create_account_page_add_photo);
@@ -67,13 +70,12 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        assert getActivity() != null && nameText.getText() != null;
 
-        navController = NavHostFragment.findNavController(this);
+        presenter = new CreateNewAccountPresenterImpl(this);
 
-        assert getActivity() != null;
+        dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this), Calendar.getInstance()));
 
-        dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this),
-                Calendar.getInstance()));
         //TODO set max and min size for cropping!
         userPhotoImage.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -81,16 +83,13 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
                 .setAspectRatio(1, 1)
                 .start(getActivity()));
 
-        createAccountButton.setOnClickListener(v -> {
-            if (!DataConfirming.isEmptyNecessaryCheck(nameText, true)) {
-                createAccount();
-            }
-        });
+        createAccountButton.setOnClickListener(v -> presenter.onClickCreateAccount(nameText.getText().toString()));
 
         activeMemberBuilder = new ActiveMember.Builder();
     }
 
     private void createAccount() {
+
         assert nameText.getText() != null;
         activeMemberBuilder.setName(nameText.getText().toString());
         activeMemberBuilder.setPhoneNumber(getArguments().getString("phone_number"));
@@ -98,8 +97,6 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         ActiveMember activeMember = activeMemberBuilder.build();
         User user = User.getInstance();
         user.setUserFamilyMember(activeMember);
-
-
 
         CreateSyncAccountTool createSyncAccountTool = new CreateSyncAccountTool(new WeakReference<>(this));
         createSyncAccountTool.CreateAccount(user.getUserFamilyMember());
@@ -130,7 +127,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
     @Override
     public void imageCroppedWithError(CropImage.ActivityResult activityResult) {
-
+        Log.d("ASMR", activityResult.getError().toString());
     }
 
     @Override
@@ -141,5 +138,10 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     @Override
     public void accountCreationFailed(Exception e) {
         Log.d("ASMR", e.toString());
+    }
+
+    @Override
+    public void invalidName() {
+        DataConfirming.isEmptyNecessaryCheck(nameText, true);
     }
 }
