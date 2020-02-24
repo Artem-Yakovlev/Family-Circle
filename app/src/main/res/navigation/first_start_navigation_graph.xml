@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectFamilyFragment"
-        android:name="com.tydeya.familycircle.firststart.accountcreation.views.SelectFamilyFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.selectfamily.details.SelectFamilyFragment"
         android:label="fragment_select_family"
         tools:layout="@layout/fragment_select_family" />
 </navigation>

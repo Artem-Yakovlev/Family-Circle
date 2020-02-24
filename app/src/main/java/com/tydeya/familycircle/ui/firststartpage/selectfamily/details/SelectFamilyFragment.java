@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.firststart.accountcreation.views;
+package com.tydeya.familycircle.ui.firststartpage.selectfamily.details;
 
 import android.content.Intent;
 import android.os.Bundle;
