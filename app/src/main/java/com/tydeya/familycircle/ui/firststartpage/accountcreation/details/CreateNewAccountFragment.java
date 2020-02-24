@@ -21,12 +21,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerPresenter;
-import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DatePickerUsable;
-import com.tydeya.familycircle.commonhandlers.DatePickerDialog.DateRefactoring;
-import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
-import com.tydeya.familycircle.family.member.ActiveMemberOld;
-import com.tydeya.familycircle.simplehelpers.DataConfirming;
+import com.tydeya.familycircle.framework.DatePickerDialog.DatePickerPresenter;
+import com.tydeya.familycircle.framework.DatePickerDialog.DatePickerUsable;
+import com.tydeya.familycircle.framework.DatePickerDialog.DateRefactoring;
+import com.tydeya.familycircle.framework.DatePickerDialog.ImageCropperUsable;
+import com.tydeya.familycircle.framework.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountPresenter;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountView;
 
@@ -46,7 +45,6 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private TextInputEditText nameText;
     private Button createAccountButton;
     private NavController navController;
-    private ActiveMemberOld.Builder activeMemberBuilder;
     private CreateNewAccountPresenter presenter;
 
     @Override
@@ -102,7 +100,6 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
-        activeMemberBuilder.setImageUri(imageUri);
     }
 
     @Override

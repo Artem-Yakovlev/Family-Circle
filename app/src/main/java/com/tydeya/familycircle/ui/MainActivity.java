@@ -1,4 +1,4 @@
-package com.tydeya.familycircle;
+package com.tydeya.familycircle.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 
 public class MainActivity extends AppCompatActivity {

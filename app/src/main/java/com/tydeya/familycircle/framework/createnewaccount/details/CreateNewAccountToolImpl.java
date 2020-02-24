@@ -7,10 +7,10 @@ import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewA
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tydeya.familycircle.constants.Firebase.FIRESTORE_BIRTHDATE_TAG;
-import static com.tydeya.familycircle.constants.Firebase.FIRESTORE_NAME_TAG;
-import static com.tydeya.familycircle.constants.Firebase.FIRESTORE_PHONE_TAG;
-import static com.tydeya.familycircle.constants.Firebase.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_NAME_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_PHONE_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_COLLECTION;
 
 public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 

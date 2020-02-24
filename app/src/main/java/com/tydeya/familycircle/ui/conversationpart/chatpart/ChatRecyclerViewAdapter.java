@@ -12,22 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.family.conversation.messages.Message;
-import com.tydeya.familycircle.family.conversation.messages.PersonMessage;
-import com.tydeya.familycircle.user.User;
+import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 
 import java.util.ArrayList;
 
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ChatMessageViewHolder> {
 
     private Context context;
-    private ArrayList<Message> messages;
+    private ArrayList<ChatMessage> messages;
     private static final int OUTGOING_MESSAGE_VIEW_TYPE = 0;
     private static final int INBOX_MESSAGE_VIEW_TYPE = 1;
     private static final int INFORMATION_MESSAGE_VIEW_TYPE = 2;
 
 
-    ChatRecyclerViewAdapter(Context context, ArrayList<Message> messages) {
+    ChatRecyclerViewAdapter(Context context, ArrayList<ChatMessage> messages) {
         this.context = context;
         this.messages = messages;
     }
@@ -50,7 +48,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        if (((PersonMessage) messages.get(position)).getAuthor() == User.getInstance().getUserFamilyMember()) {
+        if ((messages.get(position)).getAuthorPhoneNumber().equals("+79053333333")) {
             return OUTGOING_MESSAGE_VIEW_TYPE;
         } else {
             return INBOX_MESSAGE_VIEW_TYPE;
@@ -64,7 +62,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 holder.setMessageText(messages.get(position).getText());
                 break;
             case INBOX_MESSAGE_VIEW_TYPE:
-                holder.setAuthorText(((PersonMessage) messages.get(position)).getAuthor().getName());
+                //holder.setAuthorText((messages.get(position)).getAuthor().getName());
                 holder.setMessageText(messages.get(position).getText());
                 break;
         }

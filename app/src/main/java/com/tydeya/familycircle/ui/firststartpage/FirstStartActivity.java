@@ -10,7 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.commonhandlers.DatePickerDialog.ImageCropperUsable;
+import com.tydeya.familycircle.framework.DatePickerDialog.ImageCropperUsable;
 
 public class FirstStartActivity extends AppCompatActivity {
 

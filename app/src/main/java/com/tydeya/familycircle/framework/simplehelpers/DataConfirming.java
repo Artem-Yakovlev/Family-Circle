@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.simplehelpers;
+package com.tydeya.familycircle.framework.simplehelpers;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.R;

@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.constants;
+package com.tydeya.familycircle.domain.constants;
 
 public final class Firebase {
     public static final String FIRESTORE_USERS_COLLECTION = "Users";
