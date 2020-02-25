@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
+import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 
 import javax.inject.Inject;
 
@@ -55,8 +56,8 @@ public class CorrespondenceFragment extends Fragment {
 
         sendButton.setOnClickListener((view -> {
             if (!inputField.getText().toString().equals("")) {
-                //PersonMessage actualMessage = new PersonMessage(null, inputField.getText().toString(), User.getInstance().getUserFamilyMember());
-                //User.getInstance().getFamily().getFamilyConversations().get(MessagingActivity.correspondencePosition).getMessages().add(actualMessage);
+                ChatMessage chatMessage = new ChatMessage("+79053333333", inputField.getText().toString(), null);
+                conversationInteractor.getConversations().get(MessagingActivity.correspondencePosition).addMessage(chatMessage);
                 inputField.setText("");
                 chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
             }

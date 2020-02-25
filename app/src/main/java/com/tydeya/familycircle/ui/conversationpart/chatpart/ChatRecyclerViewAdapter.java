@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 
@@ -31,6 +32,9 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Inject
     FamilyInteractor familyInteractor;
+
+    @Inject
+    UserInteractor userInteractor;
 
     ChatRecyclerViewAdapter(Context context, ArrayList<ChatMessage> messages) {
         App.getComponent().injectRecyclerViewAdapter(this);
@@ -56,7 +60,9 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        if ((messages.get(position)).getAuthorPhoneNumber().equals("+79053333333")) {
+
+        if ((messages.get(position)).getAuthorPhoneNumber()
+                .equals(userInteractor.getUserAccountFamilyMember().getFullPhoneNumber())) {
             return OUTGOING_MESSAGE_VIEW_TYPE;
         } else {
             return INBOX_MESSAGE_VIEW_TYPE;

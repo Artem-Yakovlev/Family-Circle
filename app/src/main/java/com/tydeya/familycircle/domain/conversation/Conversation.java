@@ -41,4 +41,8 @@ public class Conversation {
     public void setAttachments(ConversationAttachments attachments) {
         this.attachments = attachments;
     }
+
+    public void addMessage(ChatMessage chatMessage) {
+        chatMessages.add(chatMessage);
+    }
 }
