@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -52,6 +53,7 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
 
     @Override
     public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential, String fullPhoneNumber) {
+        FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential);
         accountExistingCheckUp.isAccountWithPhoneExist(fullPhoneNumber);
     }
 
