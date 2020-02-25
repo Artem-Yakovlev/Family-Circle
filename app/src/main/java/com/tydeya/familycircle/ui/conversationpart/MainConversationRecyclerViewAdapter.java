@@ -45,6 +45,14 @@ public class MainConversationRecyclerViewAdapter
     @Override
     public void onBindViewHolder(@NonNull MainConversationRecyclerViewAdapter.FamilyConversationViewHolder holder, int position) {
         holder.setNameText(conversations.get(position).getDescription().getTitle());
+
+        int conversationSize = conversations.get(position).getChatMessages().size();
+        if (conversationSize != 0) {
+            holder.setLastMessageText(conversations.get(position).getChatMessages().get(conversationSize - 1).getText());
+        } else {
+            holder.setLastMessageText("...");
+        }
+
     }
 
     @Override
