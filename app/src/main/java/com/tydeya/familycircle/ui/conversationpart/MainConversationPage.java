@@ -79,6 +79,6 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     @Override
     public void onPause() {
         super.onPause();
-        conversationInteractor.subscribe(this);
+        conversationInteractor.unsubscribe(this);
     }
 }

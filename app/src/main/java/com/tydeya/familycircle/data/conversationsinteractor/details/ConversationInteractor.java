@@ -1,5 +1,7 @@
 package com.tydeya.familycircle.data.conversationsinteractor.details;
 
+import android.util.Log;
+
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorObservable;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
@@ -45,17 +47,30 @@ public class ConversationInteractor implements ConversationInteractorObservable,
      */
 
     @Override
-    public void conversationsDataUpdated(ArrayList<Conversation> conversations) {
+    public void conversationsAllDataUpdated(ArrayList<Conversation> conversations) {
         this.conversations = conversations;
         for (Conversation conversation : conversations) {
             Collections.sort(conversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
         }
         notifyObserversConversationsDataUpdated();
+        networkInteractor.setUpdateConversationsListener(this.conversations);
 
+    }
+
+    @Override
+    public void conversationUpdate(Conversation actualConversation) {
+        Collections.sort(actualConversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
+        for (Conversation conversation: conversations) {
+            if (conversation.getDescription().getTitle().equals(actualConversation.getDescription().getTitle())) {
+                conversation.setChatMessages(actualConversation.getChatMessages());
+            }
+        }
+        notifyObserversConversationsDataUpdated();
     }
 
     private void notifyObserversConversationsDataUpdated() {
         for (ConversationInteractorCallback callback : observers) {
+            Log.d("ASMR", "test");
             callback.conversationsDataUpdated();
         }
     }
@@ -64,11 +79,13 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     public void subscribe(ConversationInteractorCallback callback) {
         if (!observers.contains(callback)) {
             observers.add(callback);
+            Log.d("ASMR", "sub");
         }
     }
 
     @Override
     public void unsubscribe(ConversationInteractorCallback callback) {
         observers.remove(callback);
+        Log.d("ASMR", "uns");
     }
 }

@@ -95,7 +95,6 @@ public class MainConversationRecyclerViewAdapter
     }
 
     void refreshData(ArrayList<Conversation> conversations) {
-        this.conversations.clear();
         this.conversations = conversations;
         notifyDataSetChanged();
     }

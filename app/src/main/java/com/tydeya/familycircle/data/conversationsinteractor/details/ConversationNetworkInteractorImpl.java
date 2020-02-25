@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.data.conversationsinteractor.details;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractorCallback;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
@@ -23,6 +24,26 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
     ConversationNetworkInteractorImpl(ConversationNetworkInteractorCallback callback) {
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.callback = callback;
+    }
+
+    private void parseMessagesFromSnapshot(Conversation conversation, QuerySnapshot queryDocumentSnapshots) {
+        ArrayList<ChatMessage> messages = new ArrayList<>();
+
+        for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j++) {
+
+            String text = queryDocumentSnapshots.getDocuments()
+                    .get(j).get(Firebase.FIRESTORE_MESSAGE_TEXT).toString();
+
+            String phoneNumber = queryDocumentSnapshots.getDocuments()
+                    .get(j).get(Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE).toString();
+
+            Date dateTime = queryDocumentSnapshots.getDocuments()
+                    .get(j).getDate(Firebase.FIRESTORE_MESSAGE_DATETIME);
+
+            messages.add(new ChatMessage(phoneNumber, text, dateTime));
+        }
+
+        conversation.setChatMessages(messages);
     }
 
     /**
@@ -59,27 +80,11 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
             firebaseFirestore.collection("/Conversations").document(conversations.get(i).getKey())
                     .collection("Messages").get().addOnSuccessListener(queryDocumentSnapshots -> {
 
-                ArrayList<ChatMessage> messages = new ArrayList<>();
-
-                for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j++) {
-
-                    String text = queryDocumentSnapshots.getDocuments()
-                            .get(j).get(Firebase.FIRESTORE_MESSAGE_TEXT).toString();
-
-                    String phoneNumber = queryDocumentSnapshots.getDocuments()
-                            .get(j).get(Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE).toString();
-
-                    Date dateTime = queryDocumentSnapshots.getDocuments()
-                            .get(j).getDate(Firebase.FIRESTORE_MESSAGE_DATETIME);
-
-                    messages.add(new ChatMessage(phoneNumber, text, dateTime));
-                }
-
-                conversation.setChatMessages(messages);
+                parseMessagesFromSnapshot(conversation, queryDocumentSnapshots);
                 counter.getAndIncrement();
 
                 if (counter.intValue() == numbersConversations) {
-                    callback.conversationsDataUpdated(conversations);
+                    callback.conversationsAllDataUpdated(conversations);
                 }
 
             });
@@ -87,6 +92,28 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
 
     }
 
+    /**
+     * Changing data listener
+     */
+
+    public void setUpdateConversationsListener(ArrayList<Conversation> conversations) {
+
+
+        for (Conversation conversation : conversations) {
+            firebaseFirestore.collection("/Conversations").document(conversation.getKey())
+                    .collection("Messages").addSnapshotListener((queryDocumentSnapshots, e) -> {
+
+                Conversation tempConversation = new Conversation(null,
+                        conversation.getDescription(), conversation.getAttachments(), conversation.getKey());
+
+                parseMessagesFromSnapshot(tempConversation, queryDocumentSnapshots);
+
+                if (tempConversation.getChatMessages().size() != conversation.getChatMessages().size()) {
+                    callback.conversationUpdate(tempConversation);
+                }
+            });
+        }
+    }
 
     /**
      * Send data to server

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public interface ConversationNetworkInteractorCallback {
 
-    void conversationsDataUpdated(ArrayList<Conversation> conversations);
+    void conversationsAllDataUpdated(ArrayList<Conversation> conversations);
 
+    void conversationUpdate(Conversation conversation);
 }

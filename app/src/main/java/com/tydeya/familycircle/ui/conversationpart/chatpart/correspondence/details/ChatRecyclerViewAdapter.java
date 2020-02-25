@@ -125,10 +125,16 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
             this.messageText.setText(messageBodyText);
         }
 
-        public void setMessageTimeText(String messageTime) {
+        void setMessageTimeText(String messageTime) {
             this.messageTimeText.setText(messageTime);
         }
     }
+
+    void refreshData(ArrayList<ChatMessage> chatMessages) {
+        this.messages = chatMessages;
+        notifyDataSetChanged();
+    }
+
 
 }
 

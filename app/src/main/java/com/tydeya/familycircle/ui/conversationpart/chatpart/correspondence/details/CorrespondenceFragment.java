@@ -15,15 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
 import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
+import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondencePresenter;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondenceView;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
-public class CorrespondenceFragment extends Fragment implements CorrespondenceView {
+public class CorrespondenceFragment extends Fragment implements CorrespondenceView, ConversationInteractorCallback {
 
     private RecyclerView chatRecyclerView;
     private ChatRecyclerViewAdapter chatRecyclerViewAdapter;
@@ -69,6 +73,27 @@ public class CorrespondenceFragment extends Fragment implements CorrespondenceVi
     @Override
     public void messageSent() {
         inputField.setText("");
+        chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        conversationInteractor.subscribe(this);
+        chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        conversationInteractor.subscribe(this);
+    }
+
+    @Override
+    public void conversationsDataUpdated() {
+        ArrayList<ChatMessage> chatMessages = conversationInteractor.getConversations()
+                .get(MessagingActivity.correspondencePosition).getChatMessages();
+        chatRecyclerViewAdapter.refreshData(chatMessages);
         chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
     }
 }
