@@ -5,6 +5,7 @@ import com.tydeya.familycircle.data.conversationsinteractor.details.Conversation
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
+import com.tydeya.familycircle.domain.conversation.Conversation;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondencePresenter;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondenceView;
@@ -40,6 +41,9 @@ public class CorrespondencePresenterImpl implements CorrespondencePresenter {
     private void sendMessage(String messageText) {
         String userPhoneNumber = userInteractor.getUserAccountFamilyMember().getFullPhoneNumber();
         ChatMessage chatMessage = new ChatMessage(userPhoneNumber, messageText, null);
-        conversationInteractor.getConversations().get(MessagingActivity.correspondencePosition).addMessage(chatMessage);
+        Conversation conversation = conversationInteractor.getConversations().get(MessagingActivity.correspondencePosition);
+
+        conversation.addMessage(chatMessage);
+        conversationInteractor.sendMessage(chatMessage, conversation);
     }
 }

@@ -23,6 +23,10 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Require data from server
+     */
+
     @Override
     public void requireMembersDataFromServer() {
         Task<QuerySnapshot> familyMemberDataTask = firebaseFirestore.collection("/Users").get();
@@ -48,4 +52,5 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
         return new FamilyMember(description, contacts);
     }
+
 }

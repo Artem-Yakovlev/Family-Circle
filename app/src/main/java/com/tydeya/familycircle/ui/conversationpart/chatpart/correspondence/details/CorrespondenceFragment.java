@@ -36,7 +36,7 @@ public class CorrespondenceFragment extends Fragment implements CorrespondenceVi
     @Inject
     UserInteractor userInteractor;
 
-    CorrespondencePresenter presenter;
+    private CorrespondencePresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

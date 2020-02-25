@@ -4,6 +4,7 @@ import com.tydeya.familycircle.data.conversationsinteractor.abstraction.Conversa
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorObservable;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractorCallback;
+import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.domain.conversation.Conversation;
 
 import java.util.ArrayList;
@@ -22,9 +23,25 @@ public class ConversationInteractor implements ConversationInteractorObservable,
 
     }
 
+    public ArrayList<Conversation> getConversations() {
+        return conversations;
+    }
+
     private void prepareConversationsData() {
         networkInteractor.requireConversationsDataFromServer();
     }
+
+    /**
+     * Send message
+     * */
+
+    public void sendMessage(ChatMessage chatMessage, Conversation conversation) {
+        networkInteractor.sendChatMessageToServer(chatMessage, conversation);
+    }
+
+    /**
+     * Notifications
+     */
 
     @Override
     public void conversationsDataUpdated(ArrayList<Conversation> conversations) {
@@ -34,13 +51,9 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     }
 
     private void notifyObserversConversationsDataUpdated() {
-        for (ConversationInteractorCallback callback: observers) {
+        for (ConversationInteractorCallback callback : observers) {
             callback.conversationsDataUpdated();
         }
-    }
-
-    public ArrayList<Conversation> getConversations() {
-        return conversations;
     }
 
     @Override
