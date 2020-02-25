@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.conversationpart.chatpart.CorrespondenceFragment">
+    tools:context=".ui.conversationpart.chatpart.correspondence.details.CorrespondenceFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recycler_view"

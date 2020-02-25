@@ -17,8 +17,7 @@ public class App extends Application {
         super.onCreate();
 
         SharedPreferences sharedPreferences = getSharedPreferences(User.USER_SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE);
-        component = DaggerAppComponent.builder()
-                .userInteractorModule(new UserInteractorModule(sharedPreferences))
+        component = DaggerAppComponent.builder().userInteractorModule(new UserInteractorModule(sharedPreferences))
                 .build();
     }
 

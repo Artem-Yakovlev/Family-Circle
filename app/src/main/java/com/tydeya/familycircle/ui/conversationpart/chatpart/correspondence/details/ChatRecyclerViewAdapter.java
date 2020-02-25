@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.conversationpart.chatpart;
+package com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details;
 
 
 import android.content.Context;

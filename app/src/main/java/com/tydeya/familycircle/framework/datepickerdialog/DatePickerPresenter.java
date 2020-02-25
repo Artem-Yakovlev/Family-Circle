@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.framework.DatePickerDialog;
+package com.tydeya.familycircle.framework.datepickerdialog;
 
 import android.app.DatePickerDialog;
 import android.view.View;
