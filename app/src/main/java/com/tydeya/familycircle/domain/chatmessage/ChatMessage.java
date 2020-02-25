@@ -1,12 +1,14 @@
 package com.tydeya.familycircle.domain.chatmessage;
 
+import java.util.Date;
+
 public class ChatMessage {
 
     private String authorPhoneNumber;
     private String text;
-    private String dateTime;
+    private Date dateTime;
 
-    public ChatMessage(String authorPhoneNumber, String text, String dateTime) {
+    public ChatMessage(String authorPhoneNumber, String text, Date dateTime) {
         this.authorPhoneNumber = authorPhoneNumber;
         this.text = text;
         this.dateTime = dateTime;
@@ -28,11 +30,11 @@ public class ChatMessage {
         this.text = text;
     }
 
-    public String getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 }

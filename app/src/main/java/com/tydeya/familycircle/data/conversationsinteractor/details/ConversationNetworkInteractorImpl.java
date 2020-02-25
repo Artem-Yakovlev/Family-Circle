@@ -10,6 +10,7 @@ import com.tydeya.familycircle.domain.conversation.description.details.Conversat
 import com.tydeya.familycircle.domain.conversation.description.details.ConversationDescription;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -61,10 +62,17 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
                 ArrayList<ChatMessage> messages = new ArrayList<>();
 
                 for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j++) {
-                    String text = queryDocumentSnapshots.getDocuments().get(j).get("text").toString();
+
+                    String text = queryDocumentSnapshots.getDocuments()
+                            .get(j).get(Firebase.FIRESTORE_MESSAGE_TEXT).toString();
+
                     String phoneNumber = queryDocumentSnapshots.getDocuments()
-                            .get(j).get("authorPhoneNumber").toString();
-                    messages.add(new ChatMessage(phoneNumber, text, null));
+                            .get(j).get(Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE).toString();
+
+                    Date dateTime = queryDocumentSnapshots.getDocuments()
+                            .get(j).getDate(Firebase.FIRESTORE_MESSAGE_DATETIME);
+
+                    messages.add(new ChatMessage(phoneNumber, text, dateTime));
                 }
 
                 conversation.setChatMessages(messages);
@@ -96,7 +104,7 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
 
         firebaseData.put(Firebase.FIRESTORE_MESSAGE_TEXT, chatMessage.getText());
         firebaseData.put(Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE, chatMessage.getAuthorPhoneNumber());
-        firebaseData.put(Firebase.FIRESTORE_MESSAGE_DATETIME, null);
+        firebaseData.put(Firebase.FIRESTORE_MESSAGE_DATETIME, chatMessage.getDateTime());
 
         return firebaseData;
     }

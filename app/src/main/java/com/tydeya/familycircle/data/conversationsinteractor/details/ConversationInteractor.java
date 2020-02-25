@@ -8,6 +8,7 @@ import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.domain.conversation.Conversation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ConversationInteractor implements ConversationInteractorObservable, ConversationNetworkInteractorCallback {
 
@@ -33,7 +34,7 @@ public class ConversationInteractor implements ConversationInteractorObservable,
 
     /**
      * Send message
-     * */
+     */
 
     public void sendMessage(ChatMessage chatMessage, Conversation conversation) {
         networkInteractor.sendChatMessageToServer(chatMessage, conversation);
@@ -46,6 +47,9 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     @Override
     public void conversationsDataUpdated(ArrayList<Conversation> conversations) {
         this.conversations = conversations;
+        for (Conversation conversation : conversations) {
+            Collections.sort(conversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
+        }
         notifyObserversConversationsDataUpdated();
 
     }

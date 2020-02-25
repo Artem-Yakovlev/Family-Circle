@@ -10,6 +10,8 @@ import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondencePresenter;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondenceView;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 public class CorrespondencePresenterImpl implements CorrespondencePresenter {
@@ -40,7 +42,7 @@ public class CorrespondencePresenterImpl implements CorrespondencePresenter {
 
     private void sendMessage(String messageText) {
         String userPhoneNumber = userInteractor.getUserAccountFamilyMember().getFullPhoneNumber();
-        ChatMessage chatMessage = new ChatMessage(userPhoneNumber, messageText, null);
+        ChatMessage chatMessage = new ChatMessage(userPhoneNumber, messageText, new Date());
         Conversation conversation = conversationInteractor.getConversations().get(MessagingActivity.correspondencePosition);
 
         conversation.addMessage(chatMessage);
