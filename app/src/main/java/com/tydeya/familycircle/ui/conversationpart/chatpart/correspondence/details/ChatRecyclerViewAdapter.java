@@ -18,7 +18,9 @@ import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -71,13 +73,18 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ChatRecyclerViewAdapter.ChatMessageViewHolder holder, int position) {
+
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm a", Locale.US);
+
         switch (getItemViewType(position)) {
             case OUTGOING_MESSAGE_VIEW_TYPE:
                 holder.setMessageText(messages.get(position).getText());
+                holder.setMessageTimeText(formatForDateNow.format(messages.get(position).getDateTime()));
                 break;
             case INBOX_MESSAGE_VIEW_TYPE:
                 holder.setAuthorText(getNameByFullNumber(messages.get(position).getAuthorPhoneNumber()));
                 holder.setMessageText(messages.get(position).getText());
+                holder.setMessageTimeText(formatForDateNow.format(messages.get(position).getDateTime()));
                 break;
         }
     }
