@@ -11,10 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
+import com.tydeya.familycircle.domain.familymember.FamilyMember;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ChatMessageViewHolder> {
 
@@ -24,8 +29,11 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
     private static final int INBOX_MESSAGE_VIEW_TYPE = 1;
     private static final int INFORMATION_MESSAGE_VIEW_TYPE = 2;
 
+    @Inject
+    FamilyInteractor familyInteractor;
 
     ChatRecyclerViewAdapter(Context context, ArrayList<ChatMessage> messages) {
+        App.getComponent().injectRecyclerViewAdapter(this);
         this.context = context;
         this.messages = messages;
     }
@@ -62,9 +70,18 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 holder.setMessageText(messages.get(position).getText());
                 break;
             case INBOX_MESSAGE_VIEW_TYPE:
-                //holder.setAuthorText((messages.get(position)).getAuthor().getName());
+                holder.setAuthorText(getNameByFullNumber(messages.get(position).getAuthorPhoneNumber()));
                 holder.setMessageText(messages.get(position).getText());
                 break;
+        }
+    }
+
+    String getNameByFullNumber(String fullPhoneNumber) {
+        FamilyMember familyMember = familyInteractor.getFamilyAssistant().getUserByPhone(fullPhoneNumber);
+        if (familyMember != null) {
+            return familyMember.getDescription().getName();
+        } else {
+            return context.getString(R.string.unknown_text);
         }
     }
 
