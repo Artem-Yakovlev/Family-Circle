@@ -8,18 +8,25 @@ import java.util.ArrayList;
 
 public class Conversation {
 
+    private String key;
     private ArrayList<ChatMessage> chatMessages;
     private ConversationDescription description;
     private ConversationAttachments attachments;
 
-    public Conversation(ArrayList<ChatMessage> chatMessages, ConversationDescription description, ConversationAttachments attachments) {
+    public Conversation(ArrayList<ChatMessage> chatMessages, ConversationDescription description,
+                        ConversationAttachments attachments, String key) {
         this.chatMessages = chatMessages;
         this.description = description;
         this.attachments = attachments;
+        this.key = key;
     }
 
     public ArrayList<ChatMessage> getChatMessages() {
         return chatMessages;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
@@ -40,5 +47,9 @@ public class Conversation {
 
     public void setAttachments(ConversationAttachments attachments) {
         this.attachments = attachments;
+    }
+
+    public void addMessage(ChatMessage chatMessage) {
+        chatMessages.add(chatMessage);
     }
 }

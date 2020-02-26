@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.framework.DatePickerDialog;
+package com.tydeya.familycircle.framework.datepickerdialog;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 

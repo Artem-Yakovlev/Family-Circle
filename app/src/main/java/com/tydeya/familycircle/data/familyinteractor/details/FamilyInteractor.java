@@ -1,5 +1,7 @@
 package com.tydeya.familycircle.data.familyinteractor.details;
 
+import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
+import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorObservable;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractor;
@@ -31,6 +33,10 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
             return families.get(actualFamilyIndex);
         }
         return new Family(0, new FamilyDescription("Test family"), new ArrayList<>());
+    }
+
+    public FamilyAssistant getFamilyAssistant() {
+        return new FamilyAssistantImpl(getActualFamily());
     }
 
     private void prepareFamilyMemberData() {

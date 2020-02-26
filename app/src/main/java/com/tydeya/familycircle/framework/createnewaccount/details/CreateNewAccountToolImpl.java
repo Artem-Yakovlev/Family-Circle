@@ -7,9 +7,9 @@ import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewA
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_BIRTHDATE_TAG;
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_NAME_TAG;
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_PHONE_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_COLLECTION;
 
 public class CreateNewAccountToolImpl implements CreateNewAccountTool {
@@ -37,9 +37,9 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
     private Map<String, Object> createDataForFirestore(String fullPhoneNumber, String name, String birthDate) {
         Map<String, Object> userDataForFirestore = new HashMap<>();
 
-        userDataForFirestore.put(FIRESTORE_PHONE_TAG, fullPhoneNumber);
-        userDataForFirestore.put(FIRESTORE_NAME_TAG, name);
-        userDataForFirestore.put(FIRESTORE_BIRTHDATE_TAG, birthDate);
+        userDataForFirestore.put(FIRESTORE_USERS_PHONE_TAG, fullPhoneNumber);
+        userDataForFirestore.put(FIRESTORE_USERS_NAME_TAG, name);
+        userDataForFirestore.put(FIRESTORE_USERS_BIRTHDATE_TAG, birthDate);
 
         return userDataForFirestore;
     }

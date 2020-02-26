@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.conversationpart.chatpart;
+package com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details;
 
 
 import android.content.Context;
@@ -11,10 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
+import com.tydeya.familycircle.domain.familymember.FamilyMember;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+
+import javax.inject.Inject;
 
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ChatMessageViewHolder> {
 
@@ -24,8 +32,14 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
     private static final int INBOX_MESSAGE_VIEW_TYPE = 1;
     private static final int INFORMATION_MESSAGE_VIEW_TYPE = 2;
 
+    @Inject
+    FamilyInteractor familyInteractor;
+
+    @Inject
+    UserInteractor userInteractor;
 
     ChatRecyclerViewAdapter(Context context, ArrayList<ChatMessage> messages) {
+        App.getComponent().injectRecyclerViewAdapter(this);
         this.context = context;
         this.messages = messages;
     }
@@ -48,7 +62,9 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        if ((messages.get(position)).getAuthorPhoneNumber().equals("+79053333333")) {
+
+        if ((messages.get(position)).getAuthorPhoneNumber()
+                .equals(userInteractor.getUserAccountFamilyMember().getFullPhoneNumber())) {
             return OUTGOING_MESSAGE_VIEW_TYPE;
         } else {
             return INBOX_MESSAGE_VIEW_TYPE;
@@ -57,14 +73,28 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ChatRecyclerViewAdapter.ChatMessageViewHolder holder, int position) {
+
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm a", Locale.US);
+
         switch (getItemViewType(position)) {
             case OUTGOING_MESSAGE_VIEW_TYPE:
                 holder.setMessageText(messages.get(position).getText());
+                holder.setMessageTimeText(formatForDateNow.format(messages.get(position).getDateTime()));
                 break;
             case INBOX_MESSAGE_VIEW_TYPE:
-                //holder.setAuthorText((messages.get(position)).getAuthor().getName());
+                holder.setAuthorText(getNameByFullNumber(messages.get(position).getAuthorPhoneNumber()));
                 holder.setMessageText(messages.get(position).getText());
+                holder.setMessageTimeText(formatForDateNow.format(messages.get(position).getDateTime()));
                 break;
+        }
+    }
+
+    String getNameByFullNumber(String fullPhoneNumber) {
+        FamilyMember familyMember = familyInteractor.getFamilyAssistant().getUserByPhone(fullPhoneNumber);
+        if (familyMember != null) {
+            return familyMember.getDescription().getName();
+        } else {
+            return context.getString(R.string.unknown_text);
         }
     }
 
@@ -95,10 +125,16 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
             this.messageText.setText(messageBodyText);
         }
 
-        public void setMessageTimeText(String messageTime) {
+        void setMessageTimeText(String messageTime) {
             this.messageTimeText.setText(messageTime);
         }
     }
+
+    void refreshData(ArrayList<ChatMessage> chatMessages) {
+        this.messages = chatMessages;
+        notifyDataSetChanged();
+    }
+
 
 }
 

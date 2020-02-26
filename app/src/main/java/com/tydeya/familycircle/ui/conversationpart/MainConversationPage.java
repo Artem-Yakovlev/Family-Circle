@@ -74,11 +74,12 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     public void onResume() {
         super.onResume();
         conversationInteractor.subscribe(this);
+        recyclerViewAdapter.refreshData(conversationInteractor.getConversations());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        conversationInteractor.subscribe(this);
+        conversationInteractor.unsubscribe(this);
     }
 }

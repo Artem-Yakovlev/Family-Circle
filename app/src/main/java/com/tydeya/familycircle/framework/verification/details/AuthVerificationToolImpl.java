@@ -14,8 +14,10 @@ public class AuthVerificationToolImpl implements AuthVerificationTool {
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks authCallbacks;
     private String fullPhoneNumber;
+    private AuthVerificationCallback callback;
 
     public AuthVerificationToolImpl(AuthVerificationCallback callback) {
+        this.callback = callback;
         this.authCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
@@ -32,13 +34,17 @@ public class AuthVerificationToolImpl implements AuthVerificationTool {
                 super.onCodeSent(s, forceResendingToken);
                 callback.onCodeSent(s, forceResendingToken);
             }
+
+            @Override
+            public void onCodeAutoRetrievalTimeOut(String s) {
+                super.onCodeAutoRetrievalTimeOut(s);
+            }
         };
     }
 
     @Override
     public void verifyPhoneNumber(String fullPhoneNumber, Activity activity) {
         this.fullPhoneNumber = fullPhoneNumber;
-
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 fullPhoneNumber,
                 60,
