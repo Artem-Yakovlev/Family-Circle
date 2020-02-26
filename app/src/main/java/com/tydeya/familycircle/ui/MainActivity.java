@@ -14,14 +14,12 @@ import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean dataChecked = false;
-    private FirebaseAuth firebaseAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         verificationCheck();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         assert navHostFragment != null;
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verificationCheck() {
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() == null) {
             Intent intent = new Intent(this, FirstStartActivity.class);

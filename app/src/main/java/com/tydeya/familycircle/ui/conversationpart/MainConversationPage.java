@@ -74,6 +74,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     public void onResume() {
         super.onResume();
         conversationInteractor.subscribe(this);
+        recyclerViewAdapter.refreshData(conversationInteractor.getConversations());
     }
 
     @Override

@@ -59,7 +59,6 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
         firebaseFirestore.collection("/Conversations").get().addOnSuccessListener(queryDocumentSnapshots -> {
 
             ArrayList<Conversation> conversations = new ArrayList<>();
-            ArrayList<String> keys = new ArrayList<>();
 
             for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
 
@@ -97,7 +96,6 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
      */
 
     public void setUpdateConversationsListener(ArrayList<Conversation> conversations) {
-
 
         for (Conversation conversation : conversations) {
             firebaseFirestore.collection("/Conversations").document(conversation.getKey())
