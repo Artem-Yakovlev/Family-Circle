@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_COLLECTION;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_NAME;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_COLLECTION;
+
 public class ConversationNetworkInteractorImpl implements ConversationNetworkInteractor {
 
     private ConversationNetworkInteractorCallback callback;
@@ -56,13 +60,13 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
     }
 
     private void getKeysForMessages() {
-        firebaseFirestore.collection("/Conversations").get().addOnSuccessListener(queryDocumentSnapshots -> {
+        firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).get().addOnSuccessListener(queryDocumentSnapshots -> {
 
             ArrayList<Conversation> conversations = new ArrayList<>();
 
             for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
 
-                String title = queryDocumentSnapshots.getDocuments().get(i).get("name").toString();
+                String title = queryDocumentSnapshots.getDocuments().get(i).get(FIRESTORE_CONVERSATION_NAME).toString();
                 conversations.add(new Conversation(new ArrayList<>(), new ConversationDescription(title),
                         new ConversationAttachments(), queryDocumentSnapshots.getDocuments().get(i).getId()));
             }
@@ -76,8 +80,8 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
         for (int i = 0; i < numbersConversations; i++) {
             Conversation conversation = conversations.get(i);
 
-            firebaseFirestore.collection("/Conversations").document(conversations.get(i).getKey())
-                    .collection("Messages").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).document(conversations.get(i).getKey())
+                    .collection(FIRESTORE_MESSAGE_COLLECTION).get().addOnSuccessListener(queryDocumentSnapshots -> {
 
                 parseMessagesFromSnapshot(conversation, queryDocumentSnapshots);
                 counter.getAndIncrement();
@@ -98,8 +102,8 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
     public void setUpdateConversationsListener(ArrayList<Conversation> conversations) {
 
         for (Conversation conversation : conversations) {
-            firebaseFirestore.collection("/Conversations").document(conversation.getKey())
-                    .collection("Messages").addSnapshotListener((queryDocumentSnapshots, e) -> {
+            firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).document(conversation.getKey())
+                    .collection(FIRESTORE_MESSAGE_COLLECTION).addSnapshotListener((queryDocumentSnapshots, e) -> {
 
                 Conversation tempConversation = new Conversation(null,
                         conversation.getDescription(), conversation.getAttachments(), conversation.getKey());
@@ -119,9 +123,9 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
 
     @Override
     public void sendChatMessageToServer(ChatMessage chatMessage, Conversation conversation) {
-        firebaseFirestore.collection("/Conversations")
+        firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION)
                 .document(conversation.getKey())
-                .collection("Messages").add(parseDataFromChatMessageForServer(chatMessage));
+                .collection(FIRESTORE_MESSAGE_COLLECTION).add(parseDataFromChatMessageForServer(chatMessage));
     }
 
     private Map<String, Object> parseDataFromChatMessageForServer(ChatMessage chatMessage) {

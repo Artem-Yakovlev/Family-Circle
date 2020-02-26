@@ -12,6 +12,8 @@ import com.tydeya.familycircle.domain.familymember.description.details.FamilyMem
 
 import java.util.ArrayList;
 
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_NAME;
+
 public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     private FirebaseFirestore firebaseFirestore;
@@ -47,7 +49,7 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
     private FamilyMember createMemberByData(DocumentSnapshot documentSnapshot) {
 
         FamilyMemberDescription description =
-                new FamilyMemberDescription(documentSnapshot.get("name").toString(), null, null);
+                new FamilyMemberDescription(documentSnapshot.get(FIRESTORE_CONVERSATION_NAME).toString(), null, null);
         FamilyMemberContacts contacts = new FamilyMemberContacts(documentSnapshot.get("phone_number").toString());
 
         return new FamilyMember(description, contacts);
