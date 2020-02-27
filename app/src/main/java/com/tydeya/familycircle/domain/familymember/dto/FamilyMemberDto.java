@@ -2,15 +2,45 @@ package com.tydeya.familycircle.domain.familymember.dto;
 
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.ZodiacSign;
+import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class FamilyMemberDto {
 
     private String name;
-    private ZodiacSign zodiacSign;
+    private String zodiacSign;
     private String birthDate;
 
-    FamilyMemberDto(FamilyMember familyMember) {
+    public FamilyMemberDto(FamilyMember familyMember) {
+        this.name = familyMember.getDescription().getName();
+        this.birthDate = parseDateForPresenter(familyMember.getDescription().getBirthDate());
+        this.zodiacSign = parseDateForZodiacSignText(familyMember.getDescription().getBirthDate());
+    }
 
+    /**
+     * Parse data for Dto
+     */
+
+    private String parseDateForPresenter(long birthDateTimeStamp) {
+        if (birthDateTimeStamp == -1) {
+            return "";
+        } else {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTimeInMillis(birthDateTimeStamp);
+            return DateRefactoring.getDateLocaleText(calendar);
+        }
+    }
+
+    private String parseDateForZodiacSignText(long birthDateTimeStamp) {
+        if (birthDateTimeStamp == -1) {
+            return "";
+        } else {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTimeInMillis(birthDateTimeStamp);
+            return ZodiacSign.getZodiacSign(calendar).name();
+        }
     }
 
     public String getName() {
@@ -21,11 +51,11 @@ public class FamilyMemberDto {
         this.name = name;
     }
 
-    public ZodiacSign getZodiacSign() {
+    public String getZodiacSign() {
         return zodiacSign;
     }
 
-    public void setZodiacSign(ZodiacSign zodiacSign) {
+    public void setZodiacSign(String zodiacSign) {
         this.zodiacSign = zodiacSign;
     }
 

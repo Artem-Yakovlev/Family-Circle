@@ -1,5 +1,7 @@
 package com.tydeya.familycircle.domain.familymember;
 
+import androidx.annotation.NonNull;
+
 import java.util.Calendar;
 
 public enum ZodiacSign {
@@ -13,7 +15,7 @@ public enum ZodiacSign {
     private static int birthDateDay;
     private static int birthDateMonth;
 
-
+    @NonNull
     public static ZodiacSign getZodiacSign(Calendar birthDate) {
 
         birthDateDay = birthDate.get(Calendar.DAY_OF_MONTH);
@@ -24,7 +26,7 @@ public enum ZodiacSign {
                 return ZodiacSign.values()[i];
             }
         }
-        return null;
+        return ZodiacSign.PISCES;
     }
 
     private static boolean check(int number) {
