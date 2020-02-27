@@ -70,7 +70,6 @@ public class ConversationInteractor implements ConversationInteractorObservable,
 
     private void notifyObserversConversationsDataUpdated() {
         for (ConversationInteractorCallback callback : observers) {
-            Log.d("ASMR", "test");
             callback.conversationsDataUpdated();
         }
     }
@@ -79,13 +78,11 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     public void subscribe(ConversationInteractorCallback callback) {
         if (!observers.contains(callback)) {
             observers.add(callback);
-            Log.d("ASMR", "sub");
         }
     }
 
     @Override
     public void unsubscribe(ConversationInteractorCallback callback) {
         observers.remove(callback);
-        Log.d("ASMR", "uns");
     }
 }

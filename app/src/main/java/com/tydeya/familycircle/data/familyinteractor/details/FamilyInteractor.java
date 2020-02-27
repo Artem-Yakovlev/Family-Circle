@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.data.familyinteractor.details;
 
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorCallback;
@@ -24,8 +25,7 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
     public FamilyInteractor() {
         observers = new ArrayList<>();
         networkInteractor = new FamilyNetworkInteractorImpl(this);
-
-        prepareFamilyMemberData();
+        prepareFamilyData();
     }
 
     public Family getActualFamily() {
@@ -39,15 +39,20 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         return new FamilyAssistantImpl(getActualFamily());
     }
 
-    private void prepareFamilyMemberData() {
+    private void prepareFamilyData() {
+        ArrayList<FamilyMember> familyMembers = new ArrayList<>(App.getDatabase().familyMembersDao().getAll());
+
+        families.add(new Family(actualFamilyIndex, new FamilyDescription("Test family"), familyMembers));
+
         networkInteractor.requireMembersDataFromServer();
     }
 
     @Override
     public void memberDataFromServerUpdate(ArrayList<FamilyMember> members) {
-        families = new ArrayList<>();
-        FamilyDescription description = new FamilyDescription("Test family");
-        families.add(new Family(0, description, members));
+        families.get(actualFamilyIndex).setFamilyMembers(members);
+
+        App.getDatabase().familyMembersDao().update(families.get(actualFamilyIndex).getFamilyMembers());
+
         notifyObserversMemberDataUpdated();
     }
 

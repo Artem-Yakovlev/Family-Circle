@@ -7,8 +7,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractor;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familymember.contacts.details.FamilyMemberContacts;
-import com.tydeya.familycircle.domain.familymember.description.details.FamilyMemberDescription;
+import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
+import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
 
 import java.util.ArrayList;
 
@@ -50,9 +50,9 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
         FamilyMemberDescription description =
                 new FamilyMemberDescription(documentSnapshot.get(FIRESTORE_CONVERSATION_NAME).toString(), null, null);
-        FamilyMemberContacts contacts = new FamilyMemberContacts(documentSnapshot.get("phone_number").toString());
+        FamilyMemberContacts contacts = new FamilyMemberContacts();
 
-        return new FamilyMember(description, contacts);
+        return new FamilyMember(documentSnapshot.get("phone_number").toString(), description, contacts);
     }
 
 }

@@ -61,7 +61,6 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
 
     private void getKeysForMessages() {
         firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).get().addOnSuccessListener(queryDocumentSnapshots -> {
-
             ArrayList<Conversation> conversations = new ArrayList<>();
 
             for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {

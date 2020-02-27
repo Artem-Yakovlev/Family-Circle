@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.domain.constants.User;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familymember.contacts.details.FamilyMemberContacts;
-import com.tydeya.familycircle.domain.familymember.description.details.FamilyMemberDescription;
+import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
+import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
 
 //TODO remove MOCK creating
 public class UserInteractor {
@@ -27,8 +27,8 @@ public class UserInteractor {
         FamilyMemberDescription description = new FamilyMemberDescription(name, null, null);
 
         String fullPhoneNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
-        FamilyMemberContacts contacts = new FamilyMemberContacts(fullPhoneNumber);
+        FamilyMemberContacts contacts = new FamilyMemberContacts();
 
-        this.userAccountFamilyMember = new FamilyMember(description, contacts);
+        this.userAccountFamilyMember = new FamilyMember(fullPhoneNumber, description, contacts);
     }
 }

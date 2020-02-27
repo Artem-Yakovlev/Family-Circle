@@ -1,9 +1,17 @@
-package com.tydeya.familycircle.domain.familymember.description.details;
+package com.tydeya.familycircle.domain.familymember.description;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
+@Entity
 public class FamilyMemberDescription {
 
     private String name;
+
+    @ColumnInfo(name = "birth_date")
     private String birthDate;
+
+    @ColumnInfo(name = "image_address")
     private String imageAddress;
 
     public FamilyMemberDescription(String name, String birthDate, String imageAddress) {
@@ -34,5 +42,14 @@ public class FamilyMemberDescription {
 
     public void setImageAddress(String imageAddress) {
         this.imageAddress = imageAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "FamilyMemberDescription{" +
+                "name='" + name + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", imageAddress='" + imageAddress + '\'' +
+                '}';
     }
 }
