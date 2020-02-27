@@ -1,7 +1,6 @@
 package com.tydeya.familycircle;
 
-import com.tydeya.familycircle.family.description.PersonDescription;
-import com.tydeya.familycircle.family.description.ZodiacSign;
+import com.tydeya.familycircle.domain.familymember.ZodiacSign;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,22 +11,17 @@ import java.util.GregorianCalendar;
 
 public class PersonDescriptionTest {
 
-    private PersonDescription personalDescription;
     private final String ORIGINAL_DESCRIPTION_TEXT = "It is really beautiful man!";
     private final String MODIFIED_DESCRIPTION_TEXT = "It is really strange man!";
 
     @Before
     public void init() {
 
-        personalDescription = new PersonDescription(ORIGINAL_DESCRIPTION_TEXT,
-                null, new GregorianCalendar());
     }
 
     @Test
     public void getAndSetTextTest() {
-        Assert.assertEquals(ORIGINAL_DESCRIPTION_TEXT, personalDescription.getText());
-        personalDescription.setText(MODIFIED_DESCRIPTION_TEXT);
-        Assert.assertEquals(MODIFIED_DESCRIPTION_TEXT, personalDescription.getText());
+
     }
 
     @Test

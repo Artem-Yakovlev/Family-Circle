@@ -88,7 +88,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         assert getContext() != null;
         Calendar calendar = new GregorianCalendar(selectedDateYear, selectedDateMonth, selectedDateDay);
 
-        presenter.birthDateChanged(DateRefactoring.getDateLocaleText(calendar));
+        presenter.birthDateChanged(calendar.getTimeInMillis());
         birthDateText.setText(DateRefactoring.getDateLocaleText(calendar));
         birthDateText.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
     }

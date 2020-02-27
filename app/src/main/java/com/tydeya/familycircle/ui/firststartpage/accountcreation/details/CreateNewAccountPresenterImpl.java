@@ -13,7 +13,7 @@ public class CreateNewAccountPresenterImpl implements CreateNewAccountPresenter,
     private CreateNewAccountTool createNewAccountTool;
 
     private String phoneNumber;
-    private String birthDate = "";
+    private long birthDate = -1;
 
     CreateNewAccountPresenterImpl(CreateNewAccountView view, String phoneNumber) {
         this.view = view;
@@ -22,7 +22,7 @@ public class CreateNewAccountPresenterImpl implements CreateNewAccountPresenter,
     }
 
     @Override
-    public void birthDateChanged(String birthDate) {
+    public void birthDateChanged(long birthDate) {
         this.birthDate = birthDate;
     }
 
