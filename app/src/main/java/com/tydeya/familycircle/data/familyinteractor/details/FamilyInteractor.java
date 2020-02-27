@@ -35,9 +35,11 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         return new Family(0, new FamilyDescription("Test family"), new ArrayList<>());
     }
 
+
     public FamilyAssistant getFamilyAssistant() {
         return new FamilyAssistantImpl(getActualFamily());
     }
+
 
     private void prepareFamilyData() {
         ArrayList<FamilyMember> familyMembers = new ArrayList<>(App.getDatabase().familyMembersDao().getAll());
@@ -47,8 +49,10 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         networkInteractor.requireMembersDataFromServer();
     }
 
+
     @Override
     public void memberDataFromServerUpdate(ArrayList<FamilyMember> members) {
+
         families.get(actualFamilyIndex).setFamilyMembers(members);
 
         App.getDatabase().familyMembersDao().update(families.get(actualFamilyIndex).getFamilyMembers());
@@ -56,11 +60,13 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         notifyObserversMemberDataUpdated();
     }
 
+
     private void notifyObserversMemberDataUpdated() {
         for (FamilyInteractorCallback callback: observers) {
             callback.memberDataUpdated();
         }
     }
+
 
     @Override
     public void subscribe(FamilyInteractorCallback callback) {
@@ -68,6 +74,7 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
             observers.add(callback);
         }
     }
+
 
     @Override
     public void unsubscribe(FamilyInteractorCallback callback) {

@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.data.familyinteractor.details;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,8 +30,7 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     @Override
     public void requireMembersDataFromServer() {
-        Task<QuerySnapshot> familyMemberDataTask = firebaseFirestore.collection("/Users").get();
-        familyMemberDataTask.addOnSuccessListener(queryDocumentSnapshots -> {
+        firebaseFirestore.collection("/Users").addSnapshotListener((queryDocumentSnapshots, e) -> {
             ArrayList<FamilyMember> members = getMembersBySnapshot(queryDocumentSnapshots);
             callback.memberDataFromServerUpdate(members);
         });
