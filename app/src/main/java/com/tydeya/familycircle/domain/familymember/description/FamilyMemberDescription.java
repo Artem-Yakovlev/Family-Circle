@@ -9,12 +9,12 @@ public class FamilyMemberDescription {
     private String name;
 
     @ColumnInfo(name = "birth_date")
-    private String birthDate;
+    private long birthDate;
 
     @ColumnInfo(name = "image_address")
     private String imageAddress;
 
-    public FamilyMemberDescription(String name, String birthDate, String imageAddress) {
+    public FamilyMemberDescription(String name, long birthDate, String imageAddress) {
         this.name = name;
         this.birthDate = birthDate;
         this.imageAddress = imageAddress;
@@ -28,11 +28,11 @@ public class FamilyMemberDescription {
         this.name = name;
     }
 
-    public String getBirthDate() {
+    public long getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(long birthDate) {
         this.birthDate = birthDate;
     }
 

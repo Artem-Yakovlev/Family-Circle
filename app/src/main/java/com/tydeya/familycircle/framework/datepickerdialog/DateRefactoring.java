@@ -4,6 +4,7 @@ import android.text.format.DateFormat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class DateRefactoring {
@@ -16,6 +17,13 @@ public class DateRefactoring {
 
         SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
         return format.format(calendar.getTime());
+    }
+
+    public static long dateToTimestamp(Date date) {
+        if (date == null) {
+            return -1;
+        }
+        return date.getTime();
     }
 
 }

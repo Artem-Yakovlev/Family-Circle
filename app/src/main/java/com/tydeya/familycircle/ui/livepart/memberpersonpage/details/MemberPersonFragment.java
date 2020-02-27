@@ -17,20 +17,23 @@ import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
+import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
+import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
 
 import javax.inject.Inject;
 
 
-public class FamilyMemberPersonPage extends Fragment {
+public class MemberPersonFragment extends Fragment implements MemberPersonView {
 
     private TextView nameText;
     private TextView birthdateText;
-    private int personPosition;
     private FamilyMember member;
     private Toolbar toolbar;
 
     @Inject
     FamilyInteractor familyInteractor;
+
+    private MemberPersonPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,38 +45,33 @@ public class FamilyMemberPersonPage extends Fragment {
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         toolbar = root.findViewById(R.id.family_member_view_toolbar);
 
-        setCurrentData();
+        presenter = new MemberPersonPresenterImpl(this, getArguments().getInt("personPosition"));
 
         return root;
-    }
-
-    private void setCurrentData() {
-
-        assert getArguments() != null;
-        personPosition = getArguments().getInt("personPosition", -1);
-        if (personPosition == -1) {
-            throw new IllegalArgumentException("personPosition is not found");
-        }
-
-        member = familyInteractor.getActualFamily().getFamilyMembers().get(personPosition);
-
-
-        nameText.setText(member.getDescription().getName());
-        if (member.getDescription() != null && member.getDescription().getBirthDate() != null) {
-            birthdateText.setText(member.getDescription().getBirthDate());
-        } else {
-            birthdateText.setText(getResources().getString(R.string.family_member_view_datebirthd_not_known));
-        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        assert getArguments() != null;
+
+        //member = familyInteractor.getActualFamily().getFamilyMembers().get();
+        setCurrentData();
 
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
             navController.popBackStack();
         });
 
+    }
+
+    private void setCurrentData() {
+
+        nameText.setText(member.getDescription().getName());
+        if (member.getDescription() != null && member.getDescription().getBirthDate() != -1) {
+            //birthdateText.setText(member.getDescription().getBirthDate());
+        } else {
+            birthdateText.setText(getResources().getString(R.string.family_member_view_datebirthd_not_known));
+        }
     }
 }

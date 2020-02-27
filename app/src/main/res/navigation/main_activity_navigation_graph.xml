@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/familyMemberViewFragment"
-        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.FamilyMemberPersonPage"
+        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment"
         android:label="fragment_family_member_view"
         tools:layout="@layout/fragment_family_member_view">
         <argument

@@ -8,10 +8,14 @@ import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkIn
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
 import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
+import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
 
 import java.util.ArrayList;
 
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_NAME;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
 
 public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
@@ -30,7 +34,7 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     @Override
     public void requireMembersDataFromServer() {
-        firebaseFirestore.collection("/Users").addSnapshotListener((queryDocumentSnapshots, e) -> {
+        firebaseFirestore.collection(FIRESTORE_USERS_COLLECTION).addSnapshotListener((queryDocumentSnapshots, e) -> {
             ArrayList<FamilyMember> members = getMembersBySnapshot(queryDocumentSnapshots);
             callback.memberDataFromServerUpdate(members);
         });
@@ -46,11 +50,14 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     private FamilyMember createMemberByData(DocumentSnapshot documentSnapshot) {
 
-        FamilyMemberDescription description =
-                new FamilyMemberDescription(documentSnapshot.get(FIRESTORE_CONVERSATION_NAME).toString(), null, null);
+        String name = documentSnapshot.getString(FIRESTORE_USERS_NAME_TAG);
+        long birthDate = DateRefactoring.dateToTimestamp(documentSnapshot.getDate(FIRESTORE_USERS_BIRTHDATE_TAG));
+        String fullPhoneNumber = documentSnapshot.getString(FIRESTORE_USERS_PHONE_TAG);
+
+        FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
         FamilyMemberContacts contacts = new FamilyMemberContacts();
 
-        return new FamilyMember(documentSnapshot.get("phone_number").toString(), description, contacts);
+        return new FamilyMember(fullPhoneNumber, description, contacts);
     }
 
 }

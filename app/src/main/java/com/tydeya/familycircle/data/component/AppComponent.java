@@ -9,7 +9,7 @@ import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.detai
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondenceFragment;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondencePresenterImpl;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
-import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.FamilyMemberPersonPage;
+import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
 
 import javax.inject.Singleton;
 
@@ -21,7 +21,7 @@ public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
 
-    void injectFragment(FamilyMemberPersonPage familyMemberPersonPage);
+    void injectFragment(MemberPersonFragment memberPersonFragment);
 
     void injectFragment(MainConversationPage mainConversationPage);
 
