@@ -89,7 +89,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         }
     }
 
-    String getNameByFullNumber(String fullPhoneNumber) {
+    private String getNameByFullNumber(String fullPhoneNumber) {
         FamilyMember familyMember = familyInteractor.getFamilyAssistant().getUserByPhone(fullPhoneNumber);
         if (familyMember != null) {
             return familyMember.getDescription().getName();

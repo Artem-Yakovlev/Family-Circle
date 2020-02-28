@@ -39,11 +39,7 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     public int getActualConversationBadges() {
         int numberBadges = 0;
         for (Conversation conversation : conversations) {
-            for (ChatMessage chatMessage: conversation.getChatMessages()) {
-                if (!chatMessage.isViewed()) {
-                    numberBadges++;
-                }
-            }
+            numberBadges += conversation.getNumberUnreadMessages();
         }
         return numberBadges;
     }

@@ -52,4 +52,16 @@ public class Conversation {
     public void addMessage(ChatMessage chatMessage) {
         chatMessages.add(chatMessage);
     }
+
+    public int getNumberUnreadMessages() {
+        int numberUnreadMessages = 0;
+        if (chatMessages.size() != 0) {
+            for (ChatMessage chatMessage: chatMessages) {
+                if (!chatMessage.isViewed()) {
+                    numberUnreadMessages++;
+                }
+            }
+        }
+        return numberUnreadMessages;
+    }
 }
