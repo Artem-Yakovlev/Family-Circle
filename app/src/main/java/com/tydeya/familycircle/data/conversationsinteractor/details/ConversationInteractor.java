@@ -48,8 +48,8 @@ public class ConversationInteractor implements ConversationInteractorObservable,
      * Send message
      */
 
-    public void sendMessage(ChatMessage chatMessage, Conversation conversation) {
-        networkInteractor.sendChatMessageToServer(chatMessage, conversation);
+    public void sendMessage(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
+        networkInteractor.sendChatMessageToServer(chatMessage, conversation, phoneNumbers);
     }
 
     /**

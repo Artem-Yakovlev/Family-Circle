@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity implements ConversationInter
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         assert navHostFragment != null;
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
-
-        bottomNavigationView.getOrCreateBadge(R.id.mainConversationPage)
-                .setBackgroundColor(getResources().getColor(R.color.colorConversationBadge));
     }
 
     @Override
@@ -70,7 +67,17 @@ public class MainActivity extends AppCompatActivity implements ConversationInter
 
     @Override
     public void conversationsDataUpdated() {
-        bottomNavigationView.getOrCreateBadge(R.id.mainConversationPage)
-                .setNumber(conversationInteractor.getActualConversationBadges());
+        if (conversationInteractor.getActualConversationBadges() == 0) {
+
+            bottomNavigationView.removeBadge(R.id.mainConversationPage);
+
+        } else {
+
+            bottomNavigationView.getOrCreateBadge(R.id.mainConversationPage)
+                    .setBackgroundColor(getResources().getColor(R.color.colorConversationBadge));
+
+            bottomNavigationView.getOrCreateBadge(R.id.mainConversationPage)
+                    .setNumber(conversationInteractor.getActualConversationBadges());
+        }
     }
 }

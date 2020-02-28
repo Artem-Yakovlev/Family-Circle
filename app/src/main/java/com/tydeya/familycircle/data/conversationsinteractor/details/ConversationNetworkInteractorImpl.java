@@ -6,7 +6,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractorCallback;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
-import com.tydeya.familycircle.domain.constants.Firebase;
 import com.tydeya.familycircle.domain.conversation.Conversation;
 import com.tydeya.familycircle.domain.conversation.description.details.ConversationAttachments;
 import com.tydeya.familycircle.domain.conversation.description.details.ConversationDescription;
@@ -19,8 +18,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_COLLECTION;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_NAME;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_COLLECTION;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_DATETIME;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_TEXT;
 
 public class ConversationNetworkInteractorImpl implements ConversationNetworkInteractor {
 
@@ -38,13 +40,13 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
         for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j++) {
 
             String text = queryDocumentSnapshots.getDocuments()
-                    .get(j).get(Firebase.FIRESTORE_MESSAGE_TEXT).toString();
+                    .get(j).get(FIRESTORE_MESSAGE_TEXT).toString();
 
             String phoneNumber = queryDocumentSnapshots.getDocuments()
-                    .get(j).get(Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE).toString();
+                    .get(j).get(FIRESTORE_MESSAGE_AUTHOR_PHONE).toString();
 
             Date dateTime = queryDocumentSnapshots.getDocuments()
-                    .get(j).getDate(Firebase.FIRESTORE_MESSAGE_DATETIME);
+                    .get(j).getDate(FIRESTORE_MESSAGE_DATETIME);
 
             boolean viewed = parseViewedMessage(queryDocumentSnapshots.getDocuments()
                     .get(j).get(FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY));
@@ -143,19 +145,20 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
      */
 
     @Override
-    public void sendChatMessageToServer(ChatMessage chatMessage, Conversation conversation) {
+    public void sendChatMessageToServer(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
         firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION)
                 .document(conversation.getKey())
-                .collection(FIRESTORE_MESSAGE_COLLECTION).add(parseDataFromChatMessageForServer(chatMessage));
+                .collection(FIRESTORE_MESSAGE_COLLECTION)
+                .add(parseDataFromChatMessageForServer(chatMessage, phoneNumbers));
     }
 
-    private Map<String, Object> parseDataFromChatMessageForServer(ChatMessage chatMessage) {
+    private Map<String, Object> parseDataFromChatMessageForServer(ChatMessage chatMessage, ArrayList<String> phoneNumbers) {
         Map<String, Object> firebaseData = new HashMap<>();
 
-        firebaseData.put(Firebase.FIRESTORE_MESSAGE_TEXT, chatMessage.getText());
-        firebaseData.put(Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE, chatMessage.getAuthorPhoneNumber());
-        firebaseData.put(Firebase.FIRESTORE_MESSAGE_DATETIME, chatMessage.getDateTime());
-
+        firebaseData.put(FIRESTORE_MESSAGE_TEXT, chatMessage.getText());
+        firebaseData.put(FIRESTORE_MESSAGE_AUTHOR_PHONE, chatMessage.getAuthorPhoneNumber());
+        firebaseData.put(FIRESTORE_MESSAGE_DATETIME, chatMessage.getDateTime());
+        firebaseData.put(FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY, phoneNumbers);
         return firebaseData;
     }
 
