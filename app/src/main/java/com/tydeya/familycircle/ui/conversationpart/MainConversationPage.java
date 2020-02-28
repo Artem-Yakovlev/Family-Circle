@@ -46,6 +46,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        assert getActivity() != null;
 
         conversationInteractor.subscribe(this);
 

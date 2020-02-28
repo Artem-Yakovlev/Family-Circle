@@ -49,7 +49,6 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         networkInteractor.requireMembersDataFromServer();
     }
 
-
     @Override
     public void memberDataFromServerUpdate(ArrayList<FamilyMember> members) {
 

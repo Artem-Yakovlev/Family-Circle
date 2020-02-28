@@ -3,6 +3,7 @@ package com.tydeya.familycircle.data.component;
 import com.tydeya.familycircle.data.conversationsinteractor.injection.ConversationInteractorModule;
 import com.tydeya.familycircle.data.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.data.userinteractor.injection.UserInteractorModule;
+import com.tydeya.familycircle.ui.MainActivity;
 import com.tydeya.familycircle.ui.conversationpart.MainConversationPage;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter;
@@ -32,4 +33,6 @@ public interface AppComponent {
     void injectPresenter(CorrespondencePresenterImpl correspondencePresenterImpl);
 
     void injectActivity(MessagingActivity messagingActivity);
+
+    void injectActivity(MainActivity mainActivity);
 }

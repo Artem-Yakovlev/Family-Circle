@@ -49,7 +49,6 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
             boolean viewed = parseViewedMessage(queryDocumentSnapshots.getDocuments()
                     .get(j).get(FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY));
 
-
             messages.add(new ChatMessage(phoneNumber, text, dateTime, viewed));
         }
 

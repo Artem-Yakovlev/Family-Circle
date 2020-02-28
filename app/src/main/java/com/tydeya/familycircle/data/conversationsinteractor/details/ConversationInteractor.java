@@ -1,7 +1,5 @@
 package com.tydeya.familycircle.data.conversationsinteractor.details;
 
-import android.util.Log;
-
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorObservable;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
@@ -35,6 +33,22 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     }
 
     /**
+     * Badges
+     */
+
+    public int getActualConversationBadges() {
+        int numberBadges = 0;
+        for (Conversation conversation : conversations) {
+            for (ChatMessage chatMessage: conversation.getChatMessages()) {
+                if (!chatMessage.isViewed()) {
+                    numberBadges++;
+                }
+            }
+        }
+        return numberBadges;
+    }
+
+    /**
      * Send message
      */
 
@@ -60,7 +74,7 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     @Override
     public void conversationUpdate(Conversation actualConversation) {
         Collections.sort(actualConversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
-        for (Conversation conversation: conversations) {
+        for (Conversation conversation : conversations) {
             if (conversation.getDescription().getTitle().equals(actualConversation.getDescription().getTitle())) {
                 conversation.setChatMessages(actualConversation.getChatMessages());
             }
