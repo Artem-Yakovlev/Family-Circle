@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.data.conversationsinteractor.details;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
@@ -19,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_COLLECTION;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVERSATION_NAME;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_COLLECTION;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY;
 
 public class ConversationNetworkInteractorImpl implements ConversationNetworkInteractor {
 
@@ -44,10 +46,31 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
             Date dateTime = queryDocumentSnapshots.getDocuments()
                     .get(j).getDate(Firebase.FIRESTORE_MESSAGE_DATETIME);
 
-            messages.add(new ChatMessage(phoneNumber, text, dateTime));
+            boolean viewed = parseViewedMessage(queryDocumentSnapshots.getDocuments()
+                    .get(j).get(FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY));
+
+
+            messages.add(new ChatMessage(phoneNumber, text, dateTime, viewed));
         }
 
         conversation.setChatMessages(messages);
+    }
+
+    private boolean parseViewedMessage(Object viewedObject) {
+        assert FirebaseAuth.getInstance().getCurrentUser() != null;
+
+        ArrayList notViewedArrayList = (ArrayList) viewedObject;
+
+        if (notViewedArrayList.size() == 0) {
+            return true;
+        } else {
+            for (Object phoneNumberObject : notViewedArrayList) {
+                if (phoneNumberObject.equals(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

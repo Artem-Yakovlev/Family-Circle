@@ -28,4 +28,5 @@ public final class Firebase {
     public static final String FIRESTORE_MESSAGE_TEXT = "text";
     public static final String FIRESTORE_MESSAGE_AUTHOR_PHONE = "authorPhoneNumber";
     public static final String FIRESTORE_MESSAGE_DATETIME = "dateTime";
+    public static final String FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY = "not_viewed";
 }

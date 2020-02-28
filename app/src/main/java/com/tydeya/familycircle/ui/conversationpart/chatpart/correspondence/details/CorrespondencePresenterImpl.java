@@ -42,7 +42,7 @@ public class CorrespondencePresenterImpl implements CorrespondencePresenter {
 
     private void sendMessage(String messageText) {
         String userPhoneNumber = userInteractor.getUserAccountFamilyMember().getFullPhoneNumber();
-        ChatMessage chatMessage = new ChatMessage(userPhoneNumber, messageText, new Date());
+        ChatMessage chatMessage = new ChatMessage(userPhoneNumber, messageText, new Date(), true);
         Conversation conversation = conversationInteractor.getConversations().get(MessagingActivity.correspondencePosition);
 
         conversation.addMessage(chatMessage);

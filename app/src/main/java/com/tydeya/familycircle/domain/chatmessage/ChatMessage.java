@@ -7,11 +7,13 @@ public class ChatMessage {
     private String authorPhoneNumber;
     private String text;
     private Date dateTime;
+    private boolean viewed;
 
-    public ChatMessage(String authorPhoneNumber, String text, Date dateTime) {
+    public ChatMessage(String authorPhoneNumber, String text, Date dateTime, boolean viewed) {
         this.authorPhoneNumber = authorPhoneNumber;
         this.text = text;
         this.dateTime = dateTime;
+        this.viewed = viewed;
     }
 
     public String getAuthorPhoneNumber() {
@@ -36,5 +38,13 @@ public class ChatMessage {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
     }
 }
