@@ -32,8 +32,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     ConversationInteractor conversationInteractor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         App.getComponent().injectFragment(this);
 
         View root = inflater.inflate(R.layout.fragment_main_conversation_page, container, false);
