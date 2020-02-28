@@ -12,10 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
+import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
+import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.domain.conversation.Conversation;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
@@ -28,8 +35,15 @@ public class MainConversationRecyclerViewAdapter
     private final int CONVERSATION_WITH_UNREAD_MESSAGES = 0;
     private final int CONVERSATION_WITHOUT_UNREAD_MESSAGES = 1;
 
+    @Inject
+    FamilyInteractor familyInteractor;
+
+    private FamilyAssistant familyAssistant;
+
     MainConversationRecyclerViewAdapter(Context context, ArrayList<Conversation> conversations,
                                         OnClickConversationListener onClickConversationListener) {
+        App.getComponent().injectRecyclerViewAdapter(this);
+        this.familyAssistant = new FamilyAssistantImpl(familyInteractor.getActualFamily());
         this.onClickConversationListener = onClickConversationListener;
         this.context = context;
         this.conversations = conversations;
@@ -59,7 +73,13 @@ public class MainConversationRecyclerViewAdapter
 
         int conversationSize = conversations.get(position).getChatMessages().size();
         if (conversationSize != 0) {
-            holder.setLastMessageText(conversations.get(position).getChatMessages().get(conversationSize - 1).getText());
+
+            ChatMessage lastChatMessage = conversations.get(position).getChatMessages().get(conversationSize - 1);
+            String lastMessageAuthorName = familyAssistant.getUserByPhone(lastChatMessage.getAuthorPhoneNumber())
+                    .getDescription().getName();
+
+            holder.setLastMessageAuthor(lastMessageAuthorName + ": ");
+            holder.setLastMessageText(lastChatMessage.getText());
         } else {
             holder.setLastMessageText("...");
         }
@@ -89,6 +109,8 @@ public class MainConversationRecyclerViewAdapter
 
         private TextView nameText;
         private TextView lastMessageText;
+        private TextView lastMessageAuthor;
+
         private ShapedImageView userShapedImage;
         private OnClickConversationListener onClickConversationListener;
 
@@ -102,7 +124,8 @@ public class MainConversationRecyclerViewAdapter
             mainLayout = itemView.findViewById(R.id.conversation_page_main_layout);
 
             nameText = itemView.findViewById(R.id.conversation_page_card_name);
-            lastMessageText = itemView.findViewById(R.id.conversation_page_card_last_message);
+            lastMessageText = itemView.findViewById(R.id.conversation_page_card_last_message_text);
+            lastMessageAuthor = itemView.findViewById(R.id.conversation_page_card_last_message_author);
             userShapedImage = itemView.findViewById(R.id.conversation_page_card_image);
 
             badgeBlockLayout = itemView.findViewById(R.id.conversation_page_card_badge_block);
@@ -117,6 +140,10 @@ public class MainConversationRecyclerViewAdapter
 
         void setLastMessageText(String lastMessage) {
             lastMessageText.setText(lastMessage);
+        }
+
+        void setLastMessageAuthor(String author) {
+            lastMessageAuthor.setText(author);
         }
 
         void setImage(Uri imageUri) {
