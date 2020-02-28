@@ -11,5 +11,9 @@ public interface ConversationNetworkInteractor {
 
     void sendChatMessageToServer(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers);
 
+    void makeMessagesRead(Conversation conversation);
+
     void setUpdateConversationsListener(ArrayList<Conversation> conversations);
+
+
 }

@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.data.conversationsinteractor.details;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
@@ -21,15 +22,17 @@ import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_CONVER
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_COLLECTION;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_DATETIME;
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY;
 import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_TEXT;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_MESSAGE_UNREAD_PATTERN;
 
 public class ConversationNetworkInteractorImpl implements ConversationNetworkInteractor {
 
     private ConversationNetworkInteractorCallback callback;
     private FirebaseFirestore firebaseFirestore;
+    private String currentNumber;
 
     ConversationNetworkInteractorImpl(ConversationNetworkInteractorCallback callback) {
+        this.currentNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.callback = callback;
     }
@@ -48,30 +51,17 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
             Date dateTime = queryDocumentSnapshots.getDocuments()
                     .get(j).getDate(FIRESTORE_MESSAGE_DATETIME);
 
-            boolean viewed = parseViewedMessage(queryDocumentSnapshots.getDocuments()
-                    .get(j).get(FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY));
+            boolean viewed = parseViewedMessage(queryDocumentSnapshots.getDocuments().get(j));
 
-            messages.add(new ChatMessage(phoneNumber, text, dateTime, viewed));
+            messages.add(new ChatMessage(phoneNumber, text, dateTime, !viewed));
         }
 
         conversation.setChatMessages(messages);
     }
 
-    private boolean parseViewedMessage(Object viewedObject) {
-        assert FirebaseAuth.getInstance().getCurrentUser() != null;
-
-        ArrayList notViewedArrayList = (ArrayList) viewedObject;
-
-        if (notViewedArrayList.size() == 0) {
-            return true;
-        } else {
-            for (Object phoneNumberObject : notViewedArrayList) {
-                if (phoneNumberObject.equals(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    private boolean parseViewedMessage(DocumentSnapshot documentSnapshot) {
+        Boolean unread = documentSnapshot.getBoolean(FIRESTORE_MESSAGE_UNREAD_PATTERN + currentNumber);
+        return unread != null && unread;
     }
 
     /**
@@ -152,13 +142,37 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
                 .add(parseDataFromChatMessageForServer(chatMessage, phoneNumbers));
     }
 
+    @Override
+    public void makeMessagesRead(Conversation conversation) {
+
+        firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION)
+                .document(conversation.getKey())
+                .collection(FIRESTORE_MESSAGE_COLLECTION)
+                .whereEqualTo( FIRESTORE_MESSAGE_UNREAD_PATTERN + currentNumber, true)
+                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot querySnapshot: queryDocumentSnapshots.getDocuments()) {
+                        querySnapshot.getReference().update(FIRESTORE_MESSAGE_UNREAD_PATTERN + currentNumber, false);
+                    }
+
+                    for (ChatMessage chatMessage: conversation.getChatMessages()) {
+                        chatMessage.setViewed(true);
+                    }
+
+                    callback.conversationUpdate(conversation);
+                });
+    }
+
     private Map<String, Object> parseDataFromChatMessageForServer(ChatMessage chatMessage, ArrayList<String> phoneNumbers) {
         Map<String, Object> firebaseData = new HashMap<>();
 
         firebaseData.put(FIRESTORE_MESSAGE_TEXT, chatMessage.getText());
         firebaseData.put(FIRESTORE_MESSAGE_AUTHOR_PHONE, chatMessage.getAuthorPhoneNumber());
         firebaseData.put(FIRESTORE_MESSAGE_DATETIME, chatMessage.getDateTime());
-        firebaseData.put(FIRESTORE_MESSAGE_NOT_VIEWED_ARRAY, phoneNumbers);
+
+        for (String phoneNumber: phoneNumbers) {
+            firebaseData.put(FIRESTORE_MESSAGE_UNREAD_PATTERN + phoneNumber, true);
+        }
+
         return firebaseData;
     }
 

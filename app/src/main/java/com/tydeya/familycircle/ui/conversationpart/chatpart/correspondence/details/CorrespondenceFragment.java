@@ -81,12 +81,13 @@ public class CorrespondenceFragment extends Fragment implements CorrespondenceVi
         super.onResume();
         conversationInteractor.subscribe(this);
         chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+        presenter.readAllMessages();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        conversationInteractor.subscribe(this);
+        conversationInteractor.unsubscribe(this);
     }
 
     @Override
@@ -95,5 +96,6 @@ public class CorrespondenceFragment extends Fragment implements CorrespondenceVi
                 .get(MessagingActivity.correspondencePosition).getChatMessages();
         chatRecyclerViewAdapter.refreshData(chatMessages);
         chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+        presenter.readAllMessages();
     }
 }

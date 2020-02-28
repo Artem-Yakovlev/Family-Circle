@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ConversationInter
     protected void onResume() {
         super.onResume();
         conversationInteractor.subscribe(this);
+        updateBadges();
     }
 
     @Override
@@ -67,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements ConversationInter
 
     @Override
     public void conversationsDataUpdated() {
+        updateBadges();
+    }
+
+    private void updateBadges() {
         if (conversationInteractor.getActualConversationBadges() == 0) {
 
             bottomNavigationView.removeBadge(R.id.mainConversationPage);

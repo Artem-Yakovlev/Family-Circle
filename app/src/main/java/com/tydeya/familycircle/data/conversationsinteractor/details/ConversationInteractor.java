@@ -45,11 +45,15 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     }
 
     /**
-     * Send message
+     * Send and read message
      */
 
     public void sendMessage(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
         networkInteractor.sendChatMessageToServer(chatMessage, conversation, phoneNumbers);
+    }
+
+    public void readMessages(Conversation conversation) {
+        networkInteractor.makeMessagesRead(conversation);
     }
 
     /**

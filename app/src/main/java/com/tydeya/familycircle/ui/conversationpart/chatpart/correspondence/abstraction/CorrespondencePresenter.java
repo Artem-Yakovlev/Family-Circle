@@ -3,4 +3,6 @@ package com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abst
 public interface CorrespondencePresenter {
 
     void onClickSendButton(String input);
+
+    void readAllMessages();
 }

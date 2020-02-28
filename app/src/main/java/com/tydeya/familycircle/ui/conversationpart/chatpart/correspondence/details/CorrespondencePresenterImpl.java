@@ -60,4 +60,15 @@ public class CorrespondencePresenterImpl implements CorrespondencePresenter {
         conversation.addMessage(chatMessage);
         conversationInteractor.sendMessage(chatMessage, conversation, phoneNumbers);
     }
+
+    @Override
+    public void readAllMessages() {
+
+        Conversation conversation = conversationInteractor.getConversations()
+                .get(MessagingActivity.correspondencePosition);
+
+        if (conversation.getNumberUnreadMessages() != 0) {
+            conversationInteractor.readMessages(conversation);
+        }
+    }
 }
