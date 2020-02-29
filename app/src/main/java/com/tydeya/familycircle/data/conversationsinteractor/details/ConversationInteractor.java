@@ -50,6 +50,7 @@ public class ConversationInteractor implements ConversationInteractorObservable,
 
     public void sendMessage(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
         networkInteractor.sendChatMessageToServer(chatMessage, conversation, phoneNumbers);
+        conversationPositionSort(conversations);
     }
 
     public void readMessages(Conversation conversation) {
