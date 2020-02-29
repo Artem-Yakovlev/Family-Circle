@@ -2,6 +2,7 @@ package com.tydeya.familycircle.ui.conversationpart;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
 import com.tydeya.familycircle.domain.conversation.Conversation;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -74,12 +77,16 @@ public class MainConversationRecyclerViewAdapter
         int conversationSize = conversations.get(position).getChatMessages().size();
         if (conversationSize != 0) {
 
+            String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hh:mm aa");
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat(pattern, Locale.getDefault());
+
             ChatMessage lastChatMessage = conversations.get(position).getChatMessages().get(conversationSize - 1);
             String lastMessageAuthorName = familyAssistant.getUserByPhone(lastChatMessage.getAuthorPhoneNumber())
                     .getDescription().getName();
 
             holder.setLastMessageAuthor(lastMessageAuthorName + ": ");
             holder.setLastMessageText(lastChatMessage.getText());
+            holder.setLastMessageTime(formatForDateNow.format(lastChatMessage.getDateTime()));
         } else {
             holder.setLastMessageText("...");
         }
@@ -108,8 +115,10 @@ public class MainConversationRecyclerViewAdapter
         private LinearLayout mainLayout;
 
         private TextView nameText;
+
         private TextView lastMessageText;
         private TextView lastMessageAuthor;
+        private TextView lastMessageTime;
 
         private ShapedImageView userShapedImage;
         private OnClickConversationListener onClickConversationListener;
@@ -126,6 +135,8 @@ public class MainConversationRecyclerViewAdapter
             nameText = itemView.findViewById(R.id.conversation_page_card_name);
             lastMessageText = itemView.findViewById(R.id.conversation_page_card_last_message_text);
             lastMessageAuthor = itemView.findViewById(R.id.conversation_page_card_last_message_author);
+            lastMessageTime = itemView.findViewById(R.id.conversation_page_card_last_message_time);
+
             userShapedImage = itemView.findViewById(R.id.conversation_page_card_image);
 
             badgeBlockLayout = itemView.findViewById(R.id.conversation_page_card_badge_block);
@@ -144,6 +155,10 @@ public class MainConversationRecyclerViewAdapter
 
         void setLastMessageAuthor(String author) {
             lastMessageAuthor.setText(author);
+        }
+
+        void setLastMessageTime(String time) {
+            lastMessageTime.setText(time);
         }
 
         void setImage(Uri imageUri) {

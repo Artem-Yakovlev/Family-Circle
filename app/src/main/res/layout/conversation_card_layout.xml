@@ -95,10 +95,12 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/conversation_page_card_last_message_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="2dp"
-                        android:text="12:00"
+                        android:textColor="@color/colorGray"
+                        android:text="12:00 AM"
                         android:textSize="12sp" />
 
                 </LinearLayout>
