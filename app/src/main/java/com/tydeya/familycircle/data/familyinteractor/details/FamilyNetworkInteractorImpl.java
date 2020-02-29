@@ -1,16 +1,21 @@
 package com.tydeya.familycircle.data.familyinteractor.details;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractor;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familymember.contacts.details.FamilyMemberContacts;
-import com.tydeya.familycircle.domain.familymember.description.details.FamilyMemberDescription;
+import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
+import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
+import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
 
 import java.util.ArrayList;
+
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
 
 public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
@@ -29,8 +34,7 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     @Override
     public void requireMembersDataFromServer() {
-        Task<QuerySnapshot> familyMemberDataTask = firebaseFirestore.collection("/Users").get();
-        familyMemberDataTask.addOnSuccessListener(queryDocumentSnapshots -> {
+        firebaseFirestore.collection(FIRESTORE_USERS_COLLECTION).addSnapshotListener((queryDocumentSnapshots, e) -> {
             ArrayList<FamilyMember> members = getMembersBySnapshot(queryDocumentSnapshots);
             callback.memberDataFromServerUpdate(members);
         });
@@ -46,11 +50,14 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     private FamilyMember createMemberByData(DocumentSnapshot documentSnapshot) {
 
-        FamilyMemberDescription description =
-                new FamilyMemberDescription(documentSnapshot.get("name").toString(), null, null);
-        FamilyMemberContacts contacts = new FamilyMemberContacts(documentSnapshot.get("phone_number").toString());
+        String name = documentSnapshot.getString(FIRESTORE_USERS_NAME_TAG);
+        long birthDate = DateRefactoring.dateToTimestamp(documentSnapshot.getDate(FIRESTORE_USERS_BIRTHDATE_TAG));
+        String fullPhoneNumber = documentSnapshot.getString(FIRESTORE_USERS_PHONE_TAG);
 
-        return new FamilyMember(description, contacts);
+        FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
+        FamilyMemberContacts contacts = new FamilyMemberContacts();
+
+        return new FamilyMember(fullPhoneNumber, description, contacts);
     }
 
 }

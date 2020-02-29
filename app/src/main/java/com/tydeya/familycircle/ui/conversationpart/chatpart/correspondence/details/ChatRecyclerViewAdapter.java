@@ -3,6 +3,7 @@ package com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.deta
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,8 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ChatRecyclerViewAdapter.ChatMessageViewHolder holder, int position) {
 
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("hh:mm a", Locale.US);
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hh:mm aa");
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat(pattern, Locale.getDefault());
 
         switch (getItemViewType(position)) {
             case OUTGOING_MESSAGE_VIEW_TYPE:
@@ -89,7 +91,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         }
     }
 
-    String getNameByFullNumber(String fullPhoneNumber) {
+    private String getNameByFullNumber(String fullPhoneNumber) {
         FamilyMember familyMember = familyInteractor.getFamilyAssistant().getUserByPhone(fullPhoneNumber);
         if (familyMember != null) {
             return familyMember.getDescription().getName();

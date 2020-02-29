@@ -9,18 +9,29 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
+import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 
-public class MainActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class MainActivity extends AppCompatActivity implements ConversationInteractorCallback {
+
+    private BottomNavigationView bottomNavigationView;
+
+    @Inject
+    ConversationInteractor conversationInteractor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         verificationCheck();
+        App.getComponent().injectActivity(this);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
+        bottomNavigationView = findViewById(R.id.main_bottom_navigation_view);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         assert navHostFragment != null;
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
@@ -42,5 +53,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        conversationInteractor.subscribe(this);
+        updateBadges();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        conversationInteractor.unsubscribe(this);
+    }
+
+    @Override
+    public void conversationsDataUpdated() {
+        updateBadges();
+    }
+
+    private void updateBadges() {
+        if (conversationInteractor.getActualConversationBadges() == 0) {
+
+            bottomNavigationView.removeBadge(R.id.mainConversationPage);
+
+        } else {
+
+            bottomNavigationView.getOrCreateBadge(R.id.mainConversationPage)
+                    .setBackgroundColor(getResources().getColor(R.color.colorConversationBadge));
+
+            bottomNavigationView.getOrCreateBadge(R.id.mainConversationPage)
+                    .setNumber(conversationInteractor.getActualConversationBadges());
+        }
+    }
 }

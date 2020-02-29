@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewAccountTool;
 import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewAccountToolCallback;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
     }
 
     @Override
-    public void create(String fullPhoneNumber, String name, String birthDate) {
+    public void create(String fullPhoneNumber, String name, long birthDate) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         Map<String, Object> dataForFirestore = createDataForFirestore(fullPhoneNumber, name, birthDate);
 
@@ -34,12 +35,12 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
                 });
     }
 
-    private Map<String, Object> createDataForFirestore(String fullPhoneNumber, String name, String birthDate) {
+    private Map<String, Object> createDataForFirestore(String fullPhoneNumber, String name, long birthDate) {
         Map<String, Object> userDataForFirestore = new HashMap<>();
 
         userDataForFirestore.put(FIRESTORE_USERS_PHONE_TAG, fullPhoneNumber);
         userDataForFirestore.put(FIRESTORE_USERS_NAME_TAG, name);
-        userDataForFirestore.put(FIRESTORE_USERS_BIRTHDATE_TAG, birthDate);
+        userDataForFirestore.put(FIRESTORE_USERS_BIRTHDATE_TAG, new Date(birthDate));
 
         return userDataForFirestore;
     }

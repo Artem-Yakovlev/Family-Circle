@@ -21,7 +21,8 @@
     <color name="colorModernPrimaryDark">#0186fd</color>
     <color name="colorModernPrimaryLight">#00ACD4</color>
     <color name="colorModernPrimaryTransparent">#E4FBFD</color>
-
+    <color name="colorConversationBadge">#d71e18</color>
     <color name="colorOrange">#FF8C00</color>
+    <color name="colorTransparentBlue">#d9ecfc</color>
 
 </resources>

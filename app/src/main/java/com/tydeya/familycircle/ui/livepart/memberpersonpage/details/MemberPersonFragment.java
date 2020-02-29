@@ -16,18 +16,21 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.domain.familymember.FamilyMember;
+import com.tydeya.familycircle.domain.familymember.dto.FamilyMemberDto;
+import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
+import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
 
 import javax.inject.Inject;
 
 
-public class FamilyMemberPersonPage extends Fragment {
+public class MemberPersonFragment extends Fragment implements MemberPersonView {
 
     private TextView nameText;
     private TextView birthdateText;
-    private int personPosition;
-    private FamilyMember member;
+    private TextView zodiacSignText;
     private Toolbar toolbar;
+    private MemberPersonPresenter presenter;
+
 
     @Inject
     FamilyInteractor familyInteractor;
@@ -41,39 +44,34 @@ public class FamilyMemberPersonPage extends Fragment {
         nameText = root.findViewById(R.id.family_member_view_name_text);
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         toolbar = root.findViewById(R.id.family_member_view_toolbar);
-
-        setCurrentData();
+        zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
 
         return root;
-    }
-
-    private void setCurrentData() {
-
-        assert getArguments() != null;
-        personPosition = getArguments().getInt("personPosition", -1);
-        if (personPosition == -1) {
-            throw new IllegalArgumentException("personPosition is not found");
-        }
-
-        member = familyInteractor.getActualFamily().getFamilyMembers().get(personPosition);
-
-
-        nameText.setText(member.getDescription().getName());
-        if (member.getDescription() != null && member.getDescription().getBirthDate() != null) {
-            birthdateText.setText(member.getDescription().getBirthDate());
-        } else {
-            birthdateText.setText(getResources().getString(R.string.family_member_view_datebirthd_not_known));
-        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        presenter = new MemberPersonPresenterImpl(this, familyInteractor.getActualFamily()
+                .getFamilyMembers().get(getArguments() != null ? getArguments().getInt("personPosition") : 0));
+
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
             navController.popBackStack();
         });
+
+    }
+
+    @Override
+    public void setCurrentData(FamilyMemberDto dto) {
+        nameText.setText(dto.getName());
+
+        birthdateText.setText(dto.getBirthDate().equals("") ?
+                getResources().getString(R.string.family_member_view_datebirthd_not_known) :
+                dto.getBirthDate());
+
+        zodiacSignText.setText(dto.getZodiacSign());
 
     }
 }

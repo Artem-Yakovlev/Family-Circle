@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.conversationsassistant.details.ConversationsAssistantImpl;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
 import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
@@ -61,8 +62,8 @@ public class CorrespondenceFragment extends Fragment implements CorrespondenceVi
 
         presenter = new CorrespondencePresenterImpl(this);
 
-        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(),
-                conversationInteractor.getConversations().get(MessagingActivity.correspondencePosition).getChatMessages());
+        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(getContext(), new ConversationsAssistantImpl()
+                .getConversationByKey(MessagingActivity.correspondenceKey).getChatMessages());
 
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -81,19 +82,21 @@ public class CorrespondenceFragment extends Fragment implements CorrespondenceVi
         super.onResume();
         conversationInteractor.subscribe(this);
         chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+        presenter.readAllMessages();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        conversationInteractor.subscribe(this);
+        conversationInteractor.unsubscribe(this);
     }
 
     @Override
     public void conversationsDataUpdated() {
-        ArrayList<ChatMessage> chatMessages = conversationInteractor.getConversations()
-                .get(MessagingActivity.correspondencePosition).getChatMessages();
+        ArrayList<ChatMessage> chatMessages = new ConversationsAssistantImpl()
+                .getConversationByKey(MessagingActivity.correspondenceKey).getChatMessages();
         chatRecyclerViewAdapter.refreshData(chatMessages);
         chatRecyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+        presenter.readAllMessages();
     }
 }

@@ -32,8 +32,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     ConversationInteractor conversationInteractor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         App.getComponent().injectFragment(this);
 
         View root = inflater.inflate(R.layout.fragment_main_conversation_page, container, false);
@@ -46,6 +45,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        assert getActivity() != null;
 
         conversationInteractor.subscribe(this);
 
@@ -60,7 +60,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     @Override
     public void onClickConversation(int position) {
         Intent intent = new Intent(getContext(), MessagingActivity.class);
-        intent.putExtra("correspondencePosition", position);
+        intent.putExtra("correspondenceKey", conversationInteractor.getConversations().get(position).getKey());
         startActivity(intent);
 
     }

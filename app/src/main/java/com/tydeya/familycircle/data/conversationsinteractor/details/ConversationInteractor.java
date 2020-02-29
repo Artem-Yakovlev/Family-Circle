@@ -1,7 +1,5 @@
 package com.tydeya.familycircle.data.conversationsinteractor.details;
 
-import android.util.Log;
-
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorObservable;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationNetworkInteractor;
@@ -35,11 +33,28 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     }
 
     /**
-     * Send message
+     * Badges
      */
 
-    public void sendMessage(ChatMessage chatMessage, Conversation conversation) {
-        networkInteractor.sendChatMessageToServer(chatMessage, conversation);
+    public int getActualConversationBadges() {
+        int numberBadges = 0;
+        for (Conversation conversation : conversations) {
+            numberBadges += conversation.getNumberUnreadMessages();
+        }
+        return numberBadges;
+    }
+
+    /**
+     * Send and read message
+     */
+
+    public void sendMessage(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
+        networkInteractor.sendChatMessageToServer(chatMessage, conversation, phoneNumbers);
+        conversationPositionSort(conversations);
+    }
+
+    public void readMessages(Conversation conversation) {
+        networkInteractor.makeMessagesRead(conversation);
     }
 
     /**
@@ -52,25 +67,34 @@ public class ConversationInteractor implements ConversationInteractorObservable,
         for (Conversation conversation : conversations) {
             Collections.sort(conversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
         }
+        conversationPositionSort(conversations);
         notifyObserversConversationsDataUpdated();
         networkInteractor.setUpdateConversationsListener(this.conversations);
-
     }
 
     @Override
     public void conversationUpdate(Conversation actualConversation) {
         Collections.sort(actualConversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
-        for (Conversation conversation: conversations) {
+        for (Conversation conversation : conversations) {
             if (conversation.getDescription().getTitle().equals(actualConversation.getDescription().getTitle())) {
                 conversation.setChatMessages(actualConversation.getChatMessages());
             }
         }
+        conversationPositionSort(conversations);
         notifyObserversConversationsDataUpdated();
+    }
+
+    private void conversationPositionSort(ArrayList<Conversation> conversations) {
+        Collections.sort(conversations, (o1, o2) -> {
+            if (o1.getLastMessage() != null && o2.getLastMessage() != null) {
+                return o2.getLastMessage().getDateTime().compareTo(o1.getLastMessage().getDateTime());
+            }
+            return 0;
+        });
     }
 
     private void notifyObserversConversationsDataUpdated() {
         for (ConversationInteractorCallback callback : observers) {
-            Log.d("ASMR", "test");
             callback.conversationsDataUpdated();
         }
     }
@@ -79,13 +103,11 @@ public class ConversationInteractor implements ConversationInteractorObservable,
     public void subscribe(ConversationInteractorCallback callback) {
         if (!observers.contains(callback)) {
             observers.add(callback);
-            Log.d("ASMR", "sub");
         }
     }
 
     @Override
     public void unsubscribe(ConversationInteractorCallback callback) {
         observers.remove(callback);
-        Log.d("ASMR", "uns");
     }
 }
