@@ -29,7 +29,7 @@
         tools:layout="@layout/fragment_main_conversation_page" />
     <fragment
         android:id="@+id/mainPlanPage"
-        android:name="com.tydeya.familycircle.ui.planpart.MainPlanPage"
+        android:name="com.tydeya.familycircle.ui.planpart.details.MainPlanFragment"
         android:label="fragment_main_plan_page"
         tools:layout="@layout/fragment_main_plan_page" />
     <fragment
