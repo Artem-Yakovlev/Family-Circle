@@ -60,7 +60,7 @@ public class MainConversationPage extends Fragment implements MainConversationRe
     @Override
     public void onClickConversation(int position) {
         Intent intent = new Intent(getContext(), MessagingActivity.class);
-        intent.putExtra("correspondencePosition", position);
+        intent.putExtra("correspondenceKey", conversationInteractor.getConversations().get(position).getKey());
         startActivity(intent);
 
     }

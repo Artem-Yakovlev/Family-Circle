@@ -66,9 +66,9 @@ public class ConversationInteractor implements ConversationInteractorObservable,
         for (Conversation conversation : conversations) {
             Collections.sort(conversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
         }
+        conversationPositionSort(conversations);
         notifyObserversConversationsDataUpdated();
         networkInteractor.setUpdateConversationsListener(this.conversations);
-
     }
 
     @Override
@@ -79,7 +79,17 @@ public class ConversationInteractor implements ConversationInteractorObservable,
                 conversation.setChatMessages(actualConversation.getChatMessages());
             }
         }
+        conversationPositionSort(conversations);
         notifyObserversConversationsDataUpdated();
+    }
+
+    private void conversationPositionSort(ArrayList<Conversation> conversations) {
+        Collections.sort(conversations, (o1, o2) -> {
+            if (o1.getLastMessage() != null && o2.getLastMessage() != null) {
+                return o2.getLastMessage().getDateTime().compareTo(o1.getLastMessage().getDateTime());
+            }
+            return 0;
+        });
     }
 
     private void notifyObserversConversationsDataUpdated() {

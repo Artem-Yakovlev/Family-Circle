@@ -53,6 +53,13 @@ public class Conversation {
         chatMessages.add(chatMessage);
     }
 
+    public ChatMessage getLastMessage() {
+        if (chatMessages.size() == 0) {
+            return null;
+        }
+        return chatMessages.get(chatMessages.size() - 1);
+    }
+
     public int getNumberUnreadMessages() {
         int numberUnreadMessages = 0;
         if (chatMessages.size() != 0) {
