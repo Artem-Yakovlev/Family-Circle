@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.panelpart;
+package com.tydeya.familycircle.ui.managerpart.menu;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.ui.panelpart.recyclerview.ManagerMenuItem;
-import com.tydeya.familycircle.ui.panelpart.recyclerview.ManagerMenuItemType;
-import com.tydeya.familycircle.ui.panelpart.recyclerview.ManagerMenuRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.panelpart.recyclerview.OnClickManagerMenuItemListener;
+import com.tydeya.familycircle.ui.managerpart.menu.recyclerview.ManagerMenuItem;
+import com.tydeya.familycircle.ui.managerpart.menu.recyclerview.ManagerMenuItemType;
+import com.tydeya.familycircle.ui.managerpart.menu.recyclerview.ManagerMenuRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.managerpart.menu.recyclerview.OnClickManagerMenuItemListener;
 
 import java.util.ArrayList;
 
@@ -43,11 +43,9 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     }
 
     private void generateDataForManagerMenuItems() {
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_black_24dp, "Exit", ManagerMenuItemType.EXIT));
-    }
-
-    private String getStringById(int stringId) {
-        return getContext().getResources().getString(stringId);
+        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_account_circle_black_24dp, getString(R.string.manager_menu_item_your_profile_title), ManagerMenuItemType.PROFILE));
+        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_people_black_24dp, getString(R.string.manager_menu_item_your_family_title), ManagerMenuItemType.FAMILY));
+        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_black_24dp, getString(R.string.manager_menu_item_sign_out_title), ManagerMenuItemType.EXIT));
     }
 
     @Override

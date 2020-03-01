@@ -29,7 +29,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanVi
     @NonNull
     @Override
     public MainPlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MainPlanViewHolder(LayoutInflater.from(context).inflate(R.layout.main_plan_car_layout,
+        return new MainPlanViewHolder(LayoutInflater.from(context).inflate(R.layout.main_plan_card_layout,
                 parent, false), onClickMainPlanItemListener);
     }
 

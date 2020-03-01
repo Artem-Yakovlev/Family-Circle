@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.panelpart.recyclerview;
+package com.tydeya.familycircle.ui.managerpart.menu.recyclerview;
 
 import android.view.View;
 import android.widget.ImageView;

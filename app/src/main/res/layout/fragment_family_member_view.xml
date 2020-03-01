@@ -152,8 +152,7 @@
             android:focusable="true"
             android:padding="20dp"
             android:src="@drawable/ic_add_a_photo_black_24dp"
-            app:shape_mode="circle"
-            tools:targetApi="lollipop" />
+            app:shape_mode="circle" />
 
     </RelativeLayout>
 

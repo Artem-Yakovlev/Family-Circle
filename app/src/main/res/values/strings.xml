@@ -115,6 +115,9 @@
     <string name="main_conversation_page_toolbar_title">Conversation</string>
     <string name="get_code_from_sms_page_invalid_code_alert">The code must contains 6 digits!</string>
     <string name="unknown_text">Unknown</string>
+
+
+    <!-- Main plan item-->
     <string name="main_plan_page_toolbar_title">Tracking</string>
 
     <string name="main_plan_item_kitchen_organizer_title">Kitchen organizer</string>
@@ -130,4 +133,8 @@
     <string name="main_plan_item_important_text">Here you can track your family day plan.</string>
     <string name="app_name_with_space">Family circle</string>
 
+    <!-- Manager menu-->
+    <string name="manager_menu_item_your_family_title">Your family</string>
+    <string name="manager_menu_item_your_profile_title">Your profile</string>
+    <string name="manager_menu_item_sign_out_title">Sign out</string>
 </resources>

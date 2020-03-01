@@ -48,27 +48,25 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
 
     private void generateDataForMainPlanItems() {
         mainPlanItems.clear();
-        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_kitchen_organizer_title),
-                getStringById(R.string.main_plan_item_kitchen_organizer_text),
-                R.drawable.ic_kitchen_black_24dp, MainPlanItemType.FOOD));
+        mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_kitchen_organizer_title),
+                getString(R.string.main_plan_item_kitchen_organizer_text),
+                R.drawable.ic_kitchen_black_60dp,
+                MainPlanItemType.FOOD));
 
-        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_events_title),
-                getStringById(R.string.main_plan_item_events_text), R.drawable.ic_event_black_24dp,
+        mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_events_title),
+                getString(R.string.main_plan_item_events_text),
+                R.drawable.ic_event_black_60dp,
                 MainPlanItemType.EVENTS));
 
-        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_planning_title),
-                getStringById(R.string.main_plan_item_planning_text),
-                R.drawable.ic_planning_black_24dp,
+        mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_planning_title),
+                getString(R.string.main_plan_item_planning_text),
+                R.drawable.ic_planning_black_60dp,
                 MainPlanItemType.PLANNING));
 
-        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_important_title),
-                getStringById(R.string.main_plan_item_important_text),
-                R.drawable.ic_priority_high_black_24dp,
+        mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_important_title),
+                getString(R.string.main_plan_item_important_text),
+                R.drawable.ic_priority_high_black_60dp,
                 MainPlanItemType.IMPORTANT));
-    }
-
-    private String getStringById(int stringId) {
-        return getContext().getResources().getString(stringId);
     }
 
     @Override
