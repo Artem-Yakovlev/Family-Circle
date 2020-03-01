@@ -6,7 +6,7 @@ import com.tydeya.familycircle.data.familyinteractor.injection.FamilyInteractorM
 import com.tydeya.familycircle.data.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
 import com.tydeya.familycircle.ui.conversationpart.MainConversationPage;
-import com.tydeya.familycircle.ui.conversationpart.MainConversationRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.conversationpart.recyclerview.MainConversationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondenceFragment;

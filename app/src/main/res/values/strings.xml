@@ -108,8 +108,6 @@
         <item>Important</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="family_member_view_toolbar_title">Profile</string>
     <string name="family_group_brother">Brother</string>
     <string name="family_member_view_datebirthd_not_known">Date of birth not known</string>
@@ -118,5 +116,17 @@
     <string name="get_code_from_sms_page_invalid_code_alert">The code must contains 6 digits!</string>
     <string name="unknown_text">Unknown</string>
     <string name="main_plan_page_toolbar_title">Tracking</string>
+
+    <string name="main_plan_item_kitchen_organizer_title">Kitchen organizer</string>
+    <string name="main_plan_item_kitchen_organizer_text">Here you can track the availability of products in your refrigerator.</string>
+
+    <string name="main_plan_item_events_title">Upcoming events</string>
+    <string name="main_plan_item_events_text">Here you can track upcoming family events.</string>
+
+    <string name="main_plan_item_planning_title">Family day plan</string>
+    <string name="main_plan_item_planning_text">Here you can track day plan of our family.</string>
+
+    <string name="main_plan_item_important_title">High priority</string>
+    <string name="main_plan_item_important_text">Here you can track your family day plan.</string>
 
 </resources>
