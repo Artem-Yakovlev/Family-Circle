@@ -22,7 +22,6 @@ public class MainPlanViewHolder extends RecyclerView.ViewHolder implements View.
         super(itemView);
         this.onClickMainPlanItemListener = onClickMainPlanItemListener;
         findAllViewsById(itemView);
-        int[] array = {1,23,5};
     }
 
     private void findAllViewsById(View itemView) {

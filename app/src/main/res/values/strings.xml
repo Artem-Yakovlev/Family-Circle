@@ -128,5 +128,6 @@
 
     <string name="main_plan_item_important_title">High priority</string>
     <string name="main_plan_item_important_text">Here you can track your family day plan.</string>
+    <string name="app_name_with_space">Family circle</string>
 
 </resources>

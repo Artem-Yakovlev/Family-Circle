@@ -25,6 +25,7 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
 
     private RecyclerView recyclerView;
     private MainPlanRecyclerViewAdapter recyclerViewAdapter;
+    private ArrayList<MainPlanItem> mainPlanItems = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,31 +38,33 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ArrayList<MainPlanItem> planItems = new ArrayList<>();
-        planItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_kitchen_organizer_title),
-                getStringById(R.string.main_plan_item_kitchen_organizer_text),
-                R.drawable.ic_kitchen_black_24dp, MainPlanItemType.FOOD));
-
-        planItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_events_title),
-                getStringById(R.string.main_plan_item_events_text), R.drawable.ic_event_black_24dp,
-                MainPlanItemType.EVENTS));
-
-        planItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_planning_title),
-                getStringById(R.string.main_plan_item_planning_text),
-                R.drawable.ic_planning_black_24dp,
-                MainPlanItemType.PLANNING));
-
-        planItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_important_title),
-                getStringById(R.string.main_plan_item_important_text),
-                R.drawable.ic_priority_high_black_24dp,
-                MainPlanItemType.IMPORTANT));
-
-        recyclerViewAdapter = new MainPlanRecyclerViewAdapter(getContext(), planItems, this);
+        generateDataForMainPlanItems();
+        recyclerViewAdapter = new MainPlanRecyclerViewAdapter(getContext(), mainPlanItems, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2,
                 RecyclerView.VERTICAL, false));
 
+    }
+
+    private void generateDataForMainPlanItems() {
+        mainPlanItems.clear();
+        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_kitchen_organizer_title),
+                getStringById(R.string.main_plan_item_kitchen_organizer_text),
+                R.drawable.ic_kitchen_black_24dp, MainPlanItemType.FOOD));
+
+        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_events_title),
+                getStringById(R.string.main_plan_item_events_text), R.drawable.ic_event_black_24dp,
+                MainPlanItemType.EVENTS));
+
+        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_planning_title),
+                getStringById(R.string.main_plan_item_planning_text),
+                R.drawable.ic_planning_black_24dp,
+                MainPlanItemType.PLANNING));
+
+        mainPlanItems.add(new MainPlanItem(getStringById(R.string.main_plan_item_important_title),
+                getStringById(R.string.main_plan_item_important_text),
+                R.drawable.ic_priority_high_black_24dp,
+                MainPlanItemType.IMPORTANT));
     }
 
     private String getStringById(int stringId) {
