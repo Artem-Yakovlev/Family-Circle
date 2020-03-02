@@ -137,4 +137,10 @@
     <string name="manager_menu_item_your_family_title">Your family</string>
     <string name="manager_menu_item_your_profile_title">Your profile</string>
     <string name="manager_menu_item_sign_out_title">Sign out</string>
+
+    <!-- Manager menu dialog-->
+    <string name="manager_menu_sign_out_dialog_message">Are you sure you want to sign out?</string>
+    <string name="manager_menu_sign_out_dialog_title">Sign out</string>
+    <string name="manager_menu_sign_out_dialog_positive_button">Yes</string>
+    <string name="manager_menu_sign_out_dialog_negative_button">No</string>
 </resources>

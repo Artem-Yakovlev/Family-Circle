@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_main_map_page" />
     <fragment
         android:id="@+id/mainPanelPage"
-        android:name="com.tydeya.familycircle.ui.managerpart.menu.ManagerMenuPage"
+        android:name="com.tydeya.familycircle.ui.managerpart.menu.details.ManagerMenuPage"
         android:label="fragment_main_panel_page"
         tools:layout="@layout/fragment_main_panel_page" />
 </navigation>

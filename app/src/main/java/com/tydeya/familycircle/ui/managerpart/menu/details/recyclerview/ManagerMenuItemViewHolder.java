@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.managerpart.menu.recyclerview;
+package com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +22,7 @@ class ManagerMenuItemViewHolder extends RecyclerView.ViewHolder implements View.
         this.onClickManagerMenuItemListener = onClickMainPlanItemListener;
         imageView = itemView.findViewById(R.id.panel_common_item_image);
         titleText = itemView.findViewById(R.id.panel_common_item_title);
+        itemView.setOnClickListener(this);
     }
 
     void setTitleText(String title) {
@@ -34,7 +35,7 @@ class ManagerMenuItemViewHolder extends RecyclerView.ViewHolder implements View.
                 .into(imageView);
     }
 
-    public void setItemType(ManagerMenuItemType itemType) {
+    void setItemType(ManagerMenuItemType itemType) {
         this.itemType = itemType;
     }
 

@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.managerpart.menu.recyclerview;
+package com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -34,9 +34,9 @@ public class ManagerMenuRecyclerViewAdapter extends RecyclerView.Adapter<Manager
     @Override
     public void onBindViewHolder(@NonNull ManagerMenuItemViewHolder holder, int position) {
         ManagerMenuItem managerMenuItem = managerMenuItems.get(position);
+        holder.setItemType(managerMenuItem.getItemType());
         holder.setImageView(managerMenuItem.getImageId());
         holder.setTitleText(managerMenuItem.getTitle());
-        holder.setItemType(managerMenuItem.getItemType());
     }
 
     @Override
