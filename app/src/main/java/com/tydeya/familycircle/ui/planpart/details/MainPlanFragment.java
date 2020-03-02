@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,12 +28,14 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
     private RecyclerView recyclerView;
     private MainPlanRecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<MainPlanItem> mainPlanItems = new ArrayList<>();
+    private NavController navController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main_plan_page, container, false);
         recyclerView = root.findViewById(R.id.main_plan_page_recycler_view);
+        navController = NavHostFragment.findNavController(this);
         return root;
     }
 
@@ -71,6 +75,12 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
 
     @Override
     public void onMainPlanItemClick(MainPlanItemType itemType) {
-
+        switch (itemType) {
+            case FOOD:
+                navController.navigate(R.id.kitchenOrganizerFragment);
+                break;
+            default:
+                //stub
+        }
     }
 }

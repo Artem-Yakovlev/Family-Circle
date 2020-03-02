@@ -21,6 +21,7 @@ public class MainPlanViewHolder extends RecyclerView.ViewHolder implements View.
     MainPlanViewHolder(@NonNull View itemView, OnClickMainPlanItemListener onClickMainPlanItemListener) {
         super(itemView);
         this.onClickMainPlanItemListener = onClickMainPlanItemListener;
+        itemView.setOnClickListener(this);
         findAllViewsById(itemView);
     }
 

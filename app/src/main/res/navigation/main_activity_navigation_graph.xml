@@ -31,7 +31,11 @@
         android:id="@+id/mainPlanPage"
         android:name="com.tydeya.familycircle.ui.planpart.details.MainPlanFragment"
         android:label="fragment_main_plan_page"
-        tools:layout="@layout/fragment_main_plan_page" />
+        tools:layout="@layout/fragment_main_plan_page" >
+        <action
+            android:id="@+id/action_mainPlanPage_to_kitchenOrganizerFragment"
+            app:destination="@id/kitchenOrganizerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainMapPage"
         android:name="com.tydeya.familycircle.ui.mappart.MainMapPage"
@@ -42,4 +46,9 @@
         android:name="com.tydeya.familycircle.ui.managerpart.menu.details.ManagerMenuPage"
         android:label="fragment_main_panel_page"
         tools:layout="@layout/fragment_main_panel_page" />
+    <fragment
+        android:id="@+id/kitchenOrganizerFragment"
+        android:name="com.tydeya.familycircle.ui.kitchenorganizer.KitchenOrganizerFragment"
+        android:label="fragment_kitchen_organizer"
+        tools:layout="@layout/fragment_kitchen_organizer" />
 </navigation>
