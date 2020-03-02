@@ -19,10 +19,12 @@ import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
 import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
+import com.tydeya.familycircle.ui.conversationpart.recyclerview.MainConversationRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.conversationpart.recyclerview.OnClickConversationListener;
 
 import javax.inject.Inject;
 
-public class MainConversationPage extends Fragment implements MainConversationRecyclerViewAdapter.OnClickConversationListener, ConversationInteractorCallback {
+public class MainConversationPage extends Fragment implements OnClickConversationListener, ConversationInteractorCallback {
 
     private RecyclerView recyclerView;
     private NavController navController;

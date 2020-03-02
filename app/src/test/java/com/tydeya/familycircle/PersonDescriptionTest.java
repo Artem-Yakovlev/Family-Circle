@@ -3,7 +3,6 @@ package com.tydeya.familycircle;
 import com.tydeya.familycircle.domain.familymember.ZodiacSign;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -13,16 +12,6 @@ public class PersonDescriptionTest {
 
     private final String ORIGINAL_DESCRIPTION_TEXT = "It is really beautiful man!";
     private final String MODIFIED_DESCRIPTION_TEXT = "It is really strange man!";
-
-    @Before
-    public void init() {
-
-    }
-
-    @Test
-    public void getAndSetTextTest() {
-
-    }
 
     @Test
     public void zodiacSignTest() {

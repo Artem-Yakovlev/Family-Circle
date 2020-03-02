@@ -23,9 +23,7 @@ public class SelectFamilyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_select_family, container, false);
-
         materialButton = root.findViewById(R.id.select_family_next_button);
-
         return root;
     }
 
