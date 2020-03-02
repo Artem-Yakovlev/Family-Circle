@@ -143,4 +143,7 @@
     <string name="manager_menu_sign_out_dialog_title">Sign out</string>
     <string name="manager_menu_sign_out_dialog_positive_button">Yes</string>
     <string name="manager_menu_sign_out_dialog_negative_button">No</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

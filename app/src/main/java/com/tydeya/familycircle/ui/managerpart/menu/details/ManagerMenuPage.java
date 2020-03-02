@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.ui.managerpart.menu.details;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,8 +75,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
 
     @Override
     public void signOut() {
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(recyclerView.getContext());
 
         alertDialogBuilder.setTitle(R.string.manager_menu_item_sign_out_title);
         alertDialogBuilder.setMessage(R.string.manager_menu_sign_out_dialog_message);
@@ -88,7 +87,8 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
         alertDialogBuilder.setNegativeButton(R.string.manager_menu_sign_out_dialog_negative_button,
                 null);
 
-        alertDialogBuilder.create().show();
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override
