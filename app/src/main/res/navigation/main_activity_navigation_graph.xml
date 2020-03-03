@@ -21,6 +21,9 @@
         <argument
             android:name="personPosition"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_familyMemberViewFragment_to_memberPersonEditFragment"
+            app:destination="@id/memberPersonEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainConversationPage"
@@ -45,10 +48,19 @@
         android:id="@+id/mainPanelPage"
         android:name="com.tydeya.familycircle.ui.managerpart.menu.details.ManagerMenuPage"
         android:label="fragment_main_panel_page"
-        tools:layout="@layout/fragment_main_panel_page" />
+        tools:layout="@layout/fragment_main_panel_page" >
+        <action
+            android:id="@+id/action_mainPanelPage_to_familyMemberViewFragment"
+            app:destination="@id/familyMemberViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/kitchenOrganizerFragment"
         android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.KitchenOrganizerFragment"
         android:label="fragment_kitchen_organizer"
         tools:layout="@layout/fragment_kitchen_organizer" />
+    <fragment
+        android:id="@+id/memberPersonEditFragment"
+        android:name="com.tydeya.familycircle.ui.managerpart.editprofile.MemberPersonEditFragment"
+        android:label="fragment_mamber_person_edit"
+        tools:layout="@layout/fragment_member_person_edit" />
 </navigation>

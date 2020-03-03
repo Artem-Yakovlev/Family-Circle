@@ -149,4 +149,9 @@
     <string name="kitchen_organizer_food_in_fridge">Food in fridge</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
+    <string name="person_page_edit">Edit</string>
+    <string name="person_page_add_post">Add post</string>
+    <string name="person_page_view_place_of_work">Place of work</string>
+    <string name="person_page_view_place_of_study">Place of study</string>
+    <string name="person_page_toolbar_title">Edit profile</string>
 </resources>
