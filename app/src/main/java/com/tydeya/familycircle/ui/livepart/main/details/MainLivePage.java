@@ -59,7 +59,8 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
     @Override
     public void onClickMemberStory(int position) {
         Bundle bundle = new Bundle();
-        bundle.putInt("personPosition", position);
+        bundle.putString("personFullPhoneNumber", familyInteractor.getActualFamily()
+                .getFamilyMembers().get(position).getFullPhoneNumber());
         navController.navigate(R.id.familyMemberViewFragment, bundle);
     }
 

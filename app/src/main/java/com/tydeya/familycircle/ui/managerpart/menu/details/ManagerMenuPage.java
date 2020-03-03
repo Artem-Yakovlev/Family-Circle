@@ -1,7 +1,6 @@
 package com.tydeya.familycircle.ui.managerpart.menu.details;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.ui.managerpart.menu.abstraction.ManagerMenuPresenter;
 import com.tydeya.familycircle.ui.managerpart.menu.abstraction.ManagerMenuView;
 import com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview.ManagerMenuItem;
 import com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview.ManagerMenuItemType;
@@ -28,6 +29,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
 
     private RecyclerView recyclerView;
     private ArrayList<ManagerMenuItem> managerMenuItems = new ArrayList<>();
+    private NavController navController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ManagerMenuPresenter presenter = new ManagerMenuPresenterImpl(this);
+        navController = NavHostFragment.findNavController(this);
         generateDataForManagerMenuItems();
         ManagerMenuRecyclerViewAdapter recyclerViewAdapter = new ManagerMenuRecyclerViewAdapter(getContext(), managerMenuItems, this);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -47,6 +49,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     }
 
     private void generateDataForManagerMenuItems() {
+        managerMenuItems.clear();
         managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_account_circle_black_24dp,
                 getString(R.string.manager_menu_item_your_profile_title), ManagerMenuItemType.PROFILE));
         managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_people_black_24dp,
@@ -93,6 +96,14 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
 
     @Override
     public void openPage(ManagerMenuItemType managerMenuItemType) {
-        Log.d("ASMR", managerMenuItemType.name());
+        switch (managerMenuItemType) {
+            case PROFILE:
+                Bundle bundle = new Bundle();
+                bundle.putString("personFullPhoneNumber", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+                navController.navigate(R.id.familyMemberViewFragment, bundle);
+                break;
+            case FAMILY:
+                break;
+        }
     }
 }

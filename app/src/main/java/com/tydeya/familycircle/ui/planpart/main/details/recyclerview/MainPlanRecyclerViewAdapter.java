@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.details.recyclerview;
+package com.tydeya.familycircle.ui.planpart.main.details.recyclerview;
 
 import android.content.Context;
 import android.view.LayoutInflater;

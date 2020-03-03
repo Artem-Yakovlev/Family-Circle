@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.details;
+package com.tydeya.familycircle.ui.planpart.main.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.ui.planpart.abstraction.MainPlanView;
-import com.tydeya.familycircle.ui.planpart.details.recyclerview.MainPlanItem;
-import com.tydeya.familycircle.ui.planpart.details.recyclerview.MainPlanItemType;
-import com.tydeya.familycircle.ui.planpart.details.recyclerview.MainPlanRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.planpart.details.recyclerview.OnClickMainPlanItemListener;
+import com.tydeya.familycircle.ui.planpart.main.abstraction.MainPlanView;
+import com.tydeya.familycircle.ui.planpart.main.details.recyclerview.MainPlanItem;
+import com.tydeya.familycircle.ui.planpart.main.details.recyclerview.MainPlanItemType;
+import com.tydeya.familycircle.ui.planpart.main.details.recyclerview.MainPlanRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.planpart.main.details.recyclerview.OnClickMainPlanItemListener;
 
 import java.util.ArrayList;
 

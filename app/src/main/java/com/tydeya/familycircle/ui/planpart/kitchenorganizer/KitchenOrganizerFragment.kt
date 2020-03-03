@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.kitchenorganizer
+package com.tydeya.familycircle.ui.planpart.kitchenorganizer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.ui.kitchenorganizer.adapter.KitchenFoodAdapter
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.adapter.KitchenFoodAdapter
 import kotlinx.android.synthetic.main.fragment_kitchen_organizer.*
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
+import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.dto.FamilyMemberDto;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
@@ -30,6 +34,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
     private TextView zodiacSignText;
     private Toolbar toolbar;
     private MemberPersonPresenter presenter;
+    private ImageButton settingsButton;
 
 
     @Inject
@@ -45,6 +50,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         toolbar = root.findViewById(R.id.family_member_view_toolbar);
         zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
+        settingsButton = root.findViewById(R.id.family_member_view_settings);
 
         return root;
     }
@@ -53,14 +59,18 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new MemberPersonPresenterImpl(this, familyInteractor.getActualFamily()
-                .getFamilyMembers().get(getArguments() != null ? getArguments().getInt("personPosition") : 0));
+        presenter = new MemberPersonPresenterImpl(this, getFamilyMember());
 
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
             navController.popBackStack();
         });
 
+    }
+
+    private FamilyMember getFamilyMember() {
+        FamilyAssistant familyAssistant = new FamilyAssistantImpl(familyInteractor.getActualFamily());
+        return familyAssistant.getUserByPhone(getArguments().getString("personFullPhoneNumber", ""));
     }
 
     @Override
@@ -73,5 +83,16 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
 
         zodiacSignText.setText(dto.getZodiacSign());
 
+    }
+
+    @Override
+    public void setManagerMode(boolean managerMode) {
+        if (managerMode) {
+            settingsButton.setVisibility(View.VISIBLE);
+            settingsButton.setEnabled(true);
+        } else {
+            settingsButton.setVisibility(View.INVISIBLE);
+            settingsButton.setEnabled(false);
+        }
     }
 }

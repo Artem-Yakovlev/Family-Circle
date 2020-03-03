@@ -1,9 +1,9 @@
-package com.tydeya.familycircle.ui.kitchenorganizer.adapter
+package com.tydeya.familycircle.ui.planpart.kitchenorganizer.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.tydeya.familycircle.ui.kitchenorganizer.pages.FoodForBuyFragment
-import com.tydeya.familycircle.ui.kitchenorganizer.pages.FoodInFridge
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.FoodForBuyFragment
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.FoodInFridge
 
 class KitchenFoodAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
