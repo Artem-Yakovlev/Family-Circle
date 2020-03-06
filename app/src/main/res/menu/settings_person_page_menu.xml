@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/edit_person_page"
+        android:title="@string/person_page_edit" />
+
+    <item
+        android:id="@+id/add_post_to_person_page"
+        android:title="@string/person_page_add_post" />
+</menu>

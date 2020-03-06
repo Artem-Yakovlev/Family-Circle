@@ -2,8 +2,11 @@ package com.tydeya.familycircle.ui.livepart.memberpersonpage.details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +18,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
+import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.dto.FamilyMemberDto;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
@@ -30,7 +36,9 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
     private TextView zodiacSignText;
     private Toolbar toolbar;
     private MemberPersonPresenter presenter;
+    private ImageButton settingsButton;
 
+    private NavController navController;
 
     @Inject
     FamilyInteractor familyInteractor;
@@ -45,6 +53,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         toolbar = root.findViewById(R.id.family_member_view_toolbar);
         zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
+        settingsButton = root.findViewById(R.id.family_member_view_settings);
 
         return root;
     }
@@ -53,14 +62,19 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new MemberPersonPresenterImpl(this, familyInteractor.getActualFamily()
-                .getFamilyMembers().get(getArguments() != null ? getArguments().getInt("personPosition") : 0));
+        presenter = new MemberPersonPresenterImpl(this, getFamilyMember());
 
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
             navController.popBackStack();
         });
 
+        navController = NavHostFragment.findNavController(this);
+    }
+
+    private FamilyMember getFamilyMember() {
+        FamilyAssistant familyAssistant = new FamilyAssistantImpl(familyInteractor.getActualFamily());
+        return familyAssistant.getUserByPhone(getArguments().getString("personFullPhoneNumber", ""));
     }
 
     @Override
@@ -73,5 +87,37 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
 
         zodiacSignText.setText(dto.getZodiacSign());
 
+    }
+
+    @Override
+    public void setManagerMode(boolean managerMode) {
+        if (managerMode) {
+            settingsButton.setVisibility(View.VISIBLE);
+            settingsButton.setEnabled(true);
+            settingsButton.setOnClickListener(this::showPopUpSettingsMenu);
+        } else {
+            settingsButton.setVisibility(View.INVISIBLE);
+            settingsButton.setEnabled(false);
+        }
+    }
+
+    private void showPopUpSettingsMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), v);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.settings_person_page_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.edit_person_page:
+                    Bundle bundle = new Bundle();
+                    bundle.putString("personFullPhoneNumber", getFamilyMember().getFullPhoneNumber());
+                    navController.navigate(R.id.memberPersonEditFragment);
+                    return true;
+                case R.id.add_post_to_person_page:
+                    return true;
+                default:
+                    return false;
+            }
+        });
+        popupMenu.show();
     }
 }

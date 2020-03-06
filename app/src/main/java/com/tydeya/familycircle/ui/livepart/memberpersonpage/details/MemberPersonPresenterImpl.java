@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.livepart.memberpersonpage.details;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.dto.FamilyMemberDto;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
@@ -9,10 +10,19 @@ class MemberPersonPresenterImpl implements MemberPersonPresenter {
 
     private MemberPersonView view;
     private FamilyMemberDto familyMemberDto;
+    private String fullPhoneNumber;
 
     MemberPersonPresenterImpl(MemberPersonView view, FamilyMember familyMember) {
         this.familyMemberDto = new FamilyMemberDto(familyMember);
         this.view = view;
-        view.setCurrentData(familyMemberDto);
+        this.fullPhoneNumber = familyMember.getFullPhoneNumber();
+        setPersonPageView();
     }
+
+    private void setPersonPageView() {
+        view.setCurrentData(familyMemberDto);
+        view.setManagerMode(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().equals(fullPhoneNumber));
+    }
+
+
 }
