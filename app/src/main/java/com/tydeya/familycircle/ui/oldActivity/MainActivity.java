@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui;
+package com.tydeya.familycircle.ui.oldActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +16,9 @@ import com.tydeya.familycircle.data.conversationsinteractor.details.Conversation
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 
 import javax.inject.Inject;
-
+/*
 public class MainActivity extends AppCompatActivity implements ConversationInteractorCallback {
+
 
     private BottomNavigationView bottomNavigationView;
 
@@ -85,4 +86,4 @@ public class MainActivity extends AppCompatActivity implements ConversationInter
                     .setNumber(conversationInteractor.getActualConversationBadges());
         }
     }
-}
+}*/

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plan"
+    app:startDestination="@id/mainPlanPage">
+
+    <fragment
+        android:id="@+id/mainPlanPage"
+        android:name="com.tydeya.familycircle.ui.planpart.main.details.MainPlanFragment"
+        tools:layout="@layout/fragment_main_plan_page"
+        android:label="fragment_main_plan_page">
+        <action
+            android:id="@+id/action_mainPlanPage_to_kitchenOrganizerFragment"
+            app:destination="@id/kitchenOrganizerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kitchenOrganizerFragment"
+        android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.KitchenOrganizerFragment"
+        tools:layout="@layout/fragment_kitchen_organizer"
+        android:label="fragment_kitchen_organizer" />
+</navigation>

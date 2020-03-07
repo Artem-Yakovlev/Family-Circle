@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/live"
+    app:startDestination="@id/mainLivePage">
+    <fragment
+        android:id="@+id/familyMemberViewFragment"
+        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment"
+        android:label="fragment_family_member_view"
+        tools:layout="@layout/fragment_family_member_view">
+        <argument
+            android:name="personPosition"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_familyMemberViewFragment_to_memberPersonEditFragment"
+            app:destination="@id/memberPersonEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberPersonEditFragment"
+        android:name="com.tydeya.familycircle.ui.managerpart.editprofile.MemberPersonEditFragment"
+        android:label="fragment_mamber_person_edit"
+        tools:layout="@layout/fragment_member_person_edit" />
+    <fragment
+        android:id="@+id/mainLivePage"
+        android:name="com.tydeya.familycircle.ui.livepart.main.details.MainLivePage"
+        android:label="fragment_main_live_page"
+        tools:layout="@layout/fragment_main_live_page">
+        <action
+            android:id="@+id/action_mainLivePage_to_familyMemberViewFragment"
+            app:destination="@id/familyMemberViewFragment" />
+    </fragment>
+</navigation>

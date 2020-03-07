@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manager_menu"
+    app:startDestination="@id/mainPanelPage">
+
+    <fragment
+        android:id="@+id/mainPanelPage"
+        android:name="com.tydeya.familycircle.ui.managerpart.menu.details.ManagerMenuPage"
+        tools:layout="@layout/fragment_main_panel_page"
+        android:label="fragment_main_panel_page" />
+</navigation>
