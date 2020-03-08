@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.data.component;
 
 import com.tydeya.familycircle.data.conversationsassistant.details.ConversationsAssistantImpl;
+import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.data.conversationsinteractor.injection.ConversationInteractorModule;
 import com.tydeya.familycircle.data.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.data.userinteractor.injection.UserInteractorModule;
@@ -41,4 +42,6 @@ public interface AppComponent {
     void injectActivity(MainActivity mainActivity);
 
     void injectConversationAssistant(ConversationsAssistantImpl conversationsAssistant);
+
+    ConversationInteractor getConversationInteractor();
 }
