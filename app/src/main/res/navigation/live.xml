@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/memberPersonEditFragment"
-        android:name="com.tydeya.familycircle.ui.managerpart.editprofile.MemberPersonEditFragment"
+        android:name="com.tydeya.familycircle.ui.managerpart.editprofile.details.MemberPersonEditFragment"
         android:label="fragment_mamber_person_edit"
         tools:layout="@layout/fragment_member_person_edit" />
     <fragment

@@ -17,12 +17,12 @@ import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.OnClickMemberStoryListener;
 
 import javax.inject.Inject;
 
-public class MainLivePage extends Fragment implements FamilyMembersStoriesRecyclerViewAdapter.OnClickMemberStoryListener,
-        FamilyInteractorCallback
-{
+public class MainLivePage extends Fragment implements OnClickMemberStoryListener, FamilyInteractorCallback {
 
     private NavController navController;
     private RecyclerView familyStoriesRecyclerView;
@@ -56,6 +56,7 @@ public class MainLivePage extends Fragment implements FamilyMembersStoriesRecycl
                 RecyclerView.HORIZONTAL, false));
 
     }
+
     @Override
     public void onClickMemberStory(int position) {
         Bundle bundle = new Bundle();

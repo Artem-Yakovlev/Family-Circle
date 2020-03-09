@@ -8,6 +8,7 @@ import com.tydeya.familycircle.data.familyinteractor.abstraction.FamilyNetworkIn
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
 import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
+import com.tydeya.familycircle.domain.familymember.otherdata.FamilyMemberCareerData;
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
 
 import java.util.ArrayList;
@@ -56,8 +57,9 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
         FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
         FamilyMemberContacts contacts = new FamilyMemberContacts();
+        FamilyMemberCareerData careerData = new FamilyMemberCareerData(null, null);
 
-        return new FamilyMember(fullPhoneNumber, description, contacts);
+        return new FamilyMember(fullPhoneNumber, description, contacts, careerData);
     }
 
 }

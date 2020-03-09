@@ -7,6 +7,7 @@ import com.tydeya.familycircle.domain.constants.User;
 import com.tydeya.familycircle.domain.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
 import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
+import com.tydeya.familycircle.domain.familymember.otherdata.FamilyMemberCareerData;
 
 //TODO remove MOCK creating
 public class UserInteractor {
@@ -29,8 +30,10 @@ public class UserInteractor {
         FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
 
         String fullPhoneNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
-        FamilyMemberContacts contacts = new FamilyMemberContacts();
 
-        this.userAccountFamilyMember = new FamilyMember(fullPhoneNumber, description, contacts);
+        FamilyMemberContacts contacts = new FamilyMemberContacts();
+        FamilyMemberCareerData careerData = new FamilyMemberCareerData(null, null);
+
+        this.userAccountFamilyMember = new FamilyMember(fullPhoneNumber, description, contacts, careerData);
     }
 }

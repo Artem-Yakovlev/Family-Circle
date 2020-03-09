@@ -8,6 +8,9 @@ import androidx.room.PrimaryKey;
 
 import com.tydeya.familycircle.domain.familymember.contacts.FamilyMemberContacts;
 import com.tydeya.familycircle.domain.familymember.description.FamilyMemberDescription;
+import com.tydeya.familycircle.domain.familymember.otherdata.FamilyMemberCareerData;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "family_members")
 public class FamilyMember {
@@ -23,18 +26,23 @@ public class FamilyMember {
     @Embedded
     private FamilyMemberContacts contacts;
 
+    @Embedded
+    private FamilyMemberCareerData careerData;
 
-    public FamilyMember(String fullPhoneNumber, FamilyMemberDescription description, FamilyMemberContacts contacts) {
+    public FamilyMember(@NonNull String fullPhoneNumber, FamilyMemberDescription description,
+                        FamilyMemberContacts contacts, FamilyMemberCareerData careerData) {
         this.fullPhoneNumber = fullPhoneNumber;
         this.description = description;
         this.contacts = contacts;
+        this.careerData = careerData;
     }
 
+    @NonNull
     public String getFullPhoneNumber() {
         return fullPhoneNumber;
     }
 
-    public void setFullPhoneNumber(String fullPhoneNumber) {
+    public void setFullPhoneNumber(@NonNull String fullPhoneNumber) {
         this.fullPhoneNumber = fullPhoneNumber;
     }
 
@@ -54,12 +62,22 @@ public class FamilyMember {
         this.contacts = contacts;
     }
 
+    public FamilyMemberCareerData getCareerData() {
+        return careerData;
+    }
+
+    public void setCareerData(FamilyMemberCareerData careerData) {
+        this.careerData = careerData;
+    }
+
+    @NotNull
     @Override
     public String toString() {
         return "FamilyMember{" +
                 "fullPhoneNumber='" + fullPhoneNumber + '\'' +
                 ", description=" + description +
                 ", contacts=" + contacts +
+                ", otherData=" + careerData +
                 '}';
     }
 }
