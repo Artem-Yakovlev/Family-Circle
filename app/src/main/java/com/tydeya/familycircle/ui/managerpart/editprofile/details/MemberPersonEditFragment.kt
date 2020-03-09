@@ -1,15 +1,15 @@
 package com.tydeya.familycircle.ui.managerpart.editprofile.details
 
 import android.os.Bundle
-import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.userinteractor.details.UserInteractor
+import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl
+import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerPresenter
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerUsable
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
@@ -23,7 +23,7 @@ import java.util.*
 class MemberPersonEditFragment : Fragment(), DatePickerUsable {
 
     private lateinit var presenter: MemberPersonEditPresenter
-    private lateinit var userInteractor: UserInteractor
+    private lateinit var familyInteractor: FamilyInteractor
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,7 +32,7 @@ class MemberPersonEditFragment : Fragment(), DatePickerUsable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userInteractor = App.getComponent().userInteractor
+        familyInteractor = App.getComponent().familyInteractor
         bindOldData()
 
         val datePickerPresenter = DatePickerPresenter(WeakReference(this), GregorianCalendar())
@@ -49,18 +49,20 @@ class MemberPersonEditFragment : Fragment(), DatePickerUsable {
     }
 
     private fun bindOldData() {
+        val phoneNumber = FirebaseAuth.getInstance().currentUser!!.phoneNumber
+        val userFamilyMember = FamilyAssistantImpl(familyInteractor.actualFamily).getUserByPhone(phoneNumber)
 
-        edit_person_page_name_input.value = userInteractor.userAccountFamilyMember.description.name
+        edit_person_page_name_input.value = userFamilyMember.description.name
                 ?: ""
 
-        if (userInteractor.userAccountFamilyMember.description.birthDate != -1L) {
+        if (userFamilyMember.description.birthDate != -1L) {
             val calendar = GregorianCalendar()
-            calendar.timeInMillis = userInteractor.userAccountFamilyMember.description.birthDate
+            calendar.timeInMillis = userFamilyMember.description.birthDate
             edit_person_datetime_picker_output.text = DateRefactoring.getDateLocaleText(calendar)
         }
-        Toast.makeText(context, userInteractor.userAccountFamilyMember.fullPhoneNumber, Toast.LENGTH_LONG).show()
-        edit_person_study.value = userInteractor.userAccountFamilyMember.careerData.studyPlace ?: ""
-        edit_person_work.value = userInteractor.userAccountFamilyMember.careerData.workPlace ?: ""
+
+        edit_person_study.value = userFamilyMember.careerData.studyPlace ?: ""
+        edit_person_work.value = userFamilyMember.careerData.workPlace ?: ""
     }
 
 }
