@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
-import static com.tydeya.familycircle.domain.constants.Firebase.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
 
 public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 

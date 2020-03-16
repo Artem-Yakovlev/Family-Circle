@@ -1,18 +1,15 @@
 package com.tydeya.familycircle.ui
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback
-import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor
+import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback
+import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 

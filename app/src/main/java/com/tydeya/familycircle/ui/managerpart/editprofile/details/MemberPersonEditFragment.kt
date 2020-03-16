@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl
-import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerPresenter
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerUsable
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring

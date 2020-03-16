@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
-import com.tydeya.familycircle.data.component.AppComponent;
-import com.tydeya.familycircle.data.component.DaggerAppComponent;
-import com.tydeya.familycircle.data.database.AppDatabase;
-import com.tydeya.familycircle.data.userinteractor.injection.UserInteractorModule;
-import com.tydeya.familycircle.domain.constants.User;
+import com.tydeya.familycircle.domain.component.AppComponent;
+import com.tydeya.familycircle.domain.component.DaggerAppComponent;
+import com.tydeya.familycircle.domain.database.AppDatabase;
+import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
+import com.tydeya.familycircle.data.constants.User;
 
 public class App extends Application {
 

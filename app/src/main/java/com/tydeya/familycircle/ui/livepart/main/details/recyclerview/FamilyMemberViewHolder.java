@@ -1,15 +1,13 @@
 package com.tydeya.familycircle.ui.livepart.main.details.recyclerview;
 
-import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.domain.familymember.FamilyMember;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 

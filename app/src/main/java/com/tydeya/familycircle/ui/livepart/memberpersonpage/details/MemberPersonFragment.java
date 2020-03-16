@@ -18,11 +18,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
-import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
-import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.domain.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familymember.dto.FamilyMemberDto;
+import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
+import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
+import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
 

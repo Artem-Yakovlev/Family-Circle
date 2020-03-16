@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.familyassistant.abstraction.FamilyAssistant;
-import com.tydeya.familycircle.data.familyassistant.details.FamilyAssistantImpl;
-import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
-import com.tydeya.familycircle.domain.conversation.Conversation;
+import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
+import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.data.chatmessage.ChatMessage;
+import com.tydeya.familycircle.data.conversation.Conversation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

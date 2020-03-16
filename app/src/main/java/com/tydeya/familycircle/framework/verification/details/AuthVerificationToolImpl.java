@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.framework.verification.details;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;

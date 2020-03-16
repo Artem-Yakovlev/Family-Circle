@@ -1,22 +1,16 @@
 package com.tydeya.familycircle.ui.livepart.main.details.recyclerview;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.domain.familymember.FamilyMember;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
 
 import java.util.ArrayList;
-
-import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
 public class FamilyMembersStoriesRecyclerViewAdapter
         extends RecyclerView.Adapter<FamilyMemberViewHolder> {

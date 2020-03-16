@@ -1,6 +1,6 @@
 package com.tydeya.familycircle;
 
-import com.tydeya.familycircle.domain.familymember.ZodiacSign;
+import com.tydeya.familycircle.data.familymember.ZodiacSign;
 
 import org.junit.Assert;
 import org.junit.Test;
