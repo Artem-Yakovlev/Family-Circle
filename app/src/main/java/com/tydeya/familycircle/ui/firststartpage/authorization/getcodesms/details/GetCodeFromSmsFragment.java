@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.framework.simplehelpers.KeyboardHelper;
+import com.tydeya.familycircle.utils.KeyboardHelper;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsPresenter;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
 

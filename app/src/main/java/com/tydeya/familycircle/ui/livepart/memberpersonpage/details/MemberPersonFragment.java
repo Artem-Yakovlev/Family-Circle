@@ -20,6 +20,7 @@ import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
+import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
@@ -29,7 +30,7 @@ import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPe
 import javax.inject.Inject;
 
 
-public class MemberPersonFragment extends Fragment implements MemberPersonView {
+public class MemberPersonFragment extends Fragment implements MemberPersonView, FamilyInteractorCallback {
 
     private TextView nameText;
     private TextView birthdateText;
@@ -119,5 +120,22 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView {
             }
         });
         popupMenu.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        familyInteractor.subscribe(this);
+    }
+
+    @Override
+    public void memberDataUpdated() {
+        setCurrentData(new FamilyMemberDto(getFamilyMember()));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        familyInteractor.unsubscribe(this);
     }
 }

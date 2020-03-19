@@ -1,5 +1,7 @@
 package com.tydeya.familycircle.domain.familyinteractor.details;
 
+import android.util.Log;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;

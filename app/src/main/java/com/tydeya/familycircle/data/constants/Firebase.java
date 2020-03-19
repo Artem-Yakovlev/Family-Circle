@@ -11,7 +11,8 @@ public final class Firebase {
     public static final String FIRESTORE_USERS_PHONE_TAG = "phone_number";
     public static final String FIRESTORE_USERS_NAME_TAG = "name";
     public static final String FIRESTORE_USERS_BIRTHDATE_TAG = "birth_date";
-
+    public static final String FIRESTORE_USERS_STUDY_TAG = "study_place";
+    public static final String FIRESTORE_USERS_WORK_TAG = "work_place";
 
     /**
      * Const of firebase conversation object

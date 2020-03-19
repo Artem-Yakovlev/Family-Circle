@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
@@ -73,8 +74,14 @@ public class MainConversationRecyclerViewAdapter extends RecyclerView.Adapter<Fa
             SimpleDateFormat formatForDateNow = new SimpleDateFormat(pattern, Locale.getDefault());
 
             ChatMessage lastChatMessage = conversations.get(position).getChatMessages().get(conversationSize - 1);
-            String lastMessageAuthorName = familyAssistant.getUserByPhone(lastChatMessage.getAuthorPhoneNumber())
-                    .getDescription().getName();
+
+            FamilyMember familyMember = familyAssistant.getUserByPhone(lastChatMessage.getAuthorPhoneNumber());
+            String lastMessageAuthorName = context.getResources().getString(R.string.unknown_text);
+
+            if (familyMember != null) {
+                lastMessageAuthorName = familyAssistant.getUserByPhone(lastChatMessage.getAuthorPhoneNumber())
+                        .getDescription().getName();
+            }
 
             holder.setLastMessageAuthor(lastMessageAuthorName + ": ");
             holder.setLastMessageText(lastChatMessage.getText());

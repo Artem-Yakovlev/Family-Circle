@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         if (verificationCheck()) {
             conversationInteractor = App.getComponent().conversationInteractor
             if (savedInstanceState == null) {
@@ -49,7 +50,6 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
     }
 
     private fun verificationCheck(): Boolean {
-
         if (FirebaseAuth.getInstance().currentUser == null) {
             val intent = Intent(this, FirstStartActivity::class.java).apply { }
             startActivity(intent)

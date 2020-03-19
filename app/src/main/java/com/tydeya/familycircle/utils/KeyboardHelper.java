@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.framework.simplehelpers;
+package com.tydeya.familycircle.utils;
 
 import android.app.Activity;
 import android.content.Context;

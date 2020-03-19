@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.tydeya.familycircle.R
 
 
-class FoodInFridge : Fragment() {
+class FoodInFridgeFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
