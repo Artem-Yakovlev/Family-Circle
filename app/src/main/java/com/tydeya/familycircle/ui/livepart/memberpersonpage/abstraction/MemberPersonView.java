@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction;
 
-import com.tydeya.familycircle.domain.familymember.dto.FamilyMemberDto;
+import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
 
 public interface MemberPersonView {
 

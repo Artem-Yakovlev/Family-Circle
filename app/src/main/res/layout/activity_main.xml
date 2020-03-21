@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context="com.tydeya.familycircle.ui.MainActivity"
+    android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/main_fragment_container"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_activity_navigation_graph" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         app:itemBackground="@color/colorWhite"
         app:itemIconTint="@color/bottom_menu_color"
         app:menu="@menu/main_bottom_navigation_menu"
         android:theme="@style/BottomNavigation"/>
 
-</RelativeLayout>
+</LinearLayout>

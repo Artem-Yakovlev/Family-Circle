@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.managerpart.menu.details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.constants.Firebase;
+import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 import com.tydeya.familycircle.ui.managerpart.menu.abstraction.ManagerMenuView;
 import com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview.ManagerMenuItem;
 import com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview.ManagerMenuItemType;
@@ -85,7 +88,10 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
 
         alertDialogBuilder.setPositiveButton(R.string.manager_menu_sign_out_dialog_positive_button,
                 (dialog, which) -> {
-
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getContext(), FirstStartActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 });
         alertDialogBuilder.setNegativeButton(R.string.manager_menu_sign_out_dialog_negative_button,
                 null);
@@ -100,7 +106,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
             case PROFILE:
                 Bundle bundle = new Bundle();
                 bundle.putString("personFullPhoneNumber", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-                navController.navigate(R.id.familyMemberViewFragment, bundle);
+                navController.navigate(R.id.memberPersonFragment, bundle);
                 break;
             case FAMILY:
                 break;

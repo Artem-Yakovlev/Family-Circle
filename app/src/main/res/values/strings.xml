@@ -149,9 +149,19 @@
     <string name="kitchen_organizer_food_in_fridge">Food in fridge</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
+
+    <!-- Person page-->
     <string name="person_page_edit">Edit</string>
     <string name="person_page_add_post">Add post</string>
     <string name="person_page_view_place_of_work">Place of work</string>
     <string name="person_page_view_place_of_study">Place of study</string>
     <string name="person_page_toolbar_title">Edit profile</string>
+
+    <!-- Person edit page-->
+    <string name="person_edit_page_accept_alert_title">Are you sure you want to change the data?
+    </string>
+    <string name="person_edit_page_accept_alert_positive_button">Yes</string>
+    <string name="person_edit_page_accept_alert_negative_button">No</string>
+    <!-- Null messages -->
+    <string name="Unknown_name">Unknown</string>
 </resources>

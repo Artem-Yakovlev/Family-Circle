@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.conversationsinteractor.abstraction.ConversationInteractorCallback;
-import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
+import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback;
+import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.recyclerview.MainConversationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.conversationpart.recyclerview.OnClickConversationListener;

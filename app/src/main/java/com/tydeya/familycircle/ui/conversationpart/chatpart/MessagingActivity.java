@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.conversationsassistant.details.ConversationsAssistantImpl;
+import com.tydeya.familycircle.domain.conversationsassistant.details.ConversationsAssistantImpl;
 
 public class MessagingActivity extends AppCompatActivity {
 

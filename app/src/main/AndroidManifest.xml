@@ -22,11 +22,9 @@
             android:name=".ui.conversationpart.chatpart.MessagingActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.firststartpage.FirstStartActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.firststartpage.FirstStartActivity" />
         <activity
-            android:name=".ui.MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

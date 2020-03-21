@@ -2,13 +2,13 @@ package com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.deta
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.App;
-import com.tydeya.familycircle.data.conversationsassistant.details.ConversationsAssistantImpl;
-import com.tydeya.familycircle.data.conversationsinteractor.details.ConversationInteractor;
-import com.tydeya.familycircle.data.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.data.userinteractor.details.UserInteractor;
-import com.tydeya.familycircle.domain.chatmessage.ChatMessage;
-import com.tydeya.familycircle.domain.conversation.Conversation;
-import com.tydeya.familycircle.domain.familymember.FamilyMember;
+import com.tydeya.familycircle.domain.conversationsassistant.details.ConversationsAssistantImpl;
+import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor;
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
+import com.tydeya.familycircle.data.chatmessage.ChatMessage;
+import com.tydeya.familycircle.data.conversation.Conversation;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondencePresenter;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondenceView;

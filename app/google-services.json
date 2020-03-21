@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "870961462222-42droqr7dqspr8qfmdko917u7l71k1ec.apps.googleusercontent.com",
+          "client_id": "870961462222-bds1im1pe9m4bospgs0ff8o9vmssq1c6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tydeya.familycircle",
+            "certificate_hash": "4dcbf04a4d9e72eb7ee13cc47726bcf547da0525"
+          }
+        },
+        {
+          "client_id": "870961462222-hhk6clh64jei7nm3qid87713d95hqq11.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tydeya.familycircle",
