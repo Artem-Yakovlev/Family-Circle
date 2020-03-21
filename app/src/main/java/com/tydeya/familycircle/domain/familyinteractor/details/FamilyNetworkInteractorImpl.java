@@ -19,6 +19,9 @@ import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BI
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_STUDY_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_WORK_TAG;
+import static com.tydeya.familycircle.utils.StringExtensionsKt.ifNullToEmpty;
 
 public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
@@ -59,7 +62,11 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
         FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
         FamilyMemberContacts contacts = new FamilyMemberContacts();
-        FamilyMemberCareerData careerData = new FamilyMemberCareerData(null, null);
+
+        String workPlace = ifNullToEmpty(documentSnapshot.getString(FIRESTORE_USERS_WORK_TAG));
+        String studyPlace = ifNullToEmpty(documentSnapshot.getString(FIRESTORE_USERS_STUDY_TAG));
+
+        FamilyMemberCareerData careerData = new FamilyMemberCareerData(studyPlace, workPlace);
 
         return new FamilyMember(fullPhoneNumber, description, contacts, careerData);
     }

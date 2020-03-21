@@ -12,11 +12,15 @@ public class FamilyMemberDto {
     private String name;
     private String zodiacSign;
     private String birthDate;
+    private String workPlace;
+    private String studyPlace;
 
     public FamilyMemberDto(FamilyMember familyMember) {
         this.name = familyMember.getDescription().getName();
         this.birthDate = parseDateForPresenter(familyMember.getDescription().getBirthDate());
         this.zodiacSign = parseDateForZodiacSignText(familyMember.getDescription().getBirthDate());
+        this.studyPlace = familyMember.getCareerData().getStudyPlace();
+        this.workPlace = familyMember.getCareerData().getWorkPlace();
     }
 
     /**
@@ -65,5 +69,21 @@ public class FamilyMemberDto {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
+
+    public String getStudyPlace() {
+        return studyPlace;
+    }
+
+    public void setStudyPlace(String studyPlace) {
+        this.studyPlace = studyPlace;
     }
 }

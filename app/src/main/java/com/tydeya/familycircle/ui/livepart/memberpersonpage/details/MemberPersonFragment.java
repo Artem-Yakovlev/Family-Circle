@@ -35,6 +35,9 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
     private TextView nameText;
     private TextView birthdateText;
     private TextView zodiacSignText;
+    private TextView workPlaceText;
+    private TextView studyPlaceText;
+
     private Toolbar toolbar;
     private MemberPersonPresenter presenter;
     private ImageButton settingsButton;
@@ -50,11 +53,14 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
         View root = inflater.inflate(R.layout.fragment_family_member_view, container, false);
 
+        toolbar = root.findViewById(R.id.family_member_view_toolbar);
+        settingsButton = root.findViewById(R.id.family_member_view_settings);
+
         nameText = root.findViewById(R.id.family_member_view_name_text);
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
-        toolbar = root.findViewById(R.id.family_member_view_toolbar);
         zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
-        settingsButton = root.findViewById(R.id.family_member_view_settings);
+        studyPlaceText = root.findViewById(R.id.family_member_view_study_place);
+        workPlaceText = root.findViewById(R.id.family_member_view_work_place);
 
         return root;
     }
@@ -82,11 +88,30 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
     public void setCurrentData(FamilyMemberDto dto) {
         nameText.setText(dto.getName());
 
-        birthdateText.setText(dto.getBirthDate().equals("") ?
-                getResources().getString(R.string.family_member_view_datebirthd_not_known) :
-                dto.getBirthDate());
+        if (dto.getBirthDate().equals("")) {
+            birthdateText.setText(getResources()
+                    .getString(R.string.family_member_view_datebirthd_not_known));
 
-        zodiacSignText.setText(dto.getZodiacSign());
+            zodiacSignText.setVisibility(View.GONE);
+        } else {
+            birthdateText.setText(dto.getBirthDate());
+            zodiacSignText.setText(dto.getZodiacSign());
+            zodiacSignText.setVisibility(View.VISIBLE);
+        }
+
+        if (dto.getStudyPlace().equals("")) {
+            studyPlaceText.setVisibility(View.GONE);
+        } else {
+            studyPlaceText.setVisibility(View.VISIBLE);
+            studyPlaceText.setText(dto.getStudyPlace());
+        }
+
+        if (dto.getWorkPlace().equals("")) {
+            workPlaceText.setVisibility(View.GONE);
+        } else {
+            workPlaceText.setVisibility(View.VISIBLE);
+            workPlaceText.setText(dto.getWorkPlace());
+        }
 
     }
 
