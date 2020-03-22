@@ -91,8 +91,8 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
             edit_person_datetime_picker_output.setTextColor(resources.getColor(R.color.colorPrimary))
         }
 
-        edit_person_study.value = editableFamilyMember.studyPlace ?: ""
-        edit_person_work.value = editableFamilyMember.workPlace ?: ""
+        edit_person_study.value = editableFamilyMember.studyPlace
+        edit_person_work.value = editableFamilyMember.workPlace
     }
 
     private fun updateEditablePerson() {

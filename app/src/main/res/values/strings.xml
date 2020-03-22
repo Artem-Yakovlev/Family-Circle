@@ -146,8 +146,9 @@
 
     <!-- Kitchen organizer -->
     <string name="kitchen_organizer_shopping_list_title">Shopping List</string>
-    <string name="kitchen_organizer_food_in_fridge">Food in fridge</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kitchen_organizer_food_in_fridge_title">Food in fridge</string>
+    <string name="kitchen_organizer_cooking_title">Cooking</string>
+    <string name="kitchen_organizer_fridge_history_title">Fridge history</string>
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
 
     <!-- Person page-->

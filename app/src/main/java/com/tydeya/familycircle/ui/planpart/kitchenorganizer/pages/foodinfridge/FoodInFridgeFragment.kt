@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages
+package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

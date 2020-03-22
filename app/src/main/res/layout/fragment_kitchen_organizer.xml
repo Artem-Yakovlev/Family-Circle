@@ -33,7 +33,8 @@
         android:id="@+id/kitchen_main_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.Design.TabLayout"/>
+        style="@style/Widget.Design.TabLayout"
+        app:tabMode="scrollable"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/kitchen_main_pager"
