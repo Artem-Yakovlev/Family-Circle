@@ -1,0 +1,6 @@
+package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details
+
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
+
+class KitchenOrganizerNetworkInteractorImpl: KitchenOrganizerNetworkInteractor {
+}

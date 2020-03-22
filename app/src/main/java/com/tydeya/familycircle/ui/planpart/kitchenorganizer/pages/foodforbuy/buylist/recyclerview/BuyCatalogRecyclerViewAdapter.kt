@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 
-class BuyListRecyclerViewAdapter(val context: Context, var products: List<Food>) :
+class BuyCatalogRecyclerViewAdapter(val context: Context, var products: List<Food>) :
         RecyclerView.Adapter<FoodViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder =

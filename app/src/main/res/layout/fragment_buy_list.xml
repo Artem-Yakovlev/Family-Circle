@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyListFragment"
+    tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/family_member_view_toolbar"
+        android:id="@+id/buy_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"

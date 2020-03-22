@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/buyListFragment"
-        android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyListFragment"
+        android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
         android:label="fragment_buy_list"
         tools:layout="@layout/fragment_buy_list" />
 </navigation>

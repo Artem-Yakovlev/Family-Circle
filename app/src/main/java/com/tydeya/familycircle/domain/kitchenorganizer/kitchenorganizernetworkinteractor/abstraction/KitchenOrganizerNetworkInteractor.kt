@@ -1,0 +1,4 @@
+package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction
+
+interface KitchenOrganizerNetworkInteractor {
+}

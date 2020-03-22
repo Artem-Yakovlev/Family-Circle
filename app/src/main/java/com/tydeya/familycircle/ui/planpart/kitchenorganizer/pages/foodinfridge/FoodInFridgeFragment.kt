@@ -9,12 +9,6 @@ import android.view.ViewGroup
 import com.tydeya.familycircle.R
 
 
-class FoodInFridgeFragment : Fragment() {
+class FoodInFridgeFragment : Fragment(R.layout.fragment_food_in_fridge) {
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_in_fridge, container, false)
-    }
 }
