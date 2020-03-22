@@ -150,6 +150,7 @@
     <string name="kitchen_organizer_cooking_title">Cooking</string>
     <string name="kitchen_organizer_fridge_history_title">Fridge history</string>
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
+    <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
 
     <!-- Person page-->
     <string name="person_page_edit">Edit</string>

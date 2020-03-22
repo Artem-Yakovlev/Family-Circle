@@ -8,13 +8,15 @@ import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
 import kotlinx.android.synthetic.main.buylist_cardview.view.*
 import java.util.*
 
-class BuylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class BuylistViewHolder(itemView: View, var clickListener: OnBuyListClickListener)
+    : RecyclerView.ViewHolder(itemView) {
 
-    fun bindData(buyList: BuyList) {
+    fun bindData(buyList: BuyList, position: Int) {
         itemView.buylist_card_title.text = buyList.title
         val calendar = GregorianCalendar()
         calendar.timeInMillis = buyList.dateOfCreate.time
         itemView.buylist_card_date.text = DateRefactoring.getDateLocaleText(calendar)
+        itemView.setOnClickListener{clickListener.onClick(position)}
     }
 
 }

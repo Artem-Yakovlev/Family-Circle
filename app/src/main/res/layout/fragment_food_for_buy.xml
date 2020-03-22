@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment">
+    tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment"
+    android:paddingTop="10dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/buylists_recyclerview"
+        android:id="@+id/food_for_buy_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/food_for_buu_floating_button"
+        android:id="@+id/buy_list_floating_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom|right"
