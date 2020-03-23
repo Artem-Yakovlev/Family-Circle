@@ -19,11 +19,12 @@ class KitchenOrganizerNetworkInteractorImpl(
 
 
     override fun requireKitchenBuyCatalogData() {
-        val buyCatalogs = ArrayList<BuyCatalog>()
+
 
         FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
-                .addSnapshotListener { querySnapshot, _ ->
+                .addSnapshotListener() { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
+                        val buyCatalogs = ArrayList<BuyCatalog>()
                         for (i in 0 until querySnapshot.documents.size) {
                             val document = querySnapshot.documents[i]
 
@@ -54,6 +55,7 @@ class KitchenOrganizerNetworkInteractorImpl(
         }
     }
 
+    /*
     override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
 
         for (i in 0 until buyCatalogs.size) {
@@ -85,7 +87,11 @@ class KitchenOrganizerNetworkInteractorImpl(
                     }
         }
     }
+    */
 
+    override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
+
+    }
 
     private fun convertServerDataToFood(documentSnapshot: DocumentSnapshot) = Food(
             documentSnapshot.get(FIRESTORE_FOOD_TITLE).toString(),

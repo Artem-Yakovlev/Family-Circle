@@ -152,6 +152,11 @@
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
     <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
 
+    <!-- Create list dialog-->
+    <string name="dialog_new_buy_list_create">Create</string>
+    <string name="dialog_new_buy_list_cancel">Cancel</string>
+    <string name="dialog_new_buy_list_already_exist">This shopping list already exists</string>
+
     <!-- Person page-->
     <string name="person_page_edit">Edit</string>
     <string name="person_page_add_post">Add post</string>
@@ -166,4 +171,6 @@
     <string name="person_edit_page_accept_alert_negative_button">No</string>
     <!-- Null messages -->
     <string name="Unknown_name">Unknown</string>
+    <string name="new_shopping_list">New shopping list</string>
+    <string name="shopping_list_name">Shopping list name</string>
 </resources>

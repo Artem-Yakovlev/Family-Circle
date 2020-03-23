@@ -47,6 +47,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     override fun subscribe(callback: KitchenOrganizerCallback) {
         if (!observers.contains(callback)) {
             observers.add(callback)
+            callback.kitchenDataFromServerUpdated()
         }
     }
 

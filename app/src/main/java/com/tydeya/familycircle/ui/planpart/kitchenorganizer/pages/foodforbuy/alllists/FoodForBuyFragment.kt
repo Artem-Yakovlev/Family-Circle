@@ -1,23 +1,19 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.BuyCatalogsRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.OnBuyCatalogClickListener
 import kotlinx.android.synthetic.main.fragment_food_for_buy.*
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalogClickListener,
         KitchenOrganizerCallback {
@@ -39,6 +35,10 @@ class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalo
                 LinearLayoutManager.VERTICAL, false)
 
         buy_list_floating_button.attachToRecyclerView(food_for_buy_recyclerview)
+        buy_list_floating_button.setOnClickListener {
+            val newListDialog = CreateBuyListDialog()
+            newListDialog.show(parentFragmentManager, "dialog_new_list")
+        }
     }
 
     override fun onBuyCatalogClick(position: Int) {
@@ -49,7 +49,6 @@ class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalo
     }
 
     override fun kitchenDataFromServerUpdated() {
-        Log.d("ASMR", "${kitchenOrganizerInteractor.buyCatalogs[0].products[0].title}")
         adapter.refreshData(kitchenOrganizerInteractor.buyCatalogs)
         adapter.notifyDataSetChanged()
     }

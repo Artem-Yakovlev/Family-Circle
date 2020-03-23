@@ -17,6 +17,7 @@ import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.detai
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondencePresenterImpl;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.CreateBuyListDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
 
@@ -52,6 +53,8 @@ public interface AppComponent {
     void injectFoodForBuyFragment(FoodForBuyFragment foodForBuyFragment);
 
     void injectBuyCatalogFragment(BuyCatalogFragment buyCatalogFragment);
+
+    void injectCreateListDialog(CreateBuyListDialog createBuyListDialog);
 
     ConversationInteractor getConversationInteractor();
 
