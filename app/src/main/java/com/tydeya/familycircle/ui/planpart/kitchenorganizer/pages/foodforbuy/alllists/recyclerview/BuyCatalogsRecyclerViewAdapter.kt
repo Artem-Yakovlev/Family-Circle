@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 
-class BuyCatalogsRecyclerViewAdapter(val context: Context, var buyCatalogs: List<BuyCatalog>,
+class BuyCatalogsRecyclerViewAdapter(val context: Context, var buyCatalogs: ArrayList<BuyCatalog>,
                                      var onClickListener: OnBuyCatalogClickListener) :
         RecyclerView.Adapter<BuyCatalogViewHolder>() {
 
@@ -19,5 +19,10 @@ class BuyCatalogsRecyclerViewAdapter(val context: Context, var buyCatalogs: List
 
     override fun onBindViewHolder(holder: BuyCatalogViewHolder, position: Int) {
         holder.bindData(buyCatalogs[position], position)
+    }
+
+    fun refreshData(actualBuyCatalogs: ArrayList<BuyCatalog>) {
+        this.buyCatalogs = actualBuyCatalogs
+        notifyDataSetChanged()
     }
 }

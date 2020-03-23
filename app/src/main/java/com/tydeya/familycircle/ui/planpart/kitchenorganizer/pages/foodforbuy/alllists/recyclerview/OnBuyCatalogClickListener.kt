@@ -2,5 +2,5 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.al
 
 interface OnBuyCatalogClickListener {
 
-    fun onClick(position: Int)
+    fun onBuyCatalogClick(position: Int)
 }

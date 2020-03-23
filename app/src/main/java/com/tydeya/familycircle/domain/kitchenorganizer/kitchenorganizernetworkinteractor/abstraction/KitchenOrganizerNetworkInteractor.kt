@@ -5,4 +5,6 @@ import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 interface KitchenOrganizerNetworkInteractor {
 
     fun requireKitchenBuyCatalogData()
+
+    fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>)
 }

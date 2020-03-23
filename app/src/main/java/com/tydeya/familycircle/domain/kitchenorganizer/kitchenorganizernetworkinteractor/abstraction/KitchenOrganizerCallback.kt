@@ -2,5 +2,5 @@ package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworki
 
 interface KitchenOrganizerCallback {
 
-    fun requireBuyCatalogsData()
+    fun kitchenDataFromServerUpdated()
 }

@@ -4,5 +4,7 @@ import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 
 interface KitchenNetworkInteractorCallback {
 
-    fun buyCatalogsDataUpdated(buyCatalogs: List<BuyCatalog>)
+    fun buyCatalogsAllDataUpdated(buyCatalogs: ArrayList<BuyCatalog>)
+
+    fun buyCatalogDataUpdated(buyCatalog: BuyCatalog)
 }

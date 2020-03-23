@@ -15,7 +15,7 @@ class BuyCatalogViewHolder(itemView: View, var clickListener: OnBuyCatalogClickL
         val calendar = GregorianCalendar()
         calendar.timeInMillis = buyCatalog.dateOfCreate.time
         itemView.buylist_card_date.text = DateRefactoring.getDateLocaleText(calendar)
-        itemView.setOnClickListener{clickListener.onClick(position)}
+        itemView.setOnClickListener{clickListener.onBuyCatalogClick(position)}
     }
 
 }
