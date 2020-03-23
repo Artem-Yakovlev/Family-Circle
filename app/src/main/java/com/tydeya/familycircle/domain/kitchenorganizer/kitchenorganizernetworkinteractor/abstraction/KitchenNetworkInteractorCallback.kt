@@ -2,7 +2,7 @@ package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworki
 
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 
-interface KitchenOrganizerNetworkInteractor {
+interface KitchenNetworkInteractorCallback {
 
-    fun requireKitchenBuyCatalogData()
+    fun buyCatalogsDataUpdated(buyCatalogs: List<BuyCatalog>)
 }

@@ -30,4 +30,23 @@ public final class Firebase {
     public static final String FIRESTORE_MESSAGE_AUTHOR_PHONE = "authorPhoneNumber";
     public static final String FIRESTORE_MESSAGE_DATETIME = "dateTime";
     public static final String FIRESTORE_MESSAGE_UNREAD_PATTERN = "unread_by_";
+
+    /**
+     * Const of firebase buy catalog object
+     */
+
+    public static final String FIRESTORE_KITCHEN_COLLECTION = "KitchenOrganizer";
+    public static final String FIRESTORE_BUY_CATALOG_TITLE = "title";
+    public static final String FIRESTORE_BUY_CATALOG_DATE = "date_of_create";
+    public static final String FIRESTORE_BUY_CATALOG_FOODS = "foods";
+
+    /**
+     * Const of firebase food object
+     */
+    public static final String FIRESTORE_FOOD_TITLE = "title";
+    public static final String FIRESTORE_FOOD_DESCRIPTION = "description";
+    public static final String FIRESTORE_FOOD_STATUS = "food_status";
+    public static final String FIRESTORE_FOOD_CALORIES = "calories";
+    public static final String FIRESTORE_FOOD_PROTEIN = "protein";
+    public static final String FIRESTORE_FOOD_FATS = "fats";
 }

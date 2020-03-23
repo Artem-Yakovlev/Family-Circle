@@ -5,6 +5,7 @@ import com.tydeya.familycircle.domain.conversationsinteractor.details.Conversati
 import com.tydeya.familycircle.domain.conversationsinteractor.injection.ConversationInteractorModule;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
@@ -16,13 +17,16 @@ import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.detai
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondencePresenterImpl;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
 @Singleton
-@Component(modules = {FamilyInteractorModule.class, ConversationInteractorModule.class, UserInteractorModule.class})
+@Component(modules = {FamilyInteractorModule.class, ConversationInteractorModule.class,
+        UserInteractorModule.class, KitchenOrganizerModule.class})
 public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
@@ -44,6 +48,10 @@ public interface AppComponent {
     void injectActivity(MainActivity mainActivity);
 
     void injectConversationAssistant(ConversationsAssistantImpl conversationsAssistant);
+
+    void injectFoodForBuyFragment(FoodForBuyFragment foodForBuyFragment);
+
+    void injectBuyCatalogFragment(BuyCatalogFragment buyCatalogFragment);
 
     ConversationInteractor getConversationInteractor();
 

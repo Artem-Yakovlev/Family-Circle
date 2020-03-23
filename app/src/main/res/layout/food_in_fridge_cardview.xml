@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    android:layout_marginBottom="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingHorizontal="30dp">
 
         <TextView
             android:id="@+id/food_in_fridge_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Бананы" />
+
+        <ImageButton
+            android:id="@+id/food_in_fridge_eat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Бананы"
-            android:fontFamily="@font/poppins_medium" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:src="@drawable/ic_restaurant_black_24dp" />
 
-
+        <ImageButton
+            android:id="@+id/food_in_fridge_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:src="@drawable/ic_delete_black_24dp" />
 
     </LinearLayout>
 
