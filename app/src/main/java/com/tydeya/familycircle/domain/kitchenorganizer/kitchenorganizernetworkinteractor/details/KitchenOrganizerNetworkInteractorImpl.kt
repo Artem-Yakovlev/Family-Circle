@@ -10,7 +10,9 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
 import kotlinx.coroutines.*
+import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class KitchenOrganizerNetworkInteractorImpl(
         private val callback: KitchenNetworkInteractorCallback
@@ -89,10 +91,6 @@ class KitchenOrganizerNetworkInteractorImpl(
     }
     */
 
-    override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
-
-    }
-
     private fun convertServerDataToFood(documentSnapshot: DocumentSnapshot) = Food(
             documentSnapshot.get(FIRESTORE_FOOD_TITLE).toString(),
             documentSnapshot.get(FIRESTORE_FOOD_DESCRIPTION).toString(),
@@ -104,6 +102,23 @@ class KitchenOrganizerNetworkInteractorImpl(
             documentSnapshot.getDouble(FIRESTORE_FOOD_PROTEIN),
             documentSnapshot.getDouble(FIRESTORE_FOOD_FATS)
     )
+
+
+    override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
+
+    }
+
+    /**
+     * Buy catalog creating
+     * */
+
+    override fun createBuyList(title: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION).add(
+                hashMapOf(
+                        FIRESTORE_BUY_CATALOG_TITLE to title,
+                        FIRESTORE_BUY_CATALOG_DATE to Date()
+                ) as Map<String, Any>)
+    }
 
 
 }

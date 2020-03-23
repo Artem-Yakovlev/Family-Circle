@@ -7,4 +7,6 @@ interface KitchenOrganizerNetworkInteractor {
     fun requireKitchenBuyCatalogData()
 
     fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>)
+
+    fun createBuyList(title: String)
 }

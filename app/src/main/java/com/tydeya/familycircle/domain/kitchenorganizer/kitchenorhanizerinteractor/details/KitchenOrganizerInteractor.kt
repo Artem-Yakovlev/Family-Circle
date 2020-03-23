@@ -38,6 +38,15 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         notifyObserversConversationsDataUpdated()
     }
 
+    fun createBuyCatalog(title: String) {
+        networkInteractor.createBuyList(title)
+    }
+
+
+    /**
+     * Callbacks
+     * */
+
     private fun notifyObserversConversationsDataUpdated() {
         for (callback in observers) {
             callback.kitchenDataFromServerUpdated()

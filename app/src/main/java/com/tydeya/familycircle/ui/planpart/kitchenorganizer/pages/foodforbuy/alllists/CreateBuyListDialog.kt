@@ -34,14 +34,15 @@ class CreateBuyListDialog : DialogFragment() {
         view.dialog_shopping_list_create_button.setOnClickListener {
 
             var createFlag = true
+            val title = view.dialog_shopping_list_name.text.toString().trim()
 
-            if (view.dialog_shopping_list_name.text.toString().trim() == "") {
+            if (title == "") {
                 view.dialog_shopping_list_name.error = view.context!!
                         .resources.getString(R.string.empty_necessary_field_warning)
                 createFlag = false
             } else {
                 for (buyCatalog in kitchenOrganizerInteractor.buyCatalogs) {
-                    if (buyCatalog.title.trim() == view.dialog_shopping_list_name.text.toString().trim()) {
+                    if (buyCatalog.title.trim() == title) {
                         view.dialog_shopping_list_name.error = view.context!!
                                 .resources.getString(R.string.dialog_new_buy_list_already_exist)
                         createFlag = false
@@ -51,7 +52,7 @@ class CreateBuyListDialog : DialogFragment() {
             }
 
             if (createFlag) {
-                //Creating
+                kitchenOrganizerInteractor.createBuyCatalog(title)
                 dismiss()
             }
         }
