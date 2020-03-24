@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details
 
-import android.util.Log
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
@@ -64,6 +63,18 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         }
 
         return resultBuyCatalog
+    }
+
+    /**
+     * Food data
+     * */
+
+    fun createProduct(catalogId: String, title: String) {
+        networkInteractor.createProductInFirebase(catalogId, title)
+    }
+
+    fun deleteProduct(catalogId: String, title: String) {
+        networkInteractor.deleteProductInFirebase(catalogId, title)
     }
 
     /**

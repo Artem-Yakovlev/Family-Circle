@@ -6,15 +6,29 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import kotlinx.android.synthetic.main.buy_list_food_card.view.*
 
-class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class FoodViewHolder(itemView: View, private val listener: FoodViewHolderDeleteClickListener) : RecyclerView.ViewHolder(itemView) {
 
-    fun bindData(food: Food, itemType: Int) {
+    fun bindData(food: Food, itemType: Int, isEditableMode: Boolean) {
         itemView.buy_list_food_card_title.text = food.title
 
-        itemView.buy_list_food_card_checkbox.isChecked = when(food.foodStatus) {
+        itemView.buy_list_food_card_checkbox.isChecked = when (food.foodStatus) {
             FoodStatus.NEED_BUY -> false
             FoodStatus.IN_FRIDGE -> true
         }
+
+        itemView.buy_list_food_card_delete.visibility = if (isEditableMode) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        itemView.buy_list_food_card_delete
+                .setOnClickListener { listener.onFoodVHDeleteClick(food.title) }
     }
 
+}
+
+interface FoodViewHolderDeleteClickListener {
+
+    fun onFoodVHDeleteClick(title: String)
 }

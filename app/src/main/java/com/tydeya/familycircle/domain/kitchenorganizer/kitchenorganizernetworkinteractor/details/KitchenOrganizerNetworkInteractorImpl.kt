@@ -86,5 +86,37 @@ class KitchenOrganizerNetworkInteractorImpl(
                         FIRESTORE_BUY_CATALOG_DATE to Date()
                 ) as Map<String, Any>)
     }
+
+    /**
+     * Food
+     * */
+
+    override fun createProductInFirebase(id: String, title: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(id).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                .add(createProductFromTitle(title))
+    }
+
+    private fun createProductFromTitle(title: String) = hashMapOf(
+            FIRESTORE_FOOD_TITLE to title,
+            FIRESTORE_FOOD_DESCRIPTION to "",
+            FIRESTORE_FOOD_STATUS to 0,
+            FIRESTORE_FOOD_CALORIES to 0,
+            FIRESTORE_FOOD_PROTEIN to 0,
+            FIRESTORE_FOOD_FATS to 0
+    ) as Map<String, Any>
+
+    override fun deleteProductInFirebase(catalogId: String, title: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(catalogId).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                .whereEqualTo(FIRESTORE_FOOD_TITLE, title).get()
+                .addOnSuccessListener { querySnapshot ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        for (document in querySnapshot.documents) {
+                            document.reference.delete()
+                        }
+                    }
+                }
+    }
 }
 

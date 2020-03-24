@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/create_new_shopping_list"
+        android:text="@string/new_product"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
@@ -26,11 +26,11 @@
         android:paddingRight="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialog_shopping_list_name"
+            android:id="@+id/dialog_new_food_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/shopping_list_name"
+            android:hint="@string/dialog_new_food_products_name"
             android:inputType="textPersonName"
             android:singleLine="true"
             android:textColor="@color/colorGray"
@@ -47,7 +47,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/dialog_shopping_list_cancel_button"
+            android:id="@+id/dialog_new_food_cancel_button"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
@@ -59,7 +59,7 @@
             android:theme="@style/FormButton" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/dialog_shopping_list_create_button"
+            android:id="@+id/dialog_new_food_create_button"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"

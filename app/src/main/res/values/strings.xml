@@ -174,4 +174,7 @@
     <string name="new_shopping_list">New shopping list</string>
     <string name="shopping_list_name">Shopping list name</string>
     <string name="add_new_item">add new item</string>
+    <string name="dialog_new_food_products_name">Products name</string>
+    <string name="create_new_shopping_list">Create new shopping list</string>
+    <string name="new_product">New product</string>
 </resources>

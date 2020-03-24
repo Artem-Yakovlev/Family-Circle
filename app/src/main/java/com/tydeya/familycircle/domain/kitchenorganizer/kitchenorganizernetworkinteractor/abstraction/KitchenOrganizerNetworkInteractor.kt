@@ -10,4 +10,8 @@ interface KitchenOrganizerNetworkInteractor {
 
     fun createBuyList(title: String)
 
+    fun createProductInFirebase(id: String, title: String)
+
+    fun deleteProductInFirebase(catalogId: String, title: String)
+
 }

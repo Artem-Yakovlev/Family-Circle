@@ -8,4 +8,6 @@ interface KitchenNetworkInteractorCallback {
     fun buyCatalogsAllDataUpdated(buyCatalogs: ArrayList<BuyCatalog>)
 
     fun buyCatalogDataUpdated(id: String, products: ArrayList<Food>)
+
+
 }

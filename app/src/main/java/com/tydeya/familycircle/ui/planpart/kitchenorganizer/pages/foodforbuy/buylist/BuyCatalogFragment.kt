@@ -13,10 +13,12 @@ import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkin
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodViewHolderDeleteClickListener
 import kotlinx.android.synthetic.main.fragment_buy_list.*
 import javax.inject.Inject
 
-class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganizerCallback {
+class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganizerCallback,
+        FoodViewHolderDeleteClickListener {
 
     @Inject
     lateinit var kitchenInteractor: KitchenOrganizerInteractor
@@ -48,6 +50,11 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
         buyCatalogEventListener = KitchenBuyCatalogEventListener(buyCatalogID, kitchenInteractor)
         buyCatalogEventListener.register()
+
+        buy_list_add_button.setOnClickListener {
+            val newProductDialog = CreateNewProductDialog(buyCatalogID)
+            newProductDialog.show(parentFragmentManager, "dialog_new_product")
+        }
     }
 
     /**
@@ -55,7 +62,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
      * */
 
     private fun setRecyclerView(products: ArrayList<Food>) {
-        adapter = BuyCatalogRecyclerViewAdapter(context!!, products)
+        adapter = BuyCatalogRecyclerViewAdapter(context!!, products, editableModeIsActive, this)
         buy_list_recyclerview.adapter = adapter
 
         buy_list_recyclerview.layoutManager = LinearLayoutManager(context!!,
@@ -83,8 +90,8 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
             buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_black_24dp)
             buy_list_add_button.visibility = View.GONE
             buy_list_remove_list_button.visibility = View.GONE
-
         }
+        adapter.switchMode(editableModeIsActive)
     }
 
     /**
@@ -95,6 +102,14 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
         val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
         buy_list_toolbar.title = buyCatalog.title
         adapter.refreshData(buyCatalog.products)
+    }
+
+    /**
+     * Recycler callbacks
+     * */
+
+    override fun onFoodVHDeleteClick(title: String) {
+        kitchenInteractor.deleteProduct(buyCatalogID, title)
     }
 
     /**
