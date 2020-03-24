@@ -105,6 +105,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
      * */
 
     override fun onDeleteCatalog() {
+        buyCatalogEventListener.unregister()
         NavHostFragment.findNavController(this).popBackStack()
         kitchenInteractor.deleteCatalog(buyCatalogID)
     }
@@ -125,6 +126,11 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     override fun onFoodVHDeleteClick(title: String) {
         kitchenInteractor.deleteProduct(buyCatalogID, title)
+    }
+
+    override fun onFoodVHEditDataClick(title: String) {
+        val editProductDialog = EditProductDataDialog(buyCatalogID, title)
+        editProductDialog.show(parentFragmentManager, "dialog_edit_product")
     }
 
     /**

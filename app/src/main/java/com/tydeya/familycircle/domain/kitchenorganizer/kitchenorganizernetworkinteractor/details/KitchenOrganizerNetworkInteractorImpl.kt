@@ -128,5 +128,16 @@ class KitchenOrganizerNetworkInteractorImpl(
                     }
                 }
     }
+
+    override fun editProductInFirebase(id: String, actualTitle: String, newTitle: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(id).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                .whereEqualTo(FIRESTORE_FOOD_TITLE, actualTitle).get()
+                .addOnSuccessListener { querySnapshot ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_TITLE, newTitle)
+                    }
+                }
+    }
 }
 

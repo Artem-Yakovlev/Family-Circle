@@ -19,7 +19,7 @@ class BuyCatalogSettingsDialog(private val catalogId: String,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.getComponent().injectCreateListDialog(this)
+        App.getComponent().injectDialog(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

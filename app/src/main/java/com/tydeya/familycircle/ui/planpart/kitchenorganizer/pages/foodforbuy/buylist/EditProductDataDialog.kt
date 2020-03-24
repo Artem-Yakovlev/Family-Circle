@@ -1,5 +1,7 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist
 
+import kotlinx.android.synthetic.main.dialog_edit_food_data.view.*
+
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -7,10 +9,13 @@ import androidx.fragment.app.DialogFragment
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
+import com.tydeya.familycircle.utils.value
 import kotlinx.android.synthetic.main.dialog_new_food.view.*
 import javax.inject.Inject
 
-class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
+class EditProductDataDialog(private val catalogId: String, private val actualTitle: String)
+    :
+        DialogFragment() {
 
     @Inject
     lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
@@ -23,16 +28,21 @@ class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val view = activity!!.layoutInflater
-                .inflate(R.layout.dialog_new_food, null)
+        val view = activity!!.layoutInflater.inflate(R.layout.dialog_edit_food_data, null)
 
-        view.dialog_new_food_create_button.setOnClickListener {
+        builder.setView(view)
+
+        view.dialog_edit_food_create_button.setOnClickListener {
             var isCanCreateProduct = true
-            val title = view.dialog_new_food_name.text.toString().trim()
+            val title = view.dialog_edit_food_name.text.toString().trim()
 
-            if (title == "") {
+            if (title == actualTitle) {
 
-                view.dialog_new_food_name.error = view.context!!
+                dismiss()
+
+            } else if (title == "") {
+
+                view.dialog_edit_food_name.error = view.context!!
                         .resources.getString(R.string.empty_necessary_field_warning)
                 isCanCreateProduct = false
 
@@ -41,6 +51,8 @@ class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
                 for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
                     if (food.title == title) {
                         isCanCreateProduct = false
+                        view.dialog_edit_food_name.error = view.context!!
+                                .resources.getString(R.string.dialog_edit_food_data_already_exist)
                         break
                     }
                 }
@@ -48,16 +60,16 @@ class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
             }
 
             if (isCanCreateProduct) {
-                kitchenOrganizerInteractor.createProduct(catalogId, title)
+                kitchenOrganizerInteractor.editProduct(catalogId, actualTitle, title)
                 dismiss()
             }
         }
 
-        view.dialog_new_food_cancel_button.setOnClickListener {
+        view.dialog_edit_food_cancel_button.setOnClickListener {
             dismiss()
         }
 
-        builder.setView(view)
+        view.dialog_edit_food_name.value = actualTitle
 
         return builder.create()
     }

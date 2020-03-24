@@ -181,4 +181,7 @@
     <string name="buy_catalog_settings">Buy catalog settings</string>
     <string name="delete_list">Delete list</string>
     <string name="dialog_buy_catalog_settings_save">Save</string>
+    <string name="edit_product_name">Edit product name</string>
+    <string name="dialog_edit_food_data_already_exist">Product with this name already exists in this buy list</string>
+    <string name="dialog_new_buy_list_accept">Accept</string>
 </resources>

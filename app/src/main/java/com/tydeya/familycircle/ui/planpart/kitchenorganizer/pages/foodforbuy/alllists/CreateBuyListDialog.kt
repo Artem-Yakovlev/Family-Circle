@@ -3,13 +3,10 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.al
 import com.tydeya.familycircle.R
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.DialogFragment
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
-import kotlinx.android.synthetic.main.dialog_food_for_buy_new_list.*
 import kotlinx.android.synthetic.main.dialog_food_for_buy_new_list.view.*
 import javax.inject.Inject
 
@@ -21,7 +18,7 @@ class CreateBuyListDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.getComponent().injectCreateListDialog(this)
+        App.getComponent().injectDialog(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

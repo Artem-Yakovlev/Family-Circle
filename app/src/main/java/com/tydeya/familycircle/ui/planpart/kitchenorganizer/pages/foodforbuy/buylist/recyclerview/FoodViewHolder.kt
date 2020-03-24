@@ -16,19 +16,29 @@ class FoodViewHolder(itemView: View, private val listener: FoodViewHolderDeleteC
             FoodStatus.IN_FRIDGE -> true
         }
 
-        itemView.buy_list_food_card_delete.visibility = if (isEditableMode) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
+        itemView.buy_list_food_card_delete.visibility = getEditableVisibility(isEditableMode)
+
+        itemView.buy_list_food_card_edit.visibility = getEditableVisibility(isEditableMode)
 
         itemView.buy_list_food_card_delete
                 .setOnClickListener { listener.onFoodVHDeleteClick(food.title) }
+
+        itemView.buy_list_food_card_edit
+                .setOnClickListener { listener.onFoodVHEditDataClick(food.title) }
     }
+
+    private fun getEditableVisibility(isEditableMode: Boolean) =
+            if (isEditableMode) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
 
 }
 
 interface FoodViewHolderDeleteClickListener {
 
     fun onFoodVHDeleteClick(title: String)
+
+    fun onFoodVHEditDataClick(title: String)
 }

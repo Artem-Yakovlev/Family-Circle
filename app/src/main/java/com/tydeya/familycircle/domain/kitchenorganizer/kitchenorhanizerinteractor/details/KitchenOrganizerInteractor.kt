@@ -81,6 +81,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         networkInteractor.createProductInFirebase(catalogId, title)
     }
 
+    fun editProduct(catalogId: String, actualTitle: String, newTitle: String) {
+        networkInteractor.editProductInFirebase(catalogId, actualTitle, newTitle)
+    }
+
     fun deleteProduct(catalogId: String, title: String) {
         networkInteractor.deleteProductInFirebase(catalogId, title)
     }

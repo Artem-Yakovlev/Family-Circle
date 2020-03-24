@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 
-class BuyCatalogRecyclerViewAdapter(val context: Context,
-                                    var products: ArrayList<Food>,
-                                    var isEditableMode: Boolean,
-                                    val onDeleteClickListener: FoodViewHolderDeleteClickListener)
+class BuyCatalogRecyclerViewAdapter(private val context: Context,
+                                    private var products: ArrayList<Food>,
+                                    private var isEditableMode: Boolean,
+                                    private val onDeleteClickListener: FoodViewHolderDeleteClickListener)
     :
         RecyclerView.Adapter<FoodViewHolder>() {
 
