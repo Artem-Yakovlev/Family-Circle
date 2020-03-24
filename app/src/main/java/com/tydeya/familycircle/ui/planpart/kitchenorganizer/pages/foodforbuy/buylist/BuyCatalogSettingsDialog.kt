@@ -11,7 +11,8 @@ import com.tydeya.familycircle.utils.value
 import kotlinx.android.synthetic.main.dialog_buy_list_settings.view.*
 import javax.inject.Inject
 
-class BuyCatalogSettingsDialog(val catalogId: String) : DialogFragment() {
+class BuyCatalogSettingsDialog(private val catalogId: String,
+                               val callback: BuyCatalogSettingsDialogCallback) : DialogFragment() {
 
     @Inject
     lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
@@ -45,13 +46,25 @@ class BuyCatalogSettingsDialog(val catalogId: String) : DialogFragment() {
                 for (buyCatalog in kitchenOrganizerInteractor.buyCatalogs) {
                     if (buyCatalog.title == title) {
                         canRenameFlag = false
+                        view.dialog_shopping_list_settings_name.error = view.context!!
+                                .resources.getString(R.string.dialog_buy_list_settings_already_exist)
                         break
                     }
                 }
             }
+
+            if (canRenameFlag) {
+                kitchenOrganizerInteractor.renameCatalog(catalogId, title)
+                dismiss()
+            }
         }
 
         view.dialog_buy_catalog_settings_cancel_button.setOnClickListener {
+            dismiss()
+        }
+
+        view.dialog_buy_list_delete_button.setOnClickListener {
+            callback.onDeleteCatalog()
             dismiss()
         }
 
@@ -60,4 +73,8 @@ class BuyCatalogSettingsDialog(val catalogId: String) : DialogFragment() {
         return builder.create()
     }
 
+}
+
+interface BuyCatalogSettingsDialogCallback {
+    fun onDeleteCatalog()
 }

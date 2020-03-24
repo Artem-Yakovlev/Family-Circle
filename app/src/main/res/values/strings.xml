@@ -156,6 +156,7 @@
     <string name="dialog_new_buy_list_create">Create</string>
     <string name="dialog_new_buy_list_cancel">Cancel</string>
     <string name="dialog_new_buy_list_already_exist">This shopping list already exists</string>
+    <string name="dialog_buy_list_settings_already_exist">Shopping list with this name already exists</string>
 
     <!-- Person page-->
     <string name="person_page_edit">Edit</string>

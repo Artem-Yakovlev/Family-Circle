@@ -65,6 +65,14 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         return resultBuyCatalog
     }
 
+    fun renameCatalog(id: String, newName: String) {
+        networkInteractor.renameBuyList(id, newName)
+    }
+
+    fun deleteCatalog(id: String) {
+        networkInteractor.deleteBuyList(id)
+    }
+
     /**
      * Food data
      * */

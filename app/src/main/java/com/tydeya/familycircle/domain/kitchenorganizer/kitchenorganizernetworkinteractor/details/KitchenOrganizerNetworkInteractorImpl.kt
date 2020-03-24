@@ -87,6 +87,16 @@ class KitchenOrganizerNetworkInteractorImpl(
                 ) as Map<String, Any>)
     }
 
+    override fun renameBuyList(catalogId: String, newTitle: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(catalogId).update(FIRESTORE_BUY_CATALOG_TITLE, newTitle)
+    }
+
+    override fun deleteBuyList(catalogId: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(catalogId).delete()
+    }
+
     /**
      * Food
      * */

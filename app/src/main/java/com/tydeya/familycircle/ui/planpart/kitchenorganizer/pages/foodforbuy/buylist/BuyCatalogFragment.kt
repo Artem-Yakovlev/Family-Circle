@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_buy_list.*
 import javax.inject.Inject
 
 class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganizerCallback,
-        FoodViewHolderDeleteClickListener {
+        FoodViewHolderDeleteClickListener, BuyCatalogSettingsDialogCallback {
 
     @Inject
     lateinit var kitchenInteractor: KitchenOrganizerInteractor
@@ -57,7 +57,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
         }
 
         buy_list_primary_settings.setOnClickListener {
-            val buyCatalogSettingsDialog = BuyCatalogSettingsDialog(buyCatalogID)
+            val buyCatalogSettingsDialog = BuyCatalogSettingsDialog(buyCatalogID, this)
             buyCatalogSettingsDialog.show(parentFragmentManager, "dialog_settings")
         }
 
@@ -98,6 +98,15 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
             buy_list_primary_settings.visibility = View.GONE
         }
         adapter.switchMode(editableModeIsActive)
+    }
+
+    /**
+     * Setting dialog callback
+     * */
+
+    override fun onDeleteCatalog() {
+        NavHostFragment.findNavController(this).popBackStack()
+        kitchenInteractor.deleteCatalog(buyCatalogID)
     }
 
     /**
