@@ -20,6 +20,19 @@ class KitchenOrganizerNetworkInteractorImpl(
 ) :
         KitchenOrganizerNetworkInteractor {
 
+    object Companion {
+        fun convertServerDataToFood(documentSnapshot: DocumentSnapshot) = Food(
+                documentSnapshot.get(FIRESTORE_FOOD_TITLE).toString(),
+                documentSnapshot.get(FIRESTORE_FOOD_DESCRIPTION).toString(),
+                when (documentSnapshot.get(FIRESTORE_FOOD_STATUS)) {
+                    0 -> FoodStatus.NEED_BUY
+                    else -> FoodStatus.IN_FRIDGE
+                },
+                documentSnapshot.getDouble(FIRESTORE_FOOD_CALORIES),
+                documentSnapshot.getDouble(FIRESTORE_FOOD_PROTEIN),
+                documentSnapshot.getDouble(FIRESTORE_FOOD_FATS)
+        )
+    }
 
     override fun requireKitchenBuyCatalogData() {
 
@@ -54,22 +67,9 @@ class KitchenOrganizerNetworkInteractorImpl(
 
         for (i in 0 until documentsSnapshot.documents.size) {
             buyCatalog.products
-                    .add(convertServerDataToFood(documentsSnapshot.documents[i]))
+                    .add(Companion.convertServerDataToFood(documentsSnapshot.documents[i]))
         }
     }
-
-    private fun convertServerDataToFood(documentSnapshot: DocumentSnapshot) = Food(
-            documentSnapshot.get(FIRESTORE_FOOD_TITLE).toString(),
-            documentSnapshot.get(FIRESTORE_FOOD_DESCRIPTION).toString(),
-            when (documentSnapshot.get(FIRESTORE_FOOD_STATUS)) {
-                0 -> FoodStatus.NEED_BUY
-                else -> FoodStatus.IN_FRIDGE
-            },
-            documentSnapshot.getDouble(FIRESTORE_FOOD_CALORIES),
-            documentSnapshot.getDouble(FIRESTORE_FOOD_PROTEIN),
-            documentSnapshot.getDouble(FIRESTORE_FOOD_FATS)
-    )
-
 
     override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
 
@@ -86,35 +86,5 @@ class KitchenOrganizerNetworkInteractorImpl(
                         FIRESTORE_BUY_CATALOG_DATE to Date()
                 ) as Map<String, Any>)
     }
-
-    override fun setUpdateCatalogDataListener(buyCatalog: BuyCatalog) {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
-                .document(buyCatalog.id).collection(FIRESTORE_BUY_CATALOG_FOODS)
-                .addSnapshotListener { querySnapshot, _ ->
-                    GlobalScope.launch(Dispatchers.Default) {
-                        Log.d("ASMR", "update")
-                        val actualBuyCatalog = BuyCatalog(buyCatalog.id,
-                                buyCatalog.title, buyCatalog.dateOfCreate, ArrayList())
-
-                        for (rawFood in querySnapshot.documents) {
-                            actualBuyCatalog.products.add(convertServerDataToFood(rawFood))
-                        }
-
-                        withContext(Dispatchers.Main) {
-                            callback.buyCatalogDataUpdated(actualBuyCatalog)
-                        }
-                    }
-                }
-    }
-
-    override fun removeUpdateCatalogDataListener(id: String) {
-        GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
-                    .document(id).collection(FIRESTORE_BUY_CATALOG_FOODS)
-                    .addSnapshotListener { _, _ -> }.remove()
-
-        }
-    }
-
-
 }
+

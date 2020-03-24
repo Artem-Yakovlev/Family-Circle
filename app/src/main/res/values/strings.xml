@@ -173,4 +173,5 @@
     <string name="Unknown_name">Unknown</string>
     <string name="new_shopping_list">New shopping list</string>
     <string name="shopping_list_name">Shopping list name</string>
+    <string name="add_new_item">add new item</string>
 </resources>

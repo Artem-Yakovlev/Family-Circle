@@ -10,7 +10,4 @@ interface KitchenOrganizerNetworkInteractor {
 
     fun createBuyList(title: String)
 
-    fun setUpdateCatalogDataListener(buyCatalog: BuyCatalog)
-
-    fun removeUpdateCatalogDataListener(id: String)
 }

@@ -7,7 +7,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.NavigateConsts.ID
+import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_buy_list.*
@@ -22,33 +25,81 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     private lateinit var adapter: BuyCatalogRecyclerViewAdapter
 
+    private lateinit var buyCatalogEventListener: KitchenBuyCatalogEventListener
+
+    private var editableModeIsActive = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectBuyCatalogFragment(this)
 
-        buyCatalogID = arguments!!.getString("id")!!
-        val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID, true)
+        buyCatalogID = arguments!!.getString(ID)!!
+        val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
 
-        adapter = BuyCatalogRecyclerViewAdapter(context!!, buyCatalog.products)
+        setRecyclerView(buyCatalog.products)
+
+        buy_list_floating_button.attachToRecyclerView(buy_list_recyclerview)
+        buy_list_floating_button.setOnClickListener {
+            editableModeIsActive = !editableModeIsActive
+            switchMode()
+        }
+
+        setToolbar(buyCatalog.title)
+
+        buyCatalogEventListener = KitchenBuyCatalogEventListener(buyCatalogID, kitchenInteractor)
+        buyCatalogEventListener.register()
+    }
+
+    /**
+     * prepare Ui
+     * */
+
+    private fun setRecyclerView(products: ArrayList<Food>) {
+        adapter = BuyCatalogRecyclerViewAdapter(context!!, products)
         buy_list_recyclerview.adapter = adapter
 
         buy_list_recyclerview.layoutManager = LinearLayoutManager(context!!,
                 LinearLayoutManager.VERTICAL, false)
-
-        buy_list_floating_button.attachToRecyclerView(buy_list_recyclerview)
-
-        buy_list_toolbar.setNavigationOnClickListener {
-            NavHostFragment.findNavController(this).popBackStack()
-            kitchenInteractor.stopListenCatalogData(buyCatalogID)
-        }
-        buy_list_toolbar.title = buyCatalog.title
     }
 
+    private fun setToolbar(title: String) {
+        buy_list_toolbar.title = title
+        buy_list_toolbar.setNavigationOnClickListener {
+            NavHostFragment.findNavController(this).popBackStack()
+            buyCatalogEventListener.unregister()
+        }
+    }
+
+    /**
+     * Switch mode
+     * */
+
+    private fun switchMode() {
+        if (editableModeIsActive) {
+            buy_list_floating_button.setImageResource(R.drawable.ic_close_black_24dp)
+            buy_list_add_button.visibility = View.VISIBLE
+            buy_list_remove_list_button.visibility = View.VISIBLE
+        } else {
+            buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_black_24dp)
+            buy_list_add_button.visibility = View.GONE
+            buy_list_remove_list_button.visibility = View.GONE
+
+        }
+    }
+
+    /**
+     * Data updates
+     * */
+
     override fun kitchenDataFromServerUpdated() {
-        val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID, false)
+        val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
         buy_list_toolbar.title = buyCatalog.title
         adapter.refreshData(buyCatalog.products)
     }
+
+    /**
+     * Lifecycle
+     * */
 
     override fun onResume() {
         super.onResume()
@@ -58,6 +109,11 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
     override fun onPause() {
         super.onPause()
         kitchenInteractor.unsubscribe(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        buyCatalogEventListener.unregister()
     }
 
 }

@@ -2,6 +2,7 @@ package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteract
 
 import android.util.Log
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
+import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
@@ -34,10 +35,11 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         networkInteractor.setUpdateKitchenDataListener(buyCatalogs)
     }
 
-    override fun buyCatalogDataUpdated(buyCatalog: BuyCatalog) {
+    override fun buyCatalogDataUpdated(id: String, products: ArrayList<Food>) {
+
         for (index in 0 until buyCatalogs.size) {
-            if (buyCatalogs[index].id == buyCatalog.id) {
-                buyCatalogs[index] = buyCatalog
+            if (buyCatalogs[index].id == id) {
+                buyCatalogs[index].products = products
                 break
             }
         }
@@ -52,23 +54,16 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
      * Catalog data
      * */
 
-    fun requireCatalogData(id: String, withListener: Boolean): BuyCatalog {
+    fun requireCatalogData(id: String): BuyCatalog {
         var resultBuyCatalog = BuyCatalog(id, "...", Date(), ArrayList())
 
         for (buyCatalog in buyCatalogs) {
             if (buyCatalog.id == id) {
-                if (withListener) {
-                    networkInteractor.setUpdateCatalogDataListener(buyCatalog)
-                }
                 resultBuyCatalog = buyCatalog
             }
         }
 
         return resultBuyCatalog
-    }
-
-    fun stopListenCatalogData(id: String) {
-        networkInteractor.removeUpdateCatalogDataListener(id)
     }
 
     /**
