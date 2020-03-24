@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details
 
+import android.util.Log
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -57,40 +58,6 @@ class KitchenOrganizerNetworkInteractorImpl(
         }
     }
 
-    /*
-    override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
-
-        for (i in 0 until buyCatalogs.size) {
-            FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
-                    .document(buyCatalogs[i].id)
-                    .collection(FIRESTORE_BUY_CATALOG_FOODS)
-                    .addSnapshotListener { querySnapshot, _ ->
-                        GlobalScope.launch(Dispatchers.Default) {
-                            if (querySnapshot.documents.size != buyCatalogs[i].products.size) {
-
-                                val buyCatalog = BuyCatalog(
-                                        buyCatalogs[i].id,
-                                        buyCatalogs[i].title,
-                                        buyCatalogs[i].dateOfCreate,
-                                        ArrayList()
-                                )
-
-                                val products = ArrayList<Food>()
-
-                                for (rawFood in querySnapshot.documents) {
-                                    products.add(convertServerDataToFood(rawFood))
-                                }
-                                buyCatalog.products = products
-                                withContext(Dispatchers.Main) {
-                                    callback.buyCatalogDataUpdated(buyCatalog)
-                                }
-                            }
-                        }
-                    }
-        }
-    }
-    */
-
     private fun convertServerDataToFood(documentSnapshot: DocumentSnapshot) = Food(
             documentSnapshot.get(FIRESTORE_FOOD_TITLE).toString(),
             documentSnapshot.get(FIRESTORE_FOOD_DESCRIPTION).toString(),
@@ -109,7 +76,7 @@ class KitchenOrganizerNetworkInteractorImpl(
     }
 
     /**
-     * Buy catalog creating
+     * Catalog
      * */
 
     override fun createBuyList(title: String) {
@@ -118,6 +85,35 @@ class KitchenOrganizerNetworkInteractorImpl(
                         FIRESTORE_BUY_CATALOG_TITLE to title,
                         FIRESTORE_BUY_CATALOG_DATE to Date()
                 ) as Map<String, Any>)
+    }
+
+    override fun setUpdateCatalogDataListener(buyCatalog: BuyCatalog) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(buyCatalog.id).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                .addSnapshotListener { querySnapshot, _ ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        Log.d("ASMR", "update")
+                        val actualBuyCatalog = BuyCatalog(buyCatalog.id,
+                                buyCatalog.title, buyCatalog.dateOfCreate, ArrayList())
+
+                        for (rawFood in querySnapshot.documents) {
+                            actualBuyCatalog.products.add(convertServerDataToFood(rawFood))
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            callback.buyCatalogDataUpdated(actualBuyCatalog)
+                        }
+                    }
+                }
+    }
+
+    override fun removeUpdateCatalogDataListener(id: String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                    .document(id).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                    .addSnapshotListener { _, _ -> }.remove()
+
+        }
     }
 
 

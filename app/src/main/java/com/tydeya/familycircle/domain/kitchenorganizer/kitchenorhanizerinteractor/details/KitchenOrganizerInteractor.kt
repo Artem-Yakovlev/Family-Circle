@@ -7,6 +7,8 @@ import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkin
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerObservable
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details.KitchenOrganizerNetworkInteractorImpl
+import java.util.*
+import kotlin.collections.ArrayList
 
 class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrganizerObservable {
 
@@ -20,6 +22,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     init {
         networkInteractor.requireKitchenBuyCatalogData()
     }
+
+    /**
+     * Data updates
+     * */
 
     override fun buyCatalogsAllDataUpdated(buyCatalogs: ArrayList<BuyCatalog>) {
         this.buyCatalogs.clear()
@@ -42,6 +48,28 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         networkInteractor.createBuyList(title)
     }
 
+    /**
+     * Catalog data
+     * */
+
+    fun requireCatalogData(id: String, withListener: Boolean): BuyCatalog {
+        var resultBuyCatalog = BuyCatalog(id, "...", Date(), ArrayList())
+
+        for (buyCatalog in buyCatalogs) {
+            if (buyCatalog.id == id) {
+                if (withListener) {
+                    networkInteractor.setUpdateCatalogDataListener(buyCatalog)
+                }
+                resultBuyCatalog = buyCatalog
+            }
+        }
+
+        return resultBuyCatalog
+    }
+
+    fun stopListenCatalogData(id: String) {
+        networkInteractor.removeUpdateCatalogDataListener(id)
+    }
 
     /**
      * Callbacks

@@ -7,25 +7,29 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.kitchenorganizer.food.Food
-import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_buy_list.*
 import javax.inject.Inject
 
-class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list) {
+class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganizerCallback {
 
     @Inject
     lateinit var kitchenInteractor: KitchenOrganizerInteractor
+
+    private lateinit var buyCatalogID: String
+
+    private lateinit var adapter: BuyCatalogRecyclerViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectBuyCatalogFragment(this)
 
-        val position = arguments!!.getInt("position")
-        val adapter = BuyCatalogRecyclerViewAdapter(context!!, kitchenInteractor.buyCatalogs[position].products)
+        buyCatalogID = arguments!!.getString("id")!!
+        val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID, true)
 
+        adapter = BuyCatalogRecyclerViewAdapter(context!!, buyCatalog.products)
         buy_list_recyclerview.adapter = adapter
 
         buy_list_recyclerview.layoutManager = LinearLayoutManager(context!!,
@@ -35,10 +39,25 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list) {
 
         buy_list_toolbar.setNavigationOnClickListener {
             NavHostFragment.findNavController(this).popBackStack()
+            kitchenInteractor.stopListenCatalogData(buyCatalogID)
         }
-
-        buy_list_toolbar.title = "Birth day"
+        buy_list_toolbar.title = buyCatalog.title
     }
 
+    override fun kitchenDataFromServerUpdated() {
+        val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID, false)
+        buy_list_toolbar.title = buyCatalog.title
+        adapter.refreshData(buyCatalog.products)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        kitchenInteractor.subscribe(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        kitchenInteractor.unsubscribe(this)
+    }
 
 }

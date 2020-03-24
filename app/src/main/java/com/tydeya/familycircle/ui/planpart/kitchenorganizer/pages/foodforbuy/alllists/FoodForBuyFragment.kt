@@ -44,7 +44,7 @@ class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalo
     override fun onBuyCatalogClick(position: Int) {
         val navController = NavHostFragment.findNavController(this)
         val bundle = Bundle()
-        bundle.putInt("position", position)
+        bundle.putString("id", kitchenOrganizerInteractor.buyCatalogs[position].id)
         navController.navigate(R.id.buyListFragment, bundle)
     }
 
