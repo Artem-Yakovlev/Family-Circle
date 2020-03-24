@@ -20,6 +20,7 @@ import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPerson
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.CreateBuyListDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogSettingsDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.CreateNewProductDialog;
 
 import javax.inject.Singleton;
@@ -58,6 +59,8 @@ public interface AppComponent {
     void injectCreateListDialog(CreateBuyListDialog createBuyListDialog);
 
     void injectCreateListDialog(CreateNewProductDialog createNewProductDialog);
+
+    void injectCreateListDialog(BuyCatalogSettingsDialog buyCatalogSettingsDialog);
 
     ConversationInteractor getConversationInteractor();
 

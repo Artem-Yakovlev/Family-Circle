@@ -55,6 +55,12 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
             val newProductDialog = CreateNewProductDialog(buyCatalogID)
             newProductDialog.show(parentFragmentManager, "dialog_new_product")
         }
+
+        buy_list_primary_settings.setOnClickListener {
+            val buyCatalogSettingsDialog = BuyCatalogSettingsDialog(buyCatalogID)
+            buyCatalogSettingsDialog.show(parentFragmentManager, "dialog_settings")
+        }
+
     }
 
     /**
@@ -85,11 +91,11 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
         if (editableModeIsActive) {
             buy_list_floating_button.setImageResource(R.drawable.ic_close_black_24dp)
             buy_list_add_button.visibility = View.VISIBLE
-            buy_list_remove_list_button.visibility = View.VISIBLE
+            buy_list_primary_settings.visibility = View.VISIBLE
         } else {
             buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_black_24dp)
             buy_list_add_button.visibility = View.GONE
-            buy_list_remove_list_button.visibility = View.GONE
+            buy_list_primary_settings.visibility = View.GONE
         }
         adapter.switchMode(editableModeIsActive)
     }

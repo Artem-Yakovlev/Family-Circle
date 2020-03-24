@@ -177,4 +177,7 @@
     <string name="dialog_new_food_products_name">Products name</string>
     <string name="create_new_shopping_list">Create new shopping list</string>
     <string name="new_product">New product</string>
+    <string name="buy_catalog_settings">Buy catalog settings</string>
+    <string name="delete_list">Delete list</string>
+    <string name="dialog_buy_catalog_settings_save">Save</string>
 </resources>
