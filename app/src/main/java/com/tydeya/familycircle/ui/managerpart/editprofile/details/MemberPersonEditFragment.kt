@@ -1,14 +1,20 @@
 package com.tydeya.familycircle.ui.managerpart.editprofile.details
 
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
@@ -16,16 +22,18 @@ import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerPresenter
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerUsable
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
+import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.ui.managerpart.editprofile.abstraction.MemberPersonEditPresenter
 import com.tydeya.familycircle.ui.managerpart.editprofile.abstraction.MemberPersonEditView
 import com.tydeya.familycircle.utils.KeyboardHelper
 import com.tydeya.familycircle.utils.value
 import kotlinx.android.synthetic.main.fragment_member_person_edit.*
+import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
 import java.util.*
 
 
-class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsable {
+class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsable, ImageCropperUsable {
 
     private lateinit var presenter: MemberPersonEditPresenter
     private lateinit var familyInteractor: FamilyInteractor
@@ -59,6 +67,14 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
 
         edit_person_datetime_picker.setOnClickListener(DatePickerPresenter(WeakReference(this),
                 GregorianCalendar()))
+
+        family_view_photo_edit.setOnClickListener {
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setCropShape(CropImageView.CropShape.OVAL)
+                    .setAspectRatio(1, 1)
+                    .start(activity!!)
+        }
     }
 
     override fun dateChanged(selectedDateYear: Int, selectedDateMonth: Int, selectedDateDay: Int) {
@@ -75,6 +91,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
 
         return EditableFamilyMember(
                 userFamilyMember.description.name ?: "",
+                ByteArray(0),
                 userFamilyMember.description.birthDate,
                 userFamilyMember.careerData.studyPlace ?: "",
                 userFamilyMember.careerData.workPlace ?: "")
@@ -122,5 +139,33 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
         ) { _, _ -> run {} }
 
         alertDialog.show()
+    }
+
+    override fun imageCroppedSuccessfully(activityResult: CropImage.ActivityResult?) {
+        val imageUri = activityResult!!.uri
+        family_view_photo_edit.setPadding(0, 0, 0, 0)
+
+        Glide.with(this)
+                .load(imageUri)
+                .into(family_view_photo_edit)
+
+        val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri);
+
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        FirebaseStorage.getInstance().getReference("/FamilyMemberProfileImage/image.jpg").putBytes(data).addOnSuccessListener {
+            Log.d("ASMR", "success")
+        }.addOnFailureListener{
+            Log.d("ASMR", it.toString())
+            it.printStackTrace()
+        }
+
+
+
+    }
+
+    override fun imageCroppedWithError(activityResult: CropImage.ActivityResult?) {
+        //TODO stub
     }
 }

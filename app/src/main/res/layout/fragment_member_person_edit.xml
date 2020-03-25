@@ -37,7 +37,7 @@
         android:paddingRight="10dp">
 
         <cn.gavinliu.android.lib.shapedimageview.ShapedImageView
-            android:id="@+id/family_view_photo"
+            android:id="@+id/family_view_photo_edit"
             android:layout_width="124dp"
             android:layout_height="124dp"
             android:layout_gravity="center_horizontal"
