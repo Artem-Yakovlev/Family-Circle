@@ -24,8 +24,8 @@ class KitchenOrganizerNetworkInteractorImpl(
         fun convertServerDataToFood(documentSnapshot: DocumentSnapshot) = Food(
                 documentSnapshot.get(FIRESTORE_FOOD_TITLE).toString(),
                 documentSnapshot.get(FIRESTORE_FOOD_DESCRIPTION).toString(),
-                when (documentSnapshot.get(FIRESTORE_FOOD_STATUS)) {
-                    0 -> FoodStatus.NEED_BUY
+                when (documentSnapshot.getLong(FIRESTORE_FOOD_STATUS)) {
+                    0L -> FoodStatus.NEED_BUY
                     else -> FoodStatus.IN_FRIDGE
                 },
                 documentSnapshot.getDouble(FIRESTORE_FOOD_CALORIES),
@@ -34,9 +34,10 @@ class KitchenOrganizerNetworkInteractorImpl(
         )
     }
 
+    /**
+     * Buy catalogs requires
+     * */
     override fun requireKitchenBuyCatalogData() {
-
-
         FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
                 .addSnapshotListener() { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
@@ -59,7 +60,7 @@ class KitchenOrganizerNetworkInteractorImpl(
                 }
     }
 
-    private suspend fun fillBuyListFromServer(buyCatalog: BuyCatalog) {
+    private fun fillBuyListFromServer(buyCatalog: BuyCatalog) {
         val task = FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
                 .document(buyCatalog.id).collection(FIRESTORE_BUY_CATALOG_FOODS)
                 .get()
@@ -69,10 +70,6 @@ class KitchenOrganizerNetworkInteractorImpl(
             buyCatalog.products
                     .add(Companion.convertServerDataToFood(documentsSnapshot.documents[i]))
         }
-    }
-
-    override fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>) {
-
     }
 
     /**
@@ -104,13 +101,13 @@ class KitchenOrganizerNetworkInteractorImpl(
     override fun createProductInFirebase(id: String, title: String) {
         FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
                 .document(id).collection(FIRESTORE_BUY_CATALOG_FOODS)
-                .add(createProductFromTitle(title))
+                .add(createProductFromTitle(title, 0))
     }
 
-    private fun createProductFromTitle(title: String) = hashMapOf(
+    private fun createProductFromTitle(title: String, foodStatusNumber: Int) = hashMapOf(
             FIRESTORE_FOOD_TITLE to title,
             FIRESTORE_FOOD_DESCRIPTION to "",
-            FIRESTORE_FOOD_STATUS to 0,
+            FIRESTORE_FOOD_STATUS to foodStatusNumber,
             FIRESTORE_FOOD_CALORIES to 0,
             FIRESTORE_FOOD_PROTEIN to 0,
             FIRESTORE_FOOD_FATS to 0
@@ -129,6 +126,23 @@ class KitchenOrganizerNetworkInteractorImpl(
                 }
     }
 
+    override fun buyProductFirebaseProcessing(catalogId: String, title: String) {
+
+        val firestore = FirebaseFirestore.getInstance()
+
+        firestore.collection(FIRESTORE_KITCHEN_COLLECTION)
+                .document(catalogId).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                .whereEqualTo(FIRESTORE_FOOD_TITLE, title).get()
+                .addOnSuccessListener { querySnapshot ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        //In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
+                        querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_STATUS, 1)
+                    }
+                }
+        firestore.collection(FIRESTORE_FRIDGE_COLLECTION)
+                .add(createProductFromTitle(title, 1))
+    }
+
     override fun editProductInFirebase(id: String, actualTitle: String, newTitle: String) {
         FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
                 .document(id).collection(FIRESTORE_BUY_CATALOG_FOODS)
@@ -136,6 +150,25 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
                         querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_TITLE, newTitle)
+                    }
+                }
+    }
+
+    /**
+     * Fridge manager
+     * */
+
+    override fun requireFoodInFridgeData() {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)
+                .addSnapshotListener { querySnapshot, _ ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        val foodInFridge = ArrayList<Food>()
+                        querySnapshot.documents.forEach {
+                            foodInFridge.add(Companion.convertServerDataToFood(it))
+                        }
+                        withContext(Dispatchers.Main) {
+                            callback.foodInFridgeDataUpdate(foodInFridge)
+                        }
                     }
                 }
     }

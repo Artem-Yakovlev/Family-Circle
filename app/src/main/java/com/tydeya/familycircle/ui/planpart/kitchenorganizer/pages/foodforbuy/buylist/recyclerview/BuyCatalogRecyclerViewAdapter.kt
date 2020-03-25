@@ -10,13 +10,13 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 class BuyCatalogRecyclerViewAdapter(private val context: Context,
                                     private var products: ArrayList<Food>,
                                     private var isEditableMode: Boolean,
-                                    private val onDeleteClickListener: FoodViewHolderDeleteClickListener)
+                                    private val onClickListenerInBuyList: FoodInBuyListViewHolderClickListener)
     :
         RecyclerView.Adapter<FoodViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder =
             FoodViewHolder(LayoutInflater.from(context).inflate(R.layout.buy_list_food_card,
-                    parent, false), onDeleteClickListener)
+                    parent, false), onClickListenerInBuyList)
 
     override fun getItemCount(): Int = products.size
 

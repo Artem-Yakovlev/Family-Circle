@@ -49,4 +49,10 @@ public final class Firebase {
     public static final String FIRESTORE_FOOD_CALORIES = "calories";
     public static final String FIRESTORE_FOOD_PROTEIN = "protein";
     public static final String FIRESTORE_FOOD_FATS = "fats";
+
+    /**
+     * Const of firebase fridge
+     * */
+
+    public static final String FIRESTORE_FRIDGE_COLLECTION = "Fridge";
 }

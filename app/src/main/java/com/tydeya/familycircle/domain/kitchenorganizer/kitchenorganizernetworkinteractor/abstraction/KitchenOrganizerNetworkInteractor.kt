@@ -1,12 +1,10 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction
 
-import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
-
 interface KitchenOrganizerNetworkInteractor {
 
     fun requireKitchenBuyCatalogData()
 
-    fun setUpdateKitchenDataListener(buyCatalogs: ArrayList<BuyCatalog>)
+    fun requireFoodInFridgeData()
 
     fun createBuyList(title: String)
 
@@ -15,6 +13,8 @@ interface KitchenOrganizerNetworkInteractor {
     fun editProductInFirebase(id: String, actualTitle: String, newTitle: String)
 
     fun deleteProductInFirebase(catalogId: String, title: String)
+
+    fun buyProductFirebaseProcessing(catalogId: String, title: String)
 
     fun renameBuyList(catalogId: String, newTitle: String)
 

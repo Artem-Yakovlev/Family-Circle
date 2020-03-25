@@ -13,12 +13,12 @@ import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkin
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodViewHolderDeleteClickListener
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
 import kotlinx.android.synthetic.main.fragment_buy_list.*
 import javax.inject.Inject
 
 class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganizerCallback,
-        FoodViewHolderDeleteClickListener, BuyCatalogSettingsDialogCallback {
+        FoodInBuyListViewHolderClickListener, BuyCatalogSettingsDialogCallback {
 
     @Inject
     lateinit var kitchenInteractor: KitchenOrganizerInteractor
@@ -131,6 +131,10 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
     override fun onFoodVHEditDataClick(title: String) {
         val editProductDialog = EditProductDataDialog(buyCatalogID, title)
         editProductDialog.show(parentFragmentManager, "dialog_edit_product")
+    }
+
+    override fun onFoodVHCheckBoxClicked(title: String) {
+        kitchenInteractor.buyProduct(buyCatalogID, title)
     }
 
     /**

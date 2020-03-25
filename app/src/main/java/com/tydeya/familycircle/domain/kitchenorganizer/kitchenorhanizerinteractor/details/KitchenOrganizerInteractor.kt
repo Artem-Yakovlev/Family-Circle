@@ -13,6 +13,7 @@ import kotlin.collections.ArrayList
 class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrganizerObservable {
 
     val buyCatalogs: ArrayList<BuyCatalog> = ArrayList()
+    val foodsInFridge: ArrayList<Food> = ArrayList()
 
     private val networkInteractor: KitchenOrganizerNetworkInteractor =
             KitchenOrganizerNetworkInteractorImpl(this)
@@ -21,6 +22,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
 
     init {
         networkInteractor.requireKitchenBuyCatalogData()
+        networkInteractor.requireFoodInFridgeData()
     }
 
     /**
@@ -31,7 +33,6 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         this.buyCatalogs.clear()
         this.buyCatalogs.addAll(buyCatalogs)
         notifyObserversConversationsDataUpdated()
-        networkInteractor.setUpdateKitchenDataListener(buyCatalogs)
     }
 
     override fun buyCatalogDataUpdated(id: String, products: ArrayList<Food>) {
@@ -45,8 +46,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         notifyObserversConversationsDataUpdated()
     }
 
-    fun createBuyCatalog(title: String) {
-        networkInteractor.createBuyList(title)
+    override fun foodInFridgeDataUpdate(foodInFridge: ArrayList<Food>) {
+        this.foodsInFridge.clear()
+        this.foodsInFridge.addAll(foodInFridge)
+        notifyObserversConversationsDataUpdated()
     }
 
     /**
@@ -63,6 +66,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         }
 
         return resultBuyCatalog
+    }
+
+    fun createBuyCatalog(title: String) {
+        networkInteractor.createBuyList(title)
     }
 
     fun renameCatalog(id: String, newName: String) {
@@ -87,6 +94,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
 
     fun deleteProduct(catalogId: String, title: String) {
         networkInteractor.deleteProductInFirebase(catalogId, title)
+    }
+
+    fun buyProduct(catalogId: String, title: String) {
+        networkInteractor.buyProductFirebaseProcessing(catalogId, title)
     }
 
     /**

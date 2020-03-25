@@ -9,5 +9,6 @@ interface KitchenNetworkInteractorCallback {
 
     fun buyCatalogDataUpdated(id: String, products: ArrayList<Food>)
 
+    fun foodInFridgeDataUpdate(foodInFridge: ArrayList<Food>)
 
 }

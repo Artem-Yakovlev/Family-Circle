@@ -20,15 +20,6 @@
             android:text="Бананы" />
 
         <ImageButton
-            android:id="@+id/food_in_fridge_eat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@null"
-            android:src="@drawable/ic_restaurant_black_24dp" />
-
-        <ImageButton
             android:id="@+id/food_in_fridge_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
