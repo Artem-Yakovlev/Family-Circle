@@ -18,5 +18,14 @@
         android:id="@+id/kitchenOrganizerFragment"
         android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.KitchenOrganizerFragment"
         tools:layout="@layout/fragment_kitchen_organizer"
-        android:label="fragment_kitchen_organizer" />
+        android:label="fragment_kitchen_organizer" >
+        <action
+            android:id="@+id/action_kitchenOrganizerFragment_to_buyListFragment"
+            app:destination="@id/buyListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyListFragment"
+        android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
+        android:label="fragment_buy_list"
+        tools:layout="@layout/fragment_buy_list" />
 </navigation>

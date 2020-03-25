@@ -1,15 +1,20 @@
 package com.tydeya.familycircle.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback
 import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor
+import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -95,6 +100,28 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
                     .number = conversationInteractor!!.actualConversationBadges
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            val navController = Navigation.findNavController(this, R.id.nav_host_container)
+            val result = CropImage.getActivityResult(data)
+
+            if (navController.currentDestination!!.id == R.id.memberPersonEditFragment) {
+                val navHostFragment = (supportFragmentManager.findFragmentById(R.id.nav_host_container)
+                        as NavHostFragment?)!!
+
+                val imageCropperUsable = (navHostFragment
+                        .childFragmentManager.fragments[0] as ImageCropperUsable)
+                if (resultCode == Activity.RESULT_OK) {
+                    imageCropperUsable.imageCroppedSuccessfully(result)
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    imageCropperUsable.imageCroppedWithError(result)
+                }
+            }
         }
     }
 

@@ -146,9 +146,17 @@
 
     <!-- Kitchen organizer -->
     <string name="kitchen_organizer_shopping_list_title">Shopping List</string>
-    <string name="kitchen_organizer_food_in_fridge">Food in fridge</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kitchen_organizer_food_in_fridge_title">Food in fridge</string>
+    <string name="kitchen_organizer_cooking_title">Cooking</string>
+    <string name="kitchen_organizer_fridge_history_title">Fridge history</string>
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
+    <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
+
+    <!-- Create list dialog-->
+    <string name="dialog_new_buy_list_create">Create</string>
+    <string name="dialog_new_buy_list_cancel">Cancel</string>
+    <string name="dialog_new_buy_list_already_exist">This shopping list already exists</string>
+    <string name="dialog_buy_list_settings_already_exist">Shopping list with this name already exists</string>
 
     <!-- Person page-->
     <string name="person_page_edit">Edit</string>
@@ -164,4 +172,19 @@
     <string name="person_edit_page_accept_alert_negative_button">No</string>
     <!-- Null messages -->
     <string name="Unknown_name">Unknown</string>
+    <string name="new_shopping_list">New shopping list</string>
+    <string name="shopping_list_name">Shopping list name</string>
+    <string name="add_new_item">add new item</string>
+    <string name="dialog_new_food_products_name">Products name</string>
+    <string name="create_new_shopping_list">Create new shopping list</string>
+    <string name="new_product">New product</string>
+    <string name="buy_catalog_settings">Buy catalog settings</string>
+    <string name="delete_list">Delete list</string>
+    <string name="dialog_buy_catalog_settings_save">Save</string>
+    <string name="edit_product_name">Edit product name</string>
+    <string name="dialog_edit_food_data_already_exist">Product with this name already exists in this buy list</string>
+    <string name="dialog_new_buy_list_accept">Accept</string>
+    <string name="remove_food_from_fridge_dialog_title">Why do you want to remove this food?</string>
+    <string name="this_food_went_bad">The food went bad</string>
+    <string name="this_food_has_been_eaten">The food has been eaten</string>
 </resources>
