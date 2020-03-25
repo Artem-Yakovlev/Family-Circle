@@ -26,7 +26,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     }
 
     /**
-     * Data updates
+     * Buy catalog updates
      * */
 
     override fun buyCatalogsAllDataUpdated(buyCatalogs: ArrayList<BuyCatalog>) {
@@ -45,6 +45,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         }
         notifyObserversConversationsDataUpdated()
     }
+
+    /**
+     * Fridge updates
+     * */
 
     override fun foodInFridgeDataUpdate(foodInFridge: ArrayList<Food>) {
         this.foodsInFridge.clear()
@@ -81,7 +85,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     }
 
     /**
-     * Food data
+     * Food in catalog data
      * */
 
     fun createProduct(catalogId: String, title: String) {
@@ -98,6 +102,18 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
 
     fun buyProduct(catalogId: String, title: String) {
         networkInteractor.buyProductFirebaseProcessing(catalogId, title)
+    }
+
+    /**
+     * Food in fridge data
+     * */
+
+    fun deleteFromFridgeEatenFood(title: String) {
+        networkInteractor.deleteFoodFromFridge(title)
+    }
+
+    fun deleteFromFridgeBadFood(title: String) {
+        networkInteractor.deleteFoodFromFridge(title)
     }
 
     /**

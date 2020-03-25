@@ -1,12 +1,16 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.tydeya.familycircle.App
+import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
+import kotlinx.android.synthetic.main.dialog_delete_food_in_fridge.view.*
 import javax.inject.Inject
 
-class DeleteFoodInFridgeDialog : DialogFragment() {
+class DeleteFoodInFridgeDialog(val title: String) : DialogFragment() {
 
     @Inject
     lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
@@ -19,42 +23,23 @@ class DeleteFoodInFridgeDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val view = activity!!.layoutInflater
-                .inflate(R.layout.dialog_new_food, null)
+        val view = activity!!.layoutInflater.inflate(R.layout.dialog_delete_food_in_fridge, null)
 
-        view.dialog_new_food_create_button.setOnClickListener {
-            var isCanCreateProduct = true
-            val title = view.dialog_new_food_name.text.toString().trim()
-
-            if (title == "") {
-
-                view.dialog_new_food_name.error = view.context!!
-                        .resources.getString(R.string.empty_necessary_field_warning)
-                isCanCreateProduct = false
-
-            } else {
-
-                for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
-                    if (food.title == title) {
-                        isCanCreateProduct = false
-                        break
-                    }
-                }
-
-            }
-
-            if (isCanCreateProduct) {
-                kitchenOrganizerInteractor.createProduct(catalogId, title)
-                dismiss()
-            }
+        view.dialog_delete_food_fridge_eaten_food_button.setOnClickListener {
+            kitchenOrganizerInteractor.deleteFromFridgeEatenFood(title)
+            dismiss()
         }
 
-        view.dialog_new_food_cancel_button.setOnClickListener {
+        view.dialog_delete_food_fridge_bad_food_button.setOnClickListener {
+            kitchenOrganizerInteractor.deleteFromFridgeBadFood(title)
+            dismiss()
+        }
+
+        view.dialog_delete_food_fridge_cancel_button.setOnClickListener {
             dismiss()
         }
 
         builder.setView(view)
-
         return builder.create()
     }
 

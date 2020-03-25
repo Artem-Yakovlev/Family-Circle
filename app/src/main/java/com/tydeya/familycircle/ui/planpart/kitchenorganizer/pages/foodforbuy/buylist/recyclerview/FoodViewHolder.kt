@@ -12,8 +12,6 @@ class FoodViewHolder(itemView: View, private val listenerInBuyList: FoodInBuyLis
     fun bindData(food: Food, itemType: Int, isEditableMode: Boolean) {
         itemView.buy_list_food_card_title.text = food.title
 
-        Log.d("ASMR", food.foodStatus.toString())
-
         itemView.buy_list_food_card_checkbox.isChecked = when (food.foodStatus) {
             FoodStatus.NEED_BUY -> false
             FoodStatus.IN_FRIDGE -> true

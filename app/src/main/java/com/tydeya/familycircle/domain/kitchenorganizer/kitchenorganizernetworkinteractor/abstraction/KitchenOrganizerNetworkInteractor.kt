@@ -6,7 +6,7 @@ interface KitchenOrganizerNetworkInteractor {
 
     fun requireFoodInFridgeData()
 
-    fun createBuyList(title: String)
+
 
     fun createProductInFirebase(id: String, title: String)
 
@@ -16,7 +16,15 @@ interface KitchenOrganizerNetworkInteractor {
 
     fun buyProductFirebaseProcessing(catalogId: String, title: String)
 
+
+
+    fun createBuyList(title: String)
+
     fun renameBuyList(catalogId: String, newTitle: String)
 
     fun deleteBuyList(catalogId: String)
+
+
+
+    fun deleteFoodFromFridge(title: String)
 }

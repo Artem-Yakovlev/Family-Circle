@@ -39,7 +39,7 @@ class KitchenOrganizerNetworkInteractorImpl(
      * */
     override fun requireKitchenBuyCatalogData() {
         FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
-                .addSnapshotListener() { querySnapshot, _ ->
+                .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
                         val buyCatalogs = ArrayList<BuyCatalog>()
                         for (i in 0 until querySnapshot.documents.size) {
@@ -169,6 +169,20 @@ class KitchenOrganizerNetworkInteractorImpl(
                         withContext(Dispatchers.Main) {
                             callback.foodInFridgeDataUpdate(foodInFridge)
                         }
+                    }
+                }
+    }
+
+    /**
+     * Food in fridge
+     * */
+
+    override fun deleteFoodFromFridge(title: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)
+                .whereEqualTo(FIRESTORE_FOOD_TITLE, title).get()
+                .addOnSuccessListener { querySnapshot ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        querySnapshot.documents[0].reference.delete()
                     }
                 }
     }
