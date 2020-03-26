@@ -193,6 +193,8 @@
     <string name="event_reminder_toolbar_title">Event reminder</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
 
 
     <string-array name="calendar_months">

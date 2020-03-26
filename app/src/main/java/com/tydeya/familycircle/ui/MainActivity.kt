@@ -77,13 +77,13 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
 
     override fun onResume() {
         super.onResume()
-        conversationInteractor!!.subscribe(this)
+        conversationInteractor.subscribe(this)
         updateBadges()
     }
 
     override fun onPause() {
         super.onPause()
-        conversationInteractor!!.unsubscribe(this)
+        conversationInteractor.unsubscribe(this)
     }
 
     override fun onStart() {
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
                     .backgroundColor = resources.getColor(R.color.colorConversationBadge)
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .number = conversationInteractor!!.actualConversationBadges
+                    .number = conversationInteractor.actualConversationBadges
         }
     }
 

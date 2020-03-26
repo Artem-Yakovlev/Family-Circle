@@ -61,7 +61,7 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
             members.add(createMemberByData(querySnapshots.getDocuments().get(i)));
             areUsersOnlineArrayMap.put(
                     querySnapshots.getDocuments().get(i).getString(FIRESTORE_USERS_PHONE_TAG),
-                    false);
+                    querySnapshots.getDocuments().get(i).getBoolean(FIRESTORE_USERS_ONLINE_TAG));
         }
         return members;
     }

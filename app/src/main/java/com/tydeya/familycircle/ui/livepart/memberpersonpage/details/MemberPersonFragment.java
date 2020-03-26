@@ -33,6 +33,7 @@ import javax.inject.Inject;
 public class MemberPersonFragment extends Fragment implements MemberPersonView, FamilyInteractorCallback {
 
     private TextView nameText;
+    private TextView onlineStatusText;
     private TextView birthdateText;
     private TextView zodiacSignText;
     private TextView workPlaceText;
@@ -57,6 +58,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         settingsButton = root.findViewById(R.id.family_member_view_settings);
 
         nameText = root.findViewById(R.id.family_member_view_name_text);
+        onlineStatusText = root.findViewById(R.id.family_member_view_online_text);
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
         studyPlaceText = root.findViewById(R.id.family_member_view_study_place);
@@ -86,6 +88,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
     @Override
     public void setCurrentData(FamilyMemberDto dto) {
+        assert getContext() != null;
         nameText.setText(dto.getName());
 
         if (dto.getBirthDate().equals("")) {
@@ -111,6 +114,14 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         } else {
             workPlaceText.setVisibility(View.VISIBLE);
             workPlaceText.setText(dto.getWorkPlace());
+        }
+
+        if (familyInteractor.getFamilyOnlineTracker().isUserOnlineByPhone(dto.getPhone())) {
+            onlineStatusText.setText(getContext().getString(R.string.online));
+            onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorOnlineGreen));
+        } else {
+            onlineStatusText.setText(getContext().getString(R.string.offline));
+            onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorGray));
         }
 
     }
