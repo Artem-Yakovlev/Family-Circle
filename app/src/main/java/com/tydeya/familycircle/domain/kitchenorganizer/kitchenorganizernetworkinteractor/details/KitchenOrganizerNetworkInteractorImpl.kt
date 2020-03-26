@@ -11,6 +11,7 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -180,6 +181,11 @@ class KitchenOrganizerNetworkInteractorImpl(
     /**
      * Food in fridge
      * */
+
+    override fun addFoodInFridge(title: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)
+                .add(createProductFromTitle(title, 1))
+    }
 
     override fun deleteFoodFromFridge(title: String) {
         FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)

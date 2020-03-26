@@ -115,9 +115,9 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
      * Food in catalog data
      * */
 
-    fun createProduct(catalogId: String, title: String) {
+    fun createProductInCatalog(catalogId: String, title: String) {
         getCatalogById(catalogId)?.let {
-            val food = Food(title, "", FoodStatus.NEED_BUY, .0,.0,.0)
+            val food = Food(title, "", FoodStatus.NEED_BUY, .0, .0, .0)
             it.products.add(food)
             sortCatalog(catalogId)
             notifyObserversKitchenDataUpdated()
@@ -125,7 +125,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         networkInteractor.createProductInFirebase(catalogId, title)
     }
 
-    fun editProduct(catalogId: String, actualTitle: String, newTitle: String) {
+    fun editProductInCatalog(catalogId: String, actualTitle: String, newTitle: String) {
         getCatalogById(catalogId)?.let {
             for (food in it.products) {
                 if (food.title == actualTitle) {
@@ -139,7 +139,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         networkInteractor.editProductInFirebase(catalogId, actualTitle, newTitle)
     }
 
-    fun deleteProduct(catalogId: String, title: String) {
+    fun deleteProductInCatalog(catalogId: String, title: String) {
         val catalog = getCatalogById(catalogId)
         catalog?.let {
             for (food in catalog.products) {
@@ -165,6 +165,12 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     /**
      * Food in fridge data
      * */
+
+    fun addNewFoodInFridge(title: String) {
+        foodsInFridge.add(Food(title, "", FoodStatus.IN_FRIDGE, .0, .0, .0))
+        foodsInFridge.sortWith(kotlin.Comparator { o1, o2 -> -compareValues(o1.title, o2.title) })
+        networkInteractor.addFoodInFridge(title)
+    }
 
     fun deleteFromFridgeEatenFood(title: String) {
         deleteFoodFromFridge(title)

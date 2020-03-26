@@ -48,7 +48,7 @@ class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
             }
 
             if (isCanCreateProduct) {
-                kitchenOrganizerInteractor.createProduct(catalogId, title)
+                kitchenOrganizerInteractor.createProductInCatalog(catalogId, title)
                 dismiss()
             }
         }

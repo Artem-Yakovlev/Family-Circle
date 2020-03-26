@@ -10,7 +10,6 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.utils.value
-import kotlinx.android.synthetic.main.dialog_new_food.view.*
 import javax.inject.Inject
 
 class EditProductDataDialog(private val catalogId: String, private val actualTitle: String)
@@ -60,7 +59,7 @@ class EditProductDataDialog(private val catalogId: String, private val actualTit
             }
 
             if (isCanCreateProduct) {
-                kitchenOrganizerInteractor.editProduct(catalogId, actualTitle, title)
+                kitchenOrganizerInteractor.editProductInCatalog(catalogId, actualTitle, title)
                 dismiss()
             }
         }

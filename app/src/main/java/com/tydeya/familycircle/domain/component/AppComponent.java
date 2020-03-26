@@ -25,6 +25,7 @@ import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buy
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.EditProductDataDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.DeleteFoodInFridgeDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment;
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FridgeAddFoodDialog;
 
 import javax.inject.Singleton;
 
@@ -70,6 +71,8 @@ public interface AppComponent {
     void injectDialog(EditProductDataDialog editProductDataDialog);
 
     void injectDialog(DeleteFoodInFridgeDialog deleteFoodInFridgeDialog);
+
+    void injectDialog(FridgeAddFoodDialog fridgeAddFoodDialog);
 
     ConversationInteractor getConversationInteractor();
 

@@ -42,6 +42,13 @@ class FoodInFridgeFragment
         food_in_fridge_recyclerview.setAdapter(adapter,
                 LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false))
 
+        food_in_fridge_floating_button.attachToRecyclerView(food_in_fridge_recyclerview.getRecyclerView())
+
+        food_in_fridge_floating_button.setOnClickListener {
+            val addFoodDialog = FridgeAddFoodDialog()
+            addFoodDialog.show(parentFragmentManager, "fridge_add_food_dialog")
+        }
+
     }
 
     override fun kitchenDataFromServerUpdated() {
