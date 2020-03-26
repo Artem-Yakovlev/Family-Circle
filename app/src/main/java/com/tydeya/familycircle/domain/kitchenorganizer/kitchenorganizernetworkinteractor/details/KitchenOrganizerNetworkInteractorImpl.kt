@@ -4,12 +4,14 @@ import android.util.Log
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -39,6 +41,7 @@ class KitchenOrganizerNetworkInteractorImpl(
      * */
     override fun requireKitchenBuyCatalogData() {
         FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
+                .orderBy("date_of_create", Query.Direction.DESCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
                         val buyCatalogs = ArrayList<BuyCatalog>()
@@ -63,6 +66,7 @@ class KitchenOrganizerNetworkInteractorImpl(
     private fun fillBuyListFromServer(buyCatalog: BuyCatalog) {
         val task = FirebaseFirestore.getInstance().collection(FIRESTORE_KITCHEN_COLLECTION)
                 .document(buyCatalog.id).collection(FIRESTORE_BUY_CATALOG_FOODS)
+                .orderBy(FIRESTORE_FOOD_TITLE, Query.Direction.ASCENDING)
                 .get()
         val documentsSnapshot = Tasks.await(task)
 
@@ -95,7 +99,7 @@ class KitchenOrganizerNetworkInteractorImpl(
     }
 
     /**
-     * Food
+     * Food in buy catalog
      * */
 
     override fun createProductInFirebase(id: String, title: String) {
@@ -135,7 +139,7 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .whereEqualTo(FIRESTORE_FOOD_TITLE, title).get()
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        //In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
+                        // In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
                         querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_STATUS, 1)
                     }
                 }
@@ -160,6 +164,7 @@ class KitchenOrganizerNetworkInteractorImpl(
 
     override fun requireFoodInFridgeData() {
         FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)
+                .orderBy(FIRESTORE_FOOD_TITLE, Query.Direction.ASCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
                         val foodInFridge = ArrayList<Food>()
@@ -176,6 +181,11 @@ class KitchenOrganizerNetworkInteractorImpl(
     /**
      * Food in fridge
      * */
+
+    override fun addFoodInFridge(title: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)
+                .add(createProductFromTitle(title, 1))
+    }
 
     override fun deleteFoodFromFridge(title: String) {
         FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION)

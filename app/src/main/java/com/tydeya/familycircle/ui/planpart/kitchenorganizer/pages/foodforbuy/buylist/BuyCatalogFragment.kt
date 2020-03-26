@@ -125,7 +125,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
      * */
 
     override fun onFoodVHDeleteClick(title: String) {
-        kitchenInteractor.deleteProduct(buyCatalogID, title)
+        kitchenInteractor.deleteProductInCatalog(buyCatalogID, title)
     }
 
     override fun onFoodVHEditDataClick(title: String) {
