@@ -35,7 +35,6 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder) {
                 calender.timeInMillis = firstDayOfNewMonth!!.time
                 event_reminder_main_calendar_year.text = calender.get(Calendar.YEAR).toString()
                 event_reminder_main_calendar_month.text = calendarMonths[calender.get(Calendar.MONTH)]
-
             }
 
         })
