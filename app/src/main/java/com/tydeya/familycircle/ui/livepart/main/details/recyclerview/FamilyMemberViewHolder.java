@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+
+import javax.inject.Inject;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
@@ -25,9 +28,9 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
 
     /**
      * Data binding
-     * */
+     */
 
-    void bindData(FamilyMember familyMember) {
+    void bindData(FamilyMember familyMember, int onlineStatusColor) {
         findAllViews();
 
         nameText.setText(familyMember.getDescription().getName());
@@ -35,6 +38,8 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
         Glide.with(nameText.getContext())
                 .load(familyMember.getDescription().getImageAddress())
                 .into(userShapedImage);*/
+        userShapedImage.setStrokeColor(onlineStatusColor);
+
     }
 
     private void findAllViews() {

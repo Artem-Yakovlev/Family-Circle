@@ -7,10 +7,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class FamilyMembersStoriesRecyclerViewAdapter
         extends RecyclerView.Adapter<FamilyMemberViewHolder> {
@@ -19,8 +23,12 @@ public class FamilyMembersStoriesRecyclerViewAdapter
     private ArrayList<FamilyMember> members;
     private OnClickMemberStoryListener onClickMemberStoryListener;
 
+    @Inject
+    FamilyInteractor familyInteractor;
+
     public FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<FamilyMember> members,
                                                    OnClickMemberStoryListener onClickListener) {
+        App.getComponent().injectRecyclerViewAdapter(this);
         this.onClickMemberStoryListener = onClickListener;
         this.context = context;
         this.members = members;
@@ -36,7 +44,16 @@ public class FamilyMembersStoriesRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull FamilyMemberViewHolder holder, int position) {
-        holder.bindData(members.get(position));
+        boolean onlineStatus = familyInteractor
+                .getFamilyOnlineTracker()
+                .isUserOnlineByPhone(members.get(position).getFullPhoneNumber());
+
+        int color = context.getResources().getColor(R.color.colorTransparentGray);
+        if (onlineStatus) {
+            color = context.getResources().getColor(R.color.colorOnlineGreen);
+        }
+
+        holder.bindData(members.get(position), color);
     }
 
     @Override
