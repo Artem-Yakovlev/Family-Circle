@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainPlanPage_to_kitchenOrganizerFragment"
             app:destination="@id/kitchenOrganizerFragment" />
+        <action
+            android:id="@+id/action_mainPlanPage_to_eventReminder"
+            app:destination="@id/eventReminder" />
     </fragment>
     <fragment
         android:id="@+id/kitchenOrganizerFragment"
@@ -28,4 +31,9 @@
         android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
         android:label="fragment_buy_list"
         tools:layout="@layout/fragment_buy_list" />
+    <fragment
+        android:id="@+id/eventReminder"
+        android:name="com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment"
+        android:label="fragment_event_reminder"
+        tools:layout="@layout/fragment_event_reminder" />
 </navigation>

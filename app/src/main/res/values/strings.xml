@@ -187,4 +187,10 @@
     <string name="remove_food_from_fridge_dialog_title">Why do you want to remove this food?</string>
     <string name="this_food_went_bad">The food went bad</string>
     <string name="this_food_has_been_eaten">The food has been eaten</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="event_reminder_toolbar_title">Event reminder</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
 </resources>

@@ -111,4 +111,7 @@ dependencies {
 
     // Skeletons and shimmering effects
     implementation 'com.github.skydoves:androidveil:1.0.8'
+
+    // Calendar for event reminder
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }
