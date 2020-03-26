@@ -33,7 +33,7 @@
                 android:layout_marginHorizontal="40dp">
 
                 <TextView
-                    android:id="@+id/tvMonth"
+                    android:id="@+id/event_reminder_main_calendar_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/month"
@@ -42,7 +42,7 @@
                     app:fontFamily="@font/poppins" />
 
                 <TextView
-                    android:id="@+id/tvYear"
+                    android:id="@+id/event_reminder_main_calendar_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
