@@ -108,4 +108,7 @@ dependencies {
 
     // Floating action button
     implementation 'com.melnykov:floatingactionbutton:1.3.0'
+
+    // Skeletons and shimmering effects
+    implementation 'com.github.skydoves:androidveil:1.0.8'
 }

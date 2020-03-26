@@ -12,6 +12,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
+import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
@@ -38,13 +39,16 @@ class FoodInFridgeFragment
         adapter = FoodInFridgeRecyclerViewAdapter(context!!,
                 kitchenOrganizerInteractor.foodsInFridge, this)
 
-        food_in_fridge_recyclerview.adapter = adapter
-        food_in_fridge_recyclerview.layoutManager =
-                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+        food_in_fridge_recyclerview.setAdapter(adapter,
+                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false))
+
     }
 
     override fun kitchenDataFromServerUpdated() {
-        adapter.refreshData(kitchenOrganizerInteractor.foodsInFridge)
+        if (kitchenOrganizerInteractor.foodsInFridgeStatus == KitchenDataStatus.DATA_RECEIVED) {
+            adapter.refreshData(kitchenOrganizerInteractor.foodsInFridge)
+            food_in_fridge_recyclerview.unVeil()
+        }
     }
 
     override fun onFoodInFridgeVHDeleteClick(title: String) {

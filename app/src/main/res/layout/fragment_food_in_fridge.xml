@@ -3,12 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="10dp"
     tools:context=".ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.skydoves.androidveil.VeilRecyclerFrameView
         android:id="@+id/food_in_fridge_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:veilFrame_baseAlpha="0.6"
+        app:veilFrame_baseColor="@color/colorPrimary"
+        app:veilFrame_highlightAlpha="1.0"
+        app:veilFrame_highlightColor="@color/colorTransparentGray"
+        app:veilFrame_layout="@layout/food_in_fridge_cardview"
+        app:veilFrame_radius="8dp"
+        app:veilFrame_shimmerEnable="true"
+        app:veilFrame_veiled="true" />
 
 </LinearLayout>

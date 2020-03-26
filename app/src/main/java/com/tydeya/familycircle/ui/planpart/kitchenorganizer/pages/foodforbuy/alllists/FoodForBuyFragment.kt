@@ -2,12 +2,15 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.al
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.BuyCatalogsRecyclerViewAdapter
@@ -29,12 +32,11 @@ class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalo
 
         adapter = BuyCatalogsRecyclerViewAdapter(context!!,
                 kitchenOrganizerInteractor.buyCatalogs, this)
-        food_for_buy_recyclerview.adapter = adapter
+        food_for_buy_recyclerview.setAdapter(adapter,
+                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false))
+        food_for_buy_recyclerview.addVeiledItems(12)
 
-        food_for_buy_recyclerview.layoutManager = LinearLayoutManager(context!!,
-                LinearLayoutManager.VERTICAL, false)
-
-        buy_list_floating_button.attachToRecyclerView(food_for_buy_recyclerview)
+        buy_list_floating_button.attachToRecyclerView(food_for_buy_recyclerview.getRecyclerView())
         buy_list_floating_button.setOnClickListener {
             val newListDialog = CreateBuyListDialog()
             newListDialog.show(parentFragmentManager, "dialog_new_list")
@@ -49,8 +51,11 @@ class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalo
     }
 
     override fun kitchenDataFromServerUpdated() {
-        adapter.refreshData(kitchenOrganizerInteractor.buyCatalogs)
-        adapter.notifyDataSetChanged()
+        if (kitchenOrganizerInteractor.buyCatalogsStatus == KitchenDataStatus.DATA_RECEIVED) {
+            adapter.refreshData(kitchenOrganizerInteractor.buyCatalogs)
+            adapter.notifyDataSetChanged()
+            food_for_buy_recyclerview.unVeil()
+        }
     }
 
     override fun onResume() {

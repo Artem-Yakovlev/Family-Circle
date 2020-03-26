@@ -2,6 +2,8 @@ package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteract
 
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
+import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
+import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
@@ -13,7 +15,10 @@ import kotlin.collections.ArrayList
 class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrganizerObservable {
 
     val buyCatalogs: ArrayList<BuyCatalog> = ArrayList()
+    var buyCatalogsStatus = KitchenDataStatus.DATA_PENDING
+
     val foodsInFridge: ArrayList<Food> = ArrayList()
+    var foodsInFridgeStatus = KitchenDataStatus.DATA_PENDING
 
     private val networkInteractor: KitchenOrganizerNetworkInteractor =
             KitchenOrganizerNetworkInteractorImpl(this)
@@ -26,24 +31,37 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     }
 
     /**
+     * Utils
+     * */
+
+    private fun getCatalogById(id: String): BuyCatalog? {
+        buyCatalogs.forEach {
+            if (it.id == id) {
+                return it
+            }
+        }
+        return null
+    }
+
+    /**
      * Buy catalog updates
      * */
 
     override fun buyCatalogsAllDataUpdated(buyCatalogs: ArrayList<BuyCatalog>) {
         this.buyCatalogs.clear()
         this.buyCatalogs.addAll(buyCatalogs)
-        notifyObserversConversationsDataUpdated()
+        buyCatalogsStatus = KitchenDataStatus.DATA_RECEIVED
+        notifyObserversKitchenDataUpdated()
     }
 
     override fun buyCatalogDataUpdated(id: String, products: ArrayList<Food>) {
-
         for (index in 0 until buyCatalogs.size) {
             if (buyCatalogs[index].id == id) {
                 buyCatalogs[index].products = products
                 break
             }
         }
-        notifyObserversConversationsDataUpdated()
+        notifyObserversKitchenDataUpdated()
     }
 
     /**
@@ -53,7 +71,8 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     override fun foodInFridgeDataUpdate(foodInFridge: ArrayList<Food>) {
         this.foodsInFridge.clear()
         this.foodsInFridge.addAll(foodInFridge)
-        notifyObserversConversationsDataUpdated()
+        foodsInFridgeStatus = KitchenDataStatus.DATA_RECEIVED
+        notifyObserversKitchenDataUpdated()
     }
 
     /**
@@ -73,14 +92,22 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     }
 
     fun createBuyCatalog(title: String) {
+        buyCatalogs.add(0, BuyCatalog("", title, Date(), ArrayList()))
+        notifyObserversKitchenDataUpdated()
         networkInteractor.createBuyList(title)
     }
 
-    fun renameCatalog(id: String, newName: String) {
-        networkInteractor.renameBuyList(id, newName)
+    fun renameCatalog(id: String, newTitle: String) {
+        getCatalogById(id)?.title = newTitle
+        notifyObserversKitchenDataUpdated()
+        networkInteractor.renameBuyList(id, newTitle)
     }
 
     fun deleteCatalog(id: String) {
+        getCatalogById(id).let {
+            buyCatalogs.remove(it)
+        }
+        notifyObserversKitchenDataUpdated()
         networkInteractor.deleteBuyList(id)
     }
 
@@ -89,14 +116,40 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
      * */
 
     fun createProduct(catalogId: String, title: String) {
+        getCatalogById(catalogId)?.let {
+            val food = Food(title, "", FoodStatus.NEED_BUY, .0,.0,.0)
+            it.products.add(food)
+            sortCatalog(catalogId)
+            notifyObserversKitchenDataUpdated()
+        }
         networkInteractor.createProductInFirebase(catalogId, title)
     }
 
     fun editProduct(catalogId: String, actualTitle: String, newTitle: String) {
+        getCatalogById(catalogId)?.let {
+            for (food in it.products) {
+                if (food.title == actualTitle) {
+                    food.title = newTitle
+                    break
+                }
+            }
+            sortCatalog(catalogId)
+            notifyObserversKitchenDataUpdated()
+        }
         networkInteractor.editProductInFirebase(catalogId, actualTitle, newTitle)
     }
 
     fun deleteProduct(catalogId: String, title: String) {
+        val catalog = getCatalogById(catalogId)
+        catalog?.let {
+            for (food in catalog.products) {
+                if (food.title == title) {
+                    catalog.products.remove(food)
+                    break
+                }
+            }
+            notifyObserversKitchenDataUpdated()
+        }
         networkInteractor.deleteProductInFirebase(catalogId, title)
     }
 
@@ -104,23 +157,40 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         networkInteractor.buyProductFirebaseProcessing(catalogId, title)
     }
 
+    private fun sortCatalog(catalogId: String) {
+        val catalog = getCatalogById(catalogId) ?: return
+        catalog.products.sortWith(kotlin.Comparator { o1, o2 -> -compareValues(o1.title, o2.title) })
+    }
+
     /**
      * Food in fridge data
      * */
 
     fun deleteFromFridgeEatenFood(title: String) {
-        networkInteractor.deleteFoodFromFridge(title)
+        deleteFoodFromFridge(title)
     }
 
     fun deleteFromFridgeBadFood(title: String) {
+        deleteFoodFromFridge(title)
+    }
+
+    private fun deleteFoodFromFridge(title: String) {
+        for (food in foodsInFridge) {
+            if (food.title == title) {
+                foodsInFridge.remove(food)
+                break
+            }
+        }
+        notifyObserversKitchenDataUpdated()
         networkInteractor.deleteFoodFromFridge(title)
+
     }
 
     /**
      * Callbacks
      * */
 
-    private fun notifyObserversConversationsDataUpdated() {
+    private fun notifyObserversKitchenDataUpdated() {
         for (callback in observers) {
             callback.kitchenDataFromServerUpdated()
         }
