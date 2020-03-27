@@ -35,5 +35,14 @@
         android:id="@+id/eventReminder"
         android:name="com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment"
         android:label="fragment_event_reminder"
-        tools:layout="@layout/fragment_event_reminder" />
+        tools:layout="@layout/fragment_event_reminder" >
+        <action
+            android:id="@+id/action_eventReminder_to_eventViewPage"
+            app:destination="@id/eventViewPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventViewPage"
+        android:name="com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage.EventViewPage"
+        android:label="fragment_event_view_page"
+        tools:layout="@layout/fragment_event_view_page" />
 </navigation>

@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/colorWhite">
 
         <cn.gavinliu.android.lib.shapedimageview.ShapedImageView
             android:id="@+id/family_member_live_page_image"
@@ -19,7 +20,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="5dp"
-            android:src="@drawable/ic_event_black_24dp"
+            android:src="@drawable/ic_event_blue_24dp"
             app:shape_mode="circle"
             app:stroke_color="@color/colorPrimary"
             app:stroke_width="2dp"
@@ -50,13 +51,13 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/event_reminder_cardview_days"
+            android:id="@+id/event_reminder_cardview_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/poppins"
-            android:text="225 days"
-            android:textSize="15sp" />
+            android:text="@string/this_year"
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="wrap_content"

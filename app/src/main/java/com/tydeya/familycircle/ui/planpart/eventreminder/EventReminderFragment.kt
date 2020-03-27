@@ -2,10 +2,13 @@ package com.tydeya.familycircle.ui.planpart.eventreminder
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
 import com.github.sundeepk.compactcalendarview.domain.Event
+import com.melnykov.fab.ObservableScrollView
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
@@ -35,6 +38,7 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
         event_reminder_main_calendar_reset_button.setOnClickListener {
             event_reminder_main_calendar.setCurrentDate(GregorianCalendar().time)
             event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
+            adapter.refreshData(getEventForDisplay(GregorianCalendar().timeInMillis))
         }
 
         adapter = EventReminderRecyclerViewAdapter(context!!,
@@ -44,6 +48,14 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
         event_reminder_main_recyclerview.layoutManager =
                 LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
 
+        event_reminder_main_nested_scroll.setOnScrollChangeListener(NestedScrollView
+                .OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                    if (scrollY > oldScrollY) {
+                        event_reminder_floating_button.hide();
+                    } else {
+                        event_reminder_floating_button.show();
+                    }
+                })
     }
 
     private fun setCalendar() {
@@ -87,7 +99,7 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
     private fun fillCalendarFromData(year: Int) {
         event_reminder_main_calendar.removeAllEvents()
         eventInteractor.familySingleEvents.forEach {
-            event_reminder_main_calendar.addEvent(Event(resources.getColor(R.color.colorAccent), it.timestamp))
+            event_reminder_main_calendar.addEvent(Event(resources.getColor(R.color.colorPrimary), it.timestamp))
         }
         eventInteractor.familyAnnualEvents.forEach {
             val calendar = GregorianCalendar()
@@ -95,7 +107,7 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
 
             if (calendar.get(Calendar.YEAR) <= year && year <= calendar.get(Calendar.YEAR) + 5) {
 
-                event_reminder_main_calendar.addEvent(Event(resources.getColor(R.color.colorAccent),
+                event_reminder_main_calendar.addEvent(Event(resources.getColor(R.color.colorPrimary),
                         getEventOfYear(it.timestamp, year)))
             }
         }
