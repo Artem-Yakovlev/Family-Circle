@@ -196,7 +196,7 @@
     <string name="offline">Offline</string>
     <string name="online">Online</string>
     <string name="back_to_today">Back to today</string>
-
+    <string name="events_scheduled_for">Events scheduled for the selected day:</string>
 
     <string-array name="calendar_months">
         <item>January</item>

@@ -3,22 +3,28 @@ package com.tydeya.familycircle.ui.planpart.eventreminder
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
 import com.github.sundeepk.compactcalendarview.domain.Event
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
+import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_event_reminder.*
 import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventInteractorCallback {
 
     @Inject
     lateinit var eventInteractor: EventInteractor
+
+    private lateinit var adapter: EventReminderRecyclerViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +36,14 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
             event_reminder_main_calendar.setCurrentDate(GregorianCalendar().time)
             event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
         }
+
+        adapter = EventReminderRecyclerViewAdapter(context!!,
+                getEventForDisplay(GregorianCalendar().timeInMillis))
+
+        event_reminder_main_recyclerview.adapter = adapter
+        event_reminder_main_recyclerview.layoutManager =
+                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+
     }
 
     private fun setCalendar() {
@@ -43,7 +57,7 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
         event_reminder_main_calendar.setListener(object : CompactCalendarViewListener {
 
             override fun onDayClick(dateClicked: Date?) {
-
+                showData(getEventForDisplay(dateClicked!!.time))
             }
 
             override fun onMonthScroll(firstDayOfNewMonth: Date?) {
@@ -64,6 +78,7 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
                 } else {
                     event_reminder_main_calendar_reset_button.visibility = View.VISIBLE
                 }
+                showData(getEventForDisplay(firstDayOfNewMonth.time))
             }
 
         })
@@ -92,6 +107,44 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
         calendar.set(Calendar.YEAR, year)
         return calendar.timeInMillis
     }
+
+    /**
+     * Recycler view
+     * */
+
+    private fun getEventForDisplay(timestamp: Long): ArrayList<FamilyEvent> {
+        val displayedEvents = ArrayList<FamilyEvent>()
+
+        val calendar = GregorianCalendar()
+        calendar.timeInMillis = timestamp
+
+        eventInteractor.familyAnnualEvents.forEach {
+            val eventCalendar = GregorianCalendar()
+            eventCalendar.timeInMillis = it.timestamp
+
+            if (eventCalendar.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)
+                    && eventCalendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+                displayedEvents.add(it)
+            }
+
+        }
+
+        eventInteractor.familySingleEvents.forEach {
+            if (it.timestamp == timestamp) {
+                displayedEvents.add(it)
+            }
+        }
+
+        return displayedEvents
+    }
+
+    private fun showData(events: ArrayList<FamilyEvent>) {
+        adapter.refreshData(events)
+    }
+
+    /**
+     * Callbacks
+     * */
 
     override fun eventDataFromServerUpdated() {
         fillCalendarFromData(event_reminder_main_calendar_year.text.toString().toInt())
