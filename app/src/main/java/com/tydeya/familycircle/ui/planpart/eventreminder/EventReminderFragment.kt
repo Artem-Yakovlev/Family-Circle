@@ -1,11 +1,14 @@
 package com.tydeya.familycircle.ui.planpart.eventreminder
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
 import com.github.sundeepk.compactcalendarview.domain.Event
 import com.melnykov.fab.ObservableScrollView
@@ -15,6 +18,7 @@ import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
 import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewAdapter
+import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewClickListener
 import kotlinx.android.synthetic.main.fragment_event_reminder.*
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -22,7 +26,10 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventInteractorCallback {
+class EventReminderFragment
+    :
+        Fragment(R.layout.fragment_event_reminder), EventInteractorCallback,
+        EventReminderRecyclerViewClickListener {
 
     @Inject
     lateinit var eventInteractor: EventInteractor
@@ -42,7 +49,7 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
         }
 
         adapter = EventReminderRecyclerViewAdapter(context!!,
-                getEventForDisplay(GregorianCalendar().timeInMillis))
+                getEventForDisplay(GregorianCalendar().timeInMillis), this)
 
         event_reminder_main_recyclerview.adapter = adapter
         event_reminder_main_recyclerview.layoutManager =
@@ -170,6 +177,17 @@ class EventReminderFragment : Fragment(R.layout.fragment_event_reminder), EventI
     override fun onResume() {
         super.onResume()
         eventInteractor.subscribe(this)
+    }
+
+    /**
+     * RecyclerView callbacks
+     * */
+
+    override fun onEventClickListener(id: String) {
+        NavHostFragment.findNavController(this).navigate(R.id.eventViewPage,
+                Bundle().apply {
+                    putString("id", id)
+                })
     }
 
 

@@ -9,7 +9,9 @@ import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
 import kotlinx.android.synthetic.main.cardview_event_reminder_view_holder.view.*
 import java.util.*
 
-class EventReminderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class EventReminderViewHolder(itemView: View, val listener: EventReminderRecyclerViewClickListener)
+    :
+        RecyclerView.ViewHolder(itemView) {
 
     fun bindData(familyEvent: FamilyEvent) {
 
@@ -26,6 +28,10 @@ class EventReminderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
                 } else {
                     itemView.context.getString(R.string.this_year)
                 }
+
+        itemView.setOnClickListener {
+            listener.onEventClickListener(familyEvent.id)
+        }
     }
 
 }

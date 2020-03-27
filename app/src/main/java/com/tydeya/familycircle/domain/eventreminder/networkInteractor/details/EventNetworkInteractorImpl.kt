@@ -40,6 +40,7 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
     }
 
     private fun parseEventFromRawServerData(document: DocumentSnapshot) = FamilyEvent(
+            document.id,
             document.getString(FIRESTORE_EVENTS_TITLE),
             document.getDate(FIRESTORE_EVENTS_DATE).time,
             document.getString(FIRESTORE_EVENTS_AUTHOR),

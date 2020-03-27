@@ -9,14 +9,15 @@ import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 
 class EventReminderRecyclerViewAdapter(
         private val context: Context,
-        private var events: ArrayList<FamilyEvent>)
+        private var events: ArrayList<FamilyEvent>,
+        private val listener: EventReminderRecyclerViewClickListener)
     :
         RecyclerView.Adapter<EventReminderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventReminderViewHolder =
             EventReminderViewHolder(LayoutInflater.from(context)
                     .inflate(R.layout.cardview_event_reminder_view_holder,
-                            parent, false))
+                            parent, false), listener)
 
     override fun getItemCount() = events.size
 
