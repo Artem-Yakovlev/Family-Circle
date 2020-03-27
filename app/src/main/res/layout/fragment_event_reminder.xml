@@ -69,8 +69,44 @@
                 app:compactCalendarTextColor="@color/colorBlack"
                 app:compactCalendarTextSize="12sp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/event_reminder_main_calendar_reset_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/back_to_today"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/FormButton"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                tools:ignore="RtlHardcoded"
+                android:visibility="invisible"/>
+
         </LinearLayout>
 
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_reminder_main_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

@@ -195,6 +195,7 @@
     <string name="year">Year</string>
     <string name="offline">Offline</string>
     <string name="online">Online</string>
+    <string name="back_to_today">Back to today</string>
 
 
     <string-array name="calendar_months">

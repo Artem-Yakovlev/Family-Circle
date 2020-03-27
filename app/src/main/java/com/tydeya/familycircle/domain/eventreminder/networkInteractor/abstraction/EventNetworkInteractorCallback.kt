@@ -4,5 +4,6 @@ import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 
 interface EventNetworkInteractorCallback {
 
-    fun eventDataUpdate(familyEvent: ArrayList<FamilyEvent>)
+    fun eventDataUpdate(familySingleEvents: ArrayList<FamilyEvent>,
+                        familyAnnualEvents: ArrayList<FamilyEvent>)
 }

@@ -2,7 +2,8 @@ package com.tydeya.familycircle.data.constants;
 
 public final class Firebase {
 
-    private Firebase(){}
+    private Firebase() {
+    }
 
     /**
      * Const for firebase user object
@@ -53,7 +54,18 @@ public final class Firebase {
 
     /**
      * Const of firebase fridge
-     * */
+     */
 
     public static final String FIRESTORE_FRIDGE_COLLECTION = "Fridge";
+
+    /**
+     * Const of firebase events
+     * */
+
+    public static final String FIRESTORE_EVENTS_COLLECTION = "Events";
+    public static final String FIRESTORE_EVENTS_AUTHOR = "author";
+    public static final String FIRESTORE_EVENTS_DATE = "date";
+    public static final String FIRESTORE_EVENTS_PRIORITY = "priority";
+    public static final String FIRESTORE_EVENTS_TITLE = "title";
+    public static final String FIRESTORE_EVENTS_TYPE = "type";
 }
