@@ -6,6 +6,10 @@ import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.Event
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractor
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.EventNetworkInteractorImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservable {
 
@@ -23,13 +27,17 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
 
     override fun eventDataUpdate(familySingleEvents: ArrayList<FamilyEvent>,
                                  familyAnnualEvents: ArrayList<FamilyEvent>) {
-        this.familySingleEvents.clear()
-        this.familySingleEvents.addAll(familySingleEvents)
+        GlobalScope.launch(Dispatchers.Default) {
+            this@EventInteractor.familySingleEvents.clear()
+            this@EventInteractor.familySingleEvents.addAll(familySingleEvents)
 
-        this.familyAnnualEvents.clear()
-        this.familyAnnualEvents.addAll(familyAnnualEvents)
+            this@EventInteractor.familyAnnualEvents.clear()
+            this@EventInteractor.familyAnnualEvents.addAll(familyAnnualEvents)
 
-        notifyObserversEventsDataUpdated()
+            withContext(Dispatchers.Main) {
+                notifyObserversEventsDataUpdated()
+            }
+        }
     }
 
     /**

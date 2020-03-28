@@ -38,49 +38,18 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="40dp"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/event_reminder_main_calendar_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/month"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/poppins" />
-
-                            <TextView
-                                android:id="@+id/event_reminder_main_calendar_year"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:text="@string/year"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/poppins" />
-
-                        </FrameLayout>
-
-                        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+                        <com.applandeo.materialcalendarview.CalendarView
                             android:id="@+id/event_reminder_main_calendar"
                             android:layout_width="match_parent"
-                            android:layout_height="250dp"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="20dp"
-                            app:compactCalendarBackgroundColor="@color/colorWhite"
-                            app:compactCalendarCurrentDayBackgroundColor="@color/colorWhite"
-                            app:compactCalendarCurrentDayTextColor="@color/colorPrimary"
-                            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorPrimary"
-                            app:compactCalendarCurrentSelectedDayTextColor="@color/colorWhite"
-                            app:compactCalendarMultiEventIndicatorColor="@color/colorBlack"
-                            app:compactCalendarTargetHeight="300dp"
-                            app:compactCalendarTextColor="@color/colorBlack"
-                            app:compactCalendarTextSize="12sp" />
+                            android:layout_height="wrap_content"
+                            app:type="one_day_picker"
+                            app:eventsEnabled="true"
+                            app:headerColor="@color/colorWhite"
+                            app:headerLabelColor="@color/colorPrimary"
+                            app:todayLabelColor="@color/colorPrimaryDark"
+                            app:selectionColor="@color/colorPrimaryDark"
+                            app:previousButtonSrc="@drawable/ic_keyboard_arrow_left_blue_24dp"
+                            app:forwardButtonSrc="@drawable/ic_keyboard_arrow_right_blue_24dp" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/event_reminder_main_calendar_reset_button"
@@ -109,6 +78,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="false" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                </LinearLayout>
 
             </LinearLayout>
 

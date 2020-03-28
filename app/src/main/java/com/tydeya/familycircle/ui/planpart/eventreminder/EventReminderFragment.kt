@@ -1,13 +1,14 @@
 package com.tydeya.familycircle.ui.planpart.eventreminder
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
-import com.github.sundeepk.compactcalendarview.domain.Event
+import com.applandeo.materialcalendarview.EventDay
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
@@ -16,6 +17,10 @@ import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInte
 import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewClickListener
 import kotlinx.android.synthetic.main.fragment_event_reminder.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -31,17 +36,13 @@ class EventReminderFragment
 
     private lateinit var adapter: EventReminderRecyclerViewAdapter
 
-    private var currentDate: Date = getCleanTodayDate()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectEventReminderFragment(this)
         setAdapter()
         setCalendar()
-
-        setBackToTodayButton()
+        //setBackToTodayButton()
     }
-
 
     /**
      * Date setters
@@ -49,7 +50,7 @@ class EventReminderFragment
 
     private fun setBackToTodayButton() {
         event_reminder_main_calendar_reset_button.setOnClickListener {
-            event_reminder_main_calendar.setCurrentDate(getCleanTodayDate())
+            //event_reminder_main_calendar.setCurrentDate(getCleanTodayDate())
             event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
             showData(getEventForDisplay(getCleanTodayDate().time))
         }
@@ -73,90 +74,56 @@ class EventReminderFragment
     }
 
     private fun setCalendar() {
-        val calendarMonths = context!!.resources.getStringArray(R.array.calendar_months)
+        event_reminder_main_calendar.setOnDayClickListener { eventDay ->
+            showData(getEventForDisplay(eventDay.calendar.timeInMillis))
+        }
+        event_reminder_main_calendar.setDate(getCleanTodayDate())
 
-        event_reminder_main_calendar_year.text =
-                Calendar.getInstance().get(Calendar.YEAR).toString()
-        event_reminder_main_calendar_month.text =
-                calendarMonths[Calendar.getInstance().get(Calendar.MONTH)]
-
-        event_reminder_main_calendar.setListener(object : CompactCalendarViewListener {
-
-            override fun onDayClick(dateClicked: Date?) {
-                showData(getEventForDisplay(dateClicked!!.time))
-                currentDate = dateClicked
-            }
-
-            override fun onMonthScroll(firstDayOfNewMonth: Date?) {
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = firstDayOfNewMonth!!.time
-                event_reminder_main_calendar_year.text = calendar.get(Calendar.YEAR).toString()
-                event_reminder_main_calendar_month.text = calendarMonths[calendar.get(Calendar.MONTH)]
-
-                if (calendar.get(Calendar.MONTH) == 0 || calendar.get(Calendar.MONTH) == 11) {
-                    fillCalendarFromData(calendar.get(Calendar.YEAR))
-                }
-
-                val actualData = GregorianCalendar()
-
-                if (calendar.get(Calendar.MONTH) == actualData.get(Calendar.MONTH)
-                        && calendar.get(Calendar.YEAR) == actualData.get(Calendar.YEAR)) {
-                    event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
-                } else {
-                    event_reminder_main_calendar_reset_button.visibility = View.VISIBLE
-                }
-                showData(getEventForDisplay(firstDayOfNewMonth.time))
-            }
-
-        })
     }
 
-    private fun fillCalendarFromData(year: Int) {
-        event_reminder_main_calendar.removeAllEvents()
+    private fun fillCalendarFromData() {
+        GlobalScope.launch(Dispatchers.Default) {
+            val events = ArrayList<EventDay>()
+            val currentYear = GregorianCalendar().get(Calendar.YEAR)
 
-        eventInteractor.familySingleEvents.forEach {
-            event_reminder_main_calendar.addEvent(Event(resources.getColor(R.color.colorPrimary),
-                    it.timestamp))
-        }
+            eventInteractor.familySingleEvents.forEach {
+                val calendarEvent = GregorianCalendar()
+                calendarEvent.timeInMillis = it.timestamp
+                events.add(EventDay(calendarEvent, R.drawable.ic_lens_blue_4dp))
+            }
 
-        eventInteractor.familyAnnualEvents.forEach {
-            val calendar = GregorianCalendar()
-            calendar.timeInMillis = it.timestamp
-
-            if (calendar.get(Calendar.YEAR) <= year && year <= calendar.get(Calendar.YEAR) + 5) {
-
-                event_reminder_main_calendar.addEvent(Event(resources.getColor(R.color.colorPrimary),
-                        getEventOfYear(it.timestamp, year)))
+            eventInteractor.familyAnnualEvents.forEach {
+                for (year in (currentYear - 5)..(currentYear + 5)) {
+                    val calendarEvent = GregorianCalendar()
+                    calendarEvent.timeInMillis = it.timestamp
+                    calendarEvent.set(Calendar.YEAR, year)
+                    events.add(EventDay(calendarEvent, R.drawable.ic_lens_blue_4dp))
+                }
+            }
+            withContext(Dispatchers.Main) {
+                event_reminder_main_calendar.setEvents(events)
             }
         }
-    }
-
-    private fun getEventOfYear(originalTimestamp: Long, year: Int): Long {
-        val calendar = GregorianCalendar()
-        calendar.timeInMillis = originalTimestamp
-        calendar.set(Calendar.YEAR, year)
-        return calendar.timeInMillis
     }
 
     /**
      * Recycler view
      * */
-    //Callable only from 00:00
+
     private fun getEventForDisplay(timestamp: Long): ArrayList<FamilyEvent> {
         val displayedEvents = ArrayList<FamilyEvent>()
 
-        val calendar = GregorianCalendar()
-        calendar.timeInMillis = timestamp
+        val selectedCalendar = GregorianCalendar()
+        selectedCalendar.timeInMillis = timestamp
 
         eventInteractor.familyAnnualEvents.forEach {
             val eventCalendar = GregorianCalendar()
             eventCalendar.timeInMillis = it.timestamp
 
-            if (eventCalendar.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)
-                    && eventCalendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+            if (eventCalendar.get(Calendar.DAY_OF_MONTH) == selectedCalendar.get(Calendar.DAY_OF_MONTH)
+                    && eventCalendar.get(Calendar.MONTH) == selectedCalendar.get(Calendar.MONTH)) {
                 displayedEvents.add(it)
             }
-
         }
 
         eventInteractor.familySingleEvents.forEach {
@@ -164,7 +131,6 @@ class EventReminderFragment
                 displayedEvents.add(it)
             }
         }
-
         return displayedEvents
     }
 
@@ -177,8 +143,8 @@ class EventReminderFragment
      * */
 
     override fun eventDataFromServerUpdated() {
-        fillCalendarFromData(event_reminder_main_calendar_year.text.toString().toInt())
-        showData(getEventForDisplay(currentDate.time))
+        fillCalendarFromData()
+        //showData(getEventForDisplay(event_reminder_main_calendar.get))
     }
 
     override fun onPause() {
@@ -199,7 +165,7 @@ class EventReminderFragment
         NavHostFragment.findNavController(this).navigate(R.id.eventViewPage,
                 Bundle().apply {
                     putString("id", id)
-                    putInt("year", event_reminder_main_calendar_year.text.toString().toInt())
+                    putInt("year", event_reminder_main_calendar.firstSelectedDate.get(Calendar.YEAR))
                 })
     }
 

@@ -13,6 +13,7 @@ import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstractio
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) : EventNetworkInteractor {
 
@@ -34,7 +35,9 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
                                 familySingleEvents.add(familyEvent)
                             }
                         }
-                        callback.eventDataUpdate(familySingleEvents, familyAnnualEvents)
+                        withContext(Dispatchers.Main) {
+                            callback.eventDataUpdate(familySingleEvents, familyAnnualEvents)
+                        }
                     }
                 }
     }

@@ -34,6 +34,7 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
 
     private var year: Int = 0
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectFragment(this)
@@ -48,6 +49,10 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
             }
         }
     }
+
+    /**
+     * Current data setters
+     * */
 
     private fun setCurrentData(familyEvent: FamilyEvent) {
         event_view_title.text = familyEvent.title
