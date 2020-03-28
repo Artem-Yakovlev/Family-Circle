@@ -204,6 +204,9 @@
     <string name="hours">hours</string>
     <string name="days">days</string>
 
+    <string name="event_view_author_placeholder">by %1$s</string>
+    <string name="event_view_type_placeholder">%1$s, %2$s</string>
+
     <string-array name="calendar_months">
         <item>January</item>
         <item>February</item>
@@ -218,4 +221,17 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <string-array name="events_priority">
+        <item>Low priority</item>
+        <item>Middle priority</item>
+        <item>High priority</item>
+    </string-array>
+
+    <string-array name="events_type">
+        <item>Annual event</item>
+        <item>Event</item>
+        <item>Routine</item>
+    </string-array>
+
 </resources>

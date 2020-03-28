@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.data.constants;
 
-abstract public class FireStorage {
+public final class FireStorage {
 
     private FireStorage() {
     }

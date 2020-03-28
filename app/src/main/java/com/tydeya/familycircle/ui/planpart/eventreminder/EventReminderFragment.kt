@@ -45,7 +45,7 @@ class EventReminderFragment
         event_reminder_main_calendar_reset_button.setOnClickListener {
             event_reminder_main_calendar.setCurrentDate(GregorianCalendar().time)
             event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
-            adapter.refreshData(getEventForDisplay(GregorianCalendar().timeInMillis))
+            showData(getEventForDisplay(Date().time))
         }
 
         adapter = EventReminderRecyclerViewAdapter(context!!,
@@ -63,6 +63,8 @@ class EventReminderFragment
                         event_reminder_floating_button.show();
                     }
                 })
+
+        showData(getEventForDisplay(Date().time))
     }
 
     private fun setCalendar() {
@@ -167,6 +169,7 @@ class EventReminderFragment
 
     override fun eventDataFromServerUpdated() {
         fillCalendarFromData(event_reminder_main_calendar_year.text.toString().toInt())
+        //showData(getEventForDisplay())
     }
 
     override fun onPause() {
@@ -187,6 +190,7 @@ class EventReminderFragment
         NavHostFragment.findNavController(this).navigate(R.id.eventViewPage,
                 Bundle().apply {
                     putString("id", id)
+                    putInt("year", event_reminder_main_calendar_year.text.toString().toInt())
                 })
     }
 

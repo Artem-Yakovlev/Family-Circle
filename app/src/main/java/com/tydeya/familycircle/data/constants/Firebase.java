@@ -69,4 +69,5 @@ public final class Firebase {
     public static final String FIRESTORE_EVENTS_PRIORITY = "priority";
     public static final String FIRESTORE_EVENTS_TITLE = "title";
     public static final String FIRESTORE_EVENTS_TYPE = "type";
+    public static final String FIRESTORE_EVENTS_DESCRIPTION = "description";
 }

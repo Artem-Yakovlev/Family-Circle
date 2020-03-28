@@ -33,6 +33,23 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
     }
 
     /**
+     * Utils
+     * */
+
+    fun getEventById(id: String): FamilyEvent? {
+        return searchEventById(id, familySingleEvents) ?: searchEventById(id, familyAnnualEvents)
+    }
+
+    private fun searchEventById(id: String, events: ArrayList<FamilyEvent>): FamilyEvent? {
+        for (event in events) {
+            if (event.id == id) {
+                return event
+            }
+        }
+        return null
+    }
+
+    /**
      * Callbacks
      * */
 

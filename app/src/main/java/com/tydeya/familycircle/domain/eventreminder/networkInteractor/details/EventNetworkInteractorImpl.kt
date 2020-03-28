@@ -44,6 +44,7 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
             document.getString(FIRESTORE_EVENTS_TITLE),
             document.getDate(FIRESTORE_EVENTS_DATE).time,
             document.getString(FIRESTORE_EVENTS_AUTHOR),
+            document.getString(FIRESTORE_EVENTS_DESCRIPTION),
             when (document.getLong(FIRESTORE_EVENTS_PRIORITY)) {
                 1L -> FamilyEventPriority.MIDDLE
                 2L -> FamilyEventPriority.HIGH

@@ -8,7 +8,7 @@
     tools:context=".ui.planpart.eventreminder.eventviewpage.EventViewPage">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/event_reminder_toolbar"
+        android:id="@+id/event_view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -62,9 +62,11 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="RtlHardcoded">
 
                 <TextView
+                    android:id="@+id/event_view_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
@@ -74,15 +76,17 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/event_view_author"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="by Artem Yakovlev"
+                    android:text="@string/event_view_author_placeholder"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/event_view_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ежегодное важное"
@@ -107,6 +111,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/event_view_timer_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -131,6 +136,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/event_view_timer_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -155,6 +161,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/event_view_timer_minutes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -179,6 +186,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/event_view_timer_seconds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -202,6 +210,7 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/event_view_description_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
@@ -223,6 +232,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/event_view_description_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
