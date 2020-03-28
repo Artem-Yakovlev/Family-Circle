@@ -42,6 +42,14 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
                 }
     }
 
+    override fun createEvent(familyEvent: FamilyEvent) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_EVENTS_COLLECTION).add()
+    }
+
+    /**
+     * Data parsing
+     * */
+
     private fun parseEventFromRawServerData(document: DocumentSnapshot) = FamilyEvent(
             document.id,
             document.getString(FIRESTORE_EVENTS_TITLE),
@@ -60,5 +68,6 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
             }
     )
 
+    private fun parseEventForServer(familyEvent: FamilyEvent) =
 
 }

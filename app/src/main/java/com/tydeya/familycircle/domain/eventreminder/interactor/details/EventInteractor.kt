@@ -6,10 +6,13 @@ import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.Event
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractor
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.EventNetworkInteractorImpl
+import com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage.EventAbleToActionCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
 
 class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservable {
 
@@ -57,6 +60,45 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
         return null
     }
 
+    fun checkExistEventWithData(title: String, timestamp: Long,
+                                        callback: EventAbleToActionCallback) {
+        GlobalScope.launch(Dispatchers.Default) {
+            if (isExistEventWithData(title, timestamp)) {
+                withContext(Dispatchers.Main) {
+                    callback.notAbleToPerformAction(title, timestamp)
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    callback.ableToPerformAction(title, timestamp)
+                }
+            }
+        }
+
+    }
+
+    private fun isExistEventWithData(title: String, timestamp: Long): Boolean {
+        for (event in familySingleEvents) {
+            if (event.title == title && event.timestamp == timestamp) {
+                return true
+            }
+        }
+
+        val searchCalendar = GregorianCalendar()
+        searchCalendar.timeInMillis = timestamp
+
+        for (event in familyAnnualEvents) {
+            val eventCalendar = GregorianCalendar()
+            eventCalendar.timeInMillis = event.timestamp
+            if (event.title == title
+                    && searchCalendar.get(Calendar.DAY_OF_MONTH) == eventCalendar.get(Calendar.DAY_OF_MONTH)
+                    && searchCalendar.get(Calendar.MONTH) == eventCalendar.get(Calendar.MONTH)) {
+                return true
+            }
+        }
+
+        return false
+    }
+
     /**
      * Callbacks
      * */
@@ -78,4 +120,11 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
         observers.remove(eventInteractorCallback)
     }
 
+    /**
+     * Perform intents
+     * */
+
+    fun createEvent(familyEvent: FamilyEvent) {
+        networkInteractor.createEvent(familyEvent)
+    }
 }

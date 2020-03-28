@@ -1,22 +1,27 @@
 package com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
+import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import com.tydeya.familycircle.data.eventreminder.FamilyEventPriority
+import com.tydeya.familycircle.data.eventreminder.FamilyEventType
 import com.tydeya.familycircle.data.eventreminder.WorkingMode
 import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerPresenter
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerUsable
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
+import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
 import com.tydeya.familycircle.utils.value
 import kotlinx.android.synthetic.main.fragment_event_edit.*
 import java.lang.ref.WeakReference
@@ -24,21 +29,28 @@ import java.util.*
 import javax.inject.Inject
 
 
-class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsable {
+class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsable, EventAbleToActionCallback {
 
     @Inject
-    lateinit var eventnteractor: EventInteractor
+    lateinit var eventInteractor: EventInteractor
 
     private lateinit var workMode: WorkingMode
     private lateinit var eventId: String
 
-    private var editableDate: Long = -1
+    private var editableDate: Long = -1L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectFragment(this)
         prepareForWork()
         choiceMode()
+        event_reminder_edit_done.setOnClickListener {
+            if (workMode == WorkingMode.EDIT) {
+                editIntent()
+            } else {
+                createIntent()
+            }
+        }
     }
 
     /**
@@ -92,7 +104,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
      * */
 
     private fun setCurrentData() {
-        eventnteractor.getEventById(eventId)?.let {
+        eventInteractor.getEventById(eventId)?.let {
             event_reminder_edit_title.value = it.title
             event_reminder_edit_description_text.value = it.description
 
@@ -103,6 +115,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
 
             event_reminder_edit_page_type_spinner.setSelection(it.type.ordinal)
             event_reminder_edit_page_priority_spinner.setSelection(it.priority.ordinal)
+            editableDate = it.timestamp
         }
 
     }
@@ -111,6 +124,54 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
         val dateChanged = GregorianCalendar(selectedDateYear, selectedDateMonth, selectedDateDay)
         event_reminder_edit_date_output.text = DateRefactoring.getDateLocaleText(dateChanged)
         editableDate = dateChanged.timeInMillis
+        event_reminder_edit_date_output
+                .setTextColor(context!!.resources.getColor(R.color.colorGray))
     }
 
+    /**
+     * Perform intent of working mode
+     * */
+
+    private fun editIntent() {
+        if (isDataCorrect()) {
+
+        }
+    }
+
+    private fun createIntent() {
+        if (isDataCorrect()) {
+            eventInteractor.checkExistEventWithData(event_reminder_edit_title.text.toString().trim(),
+                    editableDate, this)
+        }
+    }
+
+    private fun isDataCorrect(): Boolean {
+        if (!DataConfirming.isEmptyNecessaryCheck(event_reminder_edit_title, true)) {
+            if (editableDate != -1L) {
+                return true
+            } else {
+                event_reminder_edit_date_output
+                        .setTextColor(context!!.resources.getColor(R.color.design_default_color_error))
+            }
+        }
+        return false
+    }
+
+    /**
+     * Able to action callbacks
+     * */
+
+    override fun ableToPerformAction(title: String, timestamp: Long) {
+        eventInteractor.createEvent(FamilyEvent("", title, timestamp,
+                FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                event_reminder_edit_description_text.text.toString().trim(),
+                FamilyEventPriority.fromInt(event_reminder_edit_page_priority_spinner.selectedItemPosition),
+                FamilyEventType.fromInt(event_reminder_edit_page_type_spinner.selectedItemPosition)))
+    }
+
+    override fun notAbleToPerformAction(title: String, timestamp: Long) {
+        Toast.makeText(context!!,
+                context!!.resources.getString(R.string.event_reminder_edit_page_not_able_to_create),
+                Toast.LENGTH_LONG).show()
+    }
 }
