@@ -206,6 +206,8 @@
 
     <string name="event_view_author_placeholder">by %1$s</string>
     <string name="event_view_type_placeholder">%1$s, %2$s</string>
+    <string name="this_is_today_event">This is today event</string>
+    <string name="this_event_has_already_passed">This event has already passed</string>
 
     <string-array name="calendar_months">
         <item>January</item>

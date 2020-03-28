@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import java.util.*
+import kotlin.collections.ArrayList
 
 class EventReminderRecyclerViewAdapter(
         private val context: Context,
         private var events: ArrayList<FamilyEvent>,
-        private val listener: EventReminderRecyclerViewClickListener)
+        private val listener: EventReminderRecyclerViewClickListener,
+        private val date: Calendar)
     :
         RecyclerView.Adapter<EventReminderViewHolder>() {
 
@@ -22,11 +25,12 @@ class EventReminderRecyclerViewAdapter(
     override fun getItemCount() = events.size
 
     override fun onBindViewHolder(holder: EventReminderViewHolder, position: Int) {
-        holder.bindData(events[position])
+        holder.bindData(events[position], date)
     }
 
-    fun refreshData(events: ArrayList<FamilyEvent>) {
+    fun refreshData(events: ArrayList<FamilyEvent>, date: Calendar) {
         this.events = events
+        this.date.timeInMillis = date.timeInMillis
         notifyDataSetChanged()
     }
 }

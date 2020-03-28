@@ -36,12 +36,14 @@ class EventReminderFragment
 
     private lateinit var adapter: EventReminderRecyclerViewAdapter
 
+    private var pageIndex = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectEventReminderFragment(this)
         setAdapter()
         setCalendar()
-        //setBackToTodayButton()
+        setBackToTodayButton()
     }
 
     /**
@@ -50,14 +52,14 @@ class EventReminderFragment
 
     private fun setBackToTodayButton() {
         event_reminder_main_calendar_reset_button.setOnClickListener {
-            //event_reminder_main_calendar.setCurrentDate(getCleanTodayDate())
+            event_reminder_main_calendar.setDate(getCleanTodayDate())
             event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
-            showData(getEventForDisplay(getCleanTodayDate().time))
+            showData(getCleanTodayDate())
         }
     }
 
     private fun setAdapter() {
-        adapter = EventReminderRecyclerViewAdapter(context!!, ArrayList(), this)
+        adapter = EventReminderRecyclerViewAdapter(context!!, ArrayList(), this, GregorianCalendar())
 
         event_reminder_main_recyclerview.adapter = adapter
         event_reminder_main_recyclerview.layoutManager =
@@ -75,8 +77,37 @@ class EventReminderFragment
 
     private fun setCalendar() {
         event_reminder_main_calendar.setOnDayClickListener { eventDay ->
-            showData(getEventForDisplay(eventDay.calendar.timeInMillis))
+            showData(eventDay.calendar)
         }
+
+        fun isBackButtonReady() {
+            if (pageIndex != 0) {
+                event_reminder_main_calendar_reset_button.visibility = View.VISIBLE
+            } else {
+                event_reminder_main_calendar_reset_button.visibility = View.INVISIBLE
+            }
+        }
+
+        event_reminder_main_calendar.setOnForwardPageChangeListener {
+            pageIndex++
+            isBackButtonReady()
+        }
+
+        event_reminder_main_calendar.setOnPreviousPageChangeListener {
+            pageIndex--
+            isBackButtonReady()
+        }
+
+        val calendar = GregorianCalendar()
+        val minimumDate = GregorianCalendar(calendar.get(Calendar.YEAR) - 5,
+                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+
+        val maxDate = GregorianCalendar(calendar.get(Calendar.YEAR) + 5,
+                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+
+        event_reminder_main_calendar.setMinimumDate(minimumDate)
+        event_reminder_main_calendar.setMaximumDate(maxDate)
+
         event_reminder_main_calendar.setDate(getCleanTodayDate())
 
     }
@@ -134,8 +165,8 @@ class EventReminderFragment
         return displayedEvents
     }
 
-    private fun showData(events: ArrayList<FamilyEvent>) {
-        adapter.refreshData(events)
+    private fun showData(date: Calendar) {
+        adapter.refreshData(getEventForDisplay(date.timeInMillis), date)
     }
 
     /**
@@ -144,7 +175,7 @@ class EventReminderFragment
 
     override fun eventDataFromServerUpdated() {
         fillCalendarFromData()
-        //showData(getEventForDisplay(event_reminder_main_calendar.get))
+        showData(event_reminder_main_calendar.firstSelectedDate)
     }
 
     override fun onPause() {
@@ -173,10 +204,9 @@ class EventReminderFragment
      * Utils
      * */
 
-    private fun getCleanTodayDate(): Date {
+    private fun getCleanTodayDate(): Calendar {
         val rawCalendar = GregorianCalendar()
         return GregorianCalendar(rawCalendar.get(Calendar.YEAR), rawCalendar.get(Calendar.MONTH),
-                rawCalendar.get(Calendar.DAY_OF_MONTH)).time
-
+                rawCalendar.get(Calendar.DAY_OF_MONTH))
     }
 }

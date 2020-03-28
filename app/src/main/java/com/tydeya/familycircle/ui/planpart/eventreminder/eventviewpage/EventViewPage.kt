@@ -66,10 +66,10 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
 
         val currentTimestamp = calendar.timeInMillis
 
-        if (Date().time < currentTimestamp) {
+        if (getCleanTodayDate().timeInMillis < currentTimestamp) {
             setTimer(currentTimestamp - Date().time)
         } else {
-            setTimerStub()
+            setTimerStub(getCleanTodayDate().timeInMillis == currentTimestamp)
         }
     }
 
@@ -107,7 +107,9 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
     }
 
     private fun setTimer(timeLeft: Long) {
-        eventTimer = object: CountDownTimer(timeLeft, 1000) {
+        event_view_timer_layout.visibility = View.VISIBLE
+        event_view_stub_layout.visibility = View.GONE
+        eventTimer = object : CountDownTimer(timeLeft, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
 
@@ -130,8 +132,14 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
         eventTimer?.start()
     }
 
-    private fun setTimerStub() {
-
+    private fun setTimerStub(isTodayEvent: Boolean) {
+        event_view_timer_layout.visibility = View.GONE
+        event_view_stub_layout.visibility = View.VISIBLE
+        event_view_stub_text.text = if (isTodayEvent) {
+            context!!.resources.getString(R.string.this_is_today_event)
+        } else {
+            context!!.resources.getString(R.string.this_event_has_already_passed)
+        }
     }
 
     /**
@@ -155,6 +163,12 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
         eventTimer?.cancel()
         eventInteractor.unsubscribe(this)
 
+    }
+
+    private fun getCleanTodayDate(): Calendar {
+        val rawCalendar = GregorianCalendar()
+        return GregorianCalendar(rawCalendar.get(Calendar.YEAR), rawCalendar.get(Calendar.MONTH),
+                rawCalendar.get(Calendar.DAY_OF_MONTH))
     }
 
 }

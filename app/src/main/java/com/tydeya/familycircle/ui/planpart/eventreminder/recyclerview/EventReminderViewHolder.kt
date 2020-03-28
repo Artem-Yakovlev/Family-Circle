@@ -13,14 +13,11 @@ class EventReminderViewHolder(itemView: View, val listener: EventReminderRecycle
     :
         RecyclerView.ViewHolder(itemView) {
 
-    fun bindData(familyEvent: FamilyEvent) {
+    fun bindData(familyEvent: FamilyEvent, date: Calendar) {
 
         itemView.event_reminder_cardview_title.text = familyEvent.title
 
-        itemView.event_reminder_cardview_date.text = DateRefactoring
-                .getDateLocaleText(GregorianCalendar().apply {
-                    timeInMillis = familyEvent.timestamp
-                })
+        itemView.event_reminder_cardview_date.text = DateRefactoring.getDateLocaleText(date)
 
         itemView.event_reminder_cardview_time.text =
                 if (familyEvent.type == FamilyEventType.ANNUAL_EVENT) {
