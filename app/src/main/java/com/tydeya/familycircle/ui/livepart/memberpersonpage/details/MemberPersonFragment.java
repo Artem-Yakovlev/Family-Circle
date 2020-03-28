@@ -60,6 +60,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         settingsButton = root.findViewById(R.id.family_member_view_settings);
 
         nameText = root.findViewById(R.id.family_member_view_name_text);
+        profileImage = root.findViewById(R.id.family_view_photo);
         onlineStatusText = root.findViewById(R.id.family_member_view_online_text);
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
@@ -92,6 +93,14 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
     public void setCurrentData(FamilyMemberDto dto) {
         assert getContext() != null;
         nameText.setText(dto.getName());
+
+        Glide.with(getContext()).load(dto.getImageAddress()).into(profileImage);
+
+        if (!dto.getImageAddress().equals("")) {
+            profileImage.setPadding(0,0,0,0);
+        } else {
+            profileImage.setPadding(20,20,20,20);
+        }
 
         if (dto.getBirthDate().equals("")) {
             birthdateText.setText(getResources()

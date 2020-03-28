@@ -15,6 +15,7 @@ public class FamilyMemberDto {
     private String birthDate;
     private String workPlace;
     private String studyPlace;
+    private String imageAddress;
 
     public FamilyMemberDto(FamilyMember familyMember) {
         this.name = familyMember.getDescription().getName();
@@ -23,6 +24,7 @@ public class FamilyMemberDto {
         this.studyPlace = familyMember.getCareerData().getStudyPlace();
         this.workPlace = familyMember.getCareerData().getWorkPlace();
         this.phone = familyMember.getFullPhoneNumber();
+        this.imageAddress = familyMember.getDescription().getImageAddress();
     }
 
     /**
@@ -95,5 +97,13 @@ public class FamilyMemberDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getImageAddress() {
+        return imageAddress;
+    }
+
+    public void setImageAddress(String imageAddress) {
+        this.imageAddress = imageAddress;
     }
 }
