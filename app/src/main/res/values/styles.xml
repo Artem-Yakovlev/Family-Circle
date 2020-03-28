@@ -46,7 +46,7 @@
 
 
     <!-- Common text input style-->
-    <style name="CommonInputStyle">
+    <style name="CommonOnWhiteInputStyle">
         <item name="colorControlNormal">@color/colorAppTagLine</item>
         <item name="colorControlActivated">@color/colorAppTagLine</item>
         <item name="colorControlHighlight" >@color/colorAppTagLine</item>

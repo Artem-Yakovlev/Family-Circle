@@ -90,7 +90,7 @@
                 android:singleLine="true"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorGray"
-                android:theme="@style/CommonInputStyle" />
+                android:theme="@style/CommonOnWhiteInputStyle" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

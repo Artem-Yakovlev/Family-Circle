@@ -2,25 +2,24 @@ package com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
-
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
-import com.tydeya.familycircle.data.eventreminder.FamilyEventType
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import kotlinx.android.synthetic.main.fragment_event_view_page.*
-import java.time.Year
 import java.util.*
 import javax.inject.Inject
 
-class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteractorCallback {
+class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInteractorCallback {
 
     @Inject
     lateinit var familyInteractor: FamilyInteractor
@@ -33,7 +32,6 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
     private var eventTimer: CountDownTimer? = null
 
     private var year: Int = 0
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,6 +57,7 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
         setAuthorText(familyEvent)
         setTypeText(familyEvent)
         setDescriptionText(familyEvent)
+        setToolbar(familyEvent)
 
         val calendar = GregorianCalendar()
         calendar.timeInMillis = familyEvent.timestamp
@@ -140,6 +139,47 @@ class EventViewPage : Fragment(R.layout.fragment_event_view_page), EventInteract
         } else {
             context!!.resources.getString(R.string.this_event_has_already_passed)
         }
+    }
+
+    /**
+     * Toolbar settings
+     * */
+
+    private fun setToolbar(familyEvent: FamilyEvent) {
+        event_view_settings.visibility = if (familyEvent.authorPhone ==
+                FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        event_view_toolbar.setNavigationOnClickListener {
+            NavHostFragment.findNavController(this).popBackStack()
+        }
+
+        event_view_settings.setOnClickListener {
+            showPopUpSettingsMenu(it)
+        }
+    }
+
+    private fun showPopUpSettingsMenu(v: View) {
+        val popupMenu = PopupMenu(context, v)
+        val menuInflater = popupMenu.menuInflater
+        menuInflater.inflate(R.menu.settings_event_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.event_view_menu_edit -> {
+                    val bundle = Bundle()
+                    bundle.putString("eventId", id)
+                    NavHostFragment.findNavController(this)
+                            .navigate(R.id.eventEditFragment, bundle)
+                    true
+                }
+                R.id.event_view_menu_delete -> true
+                else -> false
+            }
+        }
+        popupMenu.show()
     }
 
     /**

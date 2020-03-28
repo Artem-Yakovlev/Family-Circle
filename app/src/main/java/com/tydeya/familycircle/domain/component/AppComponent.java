@@ -20,7 +20,7 @@ import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
 import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
 import com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment;
-import com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage.EventViewPage;
+import com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage.EventViewFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.CreateBuyListDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
@@ -48,7 +48,7 @@ public interface AppComponent {
 
     void injectFragment(CorrespondenceFragment correspondenceFragment);
 
-    void injectFragment(EventViewPage eventViewPage);
+    void injectFragment(EventViewFragment eventViewFragment);
 
     void injectRecyclerViewAdapter(ChatRecyclerViewAdapter chatRecyclerViewAdapter);
 

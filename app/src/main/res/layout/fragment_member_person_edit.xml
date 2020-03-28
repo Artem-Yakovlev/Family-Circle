@@ -75,7 +75,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorGray"
                     android:textSize="14sp"
-                    android:theme="@style/CommonInputStyle" />
+                    android:theme="@style/CommonOnWhiteInputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,7 +138,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorGray"
                     android:textSize="14sp"
-                    android:theme="@style/CommonInputStyle" />
+                    android:theme="@style/CommonOnWhiteInputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,7 +167,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/colorGray"
                     android:textSize="14sp"
-                    android:theme="@style/CommonInputStyle" />
+                    android:theme="@style/CommonOnWhiteInputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

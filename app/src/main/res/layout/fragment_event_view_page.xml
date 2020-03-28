@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.planpart.eventreminder.eventviewpage.EventViewPage">
+    tools:context=".ui.planpart.eventreminder.eventviewpage.EventViewFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_view_toolbar"
@@ -17,6 +17,7 @@
         app:titleTextColor="@color/colorWhite">
 
         <ImageButton
+            android:id="@+id/event_view_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
