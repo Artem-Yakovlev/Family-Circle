@@ -112,9 +112,16 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
         edit_person_study.value = editableFamilyMember.studyPlace
         edit_person_work.value = editableFamilyMember.workPlace
 
-        Glide.with(this)
-                .load(editableFamilyMember.imageAddress)
-                .into(family_view_photo_edit)
+        if (editableFamilyMember.imageAddress != "") {
+            family_view_photo_edit.setPadding(0,0,0,0)
+            Glide.with(this)
+                    .load(editableFamilyMember.imageAddress)
+                    .into(family_view_photo_edit)
+        } else {
+            family_view_photo_edit.setPadding(20,20,20,20)
+        }
+
+
     }
 
     private fun updateEditablePerson() {

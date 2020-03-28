@@ -31,6 +31,8 @@ import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPe
 
 import javax.inject.Inject;
 
+import static com.tydeya.familycircle.utils.DipKt.getDp;
+
 
 public class MemberPersonFragment extends Fragment implements MemberPersonView, FamilyInteractorCallback {
 
@@ -94,12 +96,12 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         assert getContext() != null;
         nameText.setText(dto.getName());
 
-        Glide.with(getContext()).load(dto.getImageAddress()).into(profileImage);
-
         if (!dto.getImageAddress().equals("")) {
             profileImage.setPadding(0,0,0,0);
+            Glide.with(getContext()).load(dto.getImageAddress()).into(profileImage);
         } else {
-            profileImage.setPadding(20,20,20,20);
+            int dpForPadding = getDp(getContext(), 20);
+            profileImage.setPadding(dpForPadding,dpForPadding,dpForPadding,dpForPadding);
         }
 
         if (dto.getBirthDate().equals("")) {
