@@ -10,7 +10,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import com.tydeya.familycircle.data.eventreminder.WorkingMode
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
@@ -169,10 +171,14 @@ class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInte
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.event_view_menu_edit -> {
-                    val bundle = Bundle()
-                    bundle.putString("eventId", id)
+                    val bundle = Bundle().apply {
+                        putString("eventId", id)
+                        putInt(EVENT_EDIT_PAGE_WORKING_MODE, WorkingMode.EDIT.ordinal)
+                    }
+
                     NavHostFragment.findNavController(this)
                             .navigate(R.id.eventEditFragment, bundle)
+
                     true
                 }
                 R.id.event_view_menu_delete -> true

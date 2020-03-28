@@ -210,8 +210,10 @@
     <string name="this_event_has_already_passed">This event has already passed</string>
     <string name="event_view_menu_edit_text">Edit event</string>
     <string name="event_view_menu_delete_text">Delete event</string>
-    <string name="event_reminder_edit_toolbar_title">Edit event</string>
+    <string name="event_reminder_edit_toolbar_title_edit">Edit event</string>
     <string name="event_reminder_edit_page_title_text">Event title</string>
+    <string name="description">Description:</string>
+    <string name="event_reminder_edit_toolbar_title_create">Create event</string>
 
     <string-array name="calendar_months">
         <item>January</item>

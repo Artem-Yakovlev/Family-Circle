@@ -11,7 +11,9 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import com.tydeya.familycircle.data.eventreminder.WorkingMode
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
 import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewAdapter
@@ -44,6 +46,7 @@ class EventReminderFragment
         setAdapter()
         setCalendar()
         setBackToTodayButton()
+        setFloatingButton()
     }
 
     /**
@@ -134,6 +137,15 @@ class EventReminderFragment
             withContext(Dispatchers.Main) {
                 event_reminder_main_calendar.setEvents(events)
             }
+        }
+    }
+
+    private fun setFloatingButton() {
+        event_reminder_floating_button.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt(EVENT_EDIT_PAGE_WORKING_MODE, WorkingMode.CREATE.ordinal)
+            }
+            NavHostFragment.findNavController(this).navigate(R.id.eventEditFragment, bundle)
         }
     }
 

@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-        app:title="@string/event_reminder_edit_toolbar_title"
+        app:title="@string/event_reminder_edit_toolbar_title_create"
         app:titleTextColor="@color/colorWhite">
 
 
@@ -148,7 +148,6 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/event_view_description_card"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingHorizontal="10dp"
@@ -165,12 +164,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Description:"
+                android:text="@string/description"
                 android:textColor="@color/colorGray"
                 android:textSize="16sp" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/event_view_description_text"
+                android:id="@+id/event_reminder_edit_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"

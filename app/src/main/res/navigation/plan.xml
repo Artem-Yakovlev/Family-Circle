@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_eventReminder_to_eventViewPage"
             app:destination="@id/eventViewPage" />
+        <action
+            android:id="@+id/action_eventReminder_to_eventEditFragment"
+            app:destination="@id/eventEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventViewPage"
