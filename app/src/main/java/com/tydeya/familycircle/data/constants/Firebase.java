@@ -14,6 +14,7 @@ public final class Firebase {
     public static final String FIRESTORE_USERS_BIRTHDATE_TAG = "birth_date";
     public static final String FIRESTORE_USERS_STUDY_TAG = "study_place";
     public static final String FIRESTORE_USERS_WORK_TAG = "work_place";
+    public static final String FIRESTORE_USERS_IMAGE_ADDRESS = "image";
     public static final String FIRESTORE_USERS_ONLINE_TAG = "is_online";
 
     /**

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_IMAGE_ADDRESS;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_ONLINE_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
@@ -72,7 +73,9 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
         long birthDate = DateRefactoring.dateToTimestamp(documentSnapshot.getDate(FIRESTORE_USERS_BIRTHDATE_TAG));
         String fullPhoneNumber = documentSnapshot.getString(FIRESTORE_USERS_PHONE_TAG);
 
-        FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
+        String imageAddress = ifNullToEmpty(documentSnapshot.getString(FIRESTORE_USERS_IMAGE_ADDRESS));
+
+        FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, imageAddress);
         FamilyMemberContacts contacts = new FamilyMemberContacts();
 
         String workPlace = ifNullToEmpty(documentSnapshot.getString(FIRESTORE_USERS_WORK_TAG));

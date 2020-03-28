@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
@@ -34,10 +35,10 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
         findAllViews();
 
         nameText.setText(familyMember.getDescription().getName());
-        /*
+
         Glide.with(nameText.getContext())
                 .load(familyMember.getDescription().getImageAddress())
-                .into(userShapedImage);*/
+                .into(userShapedImage);
         userShapedImage.setStrokeColor(onlineStatusColor);
 
     }

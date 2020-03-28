@@ -2,6 +2,7 @@ package com.tydeya.familycircle.ui.managerpart.editprofile.details
 
 import android.app.AlertDialog
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -38,6 +39,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
     private lateinit var presenter: MemberPersonEditPresenter
     private lateinit var familyInteractor: FamilyInteractor
     private lateinit var editableFamilyMember: EditableFamilyMember
+    private var editableImageUri: Uri? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         familyInteractor = App.getComponent().familyInteractor
@@ -78,7 +80,6 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
     }
 
     override fun dateChanged(selectedDateYear: Int, selectedDateMonth: Int, selectedDateDay: Int) {
-
         val calendar = GregorianCalendar(selectedDateYear, selectedDateMonth, selectedDateDay)
         editableFamilyMember.birthdate = calendar.timeInMillis
         edit_person_datetime_picker_output.text = DateRefactoring.getDateLocaleText(calendar)
@@ -91,7 +92,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
 
         return EditableFamilyMember(
                 userFamilyMember.description.name ?: "",
-                ByteArray(0),
+                userFamilyMember.description.imageAddress,
                 userFamilyMember.description.birthDate,
                 userFamilyMember.careerData.studyPlace ?: "",
                 userFamilyMember.careerData.workPlace ?: "")
@@ -110,6 +111,10 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
 
         edit_person_study.value = editableFamilyMember.studyPlace
         edit_person_work.value = editableFamilyMember.workPlace
+
+        Glide.with(this)
+                .load(editableFamilyMember.imageAddress)
+                .into(family_view_photo_edit)
     }
 
     private fun updateEditablePerson() {
@@ -129,7 +134,8 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
                 context!!.resources.getString(R.string.person_edit_page_accept_alert_positive_button)
         ) { _, _ ->
             run {
-                presenter.editAccount(editableFamilyMember)
+                presenter.editAccount(editableFamilyMember,
+                        MediaStore.Images.Media.getBitmap(activity!!.contentResolver, editableImageUri))
                 NavHostFragment.findNavController(this).popBackStack()
                 KeyboardHelper.hideKeyboard(activity)
             }
@@ -142,27 +148,12 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
     }
 
     override fun imageCroppedSuccessfully(activityResult: CropImage.ActivityResult?) {
-        val imageUri = activityResult!!.uri
+        editableImageUri = activityResult!!.uri
         family_view_photo_edit.setPadding(0, 0, 0, 0)
 
         Glide.with(this)
-                .load(imageUri)
+                .load(editableImageUri)
                 .into(family_view_photo_edit)
-
-        val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri);
-
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-        FirebaseStorage.getInstance().getReference("/FamilyMemberProfileImage/image.jpg").putBytes(data).addOnSuccessListener {
-            Log.d("ASMR", "success")
-        }.addOnFailureListener{
-            Log.d("ASMR", it.toString())
-            it.printStackTrace()
-        }
-
-
-
     }
 
     override fun imageCroppedWithError(activityResult: CropImage.ActivityResult?) {

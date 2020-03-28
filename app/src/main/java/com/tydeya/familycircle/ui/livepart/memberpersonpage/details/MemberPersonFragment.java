@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
@@ -32,6 +34,7 @@ import javax.inject.Inject;
 
 public class MemberPersonFragment extends Fragment implements MemberPersonView, FamilyInteractorCallback {
 
+    private ImageView profileImage;
     private TextView nameText;
     private TextView onlineStatusText;
     private TextView birthdateText;
@@ -40,7 +43,6 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
     private TextView studyPlaceText;
 
     private Toolbar toolbar;
-    private MemberPersonPresenter presenter;
     private ImageButton settingsButton;
 
     private NavController navController;
@@ -71,7 +73,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new MemberPersonPresenterImpl(this, getFamilyMember());
+        MemberPersonPresenter presenter = new MemberPersonPresenterImpl(this, getFamilyMember());
 
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
