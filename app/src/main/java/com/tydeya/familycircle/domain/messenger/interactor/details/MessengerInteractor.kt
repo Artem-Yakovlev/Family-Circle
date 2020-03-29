@@ -40,6 +40,14 @@ class MessengerInteractor
     }
 
     /**
+     * Data editing
+     * */
+
+    fun createConversation(title: String, members: ArrayList<String>) {
+        networkInteractor.createConversation(title, members)
+    }
+
+    /**
      * Callbacks
      * */
 

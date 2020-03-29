@@ -234,6 +234,7 @@
     <string name="CreateTaskDialogSaveButton">Create</string>
     <string name="new_conversation">New conversation</string>
     <string name="dialog_create_conversation_title_text">Conversation title</string>
+    <string name="create_conversation_dialog_add_someone_text">Add someone to the conversation</string>
 
     <string-array name="calendar_months">
         <item>January</item>

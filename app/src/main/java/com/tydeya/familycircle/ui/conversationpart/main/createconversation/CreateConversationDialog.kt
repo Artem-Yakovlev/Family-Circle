@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,9 +52,13 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
         view.dialog_create_conversation_create_button.setOnClickListener {
             if (!DataConfirming.isEmptyNecessaryCheck(view.dialog_create_conversation_title, true)) {
                 if (needToAdd.contains(true)) {
-                    for (i in 0 until names.size) {
-                        Log.d("ASMR", "${names[i]} ${phoneNumbers[i]} ${needToAdd[i]}")
-                    }
+                    phoneNumbers.add(0, FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
+                    messengerInteractor.createConversation(view.dialog_create_conversation_title
+                                    .text.toString().trim(), phoneNumbers)
+                    dismiss()
+                } else {
+                    Toast.makeText(context!!, getString(R.string.create_conversation_dialog_add_someone_text),
+                            Toast.LENGTH_LONG).show()
                 }
             }
         }

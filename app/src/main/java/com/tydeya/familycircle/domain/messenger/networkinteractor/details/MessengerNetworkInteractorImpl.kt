@@ -40,5 +40,16 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
                 }
     }
 
+    override fun createConversation(title: String, members: ArrayList<String>) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION).add(
+                    hashMapOf(
+                            FIRESTORE_CONVERSATION_TITLE to title,
+                            FIRESTORE_CONVERSATION_MEMBERS to members
+                    ) as Map<String, Any>
+            )
+        }
+    }
+
 
 }
