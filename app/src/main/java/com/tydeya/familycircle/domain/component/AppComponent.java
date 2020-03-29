@@ -37,6 +37,8 @@ import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.Tasks
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.recyclerview.TasksByUserRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.TasksForUserFragment;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.recyclerview.TasksForUserRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.TasksHistoryFragment;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.recyclerview.HistoryTasksRecyclerViewAdapter;
 
 import javax.inject.Singleton;
 
@@ -56,6 +58,8 @@ public interface AppComponent {
 
     void injectFragment(TasksForUserFragment tasksForUserFragment);
 
+    void injectFragment(TasksHistoryFragment tasksHistoryFragment);
+
     void injectFragment(CorrespondenceFragment correspondenceFragment);
 
     void injectFragment(EventViewFragment eventViewFragment);
@@ -67,6 +71,8 @@ public interface AppComponent {
     void injectRecyclerViewAdapter(ChatRecyclerViewAdapter chatRecyclerViewAdapter);
 
     void injectRecyclerViewAdapter(MainConversationRecyclerViewAdapter adapter);
+
+    void injectRecyclerViewAdapter(HistoryTasksRecyclerViewAdapter historyTasksRecyclerViewAdapter);
 
     void injectRecyclerViewAdapter(TasksForUserRecyclerViewAdapter tasksForUserRecyclerViewAdapter);
 

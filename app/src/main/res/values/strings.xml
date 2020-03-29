@@ -227,6 +227,7 @@
     <string name="errand_for_you_cardview_status_placeholder">Status: %1$s</string>
     <string name="errand_status_processing">Processing</string>
     <string name="your_errand_cardview_worker_placeholder">for %1$s</string>
+    <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
 
     <string-array name="calendar_months">
         <item>January</item>

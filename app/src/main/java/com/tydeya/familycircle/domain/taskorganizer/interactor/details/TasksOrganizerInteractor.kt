@@ -13,10 +13,10 @@ import kotlinx.coroutines.withContext
 class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksOrganizerInteractorObservable {
 
     var tasksForUser: ArrayList<FamilyTask> = ArrayList()
-    var historyTasksForUser: ArrayList<FamilyTask> = ArrayList()
+    private var historyTasksForUser: ArrayList<FamilyTask> = ArrayList()
 
     var tasksByUser: ArrayList<FamilyTask> = ArrayList()
-    var historyTasksByUser: ArrayList<FamilyTask> = ArrayList()
+    private var historyTasksByUser: ArrayList<FamilyTask> = ArrayList()
 
     val sortedHistoryTasks: ArrayList<FamilyTask>
         get() {
