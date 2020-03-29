@@ -80,4 +80,11 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
                     .update(mapOf(FIRESTORE_TASKS_STATUS to familyTaskStatus.ordinal))
         }
     }
+
+    override fun deleteTask(taskId: String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
+                    .document(taskId).delete()
+        }
+    }
 }

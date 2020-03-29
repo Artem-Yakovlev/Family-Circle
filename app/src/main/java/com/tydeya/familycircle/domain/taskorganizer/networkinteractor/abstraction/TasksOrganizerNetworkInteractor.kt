@@ -8,4 +8,6 @@ interface TasksOrganizerNetworkInteractor {
 
     fun setTaskStatus(taskId: String, familyTaskStatus: FamilyTaskStatus)
 
+    fun deleteTask(taskId: String)
+
 }

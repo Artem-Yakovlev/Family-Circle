@@ -11,7 +11,10 @@ import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImp
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import javax.inject.Inject
 
-class TasksByUserRecyclerViewAdapter(val context: Context, var tasksByUser: ArrayList<FamilyTask>)
+class TasksByUserRecyclerViewAdapter(
+        val context: Context,
+        var tasksByUser: ArrayList<FamilyTask>,
+        val clickListener: TasksByUserRecyclerViewOnClickListener)
     :
         RecyclerView.Adapter<TasksByUserViewHolder>() {
 
@@ -22,9 +25,9 @@ class TasksByUserRecyclerViewAdapter(val context: Context, var tasksByUser: Arra
         App.getComponent().injectRecyclerViewAdapter(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        TasksByUserViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.cardview_tasks_organizer_your_errand, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TasksByUserViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.cardview_tasks_organizer_your_errand,
+                    parent, false), clickListener)
 
 
     override fun getItemCount(): Int = tasksByUser.size

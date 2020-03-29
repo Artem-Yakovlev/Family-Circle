@@ -98,6 +98,20 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
         notifyObserversKitchenDataUpdated()
     }
 
+    fun deleteTask(familyTask: FamilyTask) {
+        networkInteractor.deleteTask(familyTask.id)
+        tasksByUser.remove(familyTask)
+        notifyObserversKitchenDataUpdated()
+    }
+
+    fun createTask(familyTask: FamilyTask) {
+
+    }
+
+    fun editTaskText(familyTask: FamilyTask, actualText: String) {
+
+    }
+
     /**
      * Callbacks
      * */
