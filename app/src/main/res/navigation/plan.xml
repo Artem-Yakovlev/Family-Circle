@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_kitchenOrganizerFragment_to_buyListFragment"
             app:destination="@id/buyListFragment" />
+        <action
+            android:id="@+id/action_kitchenOrganizerFragment_to_tasksOrganizerMainFragment"
+            app:destination="@id/tasksOrganizerMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyListFragment"
@@ -57,4 +60,8 @@
         android:name="com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage.EventEditFragment"
         android:label="fragment_event_edit"
         tools:layout="@layout/fragment_event_edit" />
+    <fragment
+        android:id="@+id/tasksOrganizerMainFragment"
+        android:name="com.tydeya.familycircle.ui.planpart.taskorganizer.TasksOrganizerMainFragment"
+        android:label="TasksOrganizerMainFragment" />
 </navigation>

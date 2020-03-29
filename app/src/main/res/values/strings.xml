@@ -215,6 +215,23 @@
     <string name="description">Description:</string>
     <string name="event_reminder_edit_toolbar_title_create">Create event</string>
     <string name="event_reminder_edit_page_not_able_to_create">An event with this name already exists on this day.</string>
+    <string name="task_organizer_toolbar_title">Task organizer</string>
+    <string name="tasks_organizer_your_errands">Your errands</string>
+    <string name="tasks_organizer_errands_for_you">Errands for you</string>
+    <string name="tasks_organizer_errands_history">Errands history</string>
+    <string name="errand_for_you_cardview_performed_button_text">Performed</string>
+    <string name="errand_for_you_cardview_refuse_text">Refuse</string>
+    <string name="your_errand_cardview_edit_button_text">Edit</string>
+    <string name="your_errand_cardview_delete_button_text">Delete</string>
+    <string name="errand_for_you_cardview_author_placeholder">By %1$s</string>
+    <string name="errand_for_you_cardview_status_placeholder">Status: %1$s</string>
+    <string name="errand_status_processing">Processing</string>
+    <string name="your_errand_cardview_worker_placeholder">for %1$s</string>
+    <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
+    <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
+    <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
+    <string name="create_task_dialog_title">Create new task</string>
+    <string name="CreateTaskDialogSaveButton">Create</string>
 
     <string-array name="calendar_months">
         <item>January</item>
@@ -241,6 +258,12 @@
         <item>Annual event</item>
         <item>Event</item>
         <item>Routine</item>
+    </string-array>
+
+    <string-array name="tasks_status">
+        <item>Rejected </item>
+        <item>Awaiting completion</item>
+        <item>Accepted</item>
     </string-array>
 
 </resources>

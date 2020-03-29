@@ -7,6 +7,8 @@ import com.tydeya.familycircle.domain.eventreminder.interactor.injection.EventIn
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
+import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
+import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
@@ -31,6 +33,14 @@ import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buy
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.DeleteFoodInFridgeDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FridgeAddFoodDialog;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.recyclerview.TasksByUserRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.TasksForUserFragment;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.recyclerview.TasksForUserRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.TasksHistoryFragment;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.recyclerview.HistoryTasksRecyclerViewAdapter;
 
 import javax.inject.Singleton;
 
@@ -38,7 +48,8 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {FamilyInteractorModule.class, ConversationInteractorModule.class,
-        UserInteractorModule.class, KitchenOrganizerModule.class, EventInteractorModule.class})
+        UserInteractorModule.class, KitchenOrganizerModule.class, EventInteractorModule.class,
+        TasksOrganizerModule.class})
 public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
@@ -47,15 +58,27 @@ public interface AppComponent {
 
     void injectFragment(MainConversationPage mainConversationPage);
 
+    void injectFragment(TasksForUserFragment tasksForUserFragment);
+
+    void injectFragment(TasksHistoryFragment tasksHistoryFragment);
+
     void injectFragment(CorrespondenceFragment correspondenceFragment);
 
     void injectFragment(EventViewFragment eventViewFragment);
 
     void injectFragment(EventEditFragment eventEditFragment);
 
+    void injectFragment(TasksByUserFragment tasksByUserFragment);
+
     void injectRecyclerViewAdapter(ChatRecyclerViewAdapter chatRecyclerViewAdapter);
 
     void injectRecyclerViewAdapter(MainConversationRecyclerViewAdapter adapter);
+
+    void injectRecyclerViewAdapter(HistoryTasksRecyclerViewAdapter historyTasksRecyclerViewAdapter);
+
+    void injectRecyclerViewAdapter(TasksForUserRecyclerViewAdapter tasksForUserRecyclerViewAdapter);
+
+    void injectRecyclerViewAdapter(TasksByUserRecyclerViewAdapter tasksByUserRecyclerViewAdapter);
 
     void injectRecyclerViewAdapter(FamilyMembersStoriesRecyclerViewAdapter adapter);
 
@@ -77,6 +100,8 @@ public interface AppComponent {
 
     void injectDialog(CreateNewProductDialog createNewProductDialog);
 
+    void injectDialog(CreateTaskDialog createTaskDialog);
+
     void injectDialog(BuyCatalogSettingsDialog buyCatalogSettingsDialog);
 
     void injectDialog(EditProductDataDialog editProductDataDialog);
@@ -84,6 +109,8 @@ public interface AppComponent {
     void injectDialog(DeleteFoodInFridgeDialog deleteFoodInFridgeDialog);
 
     void injectDialog(FridgeAddFoodDialog fridgeAddFoodDialog);
+
+    void injectDialog(EditTasksTextDialog editTasksTextDialog);
 
     void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 
