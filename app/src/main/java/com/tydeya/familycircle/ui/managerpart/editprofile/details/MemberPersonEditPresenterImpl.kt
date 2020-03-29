@@ -1,6 +1,8 @@
 package com.tydeya.familycircle.ui.managerpart.editprofile.details
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.data.constants.Firebase
 import com.tydeya.familycircle.framework.editaccount.details.EditAccountToolImpl
@@ -17,10 +19,10 @@ class MemberPersonEditPresenterImpl(val context: Context, val view: MemberPerson
 
     override fun checkDataForCorrect(editableFamilyMember: EditableFamilyMember): Boolean = editableFamilyMember.name != ""
 
-    override fun editAccount(editableFamilyMember: EditableFamilyMember) {
+    override fun editAccount(editableFamilyMember: EditableFamilyMember, editableBitmap: Bitmap?) {
         GlobalScope.launch(Dispatchers.IO) {
             editAccountTool.editAccountData(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
-                    editableFamilyMember)
+                    editableFamilyMember, editableBitmap)
         }
     }
 

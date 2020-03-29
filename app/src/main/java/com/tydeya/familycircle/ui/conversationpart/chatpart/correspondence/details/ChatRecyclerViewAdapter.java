@@ -2,16 +2,19 @@ package com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.deta
 
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
@@ -87,6 +90,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 holder.setAuthorText(getNameByFullNumber(messages.get(position).getAuthorPhoneNumber()));
                 holder.setMessageText(messages.get(position).getText());
                 holder.setMessageTimeText(formatForDateNow.format(messages.get(position).getDateTime()));
+                holder.setProfileImage(getImageAddressByFullNumber(messages.get(position).getAuthorPhoneNumber()));
                 break;
         }
     }
@@ -100,6 +104,15 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         }
     }
 
+    private String getImageAddressByFullNumber(String fullPhoneNumber) {
+        FamilyMember familyMember = familyInteractor.getFamilyAssistant().getUserByPhone(fullPhoneNumber);
+        if (familyMember != null) {
+            return familyMember.getDescription().getImageAddress();
+        } else {
+            return "";
+        }
+    }
+
     @Override
     public int getItemCount() {
         return messages.size();
@@ -110,13 +123,14 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         private TextView messageText;
         private TextView authorText;
         private TextView messageTimeText;
-        private Uri imageUri;
+        private ImageView profileImage;
 
         ChatMessageViewHolder(@NonNull View itemView) {
             super(itemView);
             authorText = itemView.findViewById(R.id.message_text_name);
             messageText = itemView.findViewById(R.id.message_text_body);
             messageTimeText = itemView.findViewById(R.id.message_text_time);
+            profileImage = itemView.findViewById(R.id.message_author_image);
         }
 
         void setAuthorText(String authorName) {
@@ -129,6 +143,10 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
         void setMessageTimeText(String messageTime) {
             this.messageTimeText.setText(messageTime);
+        }
+
+        void setProfileImage(String imageAddress) {
+            Glide.with(itemView.getContext()).load(imageAddress).into(profileImage);
         }
     }
 

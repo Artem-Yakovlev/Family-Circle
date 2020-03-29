@@ -6,6 +6,7 @@ import android.view.View;
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class DatePickerPresenter implements View.OnClickListener {
 
@@ -23,9 +24,7 @@ public class DatePickerPresenter implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        int limitYear = datePickerUpperLimit.get(Calendar.YEAR);
-        int limitMonth = datePickerUpperLimit.get(Calendar.MONTH);
-        int limitDay = datePickerUpperLimit.get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = new GregorianCalendar();
 
         DatePickerDialog.OnDateSetListener dateSetListener =
                 (view1, year, monthOfYear, dayOfMonth) -> {
@@ -33,9 +32,10 @@ public class DatePickerPresenter implements View.OnClickListener {
                 };
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(), dateSetListener,
-                limitYear, limitMonth, limitDay);
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
 
-        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+        datePickerDialog.getDatePicker().setMaxDate(datePickerUpperLimit.getTimeInMillis());
         datePickerDialog.show();
     }
 }

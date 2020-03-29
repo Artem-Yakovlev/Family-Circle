@@ -3,6 +3,7 @@ package com.tydeya.familycircle.domain.component;
 import com.tydeya.familycircle.domain.conversationsassistant.details.ConversationsAssistantImpl;
 import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor;
 import com.tydeya.familycircle.domain.conversationsinteractor.injection.ConversationInteractorModule;
+import com.tydeya.familycircle.domain.eventreminder.interactor.injection.EventInteractorModule;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
@@ -16,7 +17,11 @@ import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.detai
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondenceFragment;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondencePresenterImpl;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
+import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
+import com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment;
+import com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage.EventEditFragment;
+import com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage.EventViewFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.CreateBuyListDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
@@ -33,7 +38,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {FamilyInteractorModule.class, ConversationInteractorModule.class,
-        UserInteractorModule.class, KitchenOrganizerModule.class})
+        UserInteractorModule.class, KitchenOrganizerModule.class, EventInteractorModule.class})
 public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
@@ -44,9 +49,15 @@ public interface AppComponent {
 
     void injectFragment(CorrespondenceFragment correspondenceFragment);
 
+    void injectFragment(EventViewFragment eventViewFragment);
+
+    void injectFragment(EventEditFragment eventEditFragment);
+
     void injectRecyclerViewAdapter(ChatRecyclerViewAdapter chatRecyclerViewAdapter);
 
-    void injectRecyclerViewAdapter(MainConversationRecyclerViewAdapter mainConversationRecyclerViewAdapter);
+    void injectRecyclerViewAdapter(MainConversationRecyclerViewAdapter adapter);
+
+    void injectRecyclerViewAdapter(FamilyMembersStoriesRecyclerViewAdapter adapter);
 
     void injectPresenter(CorrespondencePresenterImpl correspondencePresenterImpl);
 
@@ -73,6 +84,8 @@ public interface AppComponent {
     void injectDialog(DeleteFoodInFridgeDialog deleteFoodInFridgeDialog);
 
     void injectDialog(FridgeAddFoodDialog fridgeAddFoodDialog);
+
+    void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 
     ConversationInteractor getConversationInteractor();
 

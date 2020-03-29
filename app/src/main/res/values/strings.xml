@@ -187,4 +187,60 @@
     <string name="remove_food_from_fridge_dialog_title">Why do you want to remove this food?</string>
     <string name="this_food_went_bad">The food went bad</string>
     <string name="this_food_has_been_eaten">The food has been eaten</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="event_reminder_toolbar_title">Event reminder</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="back_to_today">Back to today</string>
+    <string name="events_scheduled_for">Events scheduled for the selected day:</string>
+    <string name="annually">Annually</string>
+    <string name="this_year">This year</string>
+    <string name="seconds">sec.</string>
+    <string name="minutes">min.</string>
+    <string name="hours">hours</string>
+    <string name="days">days</string>
+
+    <string name="event_view_author_placeholder">by %1$s</string>
+    <string name="event_view_type_placeholder">%1$s, %2$s</string>
+    <string name="this_is_today_event">This is today event</string>
+    <string name="this_event_has_already_passed">This event has already passed</string>
+    <string name="event_view_menu_edit_text">Edit event</string>
+    <string name="event_view_menu_delete_text">Delete event</string>
+    <string name="event_reminder_edit_toolbar_title_edit">Edit event</string>
+    <string name="event_reminder_edit_page_title_text">Event title</string>
+    <string name="description">Description:</string>
+    <string name="event_reminder_edit_toolbar_title_create">Create event</string>
+    <string name="event_reminder_edit_page_not_able_to_create">An event with this name already exists on this day.</string>
+
+    <string-array name="calendar_months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string-array name="events_priority">
+        <item>Low priority</item>
+        <item>Middle priority</item>
+        <item>High priority</item>
+    </string-array>
+
+    <string-array name="events_type">
+        <item>Annual event</item>
+        <item>Event</item>
+        <item>Routine</item>
+    </string-array>
+
 </resources>

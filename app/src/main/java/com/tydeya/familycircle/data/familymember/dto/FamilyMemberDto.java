@@ -10,10 +10,12 @@ import java.util.GregorianCalendar;
 public class FamilyMemberDto {
 
     private String name;
+    private String phone;
     private String zodiacSign;
     private String birthDate;
     private String workPlace;
     private String studyPlace;
+    private String imageAddress;
 
     public FamilyMemberDto(FamilyMember familyMember) {
         this.name = familyMember.getDescription().getName();
@@ -21,6 +23,8 @@ public class FamilyMemberDto {
         this.zodiacSign = parseDateForZodiacSignText(familyMember.getDescription().getBirthDate());
         this.studyPlace = familyMember.getCareerData().getStudyPlace();
         this.workPlace = familyMember.getCareerData().getWorkPlace();
+        this.phone = familyMember.getFullPhoneNumber();
+        this.imageAddress = familyMember.getDescription().getImageAddress();
     }
 
     /**
@@ -85,5 +89,21 @@ public class FamilyMemberDto {
 
     public void setStudyPlace(String studyPlace) {
         this.studyPlace = studyPlace;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getImageAddress() {
+        return imageAddress;
+    }
+
+    public void setImageAddress(String imageAddress) {
+        this.imageAddress = imageAddress;
     }
 }

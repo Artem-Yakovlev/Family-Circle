@@ -37,7 +37,7 @@
             android:textColor="@color/colorGray"
             android:textColorHint="@color/colorTransparentGray"
             android:textSize="15sp"
-            android:theme="@style/CommonInputStyle" />
+            android:theme="@style/CommonOnWhiteInputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

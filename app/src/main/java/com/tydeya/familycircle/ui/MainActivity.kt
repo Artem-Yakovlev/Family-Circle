@@ -12,24 +12,31 @@ import com.google.firebase.auth.FirebaseAuth
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.onlinetracker.OnlineTrackerActivity
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback
 import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
 
     private var currentNavController: LiveData<NavController>? = null
 
-    private var conversationInteractor: ConversationInteractor? = null
+    @Inject
+    lateinit var familyInteractor: FamilyInteractor
+
+    @Inject
+    lateinit var conversationInteractor: ConversationInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         if (verificationCheck()) {
-            conversationInteractor = App.getComponent().conversationInteractor
+            App.getComponent().injectActivity(this)
             if (savedInstanceState == null) {
                 setupBottomNavigationBar()
             }
@@ -70,13 +77,24 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
 
     override fun onResume() {
         super.onResume()
-        conversationInteractor!!.subscribe(this)
+        conversationInteractor.subscribe(this)
         updateBadges()
     }
 
     override fun onPause() {
         super.onPause()
-        conversationInteractor!!.unsubscribe(this)
+        conversationInteractor.unsubscribe(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        familyInteractor.familyOnlineTracker.userOpenActivity(OnlineTrackerActivity.MAIN)
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        familyInteractor.familyOnlineTracker.userCloseActivity(OnlineTrackerActivity.MAIN)
     }
 
     /**
@@ -89,7 +107,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
 
     private fun updateBadges() {
 
-        if (conversationInteractor!!.actualConversationBadges == 0) {
+        if (conversationInteractor.actualConversationBadges == 0) {
 
             main_bottom_navigation_view.removeBadge(R.id.correspondence)
 
@@ -99,7 +117,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
                     .backgroundColor = resources.getColor(R.color.colorConversationBadge)
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .number = conversationInteractor!!.actualConversationBadges
+                    .number = conversationInteractor.actualConversationBadges
         }
     }
 
@@ -124,5 +142,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
             }
         }
     }
+
+
 
 }

@@ -6,10 +6,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
+
+import static com.tydeya.familycircle.utils.DipKt.getDp;
 
 public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -25,16 +28,29 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
 
     /**
      * Data binding
-     * */
+     */
 
-    void bindData(FamilyMember familyMember) {
+    void bindData(FamilyMember familyMember, int onlineStatusColor) {
         findAllViews();
 
         nameText.setText(familyMember.getDescription().getName());
-        /*
-        Glide.with(nameText.getContext())
-                .load(familyMember.getDescription().getImageAddress())
-                .into(userShapedImage);*/
+        userShapedImage.setStrokeColor(onlineStatusColor);
+        setProfileImage(familyMember.getDescription().getImageAddress());
+    }
+
+    private void setProfileImage(String imageAddress) {
+        if (imageAddress.equals("")) {
+            int dipForPadding = getDp(nameText.getContext(), 10);
+            userShapedImage.setPadding(dipForPadding,dipForPadding,dipForPadding,dipForPadding);
+            Glide.with(nameText.getContext())
+                    .load(R.drawable.ic_photo_camera_blue_36dp)
+                    .into(userShapedImage);
+        } else {
+            userShapedImage.setPadding(0,0,0,0);
+            Glide.with(nameText.getContext())
+                    .load(imageAddress)
+                    .into(userShapedImage);
+        }
     }
 
     private void findAllViews() {

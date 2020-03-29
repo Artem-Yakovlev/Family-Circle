@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.familyinteractor.details;
 
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -17,7 +18,9 @@ import java.util.ArrayList;
 
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_IMAGE_ADDRESS;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_ONLINE_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_STUDY_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_WORK_TAG;
@@ -28,6 +31,8 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
     private FirebaseFirestore firebaseFirestore;
 
     private FamilyNetworkInteractorCallback callback;
+
+    private ArrayMap<String, Boolean> areUsersOnlineArrayMap = new ArrayMap<>();
 
     FamilyNetworkInteractorImpl(FamilyNetworkInteractorCallback callback) {
         this.callback = callback;
@@ -46,10 +51,18 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
         });
     }
 
+    @Override
+    public ArrayMap<String, Boolean> requireUsersAreOnlineData() {
+        return areUsersOnlineArrayMap;
+    }
+
     private ArrayList<FamilyMember> getMembersBySnapshot(QuerySnapshot querySnapshots) {
         ArrayList<FamilyMember> members = new ArrayList<>();
         for (int i = 0; i < querySnapshots.getDocuments().size(); i++) {
             members.add(createMemberByData(querySnapshots.getDocuments().get(i)));
+            areUsersOnlineArrayMap.put(
+                    querySnapshots.getDocuments().get(i).getString(FIRESTORE_USERS_PHONE_TAG),
+                    querySnapshots.getDocuments().get(i).getBoolean(FIRESTORE_USERS_ONLINE_TAG));
         }
         return members;
     }
@@ -60,7 +73,9 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
         long birthDate = DateRefactoring.dateToTimestamp(documentSnapshot.getDate(FIRESTORE_USERS_BIRTHDATE_TAG));
         String fullPhoneNumber = documentSnapshot.getString(FIRESTORE_USERS_PHONE_TAG);
 
-        FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, null);
+        String imageAddress = ifNullToEmpty(documentSnapshot.getString(FIRESTORE_USERS_IMAGE_ADDRESS));
+
+        FamilyMemberDescription description = new FamilyMemberDescription(name, birthDate, imageAddress);
         FamilyMemberContacts contacts = new FamilyMemberContacts();
 
         String workPlace = ifNullToEmpty(documentSnapshot.getString(FIRESTORE_USERS_WORK_TAG));

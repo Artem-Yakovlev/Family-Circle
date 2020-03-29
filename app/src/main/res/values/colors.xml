@@ -24,5 +24,6 @@
     <color name="colorConversationBadge">#d71e18</color>
     <color name="colorOrange">#FF8C00</color>
     <color name="colorTransparentBlue">#d9ecfc</color>
+    <color name="colorOnlineGreen">#4EC43A</color>
 
 </resources>

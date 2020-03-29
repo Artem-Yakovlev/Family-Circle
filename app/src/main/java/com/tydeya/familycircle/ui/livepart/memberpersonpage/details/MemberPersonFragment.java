@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
@@ -29,17 +31,20 @@ import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPe
 
 import javax.inject.Inject;
 
+import static com.tydeya.familycircle.utils.DipKt.getDp;
+
 
 public class MemberPersonFragment extends Fragment implements MemberPersonView, FamilyInteractorCallback {
 
+    private ImageView profileImage;
     private TextView nameText;
+    private TextView onlineStatusText;
     private TextView birthdateText;
     private TextView zodiacSignText;
     private TextView workPlaceText;
     private TextView studyPlaceText;
 
     private Toolbar toolbar;
-    private MemberPersonPresenter presenter;
     private ImageButton settingsButton;
 
     private NavController navController;
@@ -57,6 +62,8 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         settingsButton = root.findViewById(R.id.family_member_view_settings);
 
         nameText = root.findViewById(R.id.family_member_view_name_text);
+        profileImage = root.findViewById(R.id.family_view_photo);
+        onlineStatusText = root.findViewById(R.id.family_member_view_online_text);
         birthdateText = root.findViewById(R.id.family_member_view_birthdate_text);
         zodiacSignText = root.findViewById(R.id.family_member_view_zodiac_sign);
         studyPlaceText = root.findViewById(R.id.family_member_view_study_place);
@@ -69,7 +76,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new MemberPersonPresenterImpl(this, getFamilyMember());
+        MemberPersonPresenter presenter = new MemberPersonPresenterImpl(this, getFamilyMember());
 
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
@@ -86,7 +93,16 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
     @Override
     public void setCurrentData(FamilyMemberDto dto) {
+        assert getContext() != null;
         nameText.setText(dto.getName());
+
+        if (!dto.getImageAddress().equals("")) {
+            profileImage.setPadding(0,0,0,0);
+            Glide.with(getContext()).load(dto.getImageAddress()).into(profileImage);
+        } else {
+            int dpForPadding = getDp(getContext(), 20);
+            profileImage.setPadding(dpForPadding,dpForPadding,dpForPadding,dpForPadding);
+        }
 
         if (dto.getBirthDate().equals("")) {
             birthdateText.setText(getResources()
@@ -111,6 +127,14 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         } else {
             workPlaceText.setVisibility(View.VISIBLE);
             workPlaceText.setText(dto.getWorkPlace());
+        }
+
+        if (familyInteractor.getFamilyOnlineTracker().isUserOnlineByPhone(dto.getPhone())) {
+            onlineStatusText.setText(getContext().getString(R.string.online));
+            onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorOnlineGreen));
+        } else {
+            onlineStatusText.setText(getContext().getString(R.string.offline));
+            onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorGray));
         }
 
     }

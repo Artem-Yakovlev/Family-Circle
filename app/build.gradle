@@ -111,4 +111,7 @@ dependencies {
 
     // Skeletons and shimmering effects
     implementation 'com.github.skydoves:androidveil:1.0.8'
+
+    // Calendar for event reminder
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
 }

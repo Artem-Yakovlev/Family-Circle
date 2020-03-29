@@ -9,7 +9,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.ID
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerCallback
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
