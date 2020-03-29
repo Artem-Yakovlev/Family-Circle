@@ -70,4 +70,15 @@ public final class Firebase {
     public static final String FIRESTORE_EVENTS_TITLE = "title";
     public static final String FIRESTORE_EVENTS_TYPE = "type";
     public static final String FIRESTORE_EVENTS_DESCRIPTION = "description";
+
+    /**
+     * Const of firebase tasks
+     * */
+
+    public static final String FIRESTORE_TASKS_COLLECTION = "Tasks";
+    public static final String FIRESTORE_TASKS_AUTHOR = "author";
+    public static final String FIRESTORE_TASKS_WORKER = "worker";
+    public static final String FIRESTORE_TASKS_TEXT = "text";
+    public static final String FIRESTORE_TASKS_STATUS = "status";
+    public static final String FIRESTORE_TASKS_TIME = "time";
 }

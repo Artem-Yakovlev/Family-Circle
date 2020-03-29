@@ -223,6 +223,10 @@
     <string name="errand_for_you_cardview_refuse_text">Refuse</string>
     <string name="your_errand_cardview_edit_button_text">Edit</string>
     <string name="your_errand_cardview_delete_button_text">Delete</string>
+    <string name="errand_for_you_cardview_author_placeholder">By %1$s</string>
+    <string name="errand_for_you_cardview_status_placeholder">Status: %1$s</string>
+    <string name="errand_status_processing">Processing</string>
+    <string name="your_errand_cardview_worker_placeholder">for %1$s</string>
 
     <string-array name="calendar_months">
         <item>January</item>
@@ -249,6 +253,12 @@
         <item>Annual event</item>
         <item>Event</item>
         <item>Routine</item>
+    </string-array>
+
+    <string-array name="tasks_status">
+        <item>Rejected </item>
+        <item>Awaiting completion</item>
+        <item>Accepted</item>
     </string-array>
 
 </resources>
