@@ -3,6 +3,7 @@ package com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
@@ -12,6 +13,8 @@ import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.abstractio
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInteractorCallback)
     :
@@ -85,6 +88,26 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
         GlobalScope.launch(Dispatchers.Default) {
             FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
                     .document(taskId).delete()
+        }
+    }
+
+    override fun editTaskText(taskId: String, actualText: String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
+                    .document(taskId)
+                    .update(mapOf(FIRESTORE_TASKS_TEXT to actualText))
+        }
+    }
+
+    override fun createTask(familyTask: FamilyTask) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION).add(hashMapOf(
+                    FIRESTORE_TASKS_AUTHOR to familyTask.author,
+                    FIRESTORE_TASKS_WORKER to familyTask.worker,
+                    FIRESTORE_TASKS_STATUS to 1,
+                    FIRESTORE_TASKS_TEXT to familyTask.text,
+                    FIRESTORE_TASKS_TIME to Date(familyTask.time)
+            ) as Map<String, Any>)
         }
     }
 }

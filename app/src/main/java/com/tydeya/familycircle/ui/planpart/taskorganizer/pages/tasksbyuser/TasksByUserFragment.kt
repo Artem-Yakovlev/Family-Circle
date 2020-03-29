@@ -32,7 +32,7 @@ class TasksByUserFragment
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectFragment(this)
         setAdapter()
-
+        setFloatingButton()
     }
 
     private fun setAdapter() {
@@ -40,6 +40,15 @@ class TasksByUserFragment
         tasks_by_user_recycler_view.layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false)
         tasks_by_user_recycler_view.adapter = adapter
+    }
+
+    private fun setFloatingButton() {
+        create_task_floating_button.setOnClickListener {
+            val dialog = CreateTaskDialog()
+            dialog.show(parentFragmentManager, "dialog_create_task")
+        }
+
+        create_task_floating_button.attachToRecyclerView(tasks_by_user_recycler_view)
     }
 
     private fun setCurrentData() {
@@ -51,7 +60,8 @@ class TasksByUserFragment
      * */
 
     override fun editEvent(familyTask: FamilyTask) {
-
+        val editDialog = EditTasksTextDialog(familyTask)
+        editDialog.show(parentFragmentManager, "editTasksTextDialog")
     }
 
     override fun deleteEvent(familyTask: FamilyTask) {

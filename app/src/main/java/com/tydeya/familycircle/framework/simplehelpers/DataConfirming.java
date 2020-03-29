@@ -9,7 +9,7 @@ public class DataConfirming {
                                                 boolean attention){
         assert textInputEditText.getText() != null;
 
-        if (textInputEditText.getText().toString().equals("")){
+        if (textInputEditText.getText().toString().trim().equals("")){
             if (attention){
                 textInputEditText.setError(textInputEditText.getContext()
                     .getResources()

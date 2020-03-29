@@ -33,6 +33,8 @@ import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buy
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.DeleteFoodInFridgeDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FridgeAddFoodDialog;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.recyclerview.TasksByUserRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.TasksForUserFragment;
@@ -98,6 +100,8 @@ public interface AppComponent {
 
     void injectDialog(CreateNewProductDialog createNewProductDialog);
 
+    void injectDialog(CreateTaskDialog createTaskDialog);
+
     void injectDialog(BuyCatalogSettingsDialog buyCatalogSettingsDialog);
 
     void injectDialog(EditProductDataDialog editProductDataDialog);
@@ -105,6 +109,8 @@ public interface AppComponent {
     void injectDialog(DeleteFoodInFridgeDialog deleteFoodInFridgeDialog);
 
     void injectDialog(FridgeAddFoodDialog fridgeAddFoodDialog);
+
+    void injectDialog(EditTasksTextDialog editTasksTextDialog);
 
     void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 

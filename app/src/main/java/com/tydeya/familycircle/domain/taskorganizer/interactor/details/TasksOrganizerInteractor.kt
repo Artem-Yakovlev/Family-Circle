@@ -104,12 +104,16 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
         notifyObserversKitchenDataUpdated()
     }
 
-    fun createTask(familyTask: FamilyTask) {
-
+    fun editTaskText(familyTask: FamilyTask, actualText: String) {
+        networkInteractor.editTaskText(familyTask.id, actualText)
+        familyTask.text = actualText
+        notifyObserversKitchenDataUpdated()
     }
 
-    fun editTaskText(familyTask: FamilyTask, actualText: String) {
-
+    fun createTask(familyTask: FamilyTask) {
+        networkInteractor.createTask(familyTask)
+        tasksByUser.add(familyTask)
+        notifyObserversKitchenDataUpdated()
     }
 
     /**

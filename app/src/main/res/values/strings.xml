@@ -230,6 +230,8 @@
     <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
     <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
+    <string name="create_task_dialog_title">Create new task</string>
+    <string name="CreateTaskDialogSaveButton">Create</string>
 
     <string-array name="calendar_months">
         <item>January</item>
