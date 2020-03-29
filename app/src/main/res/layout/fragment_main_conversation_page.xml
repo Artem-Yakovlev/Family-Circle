@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.conversationpart.MainConversationPage"
+    tools:context=".ui.conversationpart.main.MainConversationPage"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,13 +21,14 @@
 
 
             <ImageButton
+                android:id="@+id/main_conversation_toolbar_create_new_conversation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:background="@null"
-                android:src="@drawable/ic_settings_black_24dp"
+                android:src="@drawable/ic_add_black_24dp"
                 tools:ignore="RtlHardcoded" />
 
 

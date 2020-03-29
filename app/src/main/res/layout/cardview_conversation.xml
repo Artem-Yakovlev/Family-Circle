@@ -27,7 +27,7 @@
                 android:id="@+id/conversation_page_card_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/ic_image_test_whiteman"
+                android:src="@drawable/ic_sentiment_satisfied_black_24dp"
                 app:shape_mode="circle"
                 app:stroke_color="@color/colorTransparentGray"
                 app:stroke_width="1dp" />

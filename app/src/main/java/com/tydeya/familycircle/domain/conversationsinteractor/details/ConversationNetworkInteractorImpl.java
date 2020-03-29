@@ -7,9 +7,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationNetworkInteractor;
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationNetworkInteractorCallback;
 import com.tydeya.familycircle.data.chatmessage.ChatMessage;
-import com.tydeya.familycircle.data.conversation.Conversation;
-import com.tydeya.familycircle.data.conversation.description.details.ConversationAttachments;
-import com.tydeya.familycircle.data.conversation.description.details.ConversationDescription;
+import com.tydeya.familycircle.data.oldconversation.OldConversation;
+import com.tydeya.familycircle.data.oldconversation.description.details.OldConversationAttachments;
+import com.tydeya.familycircle.data.oldconversation.description.details.OldConversationDescription;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_CONVERSATION_COLLECTION;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_CONVERSATION_NAME;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_MESSAGE_AUTHOR_PHONE;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_MESSAGE_COLLECTION;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_MESSAGE_DATETIME;
@@ -28,16 +27,14 @@ import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_MESSAGE_
 public class ConversationNetworkInteractorImpl implements ConversationNetworkInteractor {
 
     private ConversationNetworkInteractorCallback callback;
-    private FirebaseFirestore firebaseFirestore;
     private String currentNumber;
 
     ConversationNetworkInteractorImpl(ConversationNetworkInteractorCallback callback) {
         this.currentNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
-        this.firebaseFirestore = FirebaseFirestore.getInstance();
         this.callback = callback;
     }
 
-    private void parseMessagesFromSnapshot(Conversation conversation, QuerySnapshot queryDocumentSnapshots) {
+    private void parseMessagesFromSnapshot(OldConversation oldConversation, QuerySnapshot queryDocumentSnapshots) {
         ArrayList<ChatMessage> messages = new ArrayList<>();
 
         for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j++) {
@@ -56,7 +53,7 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
             messages.add(new ChatMessage(phoneNumber, text, dateTime, !viewed));
         }
 
-        conversation.setChatMessages(messages);
+        oldConversation.setChatMessages(messages);
     }
 
     private boolean parseViewedMessage(DocumentSnapshot documentSnapshot) {
@@ -70,37 +67,35 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
 
     @Override
     public void requireConversationsDataFromServer() {
-        getKeysForMessages();
-    }
 
-    private void getKeysForMessages() {
-        firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            ArrayList<Conversation> conversations = new ArrayList<>();
+        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+            ArrayList<OldConversation> oldConversations = new ArrayList<>();
 
             for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
 
-                String title = queryDocumentSnapshots.getDocuments().get(i).get(FIRESTORE_CONVERSATION_NAME).toString();
-                conversations.add(new Conversation(new ArrayList<>(), new ConversationDescription(title),
-                        new ConversationAttachments(), queryDocumentSnapshots.getDocuments().get(i).getId()));
+                String title = queryDocumentSnapshots.getDocuments().get(i).get("FIRESTORE_CONVERSATION_NAME").toString();
+                oldConversations.add(new OldConversation(new ArrayList<>(), new OldConversationDescription(title),
+                        new OldConversationAttachments(), queryDocumentSnapshots.getDocuments().get(i).getId()));
             }
-            getMessagesDataForAllConversations(conversations, queryDocumentSnapshots.getDocuments().size());
+            getMessagesDataForAllConversations(oldConversations, queryDocumentSnapshots.getDocuments().size());
         });
     }
 
-    private void getMessagesDataForAllConversations(ArrayList<Conversation> conversations, int numbersConversations) {
+    private void getMessagesDataForAllConversations(ArrayList<OldConversation> oldConversations, int numbersConversations) {
         AtomicInteger counter = new AtomicInteger(0);
 
         for (int i = 0; i < numbersConversations; i++) {
-            Conversation conversation = conversations.get(i);
+            OldConversation oldConversation = oldConversations.get(i);
 
-            firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).document(conversations.get(i).getKey())
+            FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION).document(oldConversations.get(i).getKey())
                     .collection(FIRESTORE_MESSAGE_COLLECTION).get().addOnSuccessListener(queryDocumentSnapshots -> {
 
-                parseMessagesFromSnapshot(conversation, queryDocumentSnapshots);
+                parseMessagesFromSnapshot(oldConversation, queryDocumentSnapshots);
                 counter.getAndIncrement();
 
                 if (counter.intValue() == numbersConversations) {
-                    callback.conversationsAllDataUpdated(conversations);
+                    callback.conversationsAllDataUpdated(oldConversations);
                 }
 
             });
@@ -112,19 +107,19 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
      * Changing data listener
      */
 
-    public void setUpdateConversationsListener(ArrayList<Conversation> conversations) {
+    public void setUpdateConversationsListener(ArrayList<OldConversation> oldConversations) {
 
-        for (Conversation conversation : conversations) {
-            firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION).document(conversation.getKey())
+        for (OldConversation oldConversation : oldConversations) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION).document(oldConversation.getKey())
                     .collection(FIRESTORE_MESSAGE_COLLECTION).addSnapshotListener((queryDocumentSnapshots, e) -> {
 
-                Conversation tempConversation = new Conversation(null,
-                        conversation.getDescription(), conversation.getAttachments(), conversation.getKey());
+                OldConversation tempOldConversation = new OldConversation(null,
+                        oldConversation.getDescription(), oldConversation.getAttachments(), oldConversation.getKey());
 
-                parseMessagesFromSnapshot(tempConversation, queryDocumentSnapshots);
+                parseMessagesFromSnapshot(tempOldConversation, queryDocumentSnapshots);
 
-                if (tempConversation.getChatMessages().size() != conversation.getChatMessages().size()) {
-                    callback.conversationUpdate(tempConversation);
+                if (tempOldConversation.getChatMessages().size() != oldConversation.getChatMessages().size()) {
+                    callback.conversationUpdate(tempOldConversation);
                 }
             });
         }
@@ -135,18 +130,18 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
      */
 
     @Override
-    public void sendChatMessageToServer(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
-        firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION)
-                .document(conversation.getKey())
+    public void sendChatMessageToServer(ChatMessage chatMessage, OldConversation oldConversation, ArrayList<String> phoneNumbers) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                .document(oldConversation.getKey())
                 .collection(FIRESTORE_MESSAGE_COLLECTION)
                 .add(parseDataFromChatMessageForServer(chatMessage, phoneNumbers));
     }
 
     @Override
-    public void makeMessagesRead(Conversation conversation) {
+    public void makeMessagesRead(OldConversation oldConversation) {
 
-        firebaseFirestore.collection(FIRESTORE_CONVERSATION_COLLECTION)
-                .document(conversation.getKey())
+        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                .document(oldConversation.getKey())
                 .collection(FIRESTORE_MESSAGE_COLLECTION)
                 .whereEqualTo( FIRESTORE_MESSAGE_UNREAD_PATTERN + currentNumber, true)
                 .get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -154,11 +149,11 @@ public class ConversationNetworkInteractorImpl implements ConversationNetworkInt
                         querySnapshot.getReference().update(FIRESTORE_MESSAGE_UNREAD_PATTERN + currentNumber, false);
                     }
 
-                    for (ChatMessage chatMessage: conversation.getChatMessages()) {
+                    for (ChatMessage chatMessage: oldConversation.getChatMessages()) {
                         chatMessage.setViewed(true);
                     }
 
-                    callback.conversationUpdate(conversation);
+                    callback.conversationUpdate(oldConversation);
                 });
     }
 

@@ -7,7 +7,7 @@ import com.tydeya.familycircle.domain.conversationsinteractor.details.Conversati
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.data.chatmessage.ChatMessage;
-import com.tydeya.familycircle.data.conversation.Conversation;
+import com.tydeya.familycircle.data.oldconversation.OldConversation;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.abstraction.CorrespondencePresenter;
@@ -47,7 +47,7 @@ public class CorrespondencePresenterImpl implements CorrespondencePresenter {
     private void sendMessage(String messageText) {
         String userPhoneNumber = userInteractor.getUserAccountFamilyMember().getFullPhoneNumber();
         ChatMessage chatMessage = new ChatMessage(userPhoneNumber, messageText, new Date(), true);
-        Conversation conversation = new ConversationsAssistantImpl()
+        OldConversation oldConversation = new ConversationsAssistantImpl()
                 .getConversationByKey(MessagingActivity.correspondenceKey);
 
         ArrayList<String> phoneNumbers = new ArrayList<>();
@@ -59,17 +59,17 @@ public class CorrespondencePresenterImpl implements CorrespondencePresenter {
             }
         }
 
-        conversation.addMessage(chatMessage);
-        conversationInteractor.sendMessage(chatMessage, conversation, phoneNumbers);
+        oldConversation.addMessage(chatMessage);
+        conversationInteractor.sendMessage(chatMessage, oldConversation, phoneNumbers);
     }
 
     @Override
     public void readAllMessages() {
-        Conversation conversation = new ConversationsAssistantImpl()
+        OldConversation oldConversation = new ConversationsAssistantImpl()
                 .getConversationByKey(MessagingActivity.correspondenceKey);
 
-        if (conversation.getNumberUnreadMessages() != 0) {
-            conversationInteractor.readMessages(conversation);
+        if (oldConversation.getNumberUnreadMessages() != 0) {
+            conversationInteractor.readMessages(oldConversation);
         }
     }
 }

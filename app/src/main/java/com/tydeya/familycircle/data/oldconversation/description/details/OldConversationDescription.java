@@ -1,9 +1,9 @@
-package com.tydeya.familycircle.data.conversation.description.details;
+package com.tydeya.familycircle.data.oldconversation.description.details;
 
-public class ConversationDescription {
+public class OldConversationDescription {
     private String title;
 
-    public ConversationDescription(String title) {
+    public OldConversationDescription(String title) {
         this.title = title;
     }
 

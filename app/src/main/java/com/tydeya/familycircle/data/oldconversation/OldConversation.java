@@ -1,20 +1,20 @@
-package com.tydeya.familycircle.data.conversation;
+package com.tydeya.familycircle.data.oldconversation;
 
 import com.tydeya.familycircle.data.chatmessage.ChatMessage;
-import com.tydeya.familycircle.data.conversation.description.details.ConversationAttachments;
-import com.tydeya.familycircle.data.conversation.description.details.ConversationDescription;
+import com.tydeya.familycircle.data.oldconversation.description.details.OldConversationAttachments;
+import com.tydeya.familycircle.data.oldconversation.description.details.OldConversationDescription;
 
 import java.util.ArrayList;
 
-public class Conversation {
+public class OldConversation {
 
     private String key;
     private ArrayList<ChatMessage> chatMessages;
-    private ConversationDescription description;
-    private ConversationAttachments attachments;
+    private OldConversationDescription description;
+    private OldConversationAttachments attachments;
 
-    public Conversation(ArrayList<ChatMessage> chatMessages, ConversationDescription description,
-                        ConversationAttachments attachments, String key) {
+    public OldConversation(ArrayList<ChatMessage> chatMessages, OldConversationDescription description,
+                           OldConversationAttachments attachments, String key) {
         this.chatMessages = chatMessages;
         this.description = description;
         this.attachments = attachments;
@@ -33,19 +33,19 @@ public class Conversation {
         this.chatMessages = chatMessages;
     }
 
-    public ConversationDescription getDescription() {
+    public OldConversationDescription getDescription() {
         return description;
     }
 
-    public void setDescription(ConversationDescription description) {
+    public void setDescription(OldConversationDescription description) {
         this.description = description;
     }
 
-    public ConversationAttachments getAttachments() {
+    public OldConversationAttachments getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(ConversationAttachments attachments) {
+    public void setAttachments(OldConversationAttachments attachments) {
         this.attachments = attachments;
     }
 

@@ -5,7 +5,7 @@ import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.Conver
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationNetworkInteractor;
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationNetworkInteractorCallback;
 import com.tydeya.familycircle.data.chatmessage.ChatMessage;
-import com.tydeya.familycircle.data.conversation.Conversation;
+import com.tydeya.familycircle.data.oldconversation.OldConversation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,18 +14,18 @@ public class ConversationInteractor implements ConversationInteractorObservable,
 
     private ConversationNetworkInteractor networkInteractor;
     private ArrayList<ConversationInteractorCallback> observers;
-    private ArrayList<Conversation> conversations;
+    private ArrayList<OldConversation> oldConversations;
 
     public ConversationInteractor() {
         this.observers = new ArrayList<>();
-        this.conversations = new ArrayList<>();
+        this.oldConversations = new ArrayList<>();
         this.networkInteractor = new ConversationNetworkInteractorImpl(this);
         prepareConversationsData();
 
     }
 
-    public ArrayList<Conversation> getConversations() {
-        return conversations;
+    public ArrayList<OldConversation> getOldConversations() {
+        return oldConversations;
     }
 
     private void prepareConversationsData() {
@@ -38,8 +38,8 @@ public class ConversationInteractor implements ConversationInteractorObservable,
 
     public int getActualConversationBadges() {
         int numberBadges = 0;
-        for (Conversation conversation : conversations) {
-            numberBadges += conversation.getNumberUnreadMessages();
+        for (OldConversation oldConversation : oldConversations) {
+            numberBadges += oldConversation.getNumberUnreadMessages();
         }
         return numberBadges;
     }
@@ -48,13 +48,13 @@ public class ConversationInteractor implements ConversationInteractorObservable,
      * Send and read message
      */
 
-    public void sendMessage(ChatMessage chatMessage, Conversation conversation, ArrayList<String> phoneNumbers) {
-        networkInteractor.sendChatMessageToServer(chatMessage, conversation, phoneNumbers);
-        conversationPositionSort(conversations);
+    public void sendMessage(ChatMessage chatMessage, OldConversation oldConversation, ArrayList<String> phoneNumbers) {
+        networkInteractor.sendChatMessageToServer(chatMessage, oldConversation, phoneNumbers);
+        conversationPositionSort(oldConversations);
     }
 
-    public void readMessages(Conversation conversation) {
-        networkInteractor.makeMessagesRead(conversation);
+    public void readMessages(OldConversation oldConversation) {
+        networkInteractor.makeMessagesRead(oldConversation);
     }
 
     /**
@@ -62,36 +62,44 @@ public class ConversationInteractor implements ConversationInteractorObservable,
      */
 
     @Override
-    public void conversationsAllDataUpdated(ArrayList<Conversation> conversations) {
-        this.conversations = conversations;
-        for (Conversation conversation : conversations) {
-            Collections.sort(conversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
+    public void conversationsAllDataUpdated(ArrayList<OldConversation> oldConversations) {
+        this.oldConversations = oldConversations;
+        for (OldConversation oldConversation : oldConversations) {
+            Collections.sort(oldConversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
         }
-        conversationPositionSort(conversations);
+        conversationPositionSort(oldConversations);
         notifyObserversConversationsDataUpdated();
-        networkInteractor.setUpdateConversationsListener(this.conversations);
+        networkInteractor.setUpdateConversationsListener(this.oldConversations);
     }
 
     @Override
-    public void conversationUpdate(Conversation actualConversation) {
-        Collections.sort(actualConversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
-        for (Conversation conversation : conversations) {
-            if (conversation.getDescription().getTitle().equals(actualConversation.getDescription().getTitle())) {
-                conversation.setChatMessages(actualConversation.getChatMessages());
+    public void conversationUpdate(OldConversation actualOldConversation) {
+        Collections.sort(actualOldConversation.getChatMessages(), (o1, o2) -> o1.getDateTime().compareTo(o2.getDateTime()));
+        for (OldConversation oldConversation : oldConversations) {
+            if (oldConversation.getDescription().getTitle().equals(actualOldConversation.getDescription().getTitle())) {
+                oldConversation.setChatMessages(actualOldConversation.getChatMessages());
             }
         }
-        conversationPositionSort(conversations);
+        conversationPositionSort(oldConversations);
         notifyObserversConversationsDataUpdated();
     }
 
-    private void conversationPositionSort(ArrayList<Conversation> conversations) {
-        Collections.sort(conversations, (o1, o2) -> {
+    /**
+     * Utils
+     * */
+
+    private void conversationPositionSort(ArrayList<OldConversation> oldConversations) {
+        Collections.sort(oldConversations, (o1, o2) -> {
             if (o1.getLastMessage() != null && o2.getLastMessage() != null) {
                 return o2.getLastMessage().getDateTime().compareTo(o1.getLastMessage().getDateTime());
             }
             return 0;
         });
     }
+
+    /**
+     * Callbacks
+     * */
 
     private void notifyObserversConversationsDataUpdated() {
         for (ConversationInteractorCallback callback : observers) {

@@ -21,15 +21,15 @@ import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
+class MainActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
 
     @Inject
     lateinit var familyInteractor: FamilyInteractor
 
-    @Inject
-    lateinit var conversationInteractor: ConversationInteractor
+    // @Inject
+    // lateinit var conversationInteractor: ConversationInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,13 +77,13 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
 
     override fun onResume() {
         super.onResume()
-        conversationInteractor.subscribe(this)
-        updateBadges()
+        //conversationInteractor.subscribe(this)
+        // updateBadges()
     }
 
     override fun onPause() {
         super.onPause()
-        conversationInteractor.unsubscribe(this)
+        //conversationInteractor.unsubscribe(this)
     }
 
     override fun onStart() {
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
      * Bottom navigation badges
      * */
 
+    /*
     override fun conversationsDataUpdated() {
         updateBadges()
     }
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
                     .number = conversationInteractor.actualConversationBadges
         }
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -142,7 +143,6 @@ class MainActivity : AppCompatActivity(), ConversationInteractorCallback {
             }
         }
     }
-
 
 
 }
