@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:id="@+id/your_errand_cardview_status"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: Processing"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/poppins_medium"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/your_errand_cardview_worker"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="for Artem Yakovlev"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/poppins_medium"
+                tools:ignore="RtlHardcoded" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:id="@+id/errand_for_you_cardview_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your errands for others and my errands for others and errands for others Your errands for others fix errands for others Your errands for so errands for others"
+                android:fontFamily="@font/poppins"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/your_errand_cardview_edit_button"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/your_errand_cardview_edit_button_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/FormButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/your_errand_cardview_delete_button"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/your_errand_cardview_delete_button_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textColor="@color/colorWhite"
+                android:theme="@style/FormButton" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

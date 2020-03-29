@@ -219,6 +219,10 @@
     <string name="tasks_organizer_your_errands">Your errands</string>
     <string name="tasks_organizer_errands_for_you">Errands for you</string>
     <string name="tasks_organizer_errands_history">Errands history</string>
+    <string name="errand_for_you_cardview_performed_button_text">Performed</string>
+    <string name="errand_for_you_cardview_refuse_text">Refuse</string>
+    <string name="your_errand_cardview_edit_button_text">Edit</string>
+    <string name="your_errand_cardview_delete_button_text">Delete</string>
 
     <string-array name="calendar_months">
         <item>January</item>
