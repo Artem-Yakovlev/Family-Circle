@@ -215,6 +215,10 @@
     <string name="description">Description:</string>
     <string name="event_reminder_edit_toolbar_title_create">Create event</string>
     <string name="event_reminder_edit_page_not_able_to_create">An event with this name already exists on this day.</string>
+    <string name="task_organizer_toolbar_title">Task organizer</string>
+    <string name="tasks_organizer_your_errands">Your errands</string>
+    <string name="tasks_organizer_errands_for_you">Errands for you</string>
+    <string name="tasks_organizer_errands_history">Errands history</string>
 
     <string-array name="calendar_months">
         <item>January</item>
