@@ -9,13 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.domain.taskorganizer.interactor.abstraction.TasksOrganizerInteractorCallback
 import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.recyclerview.TasksForUserRecyclerViewAdapter
+import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.recyclerview.TasksForUserRecyclerViewClickListener
 import kotlinx.android.synthetic.main.fragment_tasks_for_user.*
 import javax.inject.Inject
 
-class TasksForUserFragment : Fragment(R.layout.fragment_tasks_for_user), TasksOrganizerInteractorCallback {
+class TasksForUserFragment
+    :
+        Fragment(R.layout.fragment_tasks_for_user), TasksOrganizerInteractorCallback,
+        TasksForUserRecyclerViewClickListener {
 
     @Inject
     lateinit var tasksOrganizerInteractor: TasksOrganizerInteractor
@@ -29,8 +34,12 @@ class TasksForUserFragment : Fragment(R.layout.fragment_tasks_for_user), TasksOr
 
     }
 
+    /**
+     * Recycler view adapter
+     * */
+
     private fun setAdapter() {
-        adapter = TasksForUserRecyclerViewAdapter(context!!, ArrayList())
+        adapter = TasksForUserRecyclerViewAdapter(context!!, ArrayList(), this)
         tasks_for_user_recycler_view.layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.VERTICAL, false)
         tasks_for_user_recycler_view.adapter = adapter
@@ -38,6 +47,14 @@ class TasksForUserFragment : Fragment(R.layout.fragment_tasks_for_user), TasksOr
 
     private fun setCurrentData() {
         adapter.refreshData(tasksOrganizerInteractor.tasksForUser)
+    }
+
+    override fun completeTask(familyTask: FamilyTask) {
+        tasksOrganizerInteractor.performTask(familyTask)
+    }
+
+    override fun refuseTask(familyTask: FamilyTask) {
+        tasksOrganizerInteractor.refuseTask(familyTask)
     }
 
     /**

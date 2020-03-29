@@ -35,6 +35,10 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
         networkInteractor.requireTasksData()
     }
 
+    /**
+     * Data reception
+     * */
+
     override suspend fun tasksForUserDataFromServerUpdate(tasksForUser: ArrayList<FamilyTask>) {
 
         convertToTasksContainers(tasksForUser, false)
@@ -72,6 +76,26 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
             this.tasksForUser = awaitingTasks
             this.historyTasksForUser = historyTasks
         }
+    }
+
+    /**
+     * Data editing
+     * */
+
+    fun performTask(familyTask: FamilyTask) {
+        networkInteractor.setTaskStatus(familyTask.id, FamilyTaskStatus.ACCEPTED)
+        familyTask.status = FamilyTaskStatus.ACCEPTED
+        historyTasksForUser.add(familyTask)
+        tasksForUser.remove(familyTask)
+        notifyObserversKitchenDataUpdated()
+    }
+
+    fun refuseTask(familyTask: FamilyTask) {
+        networkInteractor.setTaskStatus(familyTask.id, FamilyTaskStatus.REJECTED)
+        familyTask.status = FamilyTaskStatus.REJECTED
+        historyTasksForUser.add(familyTask)
+        tasksForUser.remove(familyTask)
+        notifyObserversKitchenDataUpdated()
     }
 
     /**

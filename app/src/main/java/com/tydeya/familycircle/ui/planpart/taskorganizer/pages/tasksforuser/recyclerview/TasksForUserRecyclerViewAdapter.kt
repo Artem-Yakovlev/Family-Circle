@@ -12,7 +12,9 @@ import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImp
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import javax.inject.Inject
 
-class TasksForUserRecyclerViewAdapter(val context: Context, var familyTasks: ArrayList<FamilyTask>)
+class TasksForUserRecyclerViewAdapter(val context: Context,
+                                      var familyTasks: ArrayList<FamilyTask>,
+                                      var clickListener: TasksForUserRecyclerViewClickListener)
     :
         RecyclerView.Adapter<TasksForUserViewHolder>() {
 
@@ -26,7 +28,7 @@ class TasksForUserRecyclerViewAdapter(val context: Context, var familyTasks: Arr
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksForUserViewHolder =
             TasksForUserViewHolder(LayoutInflater.from(context)
                     .inflate(R.layout.cardview_tasks_organizer_errand_for_you,
-                            parent, false))
+                            parent, false), clickListener)
 
     override fun onBindViewHolder(holder: TasksForUserViewHolder, position: Int) {
 

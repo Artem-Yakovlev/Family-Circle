@@ -17,6 +17,10 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
     :
         TasksOrganizerNetworkInteractor {
 
+    /**
+     * Data listeners
+     * */
+
     override fun requireTasksData() {
         requireTasksForUser()
         requireTasksByUser()
@@ -64,4 +68,16 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
                 else -> FamilyTaskStatus.ACCEPTED
             }
     )
+
+    /**
+     * Data editing
+     * */
+
+    override fun setTaskStatus(taskId: String, familyTaskStatus: FamilyTaskStatus) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
+                    .document(taskId)
+                    .update(mapOf(FIRESTORE_TASKS_STATUS to familyTaskStatus.ordinal))
+        }
+    }
 }
