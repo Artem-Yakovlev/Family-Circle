@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.domain.eventreminder.interactor.details
 
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import com.tydeya.familycircle.data.eventreminder.FamilyEventType
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
 import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorObservable
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractor
@@ -60,10 +61,10 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
         return null
     }
 
-    fun checkExistEventWithData(title: String, timestamp: Long,
+    fun checkExistEventWithData(title: String, timestamp: Long, exceptId: String,
                                         callback: EventAbleToActionCallback) {
         GlobalScope.launch(Dispatchers.Default) {
-            if (isExistEventWithData(title, timestamp)) {
+            if (isExistEventWithData(title, timestamp, exceptId)) {
                 withContext(Dispatchers.Main) {
                     callback.notAbleToPerformAction(title, timestamp)
                 }
@@ -76,9 +77,9 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
 
     }
 
-    private fun isExistEventWithData(title: String, timestamp: Long): Boolean {
+    private fun isExistEventWithData(title: String, timestamp: Long, exceptId: String): Boolean {
         for (event in familySingleEvents) {
-            if (event.title == title && event.timestamp == timestamp) {
+            if (event.title == title && event.timestamp == timestamp && event.id != exceptId) {
                 return true
             }
         }
@@ -90,6 +91,7 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
             val eventCalendar = GregorianCalendar()
             eventCalendar.timeInMillis = event.timestamp
             if (event.title == title
+                    && event.id != exceptId
                     && searchCalendar.get(Calendar.DAY_OF_MONTH) == eventCalendar.get(Calendar.DAY_OF_MONTH)
                     && searchCalendar.get(Calendar.MONTH) == eventCalendar.get(Calendar.MONTH)) {
                 return true
@@ -126,5 +128,37 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
 
     fun createEvent(familyEvent: FamilyEvent) {
         networkInteractor.createEvent(familyEvent)
+
+        if (familyEvent.type == FamilyEventType.ANNUAL_EVENT) {
+            familyAnnualEvents.add(familyEvent)
+        } else {
+            familySingleEvents.add(familyEvent)
+        }
     }
+
+    fun editEvent(familyEvent: FamilyEvent) {
+        networkInteractor.editEvent(familyEvent)
+
+        searchEventById(familyEvent.id, familySingleEvents)?.let {
+            if (familyEvent.type == FamilyEventType.ANNUAL_EVENT) {
+                familySingleEvents.remove(it)
+                familyAnnualEvents.add(familyEvent)
+            } else {
+                familySingleEvents[familySingleEvents.indexOf(it)] = familyEvent
+            }
+            return
+        }
+
+        searchEventById(familyEvent.id, familyAnnualEvents)?.let {
+            if (familyEvent.type != FamilyEventType.ANNUAL_EVENT) {
+                familyAnnualEvents.remove(it)
+                familySingleEvents.add(familyEvent)
+            } else {
+                familyAnnualEvents[familyAnnualEvents.indexOf(it)] = familyEvent
+            }
+        }
+    }
+
+
+
 }

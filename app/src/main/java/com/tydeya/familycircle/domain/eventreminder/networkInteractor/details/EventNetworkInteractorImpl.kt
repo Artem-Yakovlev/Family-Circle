@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.domain.eventreminder.networkInteractor.details
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -14,6 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) : EventNetworkInteractor {
 
@@ -43,7 +47,13 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
     }
 
     override fun createEvent(familyEvent: FamilyEvent) {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_EVENTS_COLLECTION).add()
+        FirebaseFirestore.getInstance().collection(FIRESTORE_EVENTS_COLLECTION)
+                .add(parseEventForServer(familyEvent))
+    }
+
+    override fun editEvent(familyEvent: FamilyEvent) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_EVENTS_COLLECTION)
+                .document(familyEvent.id).update(parseEventForServer(familyEvent))
     }
 
     /**
@@ -68,6 +78,12 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
             }
     )
 
-    private fun parseEventForServer(familyEvent: FamilyEvent) =
+    private fun parseEventForServer(familyEvent: FamilyEvent) = hashMapOf(
+            FIRESTORE_EVENTS_TITLE to familyEvent.title,
+            FIRESTORE_EVENTS_DATE to Date(familyEvent.timestamp),
+            FIRESTORE_EVENTS_AUTHOR to FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+            FIRESTORE_EVENTS_DESCRIPTION to familyEvent.description,
+            FIRESTORE_EVENTS_PRIORITY to familyEvent.priority.ordinal,
+            FIRESTORE_EVENTS_TYPE to familyEvent.type.ordinal) as Map<String, Any>
 
 }

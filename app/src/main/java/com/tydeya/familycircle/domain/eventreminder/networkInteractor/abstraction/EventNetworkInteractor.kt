@@ -7,4 +7,6 @@ interface EventNetworkInteractor {
     fun requireEventDataFromServer()
 
     fun createEvent(familyEvent: FamilyEvent)
+
+    fun editEvent(familyEvent: FamilyEvent)
 }
