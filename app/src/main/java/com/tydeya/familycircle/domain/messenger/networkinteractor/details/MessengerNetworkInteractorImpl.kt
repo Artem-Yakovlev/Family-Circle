@@ -53,8 +53,7 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
         }
     }
 
-    override fun leaveConversation(conversationId: String, members: ArrayList<String>) {
-        members.remove(FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+    override fun changeConversationMembers(conversationId: String, members: ArrayList<String>) {
         GlobalScope.launch(Dispatchers.Default) {
             FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
                     .document(conversationId).update(hashMapOf(FIRESTORE_CONVERSATION_MEMBERS to members) as Map<String, Any>)

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".ui.conversationpart.chatpart.correspondence.details.CorrespondenceFragment">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/in_conversation_toolbar"
@@ -13,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="@string/main_live_page_toolbar_title"
-        app:titleTextColor="@color/colorWhite" >
+        app:titleTextColor="@color/colorWhite">
 
         <ImageButton
             android:id="@+id/in_conversation_info_button"
@@ -23,7 +22,20 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
+            android:paddingHorizontal="10dp"
             android:src="@drawable/ic_info_white_24dp"
+            tools:ignore="RtlHardcoded" />
+
+        <ImageButton
+            android:id="@+id/in_conversation_add_member_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_person_add_white_24dp"
             tools:ignore="RtlHardcoded" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -35,7 +47,7 @@
         android:layout_weight="1"
         android:focusableInTouchMode="true"
         android:isScrollContainer="true"
-        android:paddingBottom="5dp"/>
+        android:paddingBottom="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +63,7 @@
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:src="@drawable/ic_attach_file_black_24dp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/chat_input_field"

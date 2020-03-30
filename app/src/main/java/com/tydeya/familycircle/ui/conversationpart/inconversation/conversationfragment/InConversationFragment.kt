@@ -9,6 +9,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialogListener
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter
@@ -32,6 +33,7 @@ class InConversationFragment
         setAdapter()
         setSendButton()
         setInfoButton()
+        setAddMemberButton()
         setCurrentData()
     }
 
@@ -70,6 +72,13 @@ class InConversationFragment
         in_conversation_info_button.setOnClickListener {
             val dialog = ConversationInfoDialog(messengerInteractor.actualConversationId, this)
             dialog.show(parentFragmentManager, "conversation_info_dialog")
+        }
+    }
+
+    private fun setAddMemberButton() {
+        in_conversation_add_member_button.setOnClickListener {
+            val dialog = ConversationAddMemberDialog(messengerInteractor.actualConversationId)
+            dialog.show(parentFragmentManager, "conversation_add_member_dialog")
         }
     }
 

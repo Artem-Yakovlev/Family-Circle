@@ -240,6 +240,7 @@
     <string name="dialog_conversation_info_leave_button_text">Leave</string>
     <string name="conversation_info">Conversation info</string>
     <string name="members">Members:</string>
+    <string name="add_member">Add member</string>
 
     <string-array name="calendar_months">
         <item>January</item>

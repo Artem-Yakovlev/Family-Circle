@@ -101,7 +101,7 @@ class MessengerInteractor
     }
 
     /**
-     * Data editing
+     * Data editing conversations
      * */
 
     fun createConversation(title: String, members: ArrayList<String>) {
@@ -114,9 +114,23 @@ class MessengerInteractor
 
     fun leaveConversation(conversationId: String) {
         conversationById(conversationId)?.let {
-            networkInteractor.leaveConversation(conversationId, it.members)
+            it.members.remove(FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+            networkInteractor.changeConversationMembers(conversationId, it.members)
         }
     }
+
+    fun addMemberInConversation(conversationId: String, newMemberPhoneNumber: String) {
+        conversationById(conversationId)?.let {
+            if (!it.members.contains(newMemberPhoneNumber)) {
+                it.members.add(newMemberPhoneNumber)
+                networkInteractor.changeConversationMembers(conversationId, it.members)
+            }
+        }
+    }
+
+    /**
+     * Data editing messages
+     * */
 
     fun sendMessage(conversationId: String, text: String) {
 
@@ -132,7 +146,6 @@ class MessengerInteractor
                 networkInteractor.readAllMessages(conversationId)
             }
         }
-
     }
 
     /**

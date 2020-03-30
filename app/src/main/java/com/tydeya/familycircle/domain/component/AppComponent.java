@@ -10,6 +10,7 @@ import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
@@ -106,6 +107,8 @@ public interface AppComponent {
     void injectDialog(FridgeAddFoodDialog fridgeAddFoodDialog);
 
     void injectDialog(EditTasksTextDialog editTasksTextDialog);
+
+    void injectDialog(ConversationAddMemberDialog conversationAddMemberDialog);
 
     void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 

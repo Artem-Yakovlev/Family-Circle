@@ -14,5 +14,5 @@ interface MessengerNetworkInteractor {
 
     fun readAllMessages(conversationId: String)
 
-    fun leaveConversation(conversationId: String, members: ArrayList<String>)
+    fun changeConversationMembers(conversationId: String, members: ArrayList<String>)
 }
