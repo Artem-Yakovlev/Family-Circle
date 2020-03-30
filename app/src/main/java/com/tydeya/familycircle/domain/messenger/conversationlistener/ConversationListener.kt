@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.messenger.conversationlistener
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.tydeya.familycircle.data.chatmessage.ChatMessage
@@ -33,14 +32,18 @@ class ConversationListener(private val conversationId: String,
 
     override fun onEvent(querySnapshot: QuerySnapshot?, p1: FirebaseFirestoreException?) {
         GlobalScope.launch(Dispatchers.Default) {
-            Log.d("ASMR", "onEvent")
             val messages = ArrayList<ChatMessage>()
+            var unreadCounter = 0
 
             for (document in querySnapshot!!.documents) {
-                messages.add(parseMessageFromServer(document))
+                val message = parseMessageFromServer(document)
+                if (!message.isViewed) {
+                    unreadCounter++
+                }
+                messages.add(message)
             }
             withContext(Dispatchers.Main) {
-                callback.conversationMessagesUpdated(conversationId, messages)
+                callback.conversationMessagesUpdated(conversationId, messages, unreadCounter)
             }
 
         }

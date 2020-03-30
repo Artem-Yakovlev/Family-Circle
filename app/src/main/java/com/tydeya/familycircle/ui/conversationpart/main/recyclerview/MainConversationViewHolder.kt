@@ -15,7 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 class MainConversationViewHolder(itemView: View,
-                                 val clickListener: MainConversationRecyclerViewOnClickListener
+                                 private val clickListener: MainConversationRecyclerViewOnClickListener
 ) :
         RecyclerView.ViewHolder(itemView) {
 
@@ -28,7 +28,15 @@ class MainConversationViewHolder(itemView: View,
 
     fun bindData(context: Context, conversation: Conversation) {
         itemView.conversation_page_card_name.text = conversation.title
+
         setLastMessageText(context, conversation)
+
+        if (conversation.unreadMessagesCounter != 0) {
+            setUnreadMessageMode(conversation)
+        } else {
+            setWithoutUnreadMessagesMode(conversation)
+        }
+
         itemView.setOnClickListener {
             clickListener.onConversationClick(conversation.id)
         }
@@ -37,6 +45,21 @@ class MainConversationViewHolder(itemView: View,
     /**
      * Last message
      * */
+
+    private fun setUnreadMessageMode(conversation: Conversation) {
+        itemView.conversation_page_main_layout
+                .setBackgroundColor(itemView.context.resources.getColor(R.color.colorTransparentBlue))
+
+        itemView.conversation_page_card_badge_block.visibility = View.VISIBLE
+        itemView.conversation_page_card_badge_number.text = conversation.unreadMessagesCounter.toString()
+    }
+
+    private fun setWithoutUnreadMessagesMode(conversation: Conversation) {
+        itemView.conversation_page_main_layout
+                .setBackgroundColor(itemView.context.resources.getColor(R.color.colorWhite))
+
+        itemView.conversation_page_card_badge_block.visibility = View.INVISIBLE
+    }
 
     private fun setLastMessageText(context: Context, conversation: Conversation) {
         if (conversation.messages.isNotEmpty()) {

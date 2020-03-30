@@ -7,14 +7,6 @@
     android:orientation="vertical"
     tools:context=".ui.conversationpart.chatpart.MessagingActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/in_conversation_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:title="@string/main_live_page_toolbar_title"
-        app:titleTextColor="@color/colorWhite" />
-
     <fragment
         android:id="@+id/in_conversation_main_container"
         android:name="com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment"

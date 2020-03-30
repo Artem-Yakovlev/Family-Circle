@@ -2,6 +2,8 @@ package com.tydeya.familycircle.domain.messenger.networkinteractor.details
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import com.tydeya.familycircle.data.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
@@ -29,7 +31,7 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
                             val members = document.get(FIRESTORE_CONVERSATION_MEMBERS) as ArrayList<String>
                             if (FirebaseAuth.getInstance().currentUser!!.phoneNumber in members) {
                                 conversations.add(Conversation(
-                                        document.id, document.getString(FIRESTORE_CONVERSATION_TITLE),
+                                        document.id, document.getString(FIRESTORE_CONVERSATION_TITLE), 0,
                                         members, ArrayList()
                                 ))
                             }
@@ -49,6 +51,45 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
                     ) as Map<String, Any>
             )
         }
+    }
+
+    override fun sendMessage(conversationId: String, message: ChatMessage, unreadByPhones: ArrayList<String>) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                .document(conversationId).collection(FIRESTORE_CONVERSATION_MESSAGES).add(
+                        createMessageForFirebase(message, unreadByPhones)
+                )
+    }
+
+    override fun readAllMessages(conversationId: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                .document(conversationId)
+                .collection(FIRESTORE_CONVERSATION_MESSAGES).get()
+                .addOnSuccessListener { querySnapshot: QuerySnapshot? ->
+                    GlobalScope.launch(Dispatchers.Default) {
+                        querySnapshot?.let { query ->
+                            query.documents.forEach {
+                                it.reference.update(
+                                        hashMapOf(FIRESTORE_MESSAGE_UNREAD_PATTERN +
+                                                "${FirebaseAuth.getInstance().currentUser!!.phoneNumber}"
+                                                to false
+                                        ) as Map<String, Any>)
+                            }
+                        }
+                    }
+                }
+    }
+
+
+    private fun createMessageForFirebase(message: ChatMessage, unreadByPhones: ArrayList<String>): Map<String, Any> {
+        val firebaseMessageData = hashMapOf(
+                FIRESTORE_MESSAGE_TEXT to message.text,
+                FIRESTORE_MESSAGE_AUTHOR_PHONE to message.authorPhoneNumber,
+                FIRESTORE_MESSAGE_DATETIME to message.dateTime
+        ) as MutableMap<String, Any>
+        unreadByPhones.forEach {
+            firebaseMessageData["${FIRESTORE_MESSAGE_UNREAD_PATTERN}${it}"] = true
+        }
+        return firebaseMessageData
     }
 
 

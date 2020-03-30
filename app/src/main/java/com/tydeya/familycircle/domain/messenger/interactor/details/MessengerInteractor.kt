@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.messenger.interactor.details
 
+import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.data.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener
@@ -26,9 +27,18 @@ class MessengerInteractor
             MessengerNetworkInteractorImpl(this)
 
     var conversations = ArrayList<Conversation>()
-    var conversationsListeners = ArrayList<ConversationListener>()
+    private var conversationsListeners = ArrayList<ConversationListener>()
 
     var actualConversationId = ""
+
+    val numberOfUnreadMessages: Int
+        get() {
+            var counter = 0
+            conversations.forEach {
+                counter += it.unreadMessagesCounter
+            }
+            return counter
+        }
 
     /**
      * Data updates
@@ -52,11 +62,11 @@ class MessengerInteractor
         }
     }
 
-    override fun conversationMessagesUpdated(conversationId: String, messages: ArrayList<ChatMessage>) {
+    override fun conversationMessagesUpdated(conversationId: String, messages: ArrayList<ChatMessage>, unreadCounter: Int) {
 
         for (i in 0 until conversations.size) {
             if (conversations[i].id == conversationId) {
-
+                conversations[i].unreadMessagesCounter = unreadCounter
                 conversations[i].messages = messages
                 conversations[i].messages.sortWith(Comparator { o1: ChatMessage, o2: ChatMessage ->
                     o1.dateTime.compareTo(o2.dateTime)
@@ -98,6 +108,23 @@ class MessengerInteractor
         networkInteractor.createConversation(title, members)
     }
 
+    fun sendMessage(conversationId: String, text: String) {
+
+        networkInteractor.sendMessage(
+                conversationId, ChatMessage(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                text, Date(), true), unreadPhoneNumbers(conversationId))
+    }
+
+    fun readAllMessages(conversationId: String) {
+        conversationById(conversationId)?.let {
+            if (it.unreadMessagesCounter != 0) {
+                it.unreadMessagesCounter = 0
+                networkInteractor.readAllMessages(conversationId)
+            }
+        }
+
+    }
+
     /**
      * Utils
      * */
@@ -109,6 +136,16 @@ class MessengerInteractor
             }
         }
         return null
+    }
+
+    private fun unreadPhoneNumbers(conversationId: String): ArrayList<String> {
+        val unreadPhoneNumbers = ArrayList<String>()
+        conversationById(conversationId)!!.members.forEach {
+            if (it != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
+                unreadPhoneNumbers.add(it)
+            }
+        }
+        return unreadPhoneNumbers
     }
 
     /**

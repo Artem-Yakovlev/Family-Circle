@@ -13,6 +13,8 @@ import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInte
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter
+import com.tydeya.familycircle.utils.value
+import kotlinx.android.synthetic.main.activity_in_conversation.*
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
 import javax.inject.Inject
 
@@ -27,6 +29,7 @@ class InConversationFragment : Fragment(R.layout.fragment_in_conversation), Mess
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectFragment(this)
         setAdapter()
+        setSendButton()
         setCurrentData()
     }
 
@@ -39,8 +42,22 @@ class InConversationFragment : Fragment(R.layout.fragment_in_conversation), Mess
     }
 
     private fun setCurrentData() {
-        adapter.refreshData(messengerInteractor
-                .conversationById(messengerInteractor.actualConversationId)!!.messages)
+        messengerInteractor.readAllMessages(messengerInteractor.actualConversationId)
+        val conversation = messengerInteractor.conversationById(messengerInteractor.actualConversationId)!!
+
+        in_conversation_toolbar.title = conversation.title
+
+        adapter.refreshData(conversation.messages)
+    }
+
+    private fun setSendButton() {
+        chat_send_message_button.setOnClickListener {
+            val messageText = chat_input_field.text.toString().trim()
+            if (messageText != "") {
+                messengerInteractor.sendMessage(messengerInteractor.actualConversationId, messageText)
+                chat_input_field.value = ""
+            }
+        }
     }
 
     /**

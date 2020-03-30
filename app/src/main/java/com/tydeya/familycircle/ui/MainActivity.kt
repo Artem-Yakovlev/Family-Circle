@@ -16,13 +16,14 @@ import com.tydeya.familycircle.data.onlinetracker.OnlineTrackerActivity
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback
 import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
 
     private var currentNavController: LiveData<NavController>? = null
 
@@ -78,13 +79,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        //conversationInteractor.subscribe(this)
+        messengerInteractor.subscribe(this)
         // updateBadges()
     }
 
     override fun onPause() {
         super.onPause()
-        //conversationInteractor.unsubscribe(this)
+        messengerInteractor.unsubscribe(this)
     }
 
     override fun onStart() {
@@ -102,14 +103,14 @@ class MainActivity : AppCompatActivity() {
      * Bottom navigation badges
      * */
 
-    /*
-    override fun conversationsDataUpdated() {
+
+    override fun messengerDataFromServerUpdated() {
         updateBadges()
     }
 
     private fun updateBadges() {
 
-        if (conversationInteractor.actualConversationBadges == 0) {
+        if (messengerInteractor.numberOfUnreadMessages == 0) {
 
             main_bottom_navigation_view.removeBadge(R.id.correspondence)
 
@@ -119,9 +120,9 @@ class MainActivity : AppCompatActivity() {
                     .backgroundColor = resources.getColor(R.color.colorConversationBadge)
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .number = conversationInteractor.actualConversationBadges
+                    .number = messengerInteractor.numberOfUnreadMessages
         }
-    }*/
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
