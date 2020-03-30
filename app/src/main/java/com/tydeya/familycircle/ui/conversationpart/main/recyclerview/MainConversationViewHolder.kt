@@ -14,7 +14,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class MainConversationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MainConversationViewHolder(itemView: View,
+                                 val clickListener: MainConversationRecyclerViewOnClickListener
+) :
+        RecyclerView.ViewHolder(itemView) {
 
     @Inject
     lateinit var familyInteractor: FamilyInteractor
@@ -26,6 +29,9 @@ class MainConversationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
     fun bindData(context: Context, conversation: Conversation) {
         itemView.conversation_page_card_name.text = conversation.title
         setLastMessageText(context, conversation)
+        itemView.setOnClickListener {
+            clickListener.onConversationClick(conversation.id)
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.conversationpart.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,17 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.Application.CONVERSATION_ID
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
+import com.tydeya.familycircle.ui.conversationpart.inconversation.InConversationActivity
 import com.tydeya.familycircle.ui.conversationpart.main.createconversation.CreateConversationDialog
 import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationRecyclerViewAdapter
+import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationRecyclerViewOnClickListener
 import kotlinx.android.synthetic.main.fragment_main_conversation_page.*
 import javax.inject.Inject
 
 class MainConversationPage
     :
-        Fragment(R.layout.fragment_main_conversation_page), MessengerInteractorCallback {
+        Fragment(R.layout.fragment_main_conversation_page),
+        MessengerInteractorCallback,
+        MainConversationRecyclerViewOnClickListener {
 
     @Inject
     lateinit var messengerInteractor: MessengerInteractor
@@ -32,10 +38,11 @@ class MainConversationPage
     }
 
     private fun setAdapter() {
-        adapter = MainConversationRecyclerViewAdapter(context!!, ArrayList())
+        adapter = MainConversationRecyclerViewAdapter(context!!, ArrayList(), this)
         main_conversation_page_recycler_view.layoutManager =
                 LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         main_conversation_page_recycler_view.adapter = adapter
+
     }
 
     private fun setCreateButton() {
@@ -47,6 +54,11 @@ class MainConversationPage
 
     private fun setCurrentData() {
         adapter.refreshData(messengerInteractor.conversations)
+    }
+
+    override fun onConversationClick(conversationId: String) {
+        messengerInteractor.actualConversationId = conversationId
+        startActivity(Intent(context, InConversationActivity::class.java))
     }
 
     /**
@@ -64,6 +76,7 @@ class MainConversationPage
 
     override fun onPause() {
         super.onPause()
+        messengerInteractor.unsubscribe(this)
     }
 
 }

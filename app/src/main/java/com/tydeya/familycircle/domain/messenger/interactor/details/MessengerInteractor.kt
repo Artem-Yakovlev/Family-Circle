@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.messenger.interactor.details
 
-import android.util.Log
 import com.tydeya.familycircle.data.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener
@@ -14,6 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MessengerInteractor
     :
@@ -26,6 +27,8 @@ class MessengerInteractor
 
     var conversations = ArrayList<Conversation>()
     var conversationsListeners = ArrayList<ConversationListener>()
+
+    var actualConversationId = ""
 
     /**
      * Data updates
@@ -53,7 +56,12 @@ class MessengerInteractor
 
         for (i in 0 until conversations.size) {
             if (conversations[i].id == conversationId) {
+
                 conversations[i].messages = messages
+                conversations[i].messages.sortWith(Comparator { o1: ChatMessage, o2: ChatMessage ->
+                    o1.dateTime.compareTo(o2.dateTime)
+                })
+
                 notifyObserversKitchenDataUpdated()
                 break
             }
@@ -88,6 +96,19 @@ class MessengerInteractor
 
     fun createConversation(title: String, members: ArrayList<String>) {
         networkInteractor.createConversation(title, members)
+    }
+
+    /**
+     * Utils
+     * */
+
+    fun conversationById(conversationId: String): Conversation? {
+        for (conversation in conversations) {
+            if (conversation.id == conversationId) {
+                return conversation
+            }
+        }
+        return null
     }
 
     /**

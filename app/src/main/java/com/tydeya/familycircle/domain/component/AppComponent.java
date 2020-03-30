@@ -12,6 +12,8 @@ import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter;
@@ -60,6 +62,8 @@ public interface AppComponent {
 
     void injectFragment(MainConversationPage mainConversationPage);
 
+    void injectFragment(InConversationFragment inConversationFragment);
+
     void injectFragment(TasksForUserFragment tasksForUserFragment);
 
     void injectFragment(TasksHistoryFragment tasksHistoryFragment);
@@ -73,6 +77,8 @@ public interface AppComponent {
     void injectFragment(TasksByUserFragment tasksByUserFragment);
 
     void injectRecyclerViewAdapter(ChatRecyclerViewAdapter chatRecyclerViewAdapter);
+
+    void injectRecyclerViewAdapter(InConversationChatRecyclerViewAdapter inConversationChatRecyclerViewAdapter);
 
     void injectRecyclerViewAdapter(MainConversationRecyclerViewAdapter adapter);
 

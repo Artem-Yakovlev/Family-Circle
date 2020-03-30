@@ -127,10 +127,11 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
         ChatMessageViewHolder(@NonNull View itemView) {
             super(itemView);
+            /*
             authorText = itemView.findViewById(R.id.message_text_name);
             messageText = itemView.findViewById(R.id.message_text_body);
             messageTimeText = itemView.findViewById(R.id.message_text_time);
-            profileImage = itemView.findViewById(R.id.message_author_image);
+            profileImage = itemView.findViewById(R.id.message_author_image);*/
         }
 
         void setAuthorText(String authorName) {
