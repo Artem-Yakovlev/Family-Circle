@@ -7,16 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.domain.conversationsassistant.details.ConversationsAssistantImpl
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
-import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity
-import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialogListener
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter
 import com.tydeya.familycircle.utils.value
-import kotlinx.android.synthetic.main.activity_in_conversation.*
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
 import javax.inject.Inject
 

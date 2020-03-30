@@ -13,8 +13,6 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.onlinetracker.OnlineTrackerActivity
-import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback
-import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
