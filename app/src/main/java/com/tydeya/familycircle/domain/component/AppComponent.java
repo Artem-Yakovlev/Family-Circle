@@ -1,13 +1,20 @@
 package com.tydeya.familycircle.domain.component;
 
 import com.tydeya.familycircle.domain.eventreminder.interactor.injection.EventInteractorModule;
+import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.EventNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
+import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener;
 import com.tydeya.familycircle.domain.messenger.inject.MessengerModule;
+import com.tydeya.familycircle.domain.messenger.networkinteractor.details.MessengerNetworkInteractorImpl;
+import com.tydeya.familycircle.domain.onlinemanager.injection.OnlineManagerModule;
 import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
+import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details.TasksOrganizerNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
+import com.tydeya.familycircle.framework.editaccount.details.EditAccountToolImpl;
 import com.tydeya.familycircle.ui.MainActivity;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog;
@@ -40,6 +47,8 @@ import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.recy
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.TasksHistoryFragment;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.recyclerview.HistoryTasksRecyclerViewAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -47,7 +56,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {FamilyInteractorModule.class,
         UserInteractorModule.class, KitchenOrganizerModule.class, EventInteractorModule.class,
-        TasksOrganizerModule.class, MessengerModule.class})
+        TasksOrganizerModule.class, MessengerModule.class, OnlineManagerModule.class})
 public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
@@ -112,7 +121,21 @@ public interface AppComponent {
 
     void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 
+    void injectNetworkInteractor(FamilyNetworkInteractorImpl familyNetworkInteractor);
+
+    void injectNetworkInteractor(MessengerNetworkInteractorImpl messengerNetworkInteractorImpl);
+
     UserInteractor getUserInteractor();
 
     FamilyInteractor getFamilyInteractor();
+
+    void injectNetworkInteractor(ConversationListener conversationListener);
+
+    void injectNetworkInteractor(TasksOrganizerNetworkInteractorImpl tasksOrganizerNetworkInteractorImpl);
+
+    void injectNetworkInteractor(@NotNull EventNetworkInteractorImpl eventNetworkInteractorImpl);
+
+    void injectInteractor(FamilyInteractor familyInteractor);
+
+    void injectTool(@NotNull EditAccountToolImpl editAccountToolImpl);
 }

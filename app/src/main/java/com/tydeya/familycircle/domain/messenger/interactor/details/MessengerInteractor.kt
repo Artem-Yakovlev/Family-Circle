@@ -1,7 +1,7 @@
 package com.tydeya.familycircle.domain.messenger.interactor.details
 
 import com.google.firebase.auth.FirebaseAuth
-import com.tydeya.familycircle.data.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListenerCallback

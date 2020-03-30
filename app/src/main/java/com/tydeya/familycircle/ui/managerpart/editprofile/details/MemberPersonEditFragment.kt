@@ -113,12 +113,12 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
         edit_person_work.value = editableFamilyMember.workPlace
 
         if (editableFamilyMember.imageAddress != "") {
-            family_view_photo_edit.setPadding(0,0,0,0)
+            family_view_photo_edit.setPadding(0, 0, 0, 0)
             Glide.with(this)
                     .load(editableFamilyMember.imageAddress)
                     .into(family_view_photo_edit)
         } else {
-            family_view_photo_edit.setPadding(20,20,20,20)
+            family_view_photo_edit.setPadding(20, 20, 20, 20)
         }
 
 
@@ -141,8 +141,13 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
                 context!!.resources.getString(R.string.person_edit_page_accept_alert_positive_button)
         ) { _, _ ->
             run {
-                presenter.editAccount(editableFamilyMember,
-                        MediaStore.Images.Media.getBitmap(activity!!.contentResolver, editableImageUri))
+
+                var bitmap: Bitmap? = null
+                editableImageUri?.let {
+                    bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, editableImageUri)
+                }
+
+                presenter.editAccount(editableFamilyMember, bitmap)
                 NavHostFragment.findNavController(this).popBackStack()
                 KeyboardHelper.hideKeyboard(activity)
             }

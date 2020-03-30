@@ -10,9 +10,11 @@ import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetwork
 import com.tydeya.familycircle.data.family.Family;
 import com.tydeya.familycircle.data.family.description.FamilyDescription;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyOnlineTracker;
+
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class FamilyInteractor implements FamilyNetworkInteractorCallback, FamilyInteractorObservable {
 
@@ -21,8 +23,6 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
 
     private ArrayList<Family> families = new ArrayList<>();
     private int actualFamilyIndex = 0;
-
-    private FamilyOnlineTracker familyOnlineTracker = new FamilyOnlineTrackerImpl();
 
     public FamilyInteractor() {
         observers = new ArrayList<>();
@@ -42,10 +42,6 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         return new FamilyAssistantImpl(getActualFamily());
     }
 
-    public FamilyOnlineTracker getFamilyOnlineTracker() {
-        return familyOnlineTracker;
-    }
-
     private void prepareFamilyData() {
         ArrayList<FamilyMember> familyMembers = new ArrayList<>(App.getDatabase().familyMembersDao().getAll());
 
@@ -56,8 +52,6 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
 
     @Override
     public void memberDataFromServerUpdate(ArrayList<FamilyMember> members) {
-
-        familyOnlineTracker.isUsersOnlineDataUpdate(networkInteractor.requireUsersAreOnlineData());
 
         families.get(actualFamilyIndex).setFamilyMembers(members);
 

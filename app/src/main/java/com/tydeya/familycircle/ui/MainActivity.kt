@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.onlinetracker.OnlineTrackerActivity
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
@@ -87,13 +86,11 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
 
     override fun onStart() {
         super.onStart()
-        familyInteractor.familyOnlineTracker.userOpenActivity(OnlineTrackerActivity.MAIN)
 
     }
 
     override fun onStop() {
         super.onStop()
-        familyInteractor.familyOnlineTracker.userCloseActivity(OnlineTrackerActivity.MAIN)
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction
 
-import com.tydeya.familycircle.data.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 
 interface MessengerNetworkInteractor {
 

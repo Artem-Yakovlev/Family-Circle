@@ -6,15 +6,20 @@ import android.util.Log;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.data.familymember.contacts.FamilyMemberContacts;
 import com.tydeya.familycircle.data.familymember.description.FamilyMemberDescription;
 import com.tydeya.familycircle.data.familymember.otherdata.FamilyMemberCareerData;
+import com.tydeya.familycircle.domain.onlinemanager.abstraction.OnlineInteractor;
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl;
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;

@@ -16,6 +16,7 @@ public final class Firebase {
     public static final String FIRESTORE_USERS_WORK_TAG = "work_place";
     public static final String FIRESTORE_USERS_IMAGE_ADDRESS = "image";
     public static final String FIRESTORE_USERS_ONLINE_TAG = "is_online";
+    public static final String FIRESTORE_USERS_LAST_ONLINE = "last_online";
 
     /**
      * Const of firebase conversation object

@@ -11,6 +11,7 @@ import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,9 @@ public class FamilyMembersStoriesRecyclerViewAdapter
 
     @Inject
     FamilyInteractor familyInteractor;
+
+    @Inject
+    OnlineInteractorImpl onlineInteractor;
 
     public FamilyMembersStoriesRecyclerViewAdapter(Context context, ArrayList<FamilyMember> members,
                                                    OnClickMemberStoryListener onClickListener) {
@@ -44,9 +48,7 @@ public class FamilyMembersStoriesRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull FamilyMemberViewHolder holder, int position) {
-        boolean onlineStatus = familyInteractor
-                .getFamilyOnlineTracker()
-                .isUserOnlineByPhone(members.get(position).getFullPhoneNumber());
+        boolean onlineStatus = onlineInteractor.isUserOnline(members.get(position).getFullPhoneNumber());
 
         int color = context.getResources().getColor(R.color.colorTransparentGray);
         if (onlineStatus) {

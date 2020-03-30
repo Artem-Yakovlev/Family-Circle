@@ -2,18 +2,20 @@ package com.tydeya.familycircle.domain.messenger.conversationlistener
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.tydeya.familycircle.data.chatmessage.ChatMessage
+import com.tydeya.familycircle.App
+import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class ConversationListener(private val conversationId: String,
                            private val callback: ConversationListenerCallback
 ) :
         EventListener<QuerySnapshot>, ConversationListenerObservable {
-
 
     private val conversationMessagesReference = FirebaseFirestore.getInstance()
             .collection(FIRESTORE_CONVERSATION_COLLECTION)
@@ -21,6 +23,13 @@ class ConversationListener(private val conversationId: String,
             .collection(FIRESTORE_CONVERSATION_MESSAGES)
 
     private lateinit var registration: ListenerRegistration
+
+    @Inject
+    lateinit var onlineManager: OnlineInteractorImpl
+
+    init {
+        App.getComponent().injectNetworkInteractor(this)
+    }
 
     override fun register() {
         registration = conversationMessagesReference.addSnapshotListener(this)
@@ -31,7 +40,9 @@ class ConversationListener(private val conversationId: String,
     }
 
     override fun onEvent(querySnapshot: QuerySnapshot?, p1: FirebaseFirestoreException?) {
+        onlineManager.registerUserActivity()
         GlobalScope.launch(Dispatchers.Default) {
+            onlineManager.registerUserActivity()
             val messages = ArrayList<ChatMessage>()
             var unreadCounter = 0
 

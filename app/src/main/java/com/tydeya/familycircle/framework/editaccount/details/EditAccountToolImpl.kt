@@ -11,9 +11,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
+import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY
 import com.tydeya.familycircle.data.constants.Firebase
 import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import com.tydeya.familycircle.framework.editaccount.abstraction.EditAccountTool
 import com.tydeya.familycircle.ui.managerpart.editprofile.details.EditableFamilyMember
 import kotlinx.coroutines.Dispatchers
@@ -21,17 +25,30 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.util.*
+import javax.inject.Inject
 
 class EditAccountToolImpl(val context: Context) : EditAccountTool {
+
+    @Inject
+    lateinit var familyInteractor: FamilyInteractor
+
+    init {
+        App.getComponent().injectTool(this)
+    }
 
     override suspend fun editAccountData(phoneNumber: String,
                                          editableFamilyMember: EditableFamilyMember,
                                          editableBitmap: Bitmap?) {
         GlobalScope.launch(Dispatchers.Default) {
+
+            val imageAddress = FamilyAssistantImpl(familyInteractor.actualFamily)
+                    .getUserByPhone(FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+                    .description.imageAddress
+
             if (editableBitmap != null) {
                 prepareImageUriForServer(phoneNumber, editableFamilyMember, editableBitmap)
             } else {
-                editDataInFirebase(phoneNumber, editableFamilyMember, "")
+                editDataInFirebase(phoneNumber, editableFamilyMember, imageAddress)
             }
         }
     }
@@ -68,6 +85,7 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
                                         Date().apply { time = editableFamilyMember.birthdate },
                                 FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
                                 FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
+                                FIRESTORE_USERS_LAST_ONLINE to Date(),
                                 FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
                     }
                 }

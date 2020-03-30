@@ -3,28 +3,38 @@ package com.tydeya.familycircle.domain.messenger.networkinteractor.details
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import com.tydeya.familycircle.data.chatmessage.ChatMessage
+import com.tydeya.familycircle.App
+import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorObservable
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractorCallback
+import com.tydeya.familycircle.domain.onlinemanager.abstraction.OnlineInteractor
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCallback)
     :
         MessengerNetworkInteractor {
 
+    @Inject
+    lateinit var onlineManager: OnlineInteractorImpl
+
+    init {
+        App.getComponent().injectNetworkInteractor(this)
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun requireData() {
-
         FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
+                        onlineManager.registerUserActivity()
                         val conversations = ArrayList<Conversation>()
                         for (document in querySnapshot.documents) {
 

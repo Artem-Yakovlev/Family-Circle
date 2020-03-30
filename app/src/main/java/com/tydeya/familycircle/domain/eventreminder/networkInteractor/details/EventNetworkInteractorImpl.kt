@@ -5,28 +5,39 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.data.eventreminder.FamilyEventPriority
 import com.tydeya.familycircle.data.eventreminder.FamilyEventType
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractor
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractorCallback
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) : EventNetworkInteractor {
 
+    @Inject
+    lateinit var onlineManager: OnlineInteractorImpl
+
+    init {
+        App.getComponent().injectNetworkInteractor(this)
+    }
 
     override fun requireEventDataFromServer() {
         FirebaseFirestore.getInstance().collection(FIRESTORE_EVENTS_COLLECTION)
                 .orderBy(FIRESTORE_EVENTS_DATE, Query.Direction.ASCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
+
+                        onlineManager.registerUserActivity()
 
                         val familySingleEvents = ArrayList<FamilyEvent>()
                         val familyAnnualEvents = ArrayList<FamilyEvent>()
