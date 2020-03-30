@@ -13,7 +13,7 @@ import kotlin.collections.HashMap
 
 class OnlineInteractorImpl : OnlineInteractor {
 
-    private val isUserOnlineMap = HashMap<String, Boolean>()
+    private val isUserOnlineMap = HashMap<String, Long>()
 
     init {
         listenOnlineUsersData()
@@ -27,17 +27,21 @@ class OnlineInteractorImpl : OnlineInteractor {
                         querySnapshot.documents.forEach {
 
                             val lastInteractionTime = it.getDate(FIRESTORE_USERS_LAST_ONLINE)
-                                    ?: Date(123213)
+                                    ?: Date(10000)
 
                             isUserOnlineMap[it.getString(FIRESTORE_USERS_PHONE_TAG)] =
-                                    isUserOnlineByLastInteraction(lastInteractionTime)
+                                    lastInteractionTime.time
                         }
                     }
                 }
     }
 
-    private fun isUserOnlineByLastInteraction(lastInteraction: Date): Boolean =
-            Date().time - lastInteraction.time < 120000
+    private fun isUserOnlineByLastInteraction(lastInteraction: Long?): Boolean {
+        lastInteraction?.let {
+            return Date().time - it < 120000
+        }
+        return false
+    }
 
 
     override fun registerUserActivity() {
@@ -53,7 +57,12 @@ class OnlineInteractorImpl : OnlineInteractor {
         }
     }
 
-    override fun isUserOnline(phoneNumber: String): Boolean = isUserOnlineMap[phoneNumber] ?: false
+    override fun isUserOnline(phoneNumber: String): Boolean {
+        return if (FirebaseAuth.getInstance().currentUser!!.phoneNumber == phoneNumber) {
+            true
+        } else
+            isUserOnlineByLastInteraction(isUserOnlineMap[phoneNumber])
+    }
 
 
 }
