@@ -16,6 +16,7 @@ import com.tydeya.familycircle.data.onlinetracker.OnlineTrackerActivity
 import com.tydeya.familycircle.domain.conversationsinteractor.abstraction.ConversationInteractorCallback
 import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var familyInteractor: FamilyInteractor
 
-    // @Inject
-    // lateinit var conversationInteractor: ConversationInteractor
+    @Inject
+    lateinit var messengerInteractor: MessengerInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -52,10 +52,11 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
         view.dialog_create_conversation_create_button.setOnClickListener {
             if (!DataConfirming.isEmptyNecessaryCheck(view.dialog_create_conversation_title, true)) {
                 if (needToAdd.contains(true)) {
-                    phoneNumbers.add(0, FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
+
                     messengerInteractor.createConversation(view.dialog_create_conversation_title
-                                    .text.toString().trim(), phoneNumbers)
+                            .text.toString().trim(), getConversationMembers())
                     dismiss()
+
                 } else {
                     Toast.makeText(context!!, getString(R.string.create_conversation_dialog_add_someone_text),
                             Toast.LENGTH_LONG).show()
@@ -85,5 +86,18 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
 
     override fun checkboxChangeState(phoneNumber: String, actualState: Boolean) {
         needToAdd[phoneNumbers.indexOf(phoneNumber)] = actualState
+    }
+
+    private fun getConversationMembers(): ArrayList<String> {
+        val members = ArrayList<String>()
+        members.add(0, FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
+
+        for (i in 0 until needToAdd.size) {
+            if (needToAdd[i]) {
+                members.add(phoneNumbers[i])
+            }
+        }
+
+        return members
     }
 }

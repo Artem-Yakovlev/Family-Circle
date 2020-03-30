@@ -1,6 +1,10 @@
 package com.tydeya.familycircle.domain.messenger.interactor.details
 
+import android.util.Log
+import com.tydeya.familycircle.data.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
+import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener
+import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListenerCallback
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorObservable
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
@@ -13,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 class MessengerInteractor
     :
-        MessengerNetworkInteractorCallback, MessengerInteractorObservable {
+        MessengerNetworkInteractorCallback, MessengerInteractorObservable, ConversationListenerCallback {
 
     private val observers: ArrayList<MessengerInteractorCallback> = ArrayList()
 
@@ -21,21 +25,60 @@ class MessengerInteractor
             MessengerNetworkInteractorImpl(this)
 
     var conversations = ArrayList<Conversation>()
+    var conversationsListeners = ArrayList<ConversationListener>()
 
     /**
      * Data updates
      * */
 
-    fun requireData() {
+    init {
         networkInteractor.requireData()
     }
 
     override fun messengerConversationDataUpdated(conversations: ArrayList<Conversation>) {
         GlobalScope.launch(Dispatchers.Default) {
+            unregisterListenersOfAllConversations()
+
             this@MessengerInteractor.conversations = conversations
+
+            registerListenersOfAllConversations()
+
             withContext(Dispatchers.Main) {
                 notifyObserversKitchenDataUpdated()
             }
+        }
+    }
+
+    override fun conversationMessagesUpdated(conversationId: String, messages: ArrayList<ChatMessage>) {
+
+        for (i in 0 until conversations.size) {
+            if (conversations[i].id == conversationId) {
+                conversations[i].messages = messages
+                notifyObserversKitchenDataUpdated()
+                break
+            }
+        }
+    }
+
+
+    /**
+     * Conversation listener utils
+     * */
+
+    private fun registerListenersOfAllConversations() {
+
+        this.conversations.forEach {
+            conversationsListeners.add(ConversationListener(it.id, this))
+        }
+
+        this.conversationsListeners.forEach {
+            it.register()
+        }
+    }
+
+    private fun unregisterListenersOfAllConversations() {
+        this.conversationsListeners.forEach {
+            it.unregister()
         }
     }
 
@@ -52,6 +95,7 @@ class MessengerInteractor
      * */
 
     private fun notifyObserversKitchenDataUpdated() {
+
         for (callback in observers) {
             callback.messengerDataFromServerUpdated()
         }

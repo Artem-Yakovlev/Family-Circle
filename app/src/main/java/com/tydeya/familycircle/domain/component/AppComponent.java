@@ -19,6 +19,7 @@ import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.detai
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondencePresenterImpl;
 import com.tydeya.familycircle.ui.conversationpart.main.createconversation.CreateConversationDialog;
 import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationViewHolder;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
 import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
@@ -96,6 +97,8 @@ public interface AppComponent {
     void injectFoodInFridgeFragment(FoodInFridgeFragment foodInFridgeFragment);
 
     void injectBuyCatalogFragment(BuyCatalogFragment buyCatalogFragment);
+
+    void injectViewHolder(MainConversationViewHolder mainConversationViewHolder);
 
     void injectDialog(CreateBuyListDialog createBuyListDialog);
 

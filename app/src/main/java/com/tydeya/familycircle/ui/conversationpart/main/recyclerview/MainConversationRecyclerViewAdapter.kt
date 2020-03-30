@@ -4,8 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
+import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
+import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import javax.inject.Inject
 
 class MainConversationRecyclerViewAdapter(val context: Context,
                                           var conversations: ArrayList<Conversation>
@@ -18,7 +22,7 @@ class MainConversationRecyclerViewAdapter(val context: Context,
                     .inflate(R.layout.cardview_conversation, parent, false))
 
     override fun onBindViewHolder(holder: MainConversationViewHolder, position: Int) {
-        holder.bindData(conversations[position])
+        holder.bindData(context, conversations[position])
     }
 
     override fun getItemCount() = conversations.size
