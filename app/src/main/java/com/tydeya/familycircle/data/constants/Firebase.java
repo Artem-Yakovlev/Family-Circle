@@ -20,10 +20,10 @@ public final class Firebase {
     /**
      * Const of firebase conversation object
      */
-
-    public static final String FIRESTORE_CONVERSATION_COLLECTION = "Conversations";
-    public static final String FIRESTORE_CONVERSATION_ID = "id";
-    public static final String FIRESTORE_CONVERSATION_NAME = "name";
+    public static final String FIRESTORE_CONVERSATION_COLLECTION = "Messenger";
+    public static final String FIRESTORE_CONVERSATION_TITLE = "title";
+    public static final String FIRESTORE_CONVERSATION_MEMBERS = "members";
+    public static final String FIRESTORE_CONVERSATION_MESSAGES = "messages";
 
     /**
      * Const of firebase message object

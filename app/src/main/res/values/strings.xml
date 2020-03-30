@@ -112,7 +112,7 @@
     <string name="family_group_brother">Brother</string>
     <string name="family_member_view_datebirthd_not_known">Date of birth not known</string>
     <string name="main_live_page_toolbar_title">Last news</string>
-    <string name="main_conversation_page_toolbar_title">Conversation</string>
+    <string name="main_conversation_page_toolbar_title">Conversations</string>
     <string name="get_code_from_sms_page_invalid_code_alert">The code must contains 6 digits!</string>
     <string name="unknown_text">Unknown</string>
 
@@ -232,6 +232,15 @@
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
     <string name="create_task_dialog_title">Create new task</string>
     <string name="CreateTaskDialogSaveButton">Create</string>
+    <string name="new_conversation">New conversation</string>
+    <string name="dialog_create_conversation_title_text">Conversation title</string>
+    <string name="create_conversation_dialog_add_someone_text">Add someone to the conversation</string>
+    <string name="empty_conversation">Empty conversation</string>
+    <string name="dialog_conversation_info_save_button_text">Save</string>
+    <string name="dialog_conversation_info_leave_button_text">Leave</string>
+    <string name="conversation_info">Conversation info</string>
+    <string name="members">Members:</string>
+    <string name="add_member">Add member</string>
 
     <string-array name="calendar_months">
         <item>January</item>

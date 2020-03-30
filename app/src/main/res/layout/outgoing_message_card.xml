@@ -7,7 +7,7 @@
     android:paddingTop="8dp">
 
     <TextView
-        android:id="@+id/message_text_body"
+        android:id="@+id/outgoing_message_text_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -26,13 +26,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/message_text_time"
+        android:id="@+id/outgoing_message_text_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:text="11:40"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/message_text_body"
-        app:layout_constraintLeft_toRightOf="@+id/message_text_body" />
+        app:layout_constraintBottom_toBottomOf="@+id/outgoing_message_text_body"
+        app:layout_constraintLeft_toRightOf="@+id/outgoing_message_text_body" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

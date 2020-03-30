@@ -1,23 +1,21 @@
 package com.tydeya.familycircle.domain.component;
 
-import com.tydeya.familycircle.domain.conversationsassistant.details.ConversationsAssistantImpl;
-import com.tydeya.familycircle.domain.conversationsinteractor.details.ConversationInteractor;
-import com.tydeya.familycircle.domain.conversationsinteractor.injection.ConversationInteractorModule;
 import com.tydeya.familycircle.domain.eventreminder.interactor.injection.EventInteractorModule;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
+import com.tydeya.familycircle.domain.messenger.inject.MessengerModule;
 import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
-import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
-import com.tydeya.familycircle.ui.conversationpart.MainConversationPage;
-import com.tydeya.familycircle.ui.conversationpart.recyclerview.MainConversationRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity;
-import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondenceFragment;
-import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.CorrespondencePresenterImpl;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
+import com.tydeya.familycircle.ui.conversationpart.main.createconversation.CreateConversationDialog;
+import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationViewHolder;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
 import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
@@ -47,9 +45,9 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {FamilyInteractorModule.class, ConversationInteractorModule.class,
+@Component(modules = {FamilyInteractorModule.class,
         UserInteractorModule.class, KitchenOrganizerModule.class, EventInteractorModule.class,
-        TasksOrganizerModule.class})
+        TasksOrganizerModule.class, MessengerModule.class})
 public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
@@ -58,11 +56,11 @@ public interface AppComponent {
 
     void injectFragment(MainConversationPage mainConversationPage);
 
+    void injectFragment(InConversationFragment inConversationFragment);
+
     void injectFragment(TasksForUserFragment tasksForUserFragment);
 
     void injectFragment(TasksHistoryFragment tasksHistoryFragment);
-
-    void injectFragment(CorrespondenceFragment correspondenceFragment);
 
     void injectFragment(EventViewFragment eventViewFragment);
 
@@ -70,9 +68,7 @@ public interface AppComponent {
 
     void injectFragment(TasksByUserFragment tasksByUserFragment);
 
-    void injectRecyclerViewAdapter(ChatRecyclerViewAdapter chatRecyclerViewAdapter);
-
-    void injectRecyclerViewAdapter(MainConversationRecyclerViewAdapter adapter);
+    void injectRecyclerViewAdapter(InConversationChatRecyclerViewAdapter inConversationChatRecyclerViewAdapter);
 
     void injectRecyclerViewAdapter(HistoryTasksRecyclerViewAdapter historyTasksRecyclerViewAdapter);
 
@@ -82,13 +78,7 @@ public interface AppComponent {
 
     void injectRecyclerViewAdapter(FamilyMembersStoriesRecyclerViewAdapter adapter);
 
-    void injectPresenter(CorrespondencePresenterImpl correspondencePresenterImpl);
-
-    void injectActivity(MessagingActivity messagingActivity);
-
     void injectActivity(MainActivity mainActivity);
-
-    void injectConversationAssistant(ConversationsAssistantImpl conversationsAssistant);
 
     void injectFoodForBuyFragment(FoodForBuyFragment foodForBuyFragment);
 
@@ -96,11 +86,17 @@ public interface AppComponent {
 
     void injectBuyCatalogFragment(BuyCatalogFragment buyCatalogFragment);
 
+    void injectViewHolder(MainConversationViewHolder mainConversationViewHolder);
+
     void injectDialog(CreateBuyListDialog createBuyListDialog);
+
+    void injectDialog(ConversationInfoDialog conversationInfoDialog);
 
     void injectDialog(CreateNewProductDialog createNewProductDialog);
 
     void injectDialog(CreateTaskDialog createTaskDialog);
+
+    void injectDialog(CreateConversationDialog createConversationDialog);
 
     void injectDialog(BuyCatalogSettingsDialog buyCatalogSettingsDialog);
 
@@ -112,9 +108,9 @@ public interface AppComponent {
 
     void injectDialog(EditTasksTextDialog editTasksTextDialog);
 
-    void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
+    void injectDialog(ConversationAddMemberDialog conversationAddMemberDialog);
 
-    ConversationInteractor getConversationInteractor();
+    void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 
     UserInteractor getUserInteractor();
 

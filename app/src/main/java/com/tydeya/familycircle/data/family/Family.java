@@ -35,4 +35,15 @@ public class Family {
     public void setFamilyMembers(ArrayList<FamilyMember> familyMembers) {
         this.familyMembers = familyMembers;
     }
+
+    public ArrayList<FamilyMember> getFamilyMemberExceptUserPhone(String userPhone) {
+        ArrayList<FamilyMember> familyMemberExceptUser = new ArrayList<>();
+
+        for (FamilyMember familyMember : familyMembers) {
+            if (!familyMember.getFullPhoneNumber().equals(userPhone)) {
+                familyMemberExceptUser.add(familyMember);
+            }
+        }
+        return familyMemberExceptUser;
+    }
 }

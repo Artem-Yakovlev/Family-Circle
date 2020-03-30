@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainPlanPage_to_eventReminder"
             app:destination="@id/eventReminder" />
+        <action
+            android:id="@+id/action_mainPlanPage_to_tasksOrganizerMainFragment"
+            app:destination="@id/tasksOrganizerMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/kitchenOrganizerFragment"
@@ -25,9 +28,6 @@
         <action
             android:id="@+id/action_kitchenOrganizerFragment_to_buyListFragment"
             app:destination="@id/buyListFragment" />
-        <action
-            android:id="@+id/action_kitchenOrganizerFragment_to_tasksOrganizerMainFragment"
-            app:destination="@id/tasksOrganizerMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyListFragment"
