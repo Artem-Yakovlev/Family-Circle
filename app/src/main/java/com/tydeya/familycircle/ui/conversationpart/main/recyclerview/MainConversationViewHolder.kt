@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.format.DateFormat
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
@@ -29,7 +30,7 @@ class MainConversationViewHolder(itemView: View,
     fun bindData(context: Context, conversation: Conversation) {
         itemView.conversation_page_card_name.text = conversation.title
 
-        setLastMessageText(context, conversation)
+        setLastMessageData(context, conversation)
 
         if (conversation.unreadMessagesCounter != 0) {
             setUnreadMessageMode(conversation)
@@ -61,7 +62,7 @@ class MainConversationViewHolder(itemView: View,
         itemView.conversation_page_card_badge_block.visibility = View.INVISIBLE
     }
 
-    private fun setLastMessageText(context: Context, conversation: Conversation) {
+    private fun setLastMessageData(context: Context, conversation: Conversation) {
         if (conversation.messages.isNotEmpty()) {
 
             val lastMessage = conversation.messages[conversation.messages.size - 1]
@@ -81,11 +82,23 @@ class MainConversationViewHolder(itemView: View,
             itemView.conversation_page_card_last_message_time.visibility = View.VISIBLE
             itemView.conversation_page_card_last_message_time.text = formatForDateNow.format(lastMessage.dateTime)
 
+            if (lastMessageAuthor.description.imageAddress != "") {
+                Glide.with(itemView.context)
+                        .load(lastMessageAuthor.description.imageAddress)
+                        .into(itemView.conversation_page_card_image)
+            } else {
+                Glide.with(itemView.context)
+                        .load(R.drawable.ic_sentiment_satisfied_black_24dp)
+                        .into(itemView.conversation_page_card_image)
+            }
         } else {
 
             itemView.conversation_page_card_last_message_text.text = context.resources.getString(R.string.empty_conversation)
             itemView.conversation_page_card_last_message_author.visibility = View.GONE
             itemView.conversation_page_card_last_message_time.visibility = View.INVISIBLE
+            Glide.with(itemView.context)
+                    .load(R.drawable.ic_sentiment_satisfied_black_24dp)
+                    .into(itemView.conversation_page_card_image)
         }
     }
 
