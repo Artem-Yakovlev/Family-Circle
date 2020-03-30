@@ -1,7 +1,6 @@
 package com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction
 
 import com.tydeya.familycircle.data.chatmessage.ChatMessage
-import com.tydeya.familycircle.ui.conversationpart.inconversation.InConversationActivity
 
 interface MessengerNetworkInteractor {
 
@@ -9,7 +8,11 @@ interface MessengerNetworkInteractor {
 
     fun createConversation(title: String, members: ArrayList<String>)
 
+    fun editConversationTitle(conversationId: String, title: String)
+
     fun sendMessage(conversationId: String, message: ChatMessage, unreadByPhones: ArrayList<String>)
 
     fun readAllMessages(conversationId: String)
+
+    fun leaveConversation(conversationId: String, members: ArrayList<String>)
 }

@@ -108,6 +108,16 @@ class MessengerInteractor
         networkInteractor.createConversation(title, members)
     }
 
+    fun editConversationTitle(conversationId: String, actualTitle: String) {
+        networkInteractor.editConversationTitle(conversationId, actualTitle)
+    }
+
+    fun leaveConversation(conversationId: String) {
+        conversationById(conversationId)?.let {
+            networkInteractor.leaveConversation(conversationId, it.members)
+        }
+    }
+
     fun sendMessage(conversationId: String, text: String) {
 
         networkInteractor.sendMessage(

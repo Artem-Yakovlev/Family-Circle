@@ -236,6 +236,10 @@
     <string name="dialog_create_conversation_title_text">Conversation title</string>
     <string name="create_conversation_dialog_add_someone_text">Add someone to the conversation</string>
     <string name="empty_conversation">Empty conversation</string>
+    <string name="dialog_conversation_info_save_button_text">Save</string>
+    <string name="dialog_conversation_info_leave_button_text">Leave</string>
+    <string name="conversation_info">Conversation info</string>
+    <string name="members">Members:</string>
 
     <string-array name="calendar_months">
         <item>January</item>

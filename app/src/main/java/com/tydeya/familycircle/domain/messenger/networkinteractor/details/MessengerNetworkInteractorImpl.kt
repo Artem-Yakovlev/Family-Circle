@@ -53,6 +53,22 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
         }
     }
 
+    override fun leaveConversation(conversationId: String, members: ArrayList<String>) {
+        members.remove(FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                    .document(conversationId).update(hashMapOf(FIRESTORE_CONVERSATION_MEMBERS to members) as Map<String, Any>)
+        }
+    }
+
+    override fun editConversationTitle(conversationId: String, title: String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
+                    .document(conversationId)
+                    .update(hashMapOf(FIRESTORE_CONVERSATION_TITLE to title) as Map<String, Any>)
+        }
+    }
+
     override fun sendMessage(conversationId: String, message: ChatMessage, unreadByPhones: ArrayList<String>) {
         FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
                 .document(conversationId).collection(FIRESTORE_CONVERSATION_MESSAGES).add(
@@ -78,7 +94,6 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
                     }
                 }
     }
-
 
     private fun createMessageForFirebase(message: ChatMessage, unreadByPhones: ArrayList<String>): Map<String, Any> {
         val firebaseMessageData = hashMapOf(

@@ -12,13 +12,18 @@ import com.tydeya.familycircle.domain.messenger.interactor.abstraction.Messenger
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.ui.conversationpart.chatpart.MessagingActivity
 import com.tydeya.familycircle.ui.conversationpart.chatpart.correspondence.details.ChatRecyclerViewAdapter
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialogListener
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter
 import com.tydeya.familycircle.utils.value
 import kotlinx.android.synthetic.main.activity_in_conversation.*
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
 import javax.inject.Inject
 
-class InConversationFragment : Fragment(R.layout.fragment_in_conversation), MessengerInteractorCallback {
+class InConversationFragment
+    :
+        Fragment(R.layout.fragment_in_conversation),
+        MessengerInteractorCallback, ConversationInfoDialogListener {
 
     @Inject
     lateinit var messengerInteractor: MessengerInteractor
@@ -30,6 +35,7 @@ class InConversationFragment : Fragment(R.layout.fragment_in_conversation), Mess
         App.getComponent().injectFragment(this)
         setAdapter()
         setSendButton()
+        setInfoButton()
         setCurrentData()
     }
 
@@ -58,6 +64,22 @@ class InConversationFragment : Fragment(R.layout.fragment_in_conversation), Mess
                 chat_input_field.value = ""
             }
         }
+    }
+
+    /**
+     * Toolbar buttons
+     * */
+
+    private fun setInfoButton() {
+        in_conversation_info_button.setOnClickListener {
+            val dialog = ConversationInfoDialog(messengerInteractor.actualConversationId, this)
+            dialog.show(parentFragmentManager, "conversation_info_dialog")
+        }
+    }
+
+    override fun leaveConversation() {
+        messengerInteractor.leaveConversation(messengerInteractor.actualConversationId)
+        activity!!.finish()
     }
 
     /**

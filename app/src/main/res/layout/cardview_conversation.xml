@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
+                    android:singleLine="true"
                     android:text="Family Conversation"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
@@ -65,6 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Artem: "
+                        android:singleLine="true"
                         android:textColor="@color/colorGray"
                         android:textSize="13sp" />
 

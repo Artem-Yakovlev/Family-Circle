@@ -12,6 +12,7 @@ import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
 import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
 import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.ui.MainActivity;
+import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
@@ -107,6 +108,8 @@ public interface AppComponent {
     void injectViewHolder(MainConversationViewHolder mainConversationViewHolder);
 
     void injectDialog(CreateBuyListDialog createBuyListDialog);
+
+    void injectDialog(ConversationInfoDialog conversationInfoDialog);
 
     void injectDialog(CreateNewProductDialog createNewProductDialog);
 

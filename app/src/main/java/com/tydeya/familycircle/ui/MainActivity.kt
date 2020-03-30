@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
     override fun onResume() {
         super.onResume()
         messengerInteractor.subscribe(this)
-        // updateBadges()
     }
 
     override fun onPause() {
