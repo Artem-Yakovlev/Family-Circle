@@ -66,11 +66,6 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
                 getString(R.string.main_plan_item_planning_text),
                 R.drawable.ic_planning_black_60dp,
                 MainPlanItemType.PLANNING));
-
-        mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_important_title),
-                getString(R.string.main_plan_item_important_text),
-                R.drawable.ic_priority_high_black_60dp,
-                MainPlanItemType.IMPORTANT));
     }
 
     @Override

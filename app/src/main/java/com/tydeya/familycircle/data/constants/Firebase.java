@@ -82,4 +82,14 @@ public final class Firebase {
     public static final String FIRESTORE_TASKS_TEXT = "text";
     public static final String FIRESTORE_TASKS_STATUS = "status";
     public static final String FIRESTORE_TASKS_TIME = "time";
+
+    /**
+     * Const of firebase conversation
+     * */
+
+    public static final String FIRESTORE_COOPERATION_COLLECTION = "Cooperation";
+    public static final String FIRESTORE_COOPERATION_AUTHOR = "author";
+    public static final String FIRESTORE_COOPERATION_TYPE = "type";
+    public static final String FIRESTORE_COOPERATION_ITEM = "item";
+    public static final String FIRESTORE_COOPERATION_TIME = "time";
 }
