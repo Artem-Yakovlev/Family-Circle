@@ -6,12 +6,15 @@ import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.Ev
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor;
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener;
 import com.tydeya.familycircle.domain.messenger.inject.MessengerModule;
+import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor;
 import com.tydeya.familycircle.domain.messenger.networkinteractor.details.MessengerNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.onlinemanager.injection.OnlineManagerModule;
 import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
+import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor;
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details.TasksOrganizerNetworkInteractorImpl;
 import com.tydeya.familycircle.framework.editaccount.details.EditAccountToolImpl;
 import com.tydeya.familycircle.ui.MainActivity;
@@ -23,6 +26,7 @@ import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
 import com.tydeya.familycircle.ui.conversationpart.main.createconversation.CreateConversationDialog;
 import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationViewHolder;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
+import com.tydeya.familycircle.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
 import com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment;
@@ -120,19 +124,25 @@ public interface AppComponent {
 
     void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
 
-    void injectNetworkInteractor(FamilyNetworkInteractorImpl familyNetworkInteractor);
+    void injectInteractor(FamilyNetworkInteractorImpl familyNetworkInteractor);
 
-    void injectNetworkInteractor(MessengerNetworkInteractorImpl messengerNetworkInteractorImpl);
+    void injectInteractor(MessengerNetworkInteractorImpl messengerNetworkInteractorImpl);
 
     FamilyInteractor getFamilyInteractor();
 
-    void injectNetworkInteractor(ConversationListener conversationListener);
+    void injectInteractor(ConversationListener conversationListener);
 
-    void injectNetworkInteractor(TasksOrganizerNetworkInteractorImpl tasksOrganizerNetworkInteractorImpl);
+    void injectInteractor(TasksOrganizerNetworkInteractorImpl tasksOrganizerNetworkInteractorImpl);
 
-    void injectNetworkInteractor(@NotNull EventNetworkInteractorImpl eventNetworkInteractorImpl);
-
-    void injectInteractor(FamilyInteractor familyInteractor);
+    void injectInteractor(@NotNull EventNetworkInteractorImpl eventNetworkInteractorImpl);
 
     void injectTool(@NotNull EditAccountToolImpl editAccountToolImpl);
+
+    void injectInteractor(@NotNull TasksOrganizerInteractor tasksOrganizerInteractor);
+
+    void injectInteractor(@NotNull MessengerInteractor messengerInteractor);
+
+    void injectInteractor(@NotNull KitchenOrganizerInteractor kitchenOrganizerInteractor);
+
+    void injectRecyclerViewAdapter(@NotNull CooperationRecyclerViewAdapter cooperationRecyclerViewAdapter);
 }

@@ -28,7 +28,7 @@ class ConversationListener(private val conversationId: String,
     lateinit var onlineManager: OnlineInteractorImpl
 
     init {
-        App.getComponent().injectNetworkInteractor(this)
+        App.getComponent().injectInteractor(this)
     }
 
     override fun register() {

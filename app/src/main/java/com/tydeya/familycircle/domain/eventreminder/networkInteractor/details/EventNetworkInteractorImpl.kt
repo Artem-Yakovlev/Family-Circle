@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.eventreminder.networkInteractor.details
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +19,6 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) : EventNetworkInteractor {
 
@@ -28,7 +26,7 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
     lateinit var onlineManager: OnlineInteractorImpl
 
     init {
-        App.getComponent().injectNetworkInteractor(this)
+        App.getComponent().injectInteractor(this)
     }
 
     override fun requireEventDataFromServer() {

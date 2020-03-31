@@ -1,7 +1,12 @@
 package com.tydeya.familycircle.domain.taskorganizer.interactor.details
 
+import com.google.firebase.auth.FirebaseAuth
+import com.tydeya.familycircle.App
+import com.tydeya.familycircle.data.cooperation.Cooperation
+import com.tydeya.familycircle.data.cooperation.CooperationType
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
+import com.tydeya.familycircle.domain.cooperationorganizer.interactor.details.CooperationInteractor
 import com.tydeya.familycircle.domain.taskorganizer.interactor.abstraction.TasksOrganizerInteractorCallback
 import com.tydeya.familycircle.domain.taskorganizer.interactor.abstraction.TasksOrganizerInteractorObservable
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.abstraction.TasksOrganizerNetworkInteractor
@@ -9,6 +14,9 @@ import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.abstractio
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details.TasksOrganizerNetworkInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksOrganizerInteractorObservable {
 
@@ -31,7 +39,11 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
     private val networkInteractor: TasksOrganizerNetworkInteractor =
             TasksOrganizerNetworkInteractorImpl(this)
 
+    @Inject
+    lateinit var cooperationInteractor: CooperationInteractor
+
     init {
+        App.getComponent().injectInteractor(this)
         networkInteractor.requireTasksData()
     }
 
@@ -87,6 +99,11 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
         familyTask.status = FamilyTaskStatus.ACCEPTED
         historyTasksForUser.add(familyTask)
         tasksForUser.remove(familyTask)
+
+        cooperationInteractor.registerCooperation(
+                Cooperation("", FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                        familyTask.author, CooperationType.PERFORM_TASK, Date()))
+
         notifyObserversKitchenDataUpdated()
     }
 
@@ -95,6 +112,11 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
         familyTask.status = FamilyTaskStatus.REJECTED
         historyTasksForUser.add(familyTask)
         tasksForUser.remove(familyTask)
+
+        cooperationInteractor.registerCooperation(
+                Cooperation("", FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                        familyTask.author, CooperationType.REFUSE_TASK, Date()))
+
         notifyObserversKitchenDataUpdated()
     }
 
@@ -113,6 +135,11 @@ class TasksOrganizerInteractor : TasksOrganizerNetworkInteractorCallback, TasksO
     fun createTask(familyTask: FamilyTask) {
         networkInteractor.createTask(familyTask)
         tasksByUser.add(familyTask)
+
+        cooperationInteractor.registerCooperation(
+                Cooperation("", FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                        familyTask.worker, CooperationType.GIVE_TASK, Date()))
+
         notifyObserversKitchenDataUpdated()
     }
 

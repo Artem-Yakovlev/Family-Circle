@@ -23,7 +23,6 @@ public class App extends Application {
     }
 
     private void componentInit() {
-        SharedPreferences sharedPreferences = getSharedPreferences(User.USER_SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE);
         component = DaggerAppComponent.builder().build();
     }
 

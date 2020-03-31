@@ -7,11 +7,8 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
-import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
-import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorObservable
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractorCallback
-import com.tydeya.familycircle.domain.onlinemanager.abstraction.OnlineInteractor
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,7 +23,7 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
     lateinit var onlineManager: OnlineInteractorImpl
 
     init {
-        App.getComponent().injectNetworkInteractor(this)
+        App.getComponent().injectInteractor(this)
     }
 
     @Suppress("UNCHECKED_CAST")

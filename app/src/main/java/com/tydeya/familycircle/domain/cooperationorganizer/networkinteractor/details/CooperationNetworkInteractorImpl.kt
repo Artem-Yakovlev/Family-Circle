@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.details
 
+import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -30,7 +31,6 @@ class CooperationNetworkInteractorImpl(
                 .orderBy(FIRESTORE_COOPERATION_TIME, Query.Direction.DESCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
-
                         val cooperationData = ArrayList<Cooperation>()
 
                         for (document in querySnapshot.documents) {
@@ -57,7 +57,7 @@ class CooperationNetworkInteractorImpl(
      * */
 
     override fun registerCooperation(cooperation: Cooperation) {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION).add(
+        FirebaseFirestore.getInstance().collection(FIRESTORE_COOPERATION_COLLECTION).add(
                 hashMapOf(
                         FIRESTORE_COOPERATION_AUTHOR to cooperation.userPhone,
                         FIRESTORE_COOPERATION_ITEM to cooperation.item,

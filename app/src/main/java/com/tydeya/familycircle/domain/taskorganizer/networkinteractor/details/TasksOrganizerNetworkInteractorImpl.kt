@@ -1,9 +1,7 @@
 package com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.Firebase.*
@@ -31,7 +29,7 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
     lateinit var onlineManager: OnlineInteractorImpl
 
     override fun requireTasksData() {
-        App.getComponent().injectNetworkInteractor(this)
+        App.getComponent().injectInteractor(this)
         requireTasksForUser()
         requireTasksByUser()
     }

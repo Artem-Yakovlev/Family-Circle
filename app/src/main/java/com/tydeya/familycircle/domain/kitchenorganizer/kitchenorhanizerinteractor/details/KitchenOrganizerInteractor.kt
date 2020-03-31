@@ -1,15 +1,21 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details
 
+import com.google.firebase.auth.FirebaseAuth
+import com.tydeya.familycircle.App
+import com.tydeya.familycircle.data.cooperation.Cooperation
+import com.tydeya.familycircle.data.cooperation.CooperationType
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
+import com.tydeya.familycircle.domain.cooperationorganizer.interactor.details.CooperationInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerObservable
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details.KitchenOrganizerNetworkInteractorImpl
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrganizerObservable {
@@ -25,7 +31,11 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
 
     private val observers: ArrayList<KitchenOrganizerCallback> = ArrayList()
 
+    @Inject
+    lateinit var cooperationInteractor: CooperationInteractor
+
     init {
+        App.getComponent().injectInteractor(this)
         networkInteractor.requireKitchenBuyCatalogData()
         networkInteractor.requireFoodInFridgeData()
     }
@@ -155,6 +165,10 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
 
     fun buyProduct(catalogId: String, title: String) {
         networkInteractor.buyProductFirebaseProcessing(catalogId, title)
+
+        cooperationInteractor.registerCooperation(
+                Cooperation("", FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                        title, CooperationType.ADD_PRODUCT, Date()))
     }
 
     private fun sortCatalog(catalogId: String) {
@@ -174,10 +188,16 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
 
     fun deleteFromFridgeEatenFood(title: String) {
         deleteFoodFromFridge(title)
+        cooperationInteractor.registerCooperation(
+                Cooperation("", FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                        title, CooperationType.EAT_PRODUCT, Date()))
     }
 
     fun deleteFromFridgeBadFood(title: String) {
         deleteFoodFromFridge(title)
+        cooperationInteractor.registerCooperation(
+                Cooperation("", FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                        title, CooperationType.DROP_PRODUCT, Date()))
     }
 
     private fun deleteFoodFromFridge(title: String) {

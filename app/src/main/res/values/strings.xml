@@ -242,6 +242,15 @@
     <string name="members">Members:</string>
     <string name="add_member">Add member</string>
 
+
+    <string name="cooperation_add_product_placeholder">%1$s bought %2$s</string>
+    <string name="cooperation_eat_product_placeholder">%1$s wrote that the %2$s was eaten</string>
+    <string name="cooperation_drop_product_placeholder">%1$s wrote that the %2$s was spoiled</string>
+    <string name="cooperation_give_task_placeholder">%1$s gave %2$s the task</string>
+    <string name="cooperation_refuse_task_placeholder">%1$s rejected the task of %2$s</string>
+    <string name="cooperation_perform_task_placeholder">%1$s completed the task of %2$s</string>
+    <string name="recent_activities">Recent Activities:</string>
+
     <string-array name="calendar_months">
         <item>January</item>
         <item>February</item>

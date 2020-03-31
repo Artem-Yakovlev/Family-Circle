@@ -6,12 +6,15 @@ import com.tydeya.familycircle.domain.cooperationorganizer.interactor.abstractio
 import com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.abstraction.CooperationNetworkInteractor
 import com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.abstraction.CooperationNetworkInteractorCallback
 import com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.details.CooperationNetworkInteractorImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CooperationInteractor : CooperationNetworkInteractorCallback, CooperationInteractorObservable {
 
     private val observers: ArrayList<CooperationInteractorCallback> = ArrayList()
 
-    var cooperationData =  ArrayList<Cooperation>()
+    var cooperationData = ArrayList<Cooperation>()
 
     private val networkInteractor: CooperationNetworkInteractor =
             CooperationNetworkInteractorImpl(this)
@@ -26,7 +29,9 @@ class CooperationInteractor : CooperationNetworkInteractorCallback, CooperationI
     }
 
     fun registerCooperation(cooperation: Cooperation) {
-        networkInteractor.registerCooperation(cooperation)
+        GlobalScope.launch(Dispatchers.Default) {
+            networkInteractor.registerCooperation(cooperation)
+        }
     }
 
     /**
