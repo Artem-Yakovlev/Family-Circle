@@ -1,8 +1,8 @@
 package com.tydeya.familycircle.domain.familyassistant.details;
 
-import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.data.family.Family;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
+import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 
 public class FamilyAssistantImpl implements FamilyAssistant {
 

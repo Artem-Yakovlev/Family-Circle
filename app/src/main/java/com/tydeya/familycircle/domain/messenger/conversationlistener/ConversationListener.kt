@@ -3,8 +3,8 @@ package com.tydeya.familycircle.domain.messenger.conversationlistener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

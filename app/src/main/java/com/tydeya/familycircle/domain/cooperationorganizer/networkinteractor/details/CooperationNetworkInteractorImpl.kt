@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.details
 
-import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -13,8 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
-import kotlin.collections.ArrayList
 
 class CooperationNetworkInteractorImpl(
         val callback: CooperationNetworkInteractorCallback

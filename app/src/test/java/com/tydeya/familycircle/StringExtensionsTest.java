@@ -2,6 +2,7 @@ package com.tydeya.familycircle;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import static com.tydeya.familycircle.utils.StringExtensionsKt.ifNullToEmpty;
 
 public class StringExtensionsTest {

@@ -1,14 +1,12 @@
 package com.tydeya.familycircle;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
 import com.tydeya.familycircle.domain.component.AppComponent;
 import com.tydeya.familycircle.domain.component.DaggerAppComponent;
 import com.tydeya.familycircle.domain.database.AppDatabase;
-import com.tydeya.familycircle.data.constants.User;
 
 public class App extends Application {
 

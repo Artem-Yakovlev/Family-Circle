@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import java.util.*
-import kotlin.collections.ArrayList
 
 class EventReminderRecyclerViewAdapter(
         private val context: Context,

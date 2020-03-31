@@ -2,14 +2,9 @@ package com.tydeya.familycircle.framework.createnewaccount.details;
 
 import android.graphics.Bitmap;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.UploadTask;
 import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewAccountTool;
 import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewAccountToolCallback;
 
@@ -21,11 +16,11 @@ import java.util.Objects;
 
 import static com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_IMAGE_ADDRESS;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_LAST_ONLINE;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
 import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
 
 public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 

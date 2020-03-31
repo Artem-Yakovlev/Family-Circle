@@ -17,9 +17,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.utils.KeyboardHelper;
 import com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.abstraction.StartInputNumberPresenter;
 import com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.abstraction.StartInputNumberView;
+import com.tydeya.familycircle.utils.KeyboardHelper;
 
 import java.util.Objects;
 

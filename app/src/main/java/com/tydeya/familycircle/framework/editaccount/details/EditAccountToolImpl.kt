@@ -2,22 +2,14 @@ package com.tydeya.familycircle.framework.editaccount.details
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY
-import com.tydeya.familycircle.data.constants.Firebase
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
-import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import com.tydeya.familycircle.framework.editaccount.abstraction.EditAccountTool
 import com.tydeya.familycircle.ui.managerpart.editprofile.details.EditableFamilyMember
 import kotlinx.coroutines.Dispatchers

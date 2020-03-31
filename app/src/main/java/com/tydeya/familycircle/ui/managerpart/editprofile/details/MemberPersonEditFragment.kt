@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.tydeya.familycircle.App
@@ -29,7 +27,6 @@ import com.tydeya.familycircle.ui.managerpart.editprofile.abstraction.MemberPers
 import com.tydeya.familycircle.utils.KeyboardHelper
 import com.tydeya.familycircle.utils.value
 import kotlinx.android.synthetic.main.fragment_member_person_edit.*
-import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
 import java.util.*
 

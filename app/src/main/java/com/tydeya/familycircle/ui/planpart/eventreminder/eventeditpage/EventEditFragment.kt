@@ -1,16 +1,14 @@
 package com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
-
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent

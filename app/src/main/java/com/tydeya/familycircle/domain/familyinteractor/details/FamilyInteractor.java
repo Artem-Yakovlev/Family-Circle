@@ -1,20 +1,17 @@
 package com.tydeya.familycircle.domain.familyinteractor.details;
 
 import com.tydeya.familycircle.App;
+import com.tydeya.familycircle.data.family.Family;
+import com.tydeya.familycircle.data.family.description.FamilyDescription;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorObservable;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
-import com.tydeya.familycircle.data.family.Family;
-import com.tydeya.familycircle.data.family.description.FamilyDescription;
-import com.tydeya.familycircle.data.familymember.FamilyMember;
-
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 public class FamilyInteractor implements FamilyNetworkInteractorCallback, FamilyInteractorObservable {
 
@@ -35,11 +32,6 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
             return families.get(actualFamilyIndex);
         }
         return new Family(0, new FamilyDescription("Test family"), new ArrayList<>());
-    }
-
-
-    public FamilyAssistant getFamilyAssistant() {
-        return new FamilyAssistantImpl(getActualFamily());
     }
 
     private void prepareFamilyData() {

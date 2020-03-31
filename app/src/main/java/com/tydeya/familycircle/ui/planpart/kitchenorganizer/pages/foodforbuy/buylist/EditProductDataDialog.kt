@@ -1,7 +1,5 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist
 
-import kotlinx.android.synthetic.main.dialog_edit_food_data.view.*
-
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -10,6 +8,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.utils.value
+import kotlinx.android.synthetic.main.dialog_edit_food_data.view.*
 import javax.inject.Inject
 
 class EditProductDataDialog(private val catalogId: String, private val actualTitle: String)

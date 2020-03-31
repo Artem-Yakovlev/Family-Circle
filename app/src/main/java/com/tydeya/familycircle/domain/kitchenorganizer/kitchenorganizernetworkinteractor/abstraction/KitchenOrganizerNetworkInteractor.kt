@@ -1,7 +1,5 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction
 
-import com.tydeya.familycircle.data.kitchenorganizer.food.Food
-
 interface KitchenOrganizerNetworkInteractor {
 
     fun requireKitchenBuyCatalogData()

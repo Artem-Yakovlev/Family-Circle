@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
@@ -16,8 +15,6 @@ import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
 import kotlinx.android.synthetic.main.dialog_tasks_create.view.*
-import kotlinx.android.synthetic.main.dialog_tasks_edit.*
-import kotlinx.android.synthetic.main.dialog_tasks_edit.view.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList

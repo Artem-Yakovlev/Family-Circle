@@ -10,7 +10,6 @@ import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
 import com.tydeya.familycircle.utils.value
-import kotlinx.android.synthetic.main.dialog_tasks_edit.*
 import kotlinx.android.synthetic.main.dialog_tasks_edit.view.*
 import javax.inject.Inject
 
