@@ -88,7 +88,7 @@
     <string name="family_member_view_toolbar_title">Profile</string>
     <string name="family_group_brother">Brother</string>
     <string name="family_member_view_datebirthd_not_known">Date of birth not known</string>
-    <string name="main_live_page_toolbar_title">Last news</string>
+    <string name="main_live_page_toolbar_title">Live page</string>
     <string name="main_conversation_page_toolbar_title">Conversations</string>
     <string name="get_code_from_sms_page_invalid_code_alert">The code must contains 6 digits!</string>
     <string name="unknown_text">Unknown</string>
@@ -103,8 +103,8 @@
     <string name="main_plan_item_events_title">Upcoming events</string>
     <string name="main_plan_item_events_text">Here you can track upcoming family events.</string>
 
-    <string name="main_plan_item_planning_title">Family day plan</string>
-    <string name="main_plan_item_planning_text">Here you can track day plan of our family.</string>
+    <string name="main_plan_item_planning_title">Errands Manager</string>
+    <string name="main_plan_item_planning_text">Here you can track various errands.</string>
 
     <string name="app_name_with_space">Family circle</string>
 
