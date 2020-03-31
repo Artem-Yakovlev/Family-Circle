@@ -140,7 +140,9 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
                         // In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
-                        querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_STATUS, 1)
+                        if (querySnapshot.documents.size != 0) {
+                            querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_STATUS, 1)
+                        }
                     }
                 }
         firestore.collection(FIRESTORE_FRIDGE_COLLECTION)
@@ -153,7 +155,9 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .whereEqualTo(FIRESTORE_FOOD_TITLE, actualTitle).get()
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_TITLE, newTitle)
+                        if (querySnapshot.documents.size != 0) {
+                            querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_TITLE, newTitle)
+                        }
                     }
                 }
     }
@@ -192,7 +196,9 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .whereEqualTo(FIRESTORE_FOOD_TITLE, title).get()
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        querySnapshot.documents[0].reference.delete()
+                        if (querySnapshot.documents.size != 0) {
+                            querySnapshot.documents[0].reference.delete()
+                        }
                     }
                 }
     }

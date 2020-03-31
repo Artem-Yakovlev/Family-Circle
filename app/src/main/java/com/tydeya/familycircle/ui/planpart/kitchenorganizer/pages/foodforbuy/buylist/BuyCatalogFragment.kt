@@ -116,6 +116,9 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     override fun kitchenDataFromServerUpdated() {
         val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
+        if (buyCatalog.title == "...") {
+            NavHostFragment.findNavController(this).popBackStack()
+        }
         buy_list_toolbar.title = buyCatalog.title
         adapter.refreshData(buyCatalog.products)
     }

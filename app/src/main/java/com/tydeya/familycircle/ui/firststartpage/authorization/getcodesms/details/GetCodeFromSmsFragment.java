@@ -53,7 +53,6 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         assert codeInput.getText() != null && getArguments() != null;
 
         presenter = new GetCodeFromSmsPresenterImpl(this, FirebaseAuth.getInstance(),

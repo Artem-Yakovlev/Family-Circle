@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.firststartpage.accountcreation.details;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +49,8 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private CreateNewAccountPresenter presenter;
     private Uri imageUri;
 
+    private ProgressDialog loadingDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -78,8 +81,11 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
                 .setAspectRatio(1, 1)
                 .start(getActivity()));
 
-        createAccountButton.setOnClickListener(v ->
-                presenter.onClickCreateAccount(nameText.getText().toString(), imageUri, getActivity().getContentResolver()));
+        createAccountButton.setOnClickListener(v -> {
+            loadingDialog = ProgressDialog.show(getContext(), null,
+                    getString(R.string.loading_text), true);
+            presenter.onClickCreateAccount(nameText.getText().toString(), imageUri, getActivity().getContentResolver());
+        });
 
     }
 
@@ -109,6 +115,12 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         Log.d("ASMR", activityResult.getError().toString());
     }
 
+    private void closeLoadingDialog() {
+        if (loadingDialog.isShowing()) {
+            loadingDialog.cancel();
+        }
+    }
+
     @Override
     public void invalidName() {
         DataConfirming.isEmptyNecessaryCheck(nameText, true);
@@ -116,11 +128,12 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
     @Override
     public void accountCreated() {
+        closeLoadingDialog();
         navController.navigate(R.id.selectFamilyFragment);
     }
 
     @Override
     public void accountCreationFailure() {
-
+        closeLoadingDialog();
     }
 }
