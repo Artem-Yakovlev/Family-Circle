@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.data.constants.Firebase;
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity;
 import com.tydeya.familycircle.ui.managerpart.menu.abstraction.ManagerMenuView;
 import com.tydeya.familycircle.ui.managerpart.menu.details.recyclerview.ManagerMenuItem;
@@ -53,9 +52,9 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
 
     private void generateDataForManagerMenuItems() {
         managerMenuItems.clear();
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_account_circle_black_24dp,
+        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_account_circle_blue_24dp,
                 getString(R.string.manager_menu_item_your_profile_title), ManagerMenuItemType.PROFILE));
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_people_black_24dp,
+        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_people_blue_24dp,
                 getString(R.string.manager_menu_item_your_family_title), ManagerMenuItemType.FAMILY));
         managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_blue_24dp,
                 getString(R.string.manager_menu_item_sign_out_title), ManagerMenuItemType.EXIT));

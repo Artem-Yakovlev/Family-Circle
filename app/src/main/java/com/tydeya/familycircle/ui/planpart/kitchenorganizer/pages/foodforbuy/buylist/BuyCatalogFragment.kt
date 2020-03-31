@@ -89,11 +89,11 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     private fun switchMode() {
         if (editableModeIsActive) {
-            buy_list_floating_button.setImageResource(R.drawable.ic_close_black_24dp)
+            buy_list_floating_button.setImageResource(R.drawable.ic_close_white_24dp)
             buy_list_add_button.visibility = View.VISIBLE
             buy_list_primary_settings.visibility = View.VISIBLE
         } else {
-            buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_black_24dp)
+            buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_white_24dp)
             buy_list_add_button.visibility = View.GONE
             buy_list_primary_settings.visibility = View.GONE
         }

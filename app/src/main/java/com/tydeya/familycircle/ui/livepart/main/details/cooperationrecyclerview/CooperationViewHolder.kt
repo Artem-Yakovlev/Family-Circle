@@ -22,10 +22,10 @@ class CooperationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
     private fun imageByType(type: CooperationType) = when (type) {
         CooperationType.ADD_PRODUCT, CooperationType.DROP_PRODUCT, CooperationType.EAT_PRODUCT
-        -> R.drawable.ic_kitchen_black_60dp
+        -> R.drawable.ic_kitchen_blue_60dp
 
         CooperationType.PERFORM_TASK, CooperationType.GIVE_TASK, CooperationType.REFUSE_TASK
-        -> R.drawable.ic_planning_black_60dp
+        -> R.drawable.ic_planning_blue_60dp
     }
 
     private fun textPlaceHolderByType(type: CooperationType) = when (type) {

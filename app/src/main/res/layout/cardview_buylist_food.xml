@@ -56,7 +56,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_delete_black_24dp"
+                android:src="@drawable/ic_delete_gray_24dp"
                 tools:ignore="RtlHardcoded" />
 
         </LinearLayout>

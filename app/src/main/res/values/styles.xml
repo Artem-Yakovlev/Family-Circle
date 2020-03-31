@@ -20,14 +20,6 @@
     </style>
 
     <!-- Login page-->
-    <style name="LoginPageTextEditStyle">
-        <item name="colorControlNormal">@color/colorAppTagLine</item>
-        <item name="colorControlActivated">@color/colorAppTagLine</item>
-        <item name="colorControlHighlight" >@color/colorAppTagLine</item>
-        <item name="colorAccent">@color/colorAppTagLine</item>
-        <item name="android:textColorHint">@color/colorAppTagLine</item>
-        <item name="android:textColor">@color/colorAppTagLine</item>
-    </style>
 
     <!-- First presentation start use button-->
     <style name="FormButton" parent="Theme.MaterialComponents">

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -111,7 +112,8 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
         } else {
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .backgroundColor = resources.getColor(R.color.colorConversationBadge)
+                    .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
+
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
                     .number = messengerInteractor.numberOfUnreadMessages

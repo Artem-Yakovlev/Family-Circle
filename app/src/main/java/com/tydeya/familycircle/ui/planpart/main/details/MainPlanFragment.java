@@ -54,17 +54,17 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
         mainPlanItems.clear();
         mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_kitchen_organizer_title),
                 getString(R.string.main_plan_item_kitchen_organizer_text),
-                R.drawable.ic_kitchen_black_60dp,
+                R.drawable.ic_kitchen_blue_60dp,
                 MainPlanItemType.FOOD));
 
         mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_events_title),
                 getString(R.string.main_plan_item_events_text),
-                R.drawable.ic_event_black_60dp,
+                R.drawable.ic_event_blue_60dp,
                 MainPlanItemType.EVENTS));
 
         mainPlanItems.add(new MainPlanItem(getString(R.string.main_plan_item_planning_title),
                 getString(R.string.main_plan_item_planning_text),
-                R.drawable.ic_planning_black_60dp,
+                R.drawable.ic_planning_blue_60dp,
                 MainPlanItemType.PLANNING));
     }
 

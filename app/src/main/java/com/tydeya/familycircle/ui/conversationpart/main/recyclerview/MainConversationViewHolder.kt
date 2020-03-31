@@ -88,7 +88,7 @@ class MainConversationViewHolder(itemView: View,
                         .into(itemView.conversation_page_card_image)
             } else {
                 Glide.with(itemView.context)
-                        .load(R.drawable.ic_sentiment_satisfied_black_24dp)
+                        .load(R.drawable.ic_sentiment_satisfied_blue_24dp)
                         .into(itemView.conversation_page_card_image)
             }
         } else {
@@ -97,7 +97,7 @@ class MainConversationViewHolder(itemView: View,
             itemView.conversation_page_card_last_message_author.visibility = View.GONE
             itemView.conversation_page_card_last_message_time.visibility = View.INVISIBLE
             Glide.with(itemView.context)
-                    .load(R.drawable.ic_sentiment_satisfied_black_24dp)
+                    .load(R.drawable.ic_sentiment_satisfied_blue_24dp)
                     .into(itemView.conversation_page_card_image)
         }
     }
