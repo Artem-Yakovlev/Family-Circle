@@ -5,6 +5,4 @@ import android.util.ArrayMap;
 public interface FamilyNetworkInteractor {
 
     void requireMembersDataFromServer();
-
-    ArrayMap<String, Boolean> requireUsersAreOnlineData();
 }

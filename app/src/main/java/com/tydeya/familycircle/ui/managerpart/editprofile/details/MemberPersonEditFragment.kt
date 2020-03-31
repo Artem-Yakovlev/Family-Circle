@@ -141,7 +141,6 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
                 context!!.resources.getString(R.string.person_edit_page_accept_alert_positive_button)
         ) { _, _ ->
             run {
-
                 var bitmap: Bitmap? = null
                 editableImageUri?.let {
                     bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, editableImageUri)

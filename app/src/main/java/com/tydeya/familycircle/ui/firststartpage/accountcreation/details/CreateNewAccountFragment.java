@@ -46,6 +46,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private Button createAccountButton;
     private NavController navController;
     private CreateNewAccountPresenter presenter;
+    private Uri imageUri;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,14 +72,14 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this), Calendar.getInstance()));
 
-        //TODO set max and min size for cropping!
         userPhotoImage.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setAspectRatio(1, 1)
                 .start(getActivity()));
 
-        createAccountButton.setOnClickListener(v -> presenter.onClickCreateAccount(nameText.getText().toString()));
+        createAccountButton.setOnClickListener(v ->
+                presenter.onClickCreateAccount(nameText.getText().toString(), imageUri, getActivity().getContentResolver()));
 
     }
 
@@ -95,11 +96,12 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
     @Override
     public void imageCroppedSuccessfully(CropImage.ActivityResult activityResult) {
-        Uri imageUri = activityResult.getUri();
+        imageUri = activityResult.getUri();
         userPhotoImage.setPadding(0, 0, 0, 0);
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
+
     }
 
     @Override

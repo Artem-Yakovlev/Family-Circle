@@ -1,8 +1,11 @@
 package com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction;
 
+import android.content.ContentResolver;
+import android.net.Uri;
+
 public interface CreateNewAccountPresenter {
 
     void birthDateChanged(long birthDate);
 
-    void onClickCreateAccount(String name);
+    void onClickCreateAccount(String name, Uri imageUri, ContentResolver contentResolver);
 }
