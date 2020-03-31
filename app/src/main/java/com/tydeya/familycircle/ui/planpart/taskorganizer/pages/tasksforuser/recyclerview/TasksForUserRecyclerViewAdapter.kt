@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
-import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import javax.inject.Inject

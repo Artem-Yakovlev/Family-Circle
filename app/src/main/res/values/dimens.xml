@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Login page -->
-    <dimen name="login_page_app_name">24sp</dimen>
-    <dimen name="login_page_input">18sp</dimen>
-    <dimen name="login_page_button">14sp</dimen>
 
     <!-- Registration page -->
-    <dimen name="registration_page_name">18sp</dimen>
-    <dimen name="registration_page_input">14sp</dimen>
 
     <!-- Start presentation page-->
     <dimen name="start_presentation_title_size">18sp</dimen>
     <dimen name="start_presentation_text_size">16sp</dimen>
     <dimen name="start_presentation_margin_between_title_and_text">20dp</dimen>
-    <dimen name="start_presentation_dots_size">35</dimen>
 
     <!-- Start input phone number and get code-->
     <dimen name="start_input_number_header">18sp</dimen>

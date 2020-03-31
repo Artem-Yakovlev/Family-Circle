@@ -20,12 +20,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.data.familymember.FamilyMember;
+import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.data.familymember.FamilyMember;
-import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
 
@@ -51,6 +52,9 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
     @Inject
     FamilyInteractor familyInteractor;
+
+    @Inject
+    OnlineInteractorImpl onlineInteractor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,7 +133,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
             workPlaceText.setText(dto.getWorkPlace());
         }
 
-        if (familyInteractor.getFamilyOnlineTracker().isUserOnlineByPhone(dto.getPhone())) {
+        if (onlineInteractor.isUserOnline(dto.getPhone())) {
             onlineStatusText.setText(getContext().getString(R.string.online));
             onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorOnlineGreen));
         } else {

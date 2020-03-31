@@ -19,12 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.conversationpart.inconversation.InConversationActivity"></activity>
         <activity
-            android:name=".ui.conversationpart.chatpart.MessagingActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.firststartpage.FirstStartActivity" />
-        <activity android:name=".ui.MainActivity">
+            android:name=".ui.conversationpart.inconversation.InConversationActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.firststartpage.FirstStartActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

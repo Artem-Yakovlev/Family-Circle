@@ -19,9 +19,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.utils.KeyboardHelper;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsPresenter;
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
+import com.tydeya.familycircle.utils.KeyboardHelper;
 
 
 public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsView {
@@ -53,7 +53,6 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         assert codeInput.getText() != null && getArguments() != null;
 
         presenter = new GetCodeFromSmsPresenterImpl(this, FirebaseAuth.getInstance(),

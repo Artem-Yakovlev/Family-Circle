@@ -15,7 +15,7 @@ public final class Firebase {
     public static final String FIRESTORE_USERS_STUDY_TAG = "study_place";
     public static final String FIRESTORE_USERS_WORK_TAG = "work_place";
     public static final String FIRESTORE_USERS_IMAGE_ADDRESS = "image";
-    public static final String FIRESTORE_USERS_ONLINE_TAG = "is_online";
+    public static final String FIRESTORE_USERS_LAST_ONLINE = "last_online";
 
     /**
      * Const of firebase conversation object
@@ -81,4 +81,14 @@ public final class Firebase {
     public static final String FIRESTORE_TASKS_TEXT = "text";
     public static final String FIRESTORE_TASKS_STATUS = "status";
     public static final String FIRESTORE_TASKS_TIME = "time";
+
+    /**
+     * Const of firebase conversation
+     * */
+
+    public static final String FIRESTORE_COOPERATION_COLLECTION = "Cooperation";
+    public static final String FIRESTORE_COOPERATION_AUTHOR = "author";
+    public static final String FIRESTORE_COOPERATION_TYPE = "type";
+    public static final String FIRESTORE_COOPERATION_ITEM = "item";
+    public static final String FIRESTORE_COOPERATION_TIME = "time";
 }

@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details
 
-import android.util.Log
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,11 +10,12 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class KitchenOrganizerNetworkInteractorImpl(
         private val callback: KitchenNetworkInteractorCallback
@@ -140,7 +140,9 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
                         // In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
-                        querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_STATUS, 1)
+                        if (querySnapshot.documents.size != 0) {
+                            querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_STATUS, 1)
+                        }
                     }
                 }
         firestore.collection(FIRESTORE_FRIDGE_COLLECTION)
@@ -153,7 +155,9 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .whereEqualTo(FIRESTORE_FOOD_TITLE, actualTitle).get()
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_TITLE, newTitle)
+                        if (querySnapshot.documents.size != 0) {
+                            querySnapshot.documents[0].reference.update(FIRESTORE_FOOD_TITLE, newTitle)
+                        }
                     }
                 }
     }
@@ -192,7 +196,9 @@ class KitchenOrganizerNetworkInteractorImpl(
                 .whereEqualTo(FIRESTORE_FOOD_TITLE, title).get()
                 .addOnSuccessListener { querySnapshot ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        querySnapshot.documents[0].reference.delete()
+                        if (querySnapshot.documents.size != 0) {
+                            querySnapshot.documents[0].reference.delete()
+                        }
                     }
                 }
     }

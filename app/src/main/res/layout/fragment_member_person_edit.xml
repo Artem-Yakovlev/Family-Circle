@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:title="@string/person_page_toolbar_title"
         app:titleTextColor="@color/colorWhite">
 
@@ -46,7 +46,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="20dp"
-            android:src="@drawable/ic_add_a_photo_black_24dp"
+            android:src="@drawable/ic_add_a_photo_blue_24dp"
             app:shape_mode="circle"
             android:elevation="110dp"/>
 

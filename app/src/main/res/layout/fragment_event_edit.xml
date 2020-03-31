@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.planpart.eventreminder.eventeditpage.EventEditFragment">
+    tools:context=".ui.planpart.eventmanager.eventeditpage.EventEditFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_reminder_edit_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:title="@string/event_reminder_edit_toolbar_title_create"
         app:titleTextColor="@color/colorWhite">
 

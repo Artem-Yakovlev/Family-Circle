@@ -22,16 +22,17 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
-            android:src="@drawable/ic_settings_black_24dp"
-            tools:ignore="RtlHardcoded" />
+            android:src="@drawable/ic_settings_white_24dp"
+            tools:ignore="RtlHardcoded"
+            android:visibility="invisible"/>
 
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_live_page_family_recycler_view"
@@ -41,5 +42,21 @@
             android:scrollbars="horizontal" />
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="5dp"
+        android:text="@string/recent_activities"
+        android:textColor="@color/colorPrimary" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_live_page_family_live_tape_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

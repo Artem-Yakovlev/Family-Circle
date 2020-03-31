@@ -1,11 +1,10 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
-
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:title="@string/family_member_view_toolbar_title"
         app:titleTextColor="@color/colorWhite">
 
@@ -26,7 +26,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
-            android:src="@drawable/ic_settings_black_24dp"
+            android:src="@drawable/ic_settings_white_24dp"
             tools:ignore="RtlHardcoded" />
 
 
@@ -47,10 +47,9 @@
             android:paddingBottom="20dp" />
 
         <androidx.cardview.widget.CardView
-
             android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+
             android:layout_centerInParent="true"
             tools:ignore="RtlHardcoded">
 
@@ -201,7 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:src="@drawable/ic_call_black_24dp" />
+                        android:src="@drawable/ic_call_blue_24dp" />
 
                 </LinearLayout>
 

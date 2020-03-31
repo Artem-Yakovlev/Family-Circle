@@ -9,8 +9,8 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.ID
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
@@ -89,11 +89,11 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     private fun switchMode() {
         if (editableModeIsActive) {
-            buy_list_floating_button.setImageResource(R.drawable.ic_close_black_24dp)
+            buy_list_floating_button.setImageResource(R.drawable.ic_close_white_24dp)
             buy_list_add_button.visibility = View.VISIBLE
             buy_list_primary_settings.visibility = View.VISIBLE
         } else {
-            buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_black_24dp)
+            buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_white_24dp)
             buy_list_add_button.visibility = View.GONE
             buy_list_primary_settings.visibility = View.GONE
         }
@@ -116,6 +116,9 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     override fun kitchenDataFromServerUpdated() {
         val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
+        if (buyCatalog.title == "...") {
+            NavHostFragment.findNavController(this).popBackStack()
+        }
         buy_list_toolbar.title = buyCatalog.title
         adapter.refreshData(buyCatalog.products)
     }

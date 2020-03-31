@@ -1,11 +1,11 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists
 
-import com.tydeya.familycircle.R
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.tydeya.familycircle.App
+import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import kotlinx.android.synthetic.main.dialog_food_for_buy_new_list.view.*
 import javax.inject.Inject

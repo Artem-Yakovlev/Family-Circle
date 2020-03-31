@@ -1,11 +1,10 @@
 package com.tydeya.familycircle.ui.planpart.taskorganizer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pageradapter.TasksOrganizerAdapter
 import kotlinx.android.synthetic.main.fragment_tasks_organizer_main.*

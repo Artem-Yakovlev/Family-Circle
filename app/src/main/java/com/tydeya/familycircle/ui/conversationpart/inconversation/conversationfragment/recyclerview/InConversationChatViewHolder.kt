@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.utils.getDp
 import kotlinx.android.synthetic.main.message_card_received.view.*
 import kotlinx.android.synthetic.main.outgoing_message_card.view.*

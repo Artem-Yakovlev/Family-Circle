@@ -1,19 +1,20 @@
 package com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
+import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.abstraction.TasksOrganizerNetworkInteractor
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.abstraction.TasksOrganizerNetworkInteractorCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInteractorCallback)
@@ -24,7 +25,11 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
      * Data listeners
      * */
 
+    @Inject
+    lateinit var onlineManager: OnlineInteractorImpl
+
     override fun requireTasksData() {
+        App.getComponent().injectInteractor(this)
         requireTasksForUser()
         requireTasksByUser()
     }
@@ -34,6 +39,7 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
                 .whereEqualTo(FIRESTORE_TASKS_WORKER,
                         FirebaseAuth.getInstance().currentUser!!.phoneNumber)
                 .addSnapshotListener { querySnapshot, _ ->
+                    onlineManager.registerUserActivity()
                     GlobalScope.launch(Dispatchers.Default) {
                         val tasksForUser = ArrayList<FamilyTask>()
                         for (document in querySnapshot) {

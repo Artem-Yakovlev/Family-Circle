@@ -1,10 +1,17 @@
 package com.tydeya.familycircle.ui.firststartpage.accountcreation.details;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewAccountTool;
 import com.tydeya.familycircle.framework.createnewaccount.abstraction.CreateNewAccountToolCallback;
 import com.tydeya.familycircle.framework.createnewaccount.details.CreateNewAccountToolImpl;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountPresenter;
 import com.tydeya.familycircle.ui.firststartpage.accountcreation.abstraction.CreateNewAccountView;
+
+import java.io.IOException;
 
 public class CreateNewAccountPresenterImpl implements CreateNewAccountPresenter, CreateNewAccountToolCallback {
 
@@ -27,11 +34,21 @@ public class CreateNewAccountPresenterImpl implements CreateNewAccountPresenter,
     }
 
     @Override
-    public void onClickCreateAccount(String name) {
+    public void onClickCreateAccount(String name, Uri imageUri, ContentResolver contentResolver) {
         if (name.length() == 0) {
             view.invalidName();
         } else {
-            createNewAccountTool.create(phoneNumber, name, birthDate);
+            if (imageUri == null) {
+                createNewAccountTool.create(phoneNumber, name, birthDate, null);
+            } else {
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                createNewAccountTool.create(phoneNumber, name, birthDate, bitmap);
+            }
         }
     }
 

@@ -2,16 +2,13 @@ package com.tydeya.familycircle.ui.managerpart.editprofile.details
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
-import com.tydeya.familycircle.data.constants.Firebase
 import com.tydeya.familycircle.framework.editaccount.details.EditAccountToolImpl
 import com.tydeya.familycircle.ui.managerpart.editprofile.abstraction.MemberPersonEditPresenter
 import com.tydeya.familycircle.ui.managerpart.editprofile.abstraction.MemberPersonEditView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
 class MemberPersonEditPresenterImpl(val context: Context, val view: MemberPersonEditView) : MemberPersonEditPresenter {
 

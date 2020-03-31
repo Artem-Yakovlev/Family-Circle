@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -12,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.onlinetracker.OnlineTrackerActivity
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
@@ -87,13 +87,11 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
 
     override fun onStart() {
         super.onStart()
-        familyInteractor.familyOnlineTracker.userOpenActivity(OnlineTrackerActivity.MAIN)
 
     }
 
     override fun onStop() {
         super.onStop()
-        familyInteractor.familyOnlineTracker.userCloseActivity(OnlineTrackerActivity.MAIN)
     }
 
     /**
@@ -114,7 +112,8 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
         } else {
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .backgroundColor = resources.getColor(R.color.colorConversationBadge)
+                    .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
+
 
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
                     .number = messengerInteractor.numberOfUnreadMessages

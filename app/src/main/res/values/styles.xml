@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -20,14 +19,6 @@
     </style>
 
     <!-- Login page-->
-    <style name="LoginPageTextEditStyle">
-        <item name="colorControlNormal">@color/colorAppTagLine</item>
-        <item name="colorControlActivated">@color/colorAppTagLine</item>
-        <item name="colorControlHighlight" >@color/colorAppTagLine</item>
-        <item name="colorAccent">@color/colorAppTagLine</item>
-        <item name="android:textColorHint">@color/colorAppTagLine</item>
-        <item name="android:textColor">@color/colorAppTagLine</item>
-    </style>
 
     <!-- First presentation start use button-->
     <style name="FormButton" parent="Theme.MaterialComponents">

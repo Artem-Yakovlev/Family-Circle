@@ -1,11 +1,10 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
-import kotlinx.android.synthetic.main.buy_list_food_card.view.*
+import kotlinx.android.synthetic.main.cardview_buylist_food.view.*
 
 class FoodViewHolder(itemView: View, private val listenerInBuyList: FoodInBuyListViewHolderClickListener) : RecyclerView.ViewHolder(itemView) {
 

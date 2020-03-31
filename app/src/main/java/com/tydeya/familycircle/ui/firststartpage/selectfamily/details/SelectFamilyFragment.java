@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-import com.tydeya.familycircle.ui.MainActivity;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.ui.MainActivity;
 
 
 public class SelectFamilyFragment extends Fragment {

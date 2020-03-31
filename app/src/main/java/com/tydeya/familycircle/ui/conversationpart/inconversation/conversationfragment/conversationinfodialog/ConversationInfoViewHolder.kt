@@ -3,7 +3,6 @@ package com.tydeya.familycircle.ui.conversationpart.inconversation.conversationf
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cardview_member_in_conversation_info_dialog.view.*
-import java.text.FieldPosition
 
 class ConversationInfoViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {

@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.firststartpage.accountcreation.details;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -46,6 +48,9 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     private Button createAccountButton;
     private NavController navController;
     private CreateNewAccountPresenter presenter;
+    private Uri imageUri;
+
+    private ProgressDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,14 +76,17 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this), Calendar.getInstance()));
 
-        //TODO set max and min size for cropping!
         userPhotoImage.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setAspectRatio(1, 1)
                 .start(getActivity()));
 
-        createAccountButton.setOnClickListener(v -> presenter.onClickCreateAccount(nameText.getText().toString()));
+        createAccountButton.setOnClickListener(v -> {
+            loadingDialog = ProgressDialog.show(getContext(), null,
+                    getString(R.string.loading_text), true);
+            presenter.onClickCreateAccount(nameText.getText().toString(), imageUri, getActivity().getContentResolver());
+        });
 
     }
 
@@ -90,21 +98,28 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         presenter.birthDateChanged(calendar.getTimeInMillis());
         birthDateText.setText(DateRefactoring.getDateLocaleText(calendar));
-        birthDateText.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+        birthDateText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
     }
 
     @Override
     public void imageCroppedSuccessfully(CropImage.ActivityResult activityResult) {
-        Uri imageUri = activityResult.getUri();
+        imageUri = activityResult.getUri();
         userPhotoImage.setPadding(0, 0, 0, 0);
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
+
     }
 
     @Override
     public void imageCroppedWithError(CropImage.ActivityResult activityResult) {
         Log.d("ASMR", activityResult.getError().toString());
+    }
+
+    private void closeLoadingDialog() {
+        if (loadingDialog.isShowing()) {
+            loadingDialog.cancel();
+        }
     }
 
     @Override
@@ -114,11 +129,12 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
     @Override
     public void accountCreated() {
+        closeLoadingDialog();
         navController.navigate(R.id.selectFamilyFragment);
     }
 
     @Override
     public void accountCreationFailure() {
-
+        closeLoadingDialog();
     }
 }

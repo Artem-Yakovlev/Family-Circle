@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
-import kotlinx.android.synthetic.main.buylist_cardview.view.*
+import kotlinx.android.synthetic.main.cardview_buylist.view.*
 import java.util.*
 
 class BuyCatalogViewHolder(itemView: View, var clickListener: OnBuyCatalogClickListener)

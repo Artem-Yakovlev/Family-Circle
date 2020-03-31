@@ -12,7 +12,7 @@ class BuyCatalogsRecyclerViewAdapter(val context: Context, var buyCatalogs: Arra
         RecyclerView.Adapter<BuyCatalogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuyCatalogViewHolder =
-            BuyCatalogViewHolder(LayoutInflater.from(context).inflate(R.layout.buylist_cardview,
+            BuyCatalogViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview_buylist,
                     parent, false), onClickListener)
 
     override fun getItemCount(): Int = buyCatalogs.size

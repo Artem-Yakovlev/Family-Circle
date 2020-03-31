@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoRecyclerViewAdapter
 
 class ConversationAddMemberDialogRecyclerViewAdapter(
         private val context: Context,

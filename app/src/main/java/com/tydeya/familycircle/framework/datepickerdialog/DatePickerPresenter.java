@@ -5,7 +5,6 @@ import android.view.View;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DatePickerPresenter implements View.OnClickListener {

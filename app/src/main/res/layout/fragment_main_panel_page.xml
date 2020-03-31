@@ -22,7 +22,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
-            android:src="@drawable/ic_settings_black_24dp"
+            android:src="@drawable/ic_settings_white_24dp"
             tools:ignore="RtlHardcoded" />
 
     </androidx.appcompat.widget.Toolbar>

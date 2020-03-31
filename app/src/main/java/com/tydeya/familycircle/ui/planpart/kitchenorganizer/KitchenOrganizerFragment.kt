@@ -1,9 +1,7 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -28,8 +26,6 @@ class KitchenOrganizerFragment : Fragment(R.layout.fragment_kitchen_organizer) {
             tab.text = when (position) {
                 0 -> getString(R.string.kitchen_organizer_shopping_list_title)
                 1 -> getString(R.string.kitchen_organizer_food_in_fridge_title)
-                2 -> getString(R.string.kitchen_organizer_cooking_title)
-                3 -> getString(R.string.kitchen_organizer_fridge_history_title)
                 else -> throw (IllegalArgumentException("The adapter is designed for only 2 fragments"))
             }
         }.attach()

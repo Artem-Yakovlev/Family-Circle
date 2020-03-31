@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.planpart.eventreminder.eventviewpage.EventViewFragment">
+    tools:context=".ui.planpart.eventmanager.eventviewpage.EventViewFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         app:title="Общий сбор"
         app:titleTextColor="@color/colorWhite">
 
@@ -24,7 +24,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
-            android:src="@drawable/ic_settings_black_24dp"
+            android:src="@drawable/ic_settings_white_24dp"
             tools:ignore="RtlHardcoded" />
 
     </androidx.appcompat.widget.Toolbar>
