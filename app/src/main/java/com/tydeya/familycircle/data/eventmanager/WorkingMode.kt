@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.data.eventreminder
+package com.tydeya.familycircle.data.eventmanager
 
 enum class WorkingMode {
 

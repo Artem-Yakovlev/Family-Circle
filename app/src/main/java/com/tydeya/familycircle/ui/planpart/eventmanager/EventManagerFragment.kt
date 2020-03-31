@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.eventreminder
+package com.tydeya.familycircle.ui.planpart.eventmanager
 
 import android.os.Bundle
 import android.view.View
@@ -10,12 +10,12 @@ import com.applandeo.materialcalendarview.EventDay
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
-import com.tydeya.familycircle.data.eventreminder.WorkingMode
-import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
-import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
-import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewAdapter
-import com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview.EventReminderRecyclerViewClickListener
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.WorkingMode
+import com.tydeya.familycircle.domain.eventmanager.interactor.abstraction.EventInteractorCallback
+import com.tydeya.familycircle.domain.eventmanager.interactor.details.EventInteractor
+import com.tydeya.familycircle.ui.planpart.eventmanager.recyclerview.EventReminderRecyclerViewAdapter
+import com.tydeya.familycircle.ui.planpart.eventmanager.recyclerview.EventReminderRecyclerViewClickListener
 import kotlinx.android.synthetic.main.fragment_event_reminder.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,7 +26,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class EventReminderFragment
+class EventManagerFragment
     :
         Fragment(R.layout.fragment_event_reminder), EventInteractorCallback,
         EventReminderRecyclerViewClickListener {

@@ -1,11 +1,11 @@
-package com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview
+package com.tydeya.familycircle.ui.planpart.eventmanager.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
 import java.util.*
 
 class EventReminderRecyclerViewAdapter(

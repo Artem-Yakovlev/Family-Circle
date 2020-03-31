@@ -1,6 +1,6 @@
-package com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction
+package com.tydeya.familycircle.domain.eventmanager.networkInteractor.abstraction
 
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
 
 interface EventNetworkInteractor {
 

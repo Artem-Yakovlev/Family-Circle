@@ -1,13 +1,13 @@
-package com.tydeya.familycircle.domain.eventreminder.interactor.details
+package com.tydeya.familycircle.domain.eventmanager.interactor.details
 
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
-import com.tydeya.familycircle.data.eventreminder.FamilyEventType
-import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
-import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorObservable
-import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractor
-import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractorCallback
-import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.EventNetworkInteractorImpl
-import com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage.EventAbleToActionCallback
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.FamilyEventType
+import com.tydeya.familycircle.domain.eventmanager.interactor.abstraction.EventInteractorCallback
+import com.tydeya.familycircle.domain.eventmanager.interactor.abstraction.EventInteractorObservable
+import com.tydeya.familycircle.domain.eventmanager.networkInteractor.abstraction.EventNetworkInteractor
+import com.tydeya.familycircle.domain.eventmanager.networkInteractor.abstraction.EventNetworkInteractorCallback
+import com.tydeya.familycircle.domain.eventmanager.networkInteractor.details.EventNetworkInteractorImpl
+import com.tydeya.familycircle.ui.planpart.eventmanager.eventeditpage.EventAbleToActionCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

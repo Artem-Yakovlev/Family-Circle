@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage
+package com.tydeya.familycircle.ui.planpart.eventmanager.eventeditpage
 
 import android.os.Bundle
 import android.view.View
@@ -11,11 +11,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
-import com.tydeya.familycircle.data.eventreminder.FamilyEventPriority
-import com.tydeya.familycircle.data.eventreminder.FamilyEventType
-import com.tydeya.familycircle.data.eventreminder.WorkingMode
-import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.FamilyEventPriority
+import com.tydeya.familycircle.data.eventmanager.FamilyEventType
+import com.tydeya.familycircle.data.eventmanager.WorkingMode
+import com.tydeya.familycircle.domain.eventmanager.interactor.details.EventInteractor
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerPresenter
 import com.tydeya.familycircle.framework.datepickerdialog.DatePickerUsable
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring

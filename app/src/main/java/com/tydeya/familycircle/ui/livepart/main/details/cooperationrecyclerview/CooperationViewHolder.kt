@@ -16,7 +16,7 @@ class CooperationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
         itemView.cardview_cooperation_text.text =
                 itemView.context.resources.getString(textPlaceHolderByType(type),
-                        cutText(name), cutText(item))
+                        name, item)
 
     }
 
@@ -35,11 +35,5 @@ class CooperationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         CooperationType.GIVE_TASK -> R.string.cooperation_give_task_placeholder
         CooperationType.REFUSE_TASK -> R.string.cooperation_refuse_task_placeholder
         CooperationType.PERFORM_TASK -> R.string.cooperation_perform_task_placeholder
-    }
-
-    private fun cutText(text: String) = if (text.length > 9) {
-        "${text.subSequence(0, 7)}.."
-    } else {
-        text
     }
 }

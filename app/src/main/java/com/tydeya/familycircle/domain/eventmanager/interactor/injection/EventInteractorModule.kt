@@ -1,6 +1,6 @@
-package com.tydeya.familycircle.domain.eventreminder.interactor.injection
+package com.tydeya.familycircle.domain.eventmanager.interactor.injection
 
-import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
+import com.tydeya.familycircle.domain.eventmanager.interactor.details.EventInteractor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

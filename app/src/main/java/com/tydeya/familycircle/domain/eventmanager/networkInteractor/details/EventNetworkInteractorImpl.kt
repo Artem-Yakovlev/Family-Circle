@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.domain.eventreminder.networkInteractor.details
+package com.tydeya.familycircle.domain.eventmanager.networkInteractor.details
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -6,11 +6,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.Firebase.*
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
-import com.tydeya.familycircle.data.eventreminder.FamilyEventPriority
-import com.tydeya.familycircle.data.eventreminder.FamilyEventType
-import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractor
-import com.tydeya.familycircle.domain.eventreminder.networkInteractor.abstraction.EventNetworkInteractorCallback
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.FamilyEventPriority
+import com.tydeya.familycircle.data.eventmanager.FamilyEventType
+import com.tydeya.familycircle.domain.eventmanager.networkInteractor.abstraction.EventNetworkInteractor
+import com.tydeya.familycircle.domain.eventmanager.networkInteractor.abstraction.EventNetworkInteractorCallback
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

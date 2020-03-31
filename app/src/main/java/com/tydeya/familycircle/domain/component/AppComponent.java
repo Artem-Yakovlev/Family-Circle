@@ -1,8 +1,8 @@
 package com.tydeya.familycircle.domain.component;
 
 import com.tydeya.familycircle.domain.cooperationorganizer.inject.CooperationModule;
-import com.tydeya.familycircle.domain.eventreminder.interactor.injection.EventInteractorModule;
-import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.EventNetworkInteractorImpl;
+import com.tydeya.familycircle.domain.eventmanager.interactor.injection.EventInteractorModule;
+import com.tydeya.familycircle.domain.eventmanager.networkInteractor.details.EventNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
@@ -29,9 +29,9 @@ import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
 import com.tydeya.familycircle.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
-import com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment;
-import com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage.EventEditFragment;
-import com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage.EventViewFragment;
+import com.tydeya.familycircle.ui.planpart.eventmanager.EventManagerFragment;
+import com.tydeya.familycircle.ui.planpart.eventmanager.eventeditpage.EventEditFragment;
+import com.tydeya.familycircle.ui.planpart.eventmanager.eventviewpage.EventViewFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.CreateBuyListDialog;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
@@ -122,7 +122,7 @@ public interface AppComponent {
 
     void injectDialog(ConversationAddMemberDialog conversationAddMemberDialog);
 
-    void injectEventReminderFragment(EventReminderFragment eventReminderFragment);
+    void injectEventReminderFragment(EventManagerFragment eventManagerFragment);
 
     void injectInteractor(FamilyNetworkInteractorImpl familyNetworkInteractor);
 

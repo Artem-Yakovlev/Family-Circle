@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.eventreminder.eventviewpage
+package com.tydeya.familycircle.ui.planpart.eventmanager.eventviewpage
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,10 +11,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
-import com.tydeya.familycircle.data.eventreminder.FamilyEvent
-import com.tydeya.familycircle.data.eventreminder.WorkingMode
-import com.tydeya.familycircle.domain.eventreminder.interactor.abstraction.EventInteractorCallback
-import com.tydeya.familycircle.domain.eventreminder.interactor.details.EventInteractor
+import com.tydeya.familycircle.data.eventmanager.FamilyEvent
+import com.tydeya.familycircle.data.eventmanager.WorkingMode
+import com.tydeya.familycircle.domain.eventmanager.interactor.abstraction.EventInteractorCallback
+import com.tydeya.familycircle.domain.eventmanager.interactor.details.EventInteractor
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import kotlinx.android.synthetic.main.fragment_event_view_page.*

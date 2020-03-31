@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.eventreminder.recyclerview
+package com.tydeya.familycircle.ui.planpart.eventmanager.recyclerview
 
 interface EventReminderRecyclerViewClickListener {
 

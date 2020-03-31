@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.domain.eventreminder.interactor.abstraction
+package com.tydeya.familycircle.domain.eventmanager.interactor.abstraction
 
 interface EventInteractorObservable {
 

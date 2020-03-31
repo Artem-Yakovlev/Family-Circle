@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage
+package com.tydeya.familycircle.ui.planpart.eventmanager.eventeditpage
 
 interface EventAbleToActionCallback {
 
