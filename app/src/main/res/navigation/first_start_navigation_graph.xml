@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/first_start_navigation_graph"
+    app:startDestination="@id/startPresentationFragment">
+
+    <fragment
+        android:id="@+id/startPresentationFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.authorization.presentation.details.StartPresentationFragment"
+        android:label="fragment_start_presentation"
+        tools:layout="@layout/fragment_start_presentation">
+        <action
+            android:id="@+id/action_startPresentationFragment_to_startInputNumberFragment"
+            app:destination="@id/startInputNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startInputNumberFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.details.StartInputNumberFragment"
+        android:label="fragment_start_input_number"
+        tools:layout="@layout/fragment_start_input_number" >
+        <action
+            android:id="@+id/action_startInputNumberFragment_to_getCodeFromSmsFragment"
+            app:destination="@+id/getCodeFromSmsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getCodeFromSmsFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.details.GetCodeFromSmsFragment"
+        android:label="fragment_get_code_from_sms"
+        tools:layout="@layout/fragment_get_code_from_sms" >
+        <argument
+            android:name="userCodeId"
+            app:argType="string"
+            android:defaultValue="-" />
+        <action
+            android:id="@+id/action_getCodeFromSmsFragment_to_createNewAccountFragment2"
+            app:destination="@id/createNewAccountFragment" />
+        <argument
+            android:name="userPhoneNumber"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewAccountFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.accountcreation.details.CreateNewAccountFragment"
+        android:label="fragment_create_new_account"
+        tools:layout="@layout/fragment_create_new_account" >
+        <action
+            android:id="@+id/action_createNewAccountFragment_to_selectFamilyFragment"
+            app:destination="@+id/selectFamilyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectFamilyFragment"
+        android:name="com.tydeya.familycircle.ui.firststartpage.selectfamily.details.SelectFamilyFragment"
+        android:label="fragment_select_family"
+        tools:layout="@layout/fragment_select_family" />
+</navigation>

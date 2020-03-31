@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    app:startDestination="@id/mainMapPage">
+
+    <fragment
+        android:id="@+id/mainMapPage"
+        android:name="com.tydeya.familycircle.ui.mappart.MainMapPage"
+        android:label="fragment_main_map_page"
+        tools:layout="@layout/fragment_main_map_page" />
+</navigation>

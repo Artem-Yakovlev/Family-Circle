@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manager_menu"
+    app:startDestination="@id/mainPanelPage">
+
+    <fragment
+        android:id="@+id/mainPanelPage"
+        android:name="com.tydeya.familycircle.ui.managerpart.menu.details.ManagerMenuPage"
+        tools:layout="@layout/fragment_main_panel_page"
+        android:label="fragment_main_panel_page" >
+        <action
+            android:id="@+id/action_mainPanelPage_to_memberPersonFragment"
+            app:destination="@id/memberPersonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberPersonFragment"
+        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment"
+        android:label="fragment_family_member_view"
+        tools:layout="@layout/fragment_family_member_view" >
+        <action
+            android:id="@+id/action_memberPersonFragment_to_memberPersonEditFragment3"
+            app:destination="@id/memberPersonEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberPersonEditFragment"
+        android:name="com.tydeya.familycircle.ui.managerpart.editprofile.details.MemberPersonEditFragment"
+        android:label="MemberPersonEditFragment" />
+</navigation>

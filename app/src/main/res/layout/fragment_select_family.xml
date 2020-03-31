@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".ui.firststartpage.selectfamily.details.SelectFamilyFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@color/colorWhite"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingTop="60dp"
+        android:paddingRight="40dp">
+
+        <ImageView
+            android:id="@+id/start_presentation_slide_image"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="@dimen/start_presentation_margin_between_title_and_text"
+            android:src="@drawable/ic_select_family_24dp" />
+
+        <TextView
+            android:id="@+id/start_presentation_slide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/start_presentation_margin_between_title_and_text"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/select_family_title"
+            android:textAllCaps="true"
+            android:textSize="@dimen/start_presentation_title_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/start_presentation_slide_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@string/select_family_text"
+            android:textSize="@dimen/start_presentation_text_size" />
+
+    </LinearLayout>
+
+    <!-- Button next -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/select_family_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text="@string/start_input_number_next_button"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textColor="@color/colorWhite"
+            android:theme="@style/FormButton" />
+
+    </LinearLayout>
+
+</LinearLayout>

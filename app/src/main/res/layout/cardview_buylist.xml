@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginTop="1dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_library_books_blue_24dp" />
+
+        <TextView
+            android:id="@+id/buylist_card_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/poppins_medium"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="22.05.2009"
+            android:textSize="12sp"
+            android:textColor="@color/colorGray"/>
+
+        <TextView
+            android:id="@+id/buylist_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/poppins_medium"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="К празднику"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,3 +1,240 @@
 <resources>
     <string name="app_name">FamilyCircle</string>
+
+    <!--                    Main                                    -->
+    <string name="loading_text">"Loading. Please wait…"</string>
+
+    <!--                    Login page                              -->
+
+
+    <!--                    Data check                                  -->
+    <string name="empty_necessary_field_warning">Necessary field</string>
+
+
+    <!--                    Registration check                          -->
+
+    <!--                    First start presentation                    -->
+    <string name="start_presentation_page_start_use">Start using</string>
+    <string name="start_presentation_page_from">from</string>
+    <string name="start_presentation_team">TYDEYA</string>
+
+    <!-- Application presentation main text-->
+    <string name="start_presentation_app_title">Family Circle</string>
+    <string name="start_presentation_app_text">It is a modern application for family communication
+        through various tracking systems. Called to make your family\'s life easier!</string>
+
+    <!-- Happy family text -->
+    <string name="start_presentation_happy_family_title">Happy Family</string>
+    <string name="start_presentation_happy_family_text">
+        With the help of Family Circle, your family will become closer and more united.
+        Thanks to its extensive functionality, you can live happier and more productive
+    </string>
+
+    <!-- Achievement and tracking text-->
+    <string name="start_presentation_achievement_title">Achievements and tracking</string>
+    <string name="start_presentation_achievement_text">
+        With the help of Family Circle, your family will become closer and more united.
+        Thanks to its extensive functionality, you can live happier and more productive
+    </string>
+
+    <!-- Productivity text-->
+    <string name="start_presentation_productivity_title">Productivity</string>
+    <string name="start_presentation_productivity_text">
+        With the help of Family Circle, your family will become closer and more united.
+        Thanks to its extensive functionality, you can live happier and more productive
+    </string>
+
+    <!--                      Start number input page                -->
+    <string name="start_input_number_header">Enter your number phone:</string>
+    <string name="start_input_number_reason">Family circle will send an SMS message to verify your
+    phone number. Your phone will be used to enter your account.
+    </string>
+    <string name="start_input_number_hint">Your phone number</string>
+    <string name="start_input_number_warning_sms_cost">Carrier SMS charges may apply</string>
+    <string name="start_input_number_next_button">Next</string>
+    <string name="start_input_number_invalid_error">This phone number is not valid</string>
+
+    <!--                      Get code from sms for verify             -->
+    <string name="get_code_page_header">Phone number verification:</string>
+    <string name="get_code_page_reason">To verify your phone number,
+        enter the code from SMS: </string>
+    <string name="get_code_page_enter_hint">Enter 6-digit code</string>
+    <string name="get_code_page_reset_sms">Reset message</string>
+    <string name="get_code_page_verify_code_button">Accept</string>
+    <string name="get_code_page_invalid_code">The code is incorrect</string>
+
+    <!--                      Create new account page                   -->
+    <string name="create_account_page_name">Your name</string>
+    <string name="create_account_page_header">Create new account:</string>
+    <string name="create_account_page_reason">Enter your name and optionally provide a photo</string>
+    <string name="create_account_page_select_birth">Select a your birth date</string>
+    <string name="minute_timer">1:00</string>
+
+    <string name="select_family_title">Family selection not yet available</string>
+    <string name="select_family_text">In the future, this section will have the opportunity to select or create a family account, but at the moment this section is under development, so all users are in the same family, but you can easily make friends with other users!</string>
+
+    <string name="bottom_menu_action_live">live</string>
+    <string name="bottom_menu_action_map">map</string>
+    <string name="bottom_menu_action_message">message</string>
+    <string name="bottom_menu_action_plan">plan</string>
+    <string name="bottom_menu_action_panel">panel</string>
+
+    <string name="name_surname">Name Surname</string>
+    <string name="first_start_input_number_correct_title">Is this phone number correct?</string>
+    <string name="first_start_input_number_correct_text">Are you sure you want to send the code to this phone: </string>
+    <string name="first_start_input_number_correct_yes">Yes</string>
+    <string name="first_start_input_number_correct_no">No</string>
+
+    <string name="family_member_view_toolbar_title">Profile</string>
+    <string name="family_group_brother">Brother</string>
+    <string name="family_member_view_datebirthd_not_known">Date of birth not known</string>
+    <string name="main_live_page_toolbar_title">Live page</string>
+    <string name="main_conversation_page_toolbar_title">Conversations</string>
+    <string name="get_code_from_sms_page_invalid_code_alert">The code must contains 6 digits!</string>
+    <string name="unknown_text">Unknown</string>
+
+
+    <!-- Main plan item-->
+    <string name="main_plan_page_toolbar_title">Tracking</string>
+
+    <string name="main_plan_item_kitchen_organizer_title">Kitchen organizer</string>
+    <string name="main_plan_item_kitchen_organizer_text">Here you can track the availability of products in your refrigerator.</string>
+
+    <string name="main_plan_item_events_title">Upcoming events</string>
+    <string name="main_plan_item_events_text">Here you can track upcoming family events.</string>
+
+    <string name="main_plan_item_planning_title">Errands Manager</string>
+    <string name="main_plan_item_planning_text">Here you can track various errands.</string>
+
+    <string name="app_name_with_space">Family circle</string>
+
+    <!-- Manager menu-->
+    <string name="manager_menu_item_your_family_title">Your family</string>
+    <string name="manager_menu_item_your_profile_title">Your profile</string>
+    <string name="manager_menu_item_sign_out_title">Sign out</string>
+
+    <!-- Manager menu dialog-->
+    <string name="manager_menu_sign_out_dialog_message">Are you sure you want to sign out?</string>
+    <string name="manager_menu_sign_out_dialog_positive_button">Yes</string>
+    <string name="manager_menu_sign_out_dialog_negative_button">No</string>
+
+    <!-- Kitchen organizer -->
+    <string name="kitchen_organizer_shopping_list_title">Shopping List</string>
+    <string name="kitchen_organizer_food_in_fridge_title">Food in fridge</string>
+    <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
+    <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
+
+    <!-- Create list dialog-->
+    <string name="dialog_new_buy_list_create">Create</string>
+    <string name="dialog_new_buy_list_cancel">Cancel</string>
+    <string name="dialog_new_buy_list_already_exist">This shopping list already exists</string>
+    <string name="dialog_buy_list_settings_already_exist">Shopping list with this name already exists</string>
+
+    <!-- Person page-->
+    <string name="person_page_edit">Edit</string>
+    <string name="person_page_add_post">Add post</string>
+    <string name="person_page_view_place_of_work">Place of work</string>
+    <string name="person_page_view_place_of_study">Place of study</string>
+    <string name="person_page_toolbar_title">Edit profile</string>
+
+    <!-- Person edit page-->
+    <string name="person_edit_page_accept_alert_title">Are you sure you want to change the data?
+    </string>
+    <string name="person_edit_page_accept_alert_positive_button">Yes</string>
+    <string name="person_edit_page_accept_alert_negative_button">No</string>
+    <!-- Null messages -->
+    <string name="shopping_list_name">Shopping list name</string>
+    <string name="add_new_item">add new item</string>
+    <string name="dialog_new_food_products_name">Products name</string>
+    <string name="create_new_shopping_list">Create new shopping list</string>
+    <string name="new_product">New product</string>
+    <string name="buy_catalog_settings">Buy catalog settings</string>
+    <string name="delete_list">Delete list</string>
+    <string name="dialog_buy_catalog_settings_save">Save</string>
+    <string name="edit_product_name">Edit product name</string>
+    <string name="dialog_edit_food_data_already_exist">Product with this name already exists in this buy list</string>
+    <string name="dialog_new_buy_list_accept">Accept</string>
+    <string name="remove_food_from_fridge_dialog_title">Why do you want to remove this food?</string>
+    <string name="this_food_went_bad">The food went bad</string>
+    <string name="this_food_has_been_eaten">The food has been eaten</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="event_reminder_toolbar_title">Event reminder</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
+    <string name="back_to_today">Back to today</string>
+    <string name="annually">Annually</string>
+    <string name="this_year">This year</string>
+    <string name="seconds">sec.</string>
+    <string name="minutes">min.</string>
+    <string name="hours">hours</string>
+    <string name="days">days</string>
+
+    <string name="event_view_author_placeholder">by %1$s</string>
+    <string name="event_view_type_placeholder">%1$s, %2$s</string>
+    <string name="this_is_today_event">This is today event</string>
+    <string name="this_event_has_already_passed">This event has already passed</string>
+    <string name="event_view_menu_edit_text">Edit event</string>
+    <string name="event_view_menu_delete_text">Delete event</string>
+    <string name="event_reminder_edit_toolbar_title_edit">Edit event</string>
+    <string name="event_reminder_edit_page_title_text">Event title</string>
+    <string name="description">Description:</string>
+    <string name="event_reminder_edit_toolbar_title_create">Create event</string>
+    <string name="event_reminder_edit_page_not_able_to_create">An event with this name already exists on this day.</string>
+    <string name="task_organizer_toolbar_title">Task organizer</string>
+    <string name="tasks_organizer_your_errands">Your errands</string>
+    <string name="tasks_organizer_errands_for_you">Errands for you</string>
+    <string name="tasks_organizer_errands_history">Errands history</string>
+    <string name="errand_for_you_cardview_performed_button_text">Performed</string>
+    <string name="errand_for_you_cardview_refuse_text">Refuse</string>
+    <string name="your_errand_cardview_edit_button_text">Edit</string>
+    <string name="your_errand_cardview_delete_button_text">Delete</string>
+    <string name="errand_for_you_cardview_author_placeholder">By %1$s</string>
+    <string name="errand_for_you_cardview_status_placeholder">Status: %1$s</string>
+    <string name="errand_status_processing">Processing</string>
+    <string name="your_errand_cardview_worker_placeholder">for %1$s</string>
+    <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
+    <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
+    <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
+    <string name="create_task_dialog_title">Create new task</string>
+    <string name="CreateTaskDialogSaveButton">Create</string>
+    <string name="new_conversation">New conversation</string>
+    <string name="dialog_create_conversation_title_text">Conversation title</string>
+    <string name="create_conversation_dialog_add_someone_text">Add someone to the conversation</string>
+    <string name="empty_conversation">Empty conversation</string>
+    <string name="dialog_conversation_info_save_button_text">Save</string>
+    <string name="dialog_conversation_info_leave_button_text">Leave</string>
+    <string name="conversation_info">Conversation info</string>
+    <string name="members">Members:</string>
+    <string name="add_member">Add member</string>
+
+
+    <string name="cooperation_add_product_placeholder">%1$s bought %2$s</string>
+    <string name="cooperation_eat_product_placeholder">%1$s wrote that the %2$s was eaten</string>
+    <string name="cooperation_drop_product_placeholder">%1$s wrote that the %2$s was spoiled</string>
+    <string name="cooperation_give_task_placeholder">%1$s gave %2$s the task</string>
+    <string name="cooperation_refuse_task_placeholder">%1$s rejected the task of %2$s</string>
+    <string name="cooperation_perform_task_placeholder">%1$s completed the task of %2$s</string>
+    <string name="recent_activities">Recent Activities:</string>
+    <string name="stayhome">#STAYHOME</string>
+    <string name="map_stayhome_text">As the Coronavirus pandemic is raging in the world now, it would be terribly wrong to add a convenient map to Family CIrcle now. Therefore, the developers decided not to implement map navigation in this test version of the application. Stay home and take good care of your hygiene.</string>
+
+    <string-array name="events_priority">
+        <item>Low priority</item>
+        <item>Middle priority</item>
+        <item>High priority</item>
+    </string-array>
+
+    <string-array name="events_type">
+        <item>Annual event</item>
+        <item>Event</item>
+        <item>Routine</item>
+    </string-array>
+
+    <string-array name="tasks_status">
+        <item>Rejected </item>
+        <item>Awaiting completion</item>
+        <item>Accepted</item>
+    </string-array>
+
 </resources>

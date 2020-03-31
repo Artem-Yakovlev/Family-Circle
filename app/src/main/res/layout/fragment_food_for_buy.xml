@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment">
+
+    <com.skydoves.androidveil.VeilRecyclerFrameView
+        android:id="@+id/food_for_buy_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:veilFrame_baseAlpha="0.6"
+        app:veilFrame_baseColor="@color/colorPrimary"
+        app:veilFrame_highlightAlpha="1.0"
+        app:veilFrame_highlightColor="@color/colorTransparentGray"
+        app:veilFrame_layout="@layout/cardview_buylist"
+        app:veilFrame_radius="8dp"
+        app:veilFrame_shimmerEnable="true"
+        app:veilFrame_veiled="true" />
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/buy_list_floating_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_add_blue_24dp"
+        app:fab_colorNormal="@color/colorPrimary"
+        app:fab_colorPressed="@color/colorPrimaryDark"
+        app:fab_colorRipple="@color/colorPrimaryDark" />
+
+</FrameLayout>
