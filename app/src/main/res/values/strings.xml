@@ -250,6 +250,8 @@
     <string name="cooperation_refuse_task_placeholder">%1$s rejected the task of %2$s</string>
     <string name="cooperation_perform_task_placeholder">%1$s completed the task of %2$s</string>
     <string name="recent_activities">Recent Activities:</string>
+    <string name="stayhome">#STAYHOME</string>
+    <string name="map_stayhome_text">As the Coronavirus pandemic is raging in the world now, it would be terribly wrong to add a convenient map to Family CIrcle now. Therefore, the developers decided not to implement map navigation in this test version of the application. Stay home and take good care of your hygiene.</string>
 
     <string-array name="calendar_months">
         <item>January</item>
