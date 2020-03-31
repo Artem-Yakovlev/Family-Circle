@@ -15,21 +15,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
+import com.tydeya.familycircle.domain.cooperationorganizer.interactor.abstraction.CooperationInteractorCallback;
+import com.tydeya.familycircle.domain.cooperationorganizer.interactor.details.CooperationInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.OnClickMemberStoryListener;
+import com.tydeya.familycircle.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.OnClickMemberStoryListener;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class MainLivePage extends Fragment implements OnClickMemberStoryListener, FamilyInteractorCallback {
+public class MainLivePage extends Fragment implements OnClickMemberStoryListener,
+        FamilyInteractorCallback, CooperationInteractorCallback {
 
     private NavController navController;
+
     private RecyclerView familyStoriesRecyclerView;
     private FamilyMembersStoriesRecyclerViewAdapter recyclerViewAdapter;
 
+    private RecyclerView cooperationRecyclerView;
+    private CooperationRecyclerViewAdapter cooperationRecyclerViewAdapter;
+
     @Inject
     FamilyInteractor familyInteractor;
+
+    @Inject
+    CooperationInteractor cooperationInteractor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +51,7 @@ public class MainLivePage extends Fragment implements OnClickMemberStoryListener
         navController = NavHostFragment.findNavController(this);
 
         familyStoriesRecyclerView = root.findViewById(R.id.main_live_page_family_recycler_view);
+        cooperationRecyclerView = root.findViewById(R.id.main_live_page_family_live_tape_recycler_view);
 
         return root;
     }
@@ -46,15 +60,28 @@ public class MainLivePage extends Fragment implements OnClickMemberStoryListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         App.getComponent().injectFragment(this);
-        familyInteractor.subscribe(this);
+        setFamilyStoriesRecyclerView();
+        setCooperationRecyclerView();
 
+    }
+
+    private void setFamilyStoriesRecyclerView() {
         recyclerViewAdapter = new FamilyMembersStoriesRecyclerViewAdapter(getContext(),
                 familyInteractor.getActualFamily().getFamilyMembers(), this);
 
         familyStoriesRecyclerView.setAdapter(recyclerViewAdapter);
         familyStoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 RecyclerView.HORIZONTAL, false));
+    }
 
+    private void setCooperationRecyclerView() {
+        cooperationRecyclerViewAdapter =
+                new CooperationRecyclerViewAdapter(getContext(), new ArrayList<>());
+
+        cooperationRecyclerView.setAdapter(cooperationRecyclerViewAdapter);
+
+        cooperationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false));
     }
 
     @Override
@@ -71,14 +98,21 @@ public class MainLivePage extends Fragment implements OnClickMemberStoryListener
     }
 
     @Override
+    public void cooperationDataFromServerUpdated() {
+        cooperationRecyclerViewAdapter.refreshData(cooperationInteractor.getCooperationData());
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         familyInteractor.unsubscribe(this);
+        cooperationInteractor.unsubscribe(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         familyInteractor.subscribe(this);
+        cooperationInteractor.subscribe(this);
     }
 }

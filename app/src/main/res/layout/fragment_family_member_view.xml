@@ -47,10 +47,9 @@
             android:paddingBottom="20dp" />
 
         <androidx.cardview.widget.CardView
-
             android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+
             android:layout_centerInParent="true"
             tools:ignore="RtlHardcoded">
 

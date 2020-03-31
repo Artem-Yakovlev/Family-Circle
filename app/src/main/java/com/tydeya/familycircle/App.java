@@ -8,7 +8,6 @@ import androidx.room.Room;
 import com.tydeya.familycircle.domain.component.AppComponent;
 import com.tydeya.familycircle.domain.component.DaggerAppComponent;
 import com.tydeya.familycircle.domain.database.AppDatabase;
-import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.data.constants.User;
 
 public class App extends Application {
@@ -25,8 +24,7 @@ public class App extends Application {
 
     private void componentInit() {
         SharedPreferences sharedPreferences = getSharedPreferences(User.USER_SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE);
-        component = DaggerAppComponent.builder().userInteractorModule(new UserInteractorModule(sharedPreferences))
-                .build();
+        component = DaggerAppComponent.builder().build();
     }
 
     private void databaseInit() {

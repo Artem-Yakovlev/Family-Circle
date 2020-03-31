@@ -16,7 +16,7 @@ class FoodInFridgeRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodInFridgeViewHolder =
             FoodInFridgeViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.food_in_fridge_cardview, parent, false), listener)
+                    .inflate(R.layout.cardview_foor_in_fridge, parent, false), listener)
 
     override fun getItemCount(): Int = foods.size
 

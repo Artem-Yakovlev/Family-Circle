@@ -11,6 +11,7 @@ import com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.abs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,11 +21,14 @@ class CooperationNetworkInteractorImpl(
 ) :
         CooperationNetworkInteractor {
 
+    /**
+     * Listen data changes
+     * */
 
     override fun listenCooperationData() {
         FirebaseFirestore.getInstance().collection(FIRESTORE_COOPERATION_COLLECTION)
                 .orderBy(FIRESTORE_COOPERATION_TIME, Query.Direction.DESCENDING)
-                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
 
                         val cooperationData = ArrayList<Cooperation>()
@@ -33,7 +37,9 @@ class CooperationNetworkInteractorImpl(
                             cooperationData.add(createCooperationDataFromRawData(document))
                         }
 
-                        callback.cooperationDataFromServerUpdate(cooperationData)
+                        withContext(Dispatchers.Main) {
+                            callback.cooperationDataFromServerUpdate(cooperationData)
+                        }
                     }
                 }
     }
@@ -44,5 +50,19 @@ class CooperationNetworkInteractorImpl(
                 document.getString(FIRESTORE_COOPERATION_ITEM),
                 CooperationType.values()[document.getLong(FIRESTORE_COOPERATION_TYPE).toInt()],
                 document.getDate(FIRESTORE_COOPERATION_TIME))
+    }
+
+    /**
+     * Edit data
+     * */
+
+    override fun registerCooperation(cooperation: Cooperation) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION).add(
+                hashMapOf(
+                        FIRESTORE_COOPERATION_AUTHOR to cooperation.userPhone,
+                        FIRESTORE_COOPERATION_ITEM to cooperation.item,
+                        FIRESTORE_COOPERATION_TYPE to cooperation.type.ordinal,
+                        FIRESTORE_COOPERATION_TIME to cooperation.time) as Map<String, Any>
+        )
     }
 }

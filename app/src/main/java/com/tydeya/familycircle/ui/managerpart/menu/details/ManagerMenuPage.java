@@ -57,7 +57,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
                 getString(R.string.manager_menu_item_your_profile_title), ManagerMenuItemType.PROFILE));
         managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_people_black_24dp,
                 getString(R.string.manager_menu_item_your_family_title), ManagerMenuItemType.FAMILY));
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_black_24dp,
+        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_blue_24dp,
                 getString(R.string.manager_menu_item_sign_out_title), ManagerMenuItemType.EXIT));
     }
 

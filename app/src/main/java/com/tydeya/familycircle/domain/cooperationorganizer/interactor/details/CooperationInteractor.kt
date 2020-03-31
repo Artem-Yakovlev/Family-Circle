@@ -25,6 +25,10 @@ class CooperationInteractor : CooperationNetworkInteractorCallback, CooperationI
         notifyObserversKitchenDataUpdated()
     }
 
+    fun registerCooperation(cooperation: Cooperation) {
+        networkInteractor.registerCooperation(cooperation)
+    }
+
     /**
      * Callbacks
      * */

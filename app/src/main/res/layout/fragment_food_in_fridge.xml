@@ -15,7 +15,7 @@
         app:veilFrame_baseColor="@color/colorPrimary"
         app:veilFrame_highlightAlpha="1.0"
         app:veilFrame_highlightColor="@color/colorTransparentGray"
-        app:veilFrame_layout="@layout/food_in_fridge_cardview"
+        app:veilFrame_layout="@layout/cardview_foor_in_fridge"
         app:veilFrame_radius="8dp"
         app:veilFrame_shimmerEnable="true"
         app:veilFrame_veiled="true" />

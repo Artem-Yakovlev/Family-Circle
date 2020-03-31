@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.component;
 
+import com.tydeya.familycircle.domain.cooperationorganizer.inject.CooperationModule;
 import com.tydeya.familycircle.domain.eventreminder.interactor.injection.EventInteractorModule;
 import com.tydeya.familycircle.domain.eventreminder.networkInteractor.details.EventNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
@@ -12,8 +13,6 @@ import com.tydeya.familycircle.domain.messenger.networkinteractor.details.Messen
 import com.tydeya.familycircle.domain.onlinemanager.injection.OnlineManagerModule;
 import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details.TasksOrganizerNetworkInteractorImpl;
-import com.tydeya.familycircle.domain.userinteractor.details.UserInteractor;
-import com.tydeya.familycircle.domain.userinteractor.injection.UserInteractorModule;
 import com.tydeya.familycircle.framework.editaccount.details.EditAccountToolImpl;
 import com.tydeya.familycircle.ui.MainActivity;
 import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
@@ -24,7 +23,7 @@ import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
 import com.tydeya.familycircle.ui.conversationpart.main.createconversation.CreateConversationDialog;
 import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationViewHolder;
 import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
-import com.tydeya.familycircle.ui.livepart.main.details.recyclerview.FamilyMembersStoriesRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
 import com.tydeya.familycircle.ui.planpart.eventreminder.EventReminderFragment;
 import com.tydeya.familycircle.ui.planpart.eventreminder.eventeditpage.EventEditFragment;
@@ -55,8 +54,8 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {FamilyInteractorModule.class,
-        UserInteractorModule.class, KitchenOrganizerModule.class, EventInteractorModule.class,
-        TasksOrganizerModule.class, MessengerModule.class, OnlineManagerModule.class})
+        KitchenOrganizerModule.class, EventInteractorModule.class, TasksOrganizerModule.class,
+        MessengerModule.class, OnlineManagerModule.class, CooperationModule.class})
 public interface AppComponent {
 
     void injectFragment(MainLivePage mainLivePage);
@@ -124,8 +123,6 @@ public interface AppComponent {
     void injectNetworkInteractor(FamilyNetworkInteractorImpl familyNetworkInteractor);
 
     void injectNetworkInteractor(MessengerNetworkInteractorImpl messengerNetworkInteractorImpl);
-
-    UserInteractor getUserInteractor();
 
     FamilyInteractor getFamilyInteractor();
 

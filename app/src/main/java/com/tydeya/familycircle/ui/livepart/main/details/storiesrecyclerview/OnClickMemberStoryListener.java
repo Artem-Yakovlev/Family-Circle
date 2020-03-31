@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.livepart.main.details.recyclerview;
+package com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview;
 
 public interface OnClickMemberStoryListener {
 
