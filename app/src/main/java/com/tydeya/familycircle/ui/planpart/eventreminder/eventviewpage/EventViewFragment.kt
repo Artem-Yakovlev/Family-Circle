@@ -181,7 +181,12 @@ class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInte
 
                     true
                 }
-                R.id.event_view_menu_delete -> true
+                R.id.event_view_menu_delete -> {
+                    eventInteractor.deleteEvent(id)
+                    NavHostFragment.findNavController(this).popBackStack()
+
+                    true
+                }
                 else -> false
             }
         }
@@ -194,8 +199,10 @@ class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInte
 
     override fun eventDataFromServerUpdated() {
         val event = eventInteractor.getEventById(id)
-        event?.let {
+        if (event != null) {
             setCurrentData(event)
+        } else {
+            NavHostFragment.findNavController(this).popBackStack()
         }
     }
 

@@ -9,4 +9,6 @@ interface EventNetworkInteractor {
     fun createEvent(familyEvent: FamilyEvent)
 
     fun editEvent(familyEvent: FamilyEvent)
+
+    fun deleteEvent(familyEventId: String)
 }

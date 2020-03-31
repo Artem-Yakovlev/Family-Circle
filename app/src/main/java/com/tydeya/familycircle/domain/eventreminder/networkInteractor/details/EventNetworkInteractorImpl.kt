@@ -65,6 +65,11 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
                 .document(familyEvent.id).update(parseEventForServer(familyEvent))
     }
 
+    override fun deleteEvent(familyEventId: String) {
+        FirebaseFirestore.getInstance().collection(FIRESTORE_EVENTS_COLLECTION)
+                .document(familyEventId).delete()
+    }
+
     /**
      * Data parsing
      * */

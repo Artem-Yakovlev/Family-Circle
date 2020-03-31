@@ -159,6 +159,10 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
         }
     }
 
+    fun deleteEvent(familyEventId: String) {
+        networkInteractor.deleteEvent(familyEventId)
+    }
+
 
 
 }
