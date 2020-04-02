@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/new_product"
+        android:text="@string/dialog_new_product_title"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 

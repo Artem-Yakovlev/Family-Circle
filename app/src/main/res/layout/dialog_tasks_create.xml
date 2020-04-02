@@ -90,7 +90,7 @@
             android:textColor="@color/colorWhite"
             android:theme="@style/FormButton"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/CreateTaskDialogSaveButton" />
+            android:text="@string/create_task_dialog_save_button" />
 
     </LinearLayout>
 

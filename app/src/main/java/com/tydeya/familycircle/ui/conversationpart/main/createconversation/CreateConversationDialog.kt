@@ -57,7 +57,7 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
                     dismiss()
 
                 } else {
-                    Toast.makeText(context!!, getString(R.string.create_conversation_dialog_add_someone_text),
+                    Toast.makeText(context!!, getString(R.string.messenger_create_conversation_dialog_add_someone_text),
                             Toast.LENGTH_LONG).show()
                 }
             }

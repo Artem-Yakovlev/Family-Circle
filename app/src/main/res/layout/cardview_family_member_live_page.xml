@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="@string/name_surname"
+                android:text="@string/main_live_page_name_surname"
                 android:textSize="12sp"
                 android:singleLine="true"
                 android:ellipsize="marquee"

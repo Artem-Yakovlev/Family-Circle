@@ -15,18 +15,18 @@ class VerifyPhoneNumberDialog {
                               DialogInterface.OnClickListener negativeButtonListener) {
 
         StringBuilder questionText = new StringBuilder(context.getResources()
-                .getString(R.string.first_start_input_number_correct_text));
+                .getString(R.string.start_input_number_correct_text ));
 
         questionText.append(" ").append(fullPhoneNumber).append(" ?");
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-        alertDialogBuilder.setTitle(context.getResources().getString(R.string.first_start_input_number_correct_title));
+        alertDialogBuilder.setTitle(context.getResources().getString(R.string.start_input_number_correct_title));
         alertDialogBuilder.setMessage(questionText);
 
-        alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.first_start_input_number_correct_yes),
+        alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.yes_text),
                 positiveButtonListener);
-        alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.first_start_input_number_correct_no),
+        alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no_text),
                 negativeButtonListener);
 
         return alertDialogBuilder.create();
