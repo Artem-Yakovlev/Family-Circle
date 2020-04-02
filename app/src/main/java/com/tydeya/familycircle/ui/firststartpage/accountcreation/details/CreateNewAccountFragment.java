@@ -19,6 +19,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -41,6 +42,8 @@ import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
         ImageCropperUsable, CreateNewAccountView {
 
+    private View root;
+
     private CardView dateCard;
     private ShapedImageView userPhotoImage;
     private TextView birthDateText;
@@ -55,7 +58,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
+        root = inflater.inflate(R.layout.fragment_create_new_account, container, false);
         navController = NavHostFragment.findNavController(this);
 
         dateCard = root.findViewById(R.id.create_account_page_date_card);
@@ -108,12 +111,12 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         Glide.with(this)
                 .load(imageUri)
                 .into(userPhotoImage);
-
     }
 
     @Override
     public void imageCroppedWithError(CropImage.ActivityResult activityResult) {
-        Log.d("ASMR", activityResult.getError().toString());
+        Snackbar.make(root, getString(R.string.error_message_image_cropped_with_error),
+                Snackbar.LENGTH_LONG).show();
     }
 
     private void closeLoadingDialog() {

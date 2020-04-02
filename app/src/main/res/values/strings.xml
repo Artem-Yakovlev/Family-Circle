@@ -218,6 +218,9 @@
     <string name="recent_activities">Recent Activities:</string>
     <string name="stayhome">#STAYHOME</string>
     <string name="map_stayhome_text">As the Coronavirus pandemic is raging in the world now, it would be terribly wrong to add a convenient map to Family CIrcle now. Therefore, the developers decided not to implement map navigation in this test version of the application. Stay home and take good care of your hygiene.</string>
+    <string name="error_message_unexpected_error">Unexpected error</string>
+    <string name="error_message_no_internet_access">No internet access</string>
+    <string name="error_message_image_cropped_with_error">Image cropped with error</string>
 
     <string-array name="events_priority">
         <item>Low priority</item>

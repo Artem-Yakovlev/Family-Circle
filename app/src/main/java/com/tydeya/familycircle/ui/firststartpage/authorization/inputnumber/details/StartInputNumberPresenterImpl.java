@@ -64,7 +64,7 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
 
     @Override
     public void onVerificationFailed(FirebaseException e) {
-        Log.d("ASMR", e.toString());
+        startInputNumberView.get().verificationFailed(e);
     }
 
     /**
