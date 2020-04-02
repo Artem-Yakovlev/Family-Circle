@@ -13,7 +13,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-        app:title="Общий сбор"
         app:titleTextColor="@color/colorWhite">
 
         <ImageButton

@@ -166,8 +166,6 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
                     bundle.putString("personFullPhoneNumber", getFamilyMember().getFullPhoneNumber());
                     navController.navigate(R.id.memberPersonEditFragment);
                     return true;
-                case R.id.add_post_to_person_page:
-                    return true;
                 default:
                     return false;
             }
