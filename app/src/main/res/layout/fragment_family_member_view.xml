@@ -167,7 +167,7 @@
             android:fontFamily="@font/poppins_medium"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="@string/online"
+            android:text="@string/online_text"
             android:textColor="@color/colorWhite"
             tools:ignore="RtlHardcoded" />
 

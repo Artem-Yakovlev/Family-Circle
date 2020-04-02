@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/buy_catalog_settings"
+        android:text="@string/dialog_buy_catalog_settings_title"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/shopping_list_name"
+            android:hint="@string/dialog_buy_list_settings_shopping_list_name"
             android:inputType="textPersonName"
             android:singleLine="true"
             android:textColor="@color/colorGray"
@@ -47,7 +47,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="10dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/delete_list"
+        android:text="@string/dialog_buy_catalog_settings_delete_list"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         android:textColor="@color/colorWhite"
         android:theme="@style/FormButton"

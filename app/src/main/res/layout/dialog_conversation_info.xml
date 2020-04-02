@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/conversation_info"
+        android:text="@string/messenger_conversation_info"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/dialog_create_conversation_title_text"
+            android:hint="@string/messenger_dialog_create_conversation_title_text"
             android:inputType="textPersonName"
             android:singleLine="true"
             android:textColor="@color/colorGray"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:paddingHorizontal="8dp"
-        android:text="@string/members" />
+        android:text="@string/messenger_members" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dialog_conversation_info_recyclerview"
@@ -65,7 +65,7 @@
             android:layout_marginHorizontal="10dp"
             android:drawableRight="@drawable/ic_exit_to_app_white_24dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/dialog_conversation_info_leave_button_text"
+            android:text="@string/messenger_dialog_conversation_info_leave_button_text"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:textColor="@color/colorWhite"
             android:theme="@style/FormButton"
@@ -98,7 +98,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/dialog_conversation_info_save_button_text"
+            android:text="@string/messenger_dialog_conversation_info_save_button_text"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:textColor="@color/colorWhite"
             android:theme="@style/FormButton" />

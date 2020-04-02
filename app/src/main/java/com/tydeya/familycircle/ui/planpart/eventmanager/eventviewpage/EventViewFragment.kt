@@ -137,9 +137,9 @@ class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInte
         event_view_timer_layout.visibility = View.GONE
         event_view_stub_layout.visibility = View.VISIBLE
         event_view_stub_text.text = if (isTodayEvent) {
-            context!!.resources.getString(R.string.this_is_today_event)
+            context!!.resources.getString(R.string.event_view_this_is_today_event)
         } else {
-            context!!.resources.getString(R.string.this_event_has_already_passed)
+            context!!.resources.getString(R.string.event_view_this_event_has_already_passed)
         }
     }
 

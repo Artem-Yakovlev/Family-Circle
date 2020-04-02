@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins"
             android:textColor="@color/colorGray"
-            android:text="@string/minute_timer"/>
+            android:text="@string/create_account_page_minute_timer"/>
 
     </LinearLayout>
 

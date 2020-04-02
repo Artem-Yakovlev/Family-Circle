@@ -13,7 +13,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 import com.tydeya.familycircle.R;
@@ -22,6 +24,8 @@ import com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.abstr
 import com.tydeya.familycircle.utils.KeyboardHelper;
 
 import java.util.Objects;
+
+import static com.tydeya.familycircle.utils.OnlineHelpersKt.isOnline;
 
 /**
  * In this fragment, the user enters his phone number for registration and goes to the next page.
@@ -108,6 +112,17 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
         bundle.putString("userCodeId", s);
         bundle.putString("userPhoneNumber", countryPicker.getFullNumberWithPlus());
         navController.navigate(R.id.getCodeFromSmsFragment, bundle);
+    }
+
+    @Override
+    public void verificationFailed(FirebaseException e) {
+        closeLoadingDialog();
+        if (isOnline()) {
+            Snackbar.make(root, R.string.error_message_unexpected_error, Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(root, R.string.error_message_no_internet_access, Snackbar.LENGTH_LONG).show();
+        }
+
     }
 
     /**

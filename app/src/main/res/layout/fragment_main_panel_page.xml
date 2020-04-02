@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.managerpart.menu.details.ManagerMenuPage"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.managerpart.menu.details.ManagerMenuPage">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/family_member_view_toolbar"
@@ -23,6 +23,7 @@
             android:layout_marginRight="20dp"
             android:background="@null"
             android:src="@drawable/ic_settings_white_24dp"
+            android:visibility="invisible"
             tools:ignore="RtlHardcoded" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -30,6 +31,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_panel_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

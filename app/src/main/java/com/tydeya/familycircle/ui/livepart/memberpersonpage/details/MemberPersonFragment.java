@@ -110,7 +110,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
         if (dto.getBirthDate().equals("")) {
             birthdateText.setText(getResources()
-                    .getString(R.string.family_member_view_datebirthd_not_known));
+                    .getString(R.string.family_member_view_date_of_birth_not_known));
 
             zodiacSignText.setVisibility(View.GONE);
         } else {
@@ -134,10 +134,10 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         }
 
         if (onlineInteractor.isUserOnline(dto.getPhone())) {
-            onlineStatusText.setText(getContext().getString(R.string.online));
+            onlineStatusText.setText(getContext().getString(R.string.online_text));
             onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorOnlineGreen));
         } else {
-            onlineStatusText.setText(getContext().getString(R.string.offline));
+            onlineStatusText.setText(getContext().getString(R.string.offline_text));
             onlineStatusText.setBackgroundColor(getResources().getColor(R.color.colorGray));
         }
 
@@ -165,8 +165,6 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
                     Bundle bundle = new Bundle();
                     bundle.putString("personFullPhoneNumber", getFamilyMember().getFullPhoneNumber());
                     navController.navigate(R.id.memberPersonEditFragment);
-                    return true;
-                case R.id.add_post_to_person_page:
                     return true;
                 default:
                     return false;

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/new_conversation"
+        android:text="@string/messenger_new_conversation"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/dialog_create_conversation_title_text"
+            android:hint="@string/messenger_dialog_create_conversation_title_text"
             android:inputType="textPersonName"
             android:singleLine="true"
             android:textColor="@color/colorGray"

@@ -54,8 +54,6 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
         managerMenuItems.clear();
         managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_account_circle_blue_24dp,
                 getString(R.string.manager_menu_item_your_profile_title), ManagerMenuItemType.PROFILE));
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_people_blue_24dp,
-                getString(R.string.manager_menu_item_your_family_title), ManagerMenuItemType.FAMILY));
         managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_blue_24dp,
                 getString(R.string.manager_menu_item_sign_out_title), ManagerMenuItemType.EXIT));
     }
@@ -68,7 +66,6 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     public void onClickPanelItem(ManagerMenuItemType managerMenuItemType) {
         switch (managerMenuItemType) {
             case PROFILE:
-            case FAMILY:
                 openPage(managerMenuItemType);
                 break;
             case EXIT:
@@ -85,14 +82,14 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
         alertDialogBuilder.setTitle(R.string.manager_menu_item_sign_out_title);
         alertDialogBuilder.setMessage(R.string.manager_menu_sign_out_dialog_message);
 
-        alertDialogBuilder.setPositiveButton(R.string.manager_menu_sign_out_dialog_positive_button,
+        alertDialogBuilder.setPositiveButton(R.string.yes_text,
                 (dialog, which) -> {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(getContext(), FirstStartActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                 });
-        alertDialogBuilder.setNegativeButton(R.string.manager_menu_sign_out_dialog_negative_button,
+        alertDialogBuilder.setNegativeButton(R.string.no_text,
                 null);
 
         AlertDialog alertDialog = alertDialogBuilder.create();

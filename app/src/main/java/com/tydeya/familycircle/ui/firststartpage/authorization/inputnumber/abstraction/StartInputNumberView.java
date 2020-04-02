@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.abstraction;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 public interface StartInputNumberView {
@@ -13,4 +14,6 @@ public interface StartInputNumberView {
     void accountExist();
 
     void accountNotExistButAuthIsSuccess();
+
+    void verificationFailed(FirebaseException e);
 }
