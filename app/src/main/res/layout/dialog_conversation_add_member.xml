@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/add_member"
+        android:text="@string/messenger_add_member"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 

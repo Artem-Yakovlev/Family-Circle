@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/create_new_shopping_list"
+        android:text="@string/dialog_new_buy_list_title"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/shopping_list_name"
+            android:hint="@string/dialog_buy_list_settings_shopping_list_name"
             android:inputType="textPersonName"
             android:singleLine="true"
             android:textColor="@color/colorGray"

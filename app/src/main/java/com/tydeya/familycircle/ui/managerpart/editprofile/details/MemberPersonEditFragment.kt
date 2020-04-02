@@ -135,7 +135,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
         alertDialog.setTitle(context!!.resources.getString(R.string.person_edit_page_accept_alert_title))
 
         alertDialog.setPositiveButton(
-                context!!.resources.getString(R.string.person_edit_page_accept_alert_positive_button)
+                context!!.resources.getString(R.string.yes_text)
         ) { _, _ ->
             run {
                 var bitmap: Bitmap? = null
@@ -149,7 +149,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
             }
         }
         alertDialog.setNegativeButton(
-                context!!.resources.getString(R.string.person_edit_page_accept_alert_negative_button)
+                context!!.resources.getString(R.string.no_text)
         ) { _, _ -> run {} }
 
         alertDialog.show()

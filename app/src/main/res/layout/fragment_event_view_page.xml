@@ -220,7 +220,7 @@
                 android:id="@+id/event_view_stub_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/this_event_has_already_passed"
+                android:text="@string/event_view_this_event_has_already_passed"
                 android:textColor="@color/colorWhite"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="18dp"/>

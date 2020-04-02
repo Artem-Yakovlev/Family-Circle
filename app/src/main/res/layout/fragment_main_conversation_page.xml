@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="@string/main_conversation_page_toolbar_title"
+            app:title="@string/messenger_main_conversation_page_toolbar_title"
             app:titleTextColor="@color/colorWhite">
 
 

@@ -93,7 +93,7 @@ class MainConversationViewHolder(itemView: View,
             }
         } else {
 
-            itemView.conversation_page_card_last_message_text.text = context.resources.getString(R.string.empty_conversation)
+            itemView.conversation_page_card_last_message_text.text = context.resources.getString(R.string.messenger_empty_conversation)
             itemView.conversation_page_card_last_message_author.visibility = View.GONE
             itemView.conversation_page_card_last_message_time.visibility = View.INVISIBLE
             Glide.with(itemView.context)

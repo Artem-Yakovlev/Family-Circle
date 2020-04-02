@@ -75,7 +75,7 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
 
     @Override
     public void invalidCodeFormatAlert() {
-        codeInput.setError(getString(R.string.get_code_from_sms_page_invalid_code_alert));
+        codeInput.setError(getString(R.string.get_code_page_invalid_code_alert));
     }
 
     @Override

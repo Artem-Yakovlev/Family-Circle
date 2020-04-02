@@ -26,7 +26,7 @@
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/poppins_bold"
                 android:paddingHorizontal="20dp"
-                android:text="@string/stayhome"
+                android:text="@string/map_page_stub_title"
                 android:textColor="@color/colorWhite" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:padding="10dp"
-                android:text="@string/map_stayhome_text" />
+                android:text="@string/map__page_stub_text" />
 
         </LinearLayout>
 
