@@ -10,18 +10,21 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.QuerySnapshot
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
+import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback
+import com.tydeya.familycircle.framework.accountsync.details.AccountExistingCheckUpImpl
 import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.ui.firststartpage.FirstStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
+class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountExistingCheckUpCallback {
 
     private var currentNavController: LiveData<NavController>? = null
 
@@ -31,17 +34,22 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
     @Inject
     lateinit var messengerInteractor: MessengerInteractor
 
+    private var isSavedInstanceNull = false
+    private var isEntrySuccessful = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (verificationCheck()) {
-            App.getComponent().injectActivity(this)
-            if (savedInstanceState == null) {
-                setupBottomNavigationBar()
-            }
+        verificationCheck()
+        if (savedInstanceState == null) {
+            isSavedInstanceNull = true
         }
     }
+
+    /**
+     * Bottom navigation
+     * */
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -61,37 +69,40 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
         )
     }
 
+    /**
+     * Verification
+     * */
+
     private fun verificationCheck(): Boolean {
         if (FirebaseAuth.getInstance().currentUser == null) {
-            val intent = Intent(this, FirstStartActivity::class.java).apply { }
-            startActivity(intent)
-            this.finish()
+            startRegistration()
             return false
+        } else {
+            AccountExistingCheckUpImpl(this).isAccountWithPhoneExist(
+                    FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+
         }
         return true
     }
 
-    /**
-     * Interaction callbacks
-     * */
-
-    override fun onResume() {
-        super.onResume()
-        messengerInteractor.subscribe(this)
+    private fun startRegistration() {
+        val intent = Intent(this, FirstStartActivity::class.java)
+        startActivity(intent)
+        this.finish()
     }
 
-    override fun onPause() {
-        super.onPause()
-        messengerInteractor.unsubscribe(this)
+    override fun accountIsNotExist() {
+        FirebaseAuth.getInstance().signOut()
+        startRegistration()
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun accountIsExist(querySnapshot: QuerySnapshot?) {
+        App.getComponent().injectActivity(this)
+        if (isSavedInstanceNull) {
+            isEntrySuccessful = true
+            setupBottomNavigationBar()
+            messengerInteractor.subscribe(this)
+        }
     }
 
     /**
@@ -120,6 +131,10 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
         }
     }
 
+    /**
+     * Image cropper results
+     * */
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -139,6 +154,24 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback {
                     imageCropperUsable.imageCroppedWithError(result)
                 }
             }
+        }
+    }
+
+    /**
+     * Interaction callbacks
+     * */
+
+    override fun onResume() {
+        super.onResume()
+        if (isEntrySuccessful) {
+            messengerInteractor.subscribe(this)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (isEntrySuccessful) {
+            messengerInteractor.unsubscribe(this)
         }
     }
 
