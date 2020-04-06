@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
+import com.tydeya.familycircle.data.constants.NavigateConsts.*
 import com.tydeya.familycircle.data.eventmanager.FamilyEvent
 import com.tydeya.familycircle.data.eventmanager.WorkingMode
 import com.tydeya.familycircle.domain.eventmanager.interactor.abstraction.EventInteractorCallback
@@ -39,8 +40,8 @@ class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInte
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectFragment(this)
 
-        id = arguments!!.getString("id", "")
-        year = arguments!!.getInt("year", 0)
+        id = arguments!!.getString(BUNDLE_ID, "")
+        year = arguments!!.getInt(BUNDLE_YEAR, 0)
 
         if (id != "") {
             val event = eventInteractor.getEventById(id)
@@ -172,7 +173,7 @@ class EventViewFragment : Fragment(R.layout.fragment_event_view_page), EventInte
             when (item.itemId) {
                 R.id.event_view_menu_edit -> {
                     val bundle = Bundle().apply {
-                        putString("eventId", id)
+                        putString(BUNDLE_EVENT_ID, id)
                         putInt(EVENT_EDIT_PAGE_WORKING_MODE, WorkingMode.EDIT.ordinal)
                     }
 

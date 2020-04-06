@@ -38,6 +38,8 @@ import java.util.GregorianCalendar;
 
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_PHONE_NUMBER;
+
 
 public class CreateNewAccountFragment extends Fragment implements DatePickerUsable,
         ImageCropperUsable, CreateNewAccountView {
@@ -75,7 +77,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
         super.onViewCreated(view, savedInstanceState);
         assert getActivity() != null && nameText.getText() != null;
 
-        presenter = new CreateNewAccountPresenterImpl(this, getArguments().getString("phone_number"));
+        presenter = new CreateNewAccountPresenterImpl(this, getArguments().getString(BUNDLE_PHONE_NUMBER));
 
         dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this), Calendar.getInstance()));
 
