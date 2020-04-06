@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
@@ -80,7 +81,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
         val calendar = GregorianCalendar(selectedDateYear, selectedDateMonth, selectedDateDay)
         editableFamilyMember.birthdate = calendar.timeInMillis
         edit_person_datetime_picker_output.text = DateRefactoring.getDateLocaleText(calendar)
-        edit_person_datetime_picker_output.setTextColor(resources.getColor(R.color.colorPrimary))
+        edit_person_datetime_picker_output.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
     }
 
     private fun getEditableFamilyMemberByCurrentData(): EditableFamilyMember {
@@ -103,7 +104,7 @@ class MemberPersonEditFragment : Fragment(), MemberPersonEditView, DatePickerUsa
             val calendar = GregorianCalendar()
             calendar.timeInMillis = editableFamilyMember.birthdate
             edit_person_datetime_picker_output.text = DateRefactoring.getDateLocaleText(calendar)
-            edit_person_datetime_picker_output.setTextColor(resources.getColor(R.color.colorPrimary))
+            edit_person_datetime_picker_output.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         }
 
         edit_person_study.value = editableFamilyMember.studyPlace

@@ -25,7 +25,7 @@ import com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfr
 import com.tydeya.familycircle.ui.conversationpart.main.MainConversationPage;
 import com.tydeya.familycircle.ui.conversationpart.main.createconversation.CreateConversationDialog;
 import com.tydeya.familycircle.ui.conversationpart.main.recyclerview.MainConversationViewHolder;
-import com.tydeya.familycircle.ui.livepart.main.details.MainLivePage;
+import com.tydeya.familycircle.ui.livepart.main.details.MainLiveFragment;
 import com.tydeya.familycircle.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
@@ -62,7 +62,7 @@ import dagger.Component;
         MessengerModule.class, OnlineManagerModule.class, CooperationModule.class})
 public interface AppComponent {
 
-    void injectFragment(MainLivePage mainLivePage);
+    void injectFragment(MainLiveFragment mainLiveFragment);
 
     void injectFragment(MemberPersonFragment memberPersonFragment);
 

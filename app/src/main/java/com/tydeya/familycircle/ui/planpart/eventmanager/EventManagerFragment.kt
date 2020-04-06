@@ -10,6 +10,8 @@ import com.applandeo.materialcalendarview.EventDay
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
+import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
+import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_YEAR
 import com.tydeya.familycircle.data.eventmanager.FamilyEvent
 import com.tydeya.familycircle.data.eventmanager.WorkingMode
 import com.tydeya.familycircle.domain.eventmanager.interactor.abstraction.EventInteractorCallback
@@ -205,8 +207,8 @@ class EventManagerFragment
     override fun onEventClickListener(id: String) {
         NavHostFragment.findNavController(this).navigate(R.id.eventViewPage,
                 Bundle().apply {
-                    putString("id", id)
-                    putInt("year", event_reminder_main_calendar.firstSelectedDate.get(Calendar.YEAR))
+                    putString(BUNDLE_ID, id)
+                    putInt(BUNDLE_YEAR, event_reminder_main_calendar.firstSelectedDate.get(Calendar.YEAR))
                 })
     }
 

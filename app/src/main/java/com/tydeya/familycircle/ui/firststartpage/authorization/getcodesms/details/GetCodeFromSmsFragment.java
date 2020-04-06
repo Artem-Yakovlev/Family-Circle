@@ -23,6 +23,10 @@ import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstra
 import com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
 import com.tydeya.familycircle.utils.KeyboardHelper;
 
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_PHONE_NUMBER;
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_USER_CODE_ID;
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_USER_PHONE_NUMBER;
+
 
 public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsView {
 
@@ -56,7 +60,7 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
         assert codeInput.getText() != null && getArguments() != null;
 
         presenter = new GetCodeFromSmsPresenterImpl(this, FirebaseAuth.getInstance(),
-                getArguments().getString("userPhoneNumber"));
+                getArguments().getString(BUNDLE_USER_PHONE_NUMBER));
 
         acceptCodeButton.setOnClickListener(v -> presenter.onClickAcceptButton(codeInput.getText().toString()));
 
@@ -84,7 +88,7 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
         KeyboardHelper.hideKeyboard(getActivity());
         loadingDialog = ProgressDialog.show(getContext(), null, getString(R.string.loading_text), true);
 
-        presenter.signInWithCode(getArguments().getString("userCodeId", ""),
+        presenter.signInWithCode(getArguments().getString(BUNDLE_USER_CODE_ID, ""),
                 codeInput.getText().toString(), getActivity());
 
     }
@@ -108,7 +112,7 @@ public class GetCodeFromSmsFragment extends Fragment implements GetCodeFromSmsVi
     @Override
     public void accountIsNotExistButVerificationIsSuccess(String fullPhoneNumber) {
         Bundle bundle = new Bundle();
-        bundle.putString("phone_number", fullPhoneNumber);
+        bundle.putString(BUNDLE_PHONE_NUMBER, fullPhoneNumber);
         closeLoadingDialog();
         navController.navigate(R.id.createNewAccountFragment, bundle);
     }

@@ -25,6 +25,9 @@ import com.tydeya.familycircle.utils.KeyboardHelper;
 
 import java.util.Objects;
 
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_PHONE_NUMBER;
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_USER_CODE_ID;
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_USER_PHONE_NUMBER;
 import static com.tydeya.familycircle.utils.OnlineHelpersKt.isOnline;
 
 /**
@@ -109,8 +112,8 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
         closeLoadingDialog();
 
         Bundle bundle = new Bundle();
-        bundle.putString("userCodeId", s);
-        bundle.putString("userPhoneNumber", countryPicker.getFullNumberWithPlus());
+        bundle.putString(BUNDLE_USER_CODE_ID, s);
+        bundle.putString(BUNDLE_USER_PHONE_NUMBER, countryPicker.getFullNumberWithPlus());
         navController.navigate(R.id.getCodeFromSmsFragment, bundle);
     }
 
@@ -138,7 +141,7 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
     @Override
     public void accountNotExistButAuthIsSuccess() {
         Bundle bundle = new Bundle();
-        bundle.putString("phone_number", countryPicker.getFullNumberWithPlus());
+        bundle.putString(BUNDLE_PHONE_NUMBER, countryPicker.getFullNumberWithPlus());
         closeLoadingDialog();
         navController.navigate(R.id.createNewAccountFragment, bundle);
     }

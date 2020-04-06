@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/live"
-    app:startDestination="@id/mainLivePage">
+    app:startDestination="@id/mainLiveFragment">
     <fragment
         android:id="@+id/familyMemberViewFragment"
         android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment"
@@ -22,8 +22,8 @@
         android:label="fragment_mamber_person_edit"
         tools:layout="@layout/fragment_member_person_edit" />
     <fragment
-        android:id="@+id/mainLivePage"
-        android:name="com.tydeya.familycircle.ui.livepart.main.details.MainLivePage"
+        android:id="@+id/mainLiveFragment"
+        android:name="com.tydeya.familycircle.ui.livepart.main.details.MainLiveFragment"
         android:label="fragment_main_live_page"
         tools:layout="@layout/fragment_main_live_page">
         <action

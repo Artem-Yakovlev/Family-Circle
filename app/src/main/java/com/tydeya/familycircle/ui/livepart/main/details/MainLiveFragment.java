@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class MainLivePage extends Fragment implements OnClickMemberStoryListener,
+public class MainLiveFragment extends Fragment implements OnClickMemberStoryListener,
         FamilyInteractorCallback, CooperationInteractorCallback {
 
     private NavController navController;

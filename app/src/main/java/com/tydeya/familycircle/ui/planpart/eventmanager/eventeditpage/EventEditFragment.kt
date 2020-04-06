@@ -5,12 +5,14 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.EVENT_EDIT_PAGE_WORKING_MODE
+import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_EVENT_ID
 import com.tydeya.familycircle.data.eventmanager.FamilyEvent
 import com.tydeya.familycircle.data.eventmanager.FamilyEventPriority
 import com.tydeya.familycircle.data.eventmanager.FamilyEventType
@@ -62,7 +64,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
             event_reminder_edit_toolbar.title =
                     context!!.resources.getString(R.string.event_reminder_edit_toolbar_title_edit)
 
-            eventId = arguments!!.getString("eventId", "")
+            eventId = arguments!!.getString(BUNDLE_EVENT_ID, "")
             setCurrentData()
         } else {
             workMode = WorkingMode.CREATE
@@ -123,7 +125,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
         event_reminder_edit_date_output.text = DateRefactoring.getDateLocaleText(dateChanged)
         editableDate = dateChanged.timeInMillis
         event_reminder_edit_date_output
-                .setTextColor(context!!.resources.getColor(R.color.colorGray))
+                .setTextColor(ContextCompat.getColor(context!!, R.color.colorGray))
     }
 
     /**
@@ -150,7 +152,7 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
                 return true
             } else {
                 event_reminder_edit_date_output
-                        .setTextColor(context!!.resources.getColor(R.color.design_default_color_error))
+                        .setTextColor(ContextCompat.getColor(context!!, R.color.design_default_color_error))
             }
         }
         return false
