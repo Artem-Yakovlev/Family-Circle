@@ -32,6 +32,7 @@ import com.tydeya.familycircle.ui.livepart.memberpersonpage.abstraction.MemberPe
 
 import javax.inject.Inject;
 
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER;
 import static com.tydeya.familycircle.utils.DipKt.getDp;
 
 
@@ -92,7 +93,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
     private FamilyMember getFamilyMember() {
         FamilyAssistant familyAssistant = new FamilyAssistantImpl(familyInteractor.getActualFamily());
-        return familyAssistant.getUserByPhone(getArguments().getString("personFullPhoneNumber", ""));
+        return familyAssistant.getUserByPhone(getArguments().getString(BUNDLE_FULL_PHONE_NUMBER, ""));
     }
 
     @Override
@@ -163,7 +164,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
             switch (item.getItemId()) {
                 case R.id.edit_person_page:
                     Bundle bundle = new Bundle();
-                    bundle.putString("personFullPhoneNumber", getFamilyMember().getFullPhoneNumber());
+                    bundle.putString(BUNDLE_FULL_PHONE_NUMBER, getFamilyMember().getFullPhoneNumber());
                     navController.navigate(R.id.memberPersonEditFragment);
                     return true;
                 default:

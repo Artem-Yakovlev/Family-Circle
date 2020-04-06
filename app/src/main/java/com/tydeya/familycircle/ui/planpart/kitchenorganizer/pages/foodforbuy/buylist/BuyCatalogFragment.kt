@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.constants.NavigateConsts.ID
+import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
@@ -35,7 +35,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectBuyCatalogFragment(this)
 
-        buyCatalogID = arguments!!.getString(ID)!!
+        buyCatalogID = arguments!!.getString(BUNDLE_ID)!!
         val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
 
         setRecyclerView(buyCatalog.products)

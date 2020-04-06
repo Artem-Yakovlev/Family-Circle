@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
@@ -43,7 +44,7 @@ class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalo
     override fun onBuyCatalogClick(position: Int) {
         val navController = NavHostFragment.findNavController(this)
         val bundle = Bundle()
-        bundle.putString("id", kitchenOrganizerInteractor.buyCatalogs[position].id)
+        bundle.putString(BUNDLE_ID, kitchenOrganizerInteractor.buyCatalogs[position].id)
         navController.navigate(R.id.buyListFragment, bundle)
     }
 

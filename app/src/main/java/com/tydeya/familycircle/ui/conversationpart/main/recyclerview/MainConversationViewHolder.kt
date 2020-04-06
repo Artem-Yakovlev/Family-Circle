@@ -3,6 +3,7 @@ package com.tydeya.familycircle.ui.conversationpart.main.recyclerview
 import android.content.Context
 import android.text.format.DateFormat
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tydeya.familycircle.App
@@ -49,7 +50,7 @@ class MainConversationViewHolder(itemView: View,
 
     private fun setUnreadMessageMode(conversation: Conversation) {
         itemView.conversation_page_main_layout
-                .setBackgroundColor(itemView.context.resources.getColor(R.color.colorTransparentBlue))
+                .setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorTransparentBlue))
 
         itemView.conversation_page_card_badge_block.visibility = View.VISIBLE
         itemView.conversation_page_card_badge_number.text = conversation.unreadMessagesCounter.toString()
@@ -57,7 +58,7 @@ class MainConversationViewHolder(itemView: View,
 
     private fun setWithoutUnreadMessagesMode(conversation: Conversation) {
         itemView.conversation_page_main_layout
-                .setBackgroundColor(itemView.context.resources.getColor(R.color.colorWhite))
+                .setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorWhite))
 
         itemView.conversation_page_card_badge_block.visibility = View.INVISIBLE
     }
