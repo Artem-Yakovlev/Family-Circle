@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER;
+
 public class MainLiveFragment extends Fragment implements OnClickMemberStoryListener,
         FamilyInteractorCallback, CooperationInteractorCallback {
 
@@ -87,7 +89,7 @@ public class MainLiveFragment extends Fragment implements OnClickMemberStoryList
     @Override
     public void onClickMemberStory(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString("personFullPhoneNumber", familyInteractor.getActualFamily()
+        bundle.putString(BUNDLE_FULL_PHONE_NUMBER, familyInteractor.getActualFamily()
                 .getFamilyMembers().get(position).getFullPhoneNumber());
         navController.navigate(R.id.familyMemberViewFragment, bundle);
     }
