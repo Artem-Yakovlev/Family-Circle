@@ -1,7 +1,9 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,15 +11,15 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
+import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
-import kotlinx.android.synthetic.main.fragment_buy_list.*
 import javax.inject.Inject
 
-class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganizerCallback,
+class BuyCatalogFragment : Fragment(R.layout.fragment_buy_catalog), KitchenOrganizerCallback,
         FoodInBuyListViewHolderClickListener, BuyCatalogSettingsDialogCallback {
 
     @Inject
@@ -31,17 +33,28 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     private var editableModeIsActive = false
 
+    // View binding
+
+    private var _binding: FragmentBuyCatalogBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentBuyCatalogBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         App.getComponent().injectBuyCatalogFragment(this)
 
-        buyCatalogID = arguments!!.getString(BUNDLE_ID)!!
+        buyCatalogID = requireArguments().getString(BUNDLE_ID)!!
         val buyCatalog = kitchenInteractor.requireCatalogData(buyCatalogID)
 
         setRecyclerView(buyCatalog.products)
 
-        buy_list_floating_button.attachToRecyclerView(buy_list_recyclerview)
-        buy_list_floating_button.setOnClickListener {
+        binding.buyListFloatingButton.attachToRecyclerView(binding.buyListRecyclerview)
+        binding.buyListFloatingButton.setOnClickListener {
             editableModeIsActive = !editableModeIsActive
             switchMode()
         }
@@ -51,12 +64,12 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
         buyCatalogEventListener = KitchenBuyCatalogEventListener(buyCatalogID, kitchenInteractor)
         buyCatalogEventListener.register()
 
-        buy_list_add_button.setOnClickListener {
+        binding.buyListAddButton.setOnClickListener {
             val newProductDialog = CreateNewProductDialog(buyCatalogID)
             newProductDialog.show(parentFragmentManager, "dialog_new_product")
         }
 
-        buy_list_primary_settings.setOnClickListener {
+        binding.buyListPrimarySettings.setOnClickListener {
             val buyCatalogSettingsDialog = BuyCatalogSettingsDialog(buyCatalogID, this)
             buyCatalogSettingsDialog.show(parentFragmentManager, "dialog_settings")
         }
@@ -68,16 +81,16 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
      * */
 
     private fun setRecyclerView(products: ArrayList<Food>) {
-        adapter = BuyCatalogRecyclerViewAdapter(context!!, products, editableModeIsActive, this)
-        buy_list_recyclerview.adapter = adapter
+        adapter = BuyCatalogRecyclerViewAdapter(requireContext(), products, editableModeIsActive, this)
+        binding.buyListRecyclerview.adapter = adapter
 
-        buy_list_recyclerview.layoutManager = LinearLayoutManager(context!!,
+        binding.buyListRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false)
     }
 
     private fun setToolbar(title: String) {
-        buy_list_toolbar.title = title
-        buy_list_toolbar.setNavigationOnClickListener {
+        binding.buyListToolbar.title = title
+        binding.buyListToolbar.setNavigationOnClickListener {
             NavHostFragment.findNavController(this).popBackStack()
             buyCatalogEventListener.unregister()
         }
@@ -89,13 +102,13 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
 
     private fun switchMode() {
         if (editableModeIsActive) {
-            buy_list_floating_button.setImageResource(R.drawable.ic_close_white_24dp)
-            buy_list_add_button.visibility = View.VISIBLE
-            buy_list_primary_settings.visibility = View.VISIBLE
+            binding.buyListFloatingButton.setImageResource(R.drawable.ic_close_white_24dp)
+            binding.buyListAddButton.visibility = View.VISIBLE
+            binding.buyListPrimarySettings.visibility = View.VISIBLE
         } else {
-            buy_list_floating_button.setImageResource(R.drawable.ic_mode_edit_white_24dp)
-            buy_list_add_button.visibility = View.GONE
-            buy_list_primary_settings.visibility = View.GONE
+            binding.buyListFloatingButton.setImageResource(R.drawable.ic_mode_edit_white_24dp)
+            binding.buyListAddButton.visibility = View.GONE
+            binding.buyListPrimarySettings.visibility = View.GONE
         }
         adapter.switchMode(editableModeIsActive)
     }
@@ -119,7 +132,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
         if (buyCatalog.title == "...") {
             NavHostFragment.findNavController(this).popBackStack()
         }
-        buy_list_toolbar.title = buyCatalog.title
+        binding.buyListToolbar.title = buyCatalog.title
         adapter.refreshData(buyCatalog.products)
     }
 
@@ -157,6 +170,7 @@ class BuyCatalogFragment : Fragment(R.layout.fragment_buy_list), KitchenOrganize
     override fun onDestroy() {
         super.onDestroy()
         buyCatalogEventListener.unregister()
+        _binding = null
     }
 
 }

@@ -33,7 +33,7 @@
         android:id="@+id/buyListFragment"
         android:name="com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
         android:label="fragment_buy_list"
-        tools:layout="@layout/fragment_buy_list" />
+        tools:layout="@layout/fragment_buy_catalog" />
     <fragment
         android:id="@+id/eventReminder"
         android:name="com.tydeya.familycircle.ui.planpart.eventmanager.EventManagerFragment"

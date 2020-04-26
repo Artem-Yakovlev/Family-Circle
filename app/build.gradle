@@ -32,6 +32,10 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -98,12 +102,12 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
     // Java language implementation
-    implementation "androidx.navigation:navigation-fragment:2.3.0-alpha04"
-    implementation "androidx.navigation:navigation-ui:2.3.0-alpha04"
+    implementation "androidx.navigation:navigation-fragment:2.3.0-alpha05"
+    implementation "androidx.navigation:navigation-ui:2.3.0-alpha05"
 
     // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha04"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha04"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha05"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha05"
 
 
     // Floating action button
