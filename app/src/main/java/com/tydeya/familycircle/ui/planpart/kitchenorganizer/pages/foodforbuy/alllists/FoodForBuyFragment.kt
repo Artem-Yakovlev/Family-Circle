@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
@@ -48,17 +49,15 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
 
     private fun initRecyclerView() {
         adapter = AllBuyCatalogsRecyclerViewAdapter(ArrayList(), this)
-        binding.foodForBuyRecyclerview.setAdapter(adapter,
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false))
-        food_for_buy_recyclerview.addVeiledItems(12)
+        binding.foodForBuyRecyclerview.adapter = adapter
+        binding.foodForBuyRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
+                LinearLayoutManager.VERTICAL, false)
 
         allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    binding.foodForBuyRecyclerview.veil()
                 }
                 is Resource.Success -> {
-                    binding.foodForBuyRecyclerview.unVeil()
                     adapter.refreshData(it.data)
                 }
                 is Resource.Failure -> {
@@ -69,7 +68,7 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
     }
 
     private fun initFloatingButton() {
-        floating_button.attachToRecyclerView(food_for_buy_recyclerview.getRecyclerView())
+        floating_button.attachToRecyclerView(binding.foodForBuyRecyclerview)
         floating_button.setOnClickListener {
             val newListDialog = CreateBuyListDialog()
             newListDialog.show(parentFragmentManager, "dialog_new_list")

@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModelFactory
 import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
 
 class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
         BuyCatalogSettingsDialogCallback {
@@ -30,6 +32,7 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
     private var _binding: FragmentBuyCatalogBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var allBuyCatalogsViewModel: AllBuyCatalogsViewModel
     private lateinit var buyCatalogViewModel: BuyCatalogViewModel
     private lateinit var buyCatalogViewModelFactory: BuyCatalogViewModelFactory
 
@@ -40,8 +43,12 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
         _binding = FragmentBuyCatalogBinding.inflate(inflater, container, false)
 
         buyCatalogViewModelFactory = BuyCatalogViewModelFactory(buyCatalogID)
+
         buyCatalogViewModel = ViewModelProviders.of(this, buyCatalogViewModelFactory)
                 .get(BuyCatalogViewModel::class.java)
+
+        allBuyCatalogsViewModel = ViewModelProviders.of(this)
+                .get(AllBuyCatalogsViewModel::class.java)
 
         return binding.root
     }
@@ -58,7 +65,7 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
     private fun initUi() {
         initRecyclerView()
         initFloatingButton()
-        initToolbar("Test")
+        initToolbar()
         initAddButton()
         initSettingsButton()
     }
@@ -85,8 +92,20 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
         })
     }
 
-    private fun initToolbar(title: String) {
-        binding.toolbar.title = title
+    private fun initToolbar() {
+
+        allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
+            binding.toolbar.title = when (it) {
+                is Resource.Success -> {
+                    when (val titleResource = allBuyCatalogsViewModel.getTitleById(buyCatalogID)) {
+                        is Resource.Success -> titleResource.data
+                        else -> ""
+                    }
+                }
+                else -> ""
+            }
+        })
+
         binding.toolbar.setNavigationOnClickListener {
             NavHostFragment.findNavController(this).popBackStack()
         }
