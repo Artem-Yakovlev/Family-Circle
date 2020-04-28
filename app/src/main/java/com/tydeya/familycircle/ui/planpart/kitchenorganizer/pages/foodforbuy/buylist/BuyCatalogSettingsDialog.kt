@@ -25,7 +25,7 @@ class BuyCatalogSettingsDialog(private val catalogId: String,
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val view = activity!!.layoutInflater
+        val view = requireActivity().layoutInflater
                 .inflate(R.layout.dialog_buy_list_settings, null)
 
 

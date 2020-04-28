@@ -21,7 +21,7 @@
         app:veilFrame_veiled="true" />
 
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/buy_list_floating_button"
+        android:id="@+id/floating_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom|right"

@@ -23,7 +23,7 @@ class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val view = activity!!.layoutInflater
+        val view = requireActivity().layoutInflater
                 .inflate(R.layout.dialog_new_food, null)
 
         view.dialog_new_food_create_button.setOnClickListener {
@@ -38,12 +38,12 @@ class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
 
             } else {
 
-                for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
-                    if (food.title == title) {
-                        isCanCreateProduct = false
-                        break
-                    }
-                }
+//                for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
+//                    if (food.title == title) {
+//                        isCanCreateProduct = false
+//                        break
+//                    }
+//                }
 
             }
 

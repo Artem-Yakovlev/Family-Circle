@@ -4,31 +4,35 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
-import kotlinx.android.synthetic.main.cardview_buylist_food.view.*
+import com.tydeya.familycircle.databinding.CardviewBuycatalogFoodBinding
 
-class FoodViewHolder(itemView: View, private val listenerInBuyList: FoodInBuyListViewHolderClickListener) : RecyclerView.ViewHolder(itemView) {
+class FoodViewHolder(private val binding: CardviewBuycatalogFoodBinding,
+                     private val listenerInBuyList: FoodInBuyListViewHolderClickListener)
+    : RecyclerView.ViewHolder(binding.root) {
 
     fun bindData(food: Food, itemType: Int, isEditableMode: Boolean) {
-        itemView.buy_list_food_card_title.text = food.title
+        binding.buyListFoodCardTitle.text = food.title
 
-        itemView.buy_list_food_card_checkbox.isChecked = when (food.foodStatus) {
+        binding.buyListFoodCardCheckbox.isChecked = when (food.foodStatus) {
             FoodStatus.NEED_BUY -> false
             FoodStatus.IN_FRIDGE -> true
         }
 
-        itemView.buy_list_food_card_delete.visibility = getEditableVisibility(isEditableMode)
+        binding.buyListFoodCardDelete.visibility = getEditableVisibility(isEditableMode)
 
-        itemView.buy_list_food_card_edit.visibility = getEditableVisibility(isEditableMode)
+        binding.buyListFoodCardEdit.visibility = getEditableVisibility(isEditableMode)
 
-        itemView.buy_list_food_card_delete
-                .setOnClickListener { listenerInBuyList.onFoodVHDeleteClick(food.title) }
+        binding.buyListFoodCardDelete.setOnClickListener {
+            listenerInBuyList.onFoodVHDeleteClick(food.title)
+        }
 
-        itemView.buy_list_food_card_edit
-                .setOnClickListener { listenerInBuyList.onFoodVHEditDataClick(food.title) }
+        binding.buyListFoodCardEdit.setOnClickListener {
+            listenerInBuyList.onFoodVHEditDataClick(food.title)
+        }
 
-        itemView.buy_list_food_card_checkbox.setOnClickListener {
-            itemView.buy_list_food_card_checkbox.isClickable = false
-            itemView.buy_list_food_card_checkbox.isFocusable = false
+        binding.buyListFoodCardCheckbox.setOnClickListener {
+            binding.buyListFoodCardCheckbox.isClickable = false
+            binding.buyListFoodCardCheckbox.isFocusable = false
             listenerInBuyList.onFoodVHCheckBoxClicked(food.title)
         }
     }

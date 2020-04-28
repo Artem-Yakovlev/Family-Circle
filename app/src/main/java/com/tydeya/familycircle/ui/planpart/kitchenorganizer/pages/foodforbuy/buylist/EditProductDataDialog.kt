@@ -26,7 +26,7 @@ class EditProductDataDialog(private val catalogId: String, private val actualTit
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val view = activity!!.layoutInflater.inflate(R.layout.dialog_edit_food_data, null)
+        val view = requireActivity().layoutInflater.inflate(R.layout.dialog_edit_food_data, null)
 
         builder.setView(view)
 
@@ -46,14 +46,14 @@ class EditProductDataDialog(private val catalogId: String, private val actualTit
 
             } else {
 
-                for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
-                    if (food.title == title) {
-                        isCanCreateProduct = false
-                        view.dialog_edit_food_name.error = view.context!!
-                                .resources.getString(R.string.dialog_edit_food_data_already_exist)
-                        break
-                    }
-                }
+//                for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
+//                    if (food.title == title) {
+//                        isCanCreateProduct = false
+//                        view.dialog_edit_food_name.error = view.context!!
+//                                .resources.getString(R.string.dialog_edit_food_data_already_exist)
+//                        break
+//                    }
+//                }
 
             }
 

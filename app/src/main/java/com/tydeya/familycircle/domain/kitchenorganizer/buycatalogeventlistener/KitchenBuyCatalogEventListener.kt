@@ -1,11 +1,12 @@
-package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.eventlistener
+package com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener
 
 import com.google.firebase.firestore.*
 import com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_BUY_CATALOG_FOODS
 import com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_KITCHEN_COLLECTION
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details.KitchenOrganizerNetworkInteractorImpl
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.convertServerDataToFood
+import com.tydeya.familycircle.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class KitchenBuyCatalogEventListener(
         val id: String,
-        val callback: KitchenNetworkInteractorCallback
+        val callback: BuyCatalogEventListenerCallback
 ) :
         EventListener<QuerySnapshot>, EventListenerObservable {
 
@@ -35,16 +36,22 @@ class KitchenBuyCatalogEventListener(
     override fun onEvent(querySnapshot: QuerySnapshot?, exception: FirebaseFirestoreException?) {
         GlobalScope.launch(Dispatchers.Default) {
 
-            val actualProducts = ArrayList<Food>()
+            if (exception == null) {
+                val actualProducts = ArrayList<Food>()
 
-            for (rawFood in querySnapshot!!.documents) {
-                actualProducts.add(KitchenOrganizerNetworkInteractorImpl
-                        .Companion.convertServerDataToFood(rawFood))
-            }
+                for (rawFood in querySnapshot!!.documents) {
+                    actualProducts.add(convertServerDataToFood(rawFood))
+                }
 
-            withContext(Dispatchers.Main) {
-                callback.buyCatalogDataUpdated(id, actualProducts)
+                withContext(Dispatchers.Main) {
+                    callback.buyCatalogProductsUpdated(id, Resource.Success(actualProducts))
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    callback.buyCatalogProductsUpdated(id, Resource.Failure(exception))
+                }
             }
         }
     }
+
 }

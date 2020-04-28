@@ -3,19 +3,23 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.al
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
+import com.tydeya.familycircle.databinding.CardviewBuylistBinding
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
 import kotlinx.android.synthetic.main.cardview_buylist.view.*
 import java.util.*
 
-class BuyCatalogViewHolder(itemView: View, var clickListener: OnBuyCatalogClickListener)
-    : RecyclerView.ViewHolder(itemView) {
+class AllBuyCatalogsViewHolder(private val binding: CardviewBuylistBinding,
+                               private val clickListener: OnBuyCatalogClickListener)
+    : RecyclerView.ViewHolder(binding.root) {
 
     fun bindData(buyCatalog: BuyCatalog, position: Int) {
-        itemView.buylist_card_title.text = buyCatalog.title
+        binding.buylistCardTitle.text = buyCatalog.title
+
         val calendar = GregorianCalendar()
         calendar.timeInMillis = buyCatalog.dateOfCreate.time
-        itemView.buylist_card_date.text = DateRefactoring.getDateLocaleText(calendar)
-        itemView.setOnClickListener{clickListener.onBuyCatalogClick(position)}
+
+        binding.buylistCardDate.text = DateRefactoring.getDateLocaleText(calendar)
+        binding.root.setOnClickListener { clickListener.onBuyCatalogClick(position) }
     }
 
 }

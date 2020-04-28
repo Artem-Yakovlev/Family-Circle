@@ -9,9 +9,9 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
 import com.tydeya.familycircle.domain.cooperationorganizer.interactor.details.CooperationInteractor
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenNetworkInteractorCallback
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction.KitchenOrganizerNetworkInteractor
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.details.KitchenOrganizerNetworkInteractorImpl
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.KitchenNetworkInteractorCallback
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.KitchenOrganizerNetworkInteractor
+import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.KitchenOrganizerNetworkInteractorImpl
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerObservable
 import java.util.*
@@ -64,16 +64,6 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
         notifyObserversKitchenDataUpdated()
     }
 
-    override fun buyCatalogDataUpdated(id: String, products: ArrayList<Food>) {
-        for (index in 0 until buyCatalogs.size) {
-            if (buyCatalogs[index].id == id) {
-                buyCatalogs[index].products = products
-                break
-            }
-        }
-        notifyObserversKitchenDataUpdated()
-    }
-
     /**
      * Fridge updates
      * */
@@ -90,7 +80,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
      * */
 
     fun requireCatalogData(id: String): BuyCatalog {
-        var resultBuyCatalog = BuyCatalog(id, "...", Date(), ArrayList())
+        var resultBuyCatalog = BuyCatalog(id, "...", Date())
 
         for (buyCatalog in buyCatalogs) {
             if (buyCatalog.id == id) {
@@ -102,7 +92,7 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     }
 
     fun createBuyCatalog(title: String) {
-        buyCatalogs.add(0, BuyCatalog("", title, Date(), ArrayList()))
+        buyCatalogs.add(0, BuyCatalog("", title, Date()))
         notifyObserversKitchenDataUpdated()
         networkInteractor.createBuyList(title)
     }
@@ -126,41 +116,41 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
      * */
 
     fun createProductInCatalog(catalogId: String, title: String) {
-        getCatalogById(catalogId)?.let {
-            val food = Food(title, "", FoodStatus.NEED_BUY, .0, .0, .0)
-            it.products.add(food)
-            sortCatalog(catalogId)
-            notifyObserversKitchenDataUpdated()
-        }
-        networkInteractor.createProductInFirebase(catalogId, title)
+//        getCatalogById(catalogId)?.let {
+//            val food = Food(title, "", FoodStatus.NEED_BUY, .0, .0, .0)
+//            it.products.add(food)
+//            sortCatalog(catalogId)
+//            notifyObserversKitchenDataUpdated()
+//        }
+//        networkInteractor.createProductInFirebase(catalogId, title)
     }
 
     fun editProductInCatalog(catalogId: String, actualTitle: String, newTitle: String) {
-        getCatalogById(catalogId)?.let {
-            for (food in it.products) {
-                if (food.title == actualTitle) {
-                    food.title = newTitle
-                    break
-                }
-            }
-            sortCatalog(catalogId)
-            notifyObserversKitchenDataUpdated()
-        }
-        networkInteractor.editProductInFirebase(catalogId, actualTitle, newTitle)
+//        getCatalogById(catalogId)?.let {
+//            for (food in it.products) {
+//                if (food.title == actualTitle) {
+//                    food.title = newTitle
+//                    break
+//                }
+//            }
+//            sortCatalog(catalogId)
+//            notifyObserversKitchenDataUpdated()
+//        }
+//        networkInteractor.editProductInFirebase(catalogId, actualTitle, newTitle)
     }
 
     fun deleteProductInCatalog(catalogId: String, title: String) {
-        val catalog = getCatalogById(catalogId)
-        catalog?.let {
-            for (food in catalog.products) {
-                if (food.title == title) {
-                    catalog.products.remove(food)
-                    break
-                }
-            }
-            notifyObserversKitchenDataUpdated()
-        }
-        networkInteractor.deleteProductInFirebase(catalogId, title)
+//        val catalog = getCatalogById(catalogId)
+//        catalog?.let {
+//            for (food in catalog.products) {
+//                if (food.title == title) {
+//                    catalog.products.remove(food)
+//                    break
+//                }
+//            }
+//            notifyObserversKitchenDataUpdated()
+//        }
+//        networkInteractor.deleteProductInFirebase(catalogId, title)
     }
 
     fun buyProduct(catalogId: String, title: String) {
@@ -172,8 +162,8 @@ class KitchenOrganizerInteractor : KitchenNetworkInteractorCallback, KitchenOrga
     }
 
     private fun sortCatalog(catalogId: String) {
-        val catalog = getCatalogById(catalogId) ?: return
-        catalog.products.sortWith(kotlin.Comparator { o1, o2 -> -compareValues(o1.title, o2.title) })
+//        val catalog = getCatalogById(catalogId) ?: return
+//        catalog.products.sortWith(kotlin.Comparator { o1, o2 -> -compareValues(o1.title, o2.title) })
     }
 
     /**

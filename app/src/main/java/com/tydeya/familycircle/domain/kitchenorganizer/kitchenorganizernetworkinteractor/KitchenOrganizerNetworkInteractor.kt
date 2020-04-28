@@ -1,11 +1,10 @@
-package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor.abstraction
+package com.tydeya.familycircle.domain.kitchenorganizer.kitchenorganizernetworkinteractor
 
 interface KitchenOrganizerNetworkInteractor {
 
     fun requireKitchenBuyCatalogData()
 
     fun requireFoodInFridgeData()
-
 
 
     fun createProductInFirebase(id: String, title: String)
