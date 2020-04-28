@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
@@ -97,7 +96,7 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
         allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
             binding.toolbar.title = when (it) {
                 is Resource.Success -> {
-                    when (val titleResource = allBuyCatalogsViewModel.getTitleById(buyCatalogID)) {
+                    when (val titleResource = allBuyCatalogsViewModel.getBuysCatalogTitleById(buyCatalogID)) {
                         is Resource.Success -> titleResource.data
                         else -> ""
                     }

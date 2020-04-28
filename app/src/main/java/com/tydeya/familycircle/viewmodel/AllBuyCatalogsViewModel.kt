@@ -1,10 +1,12 @@
 package com.tydeya.familycircle.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener.AllBuyCatalogsEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener.AllBuyCatalogsEventListenerCallback
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.createBuysCatalogInFirebase
 import com.tydeya.familycircle.utils.Resource
 import java.lang.IllegalArgumentException
 
@@ -17,19 +19,15 @@ class AllBuyCatalogsViewModel : ViewModel(), AllBuyCatalogsEventListenerCallback
             MutableLiveData(Resource.Loading())
 
     init {
+        Log.d("ASMR", "Я родился")
         allBuyCatalogsEventListener.register()
     }
 
-    override fun allBuyCatalogsUpdated(buyCatalogsResourse: Resource<ArrayList<BuyCatalog>>) {
-        this.buyCatalogsResource.value = buyCatalogsResourse
-    }
+    /**
+     * Data retrieval
+     * */
 
-    override fun onCleared() {
-        super.onCleared()
-        allBuyCatalogsEventListener.unregister()
-    }
-
-    fun getTitleById(desiredId: String): Resource<String> {
+    fun getBuysCatalogTitleById(desiredId: String): Resource<String> {
         val actualResource = buyCatalogsResource.value
 
         if (actualResource is Resource.Success) {
@@ -41,6 +39,42 @@ class AllBuyCatalogsViewModel : ViewModel(), AllBuyCatalogsEventListenerCallback
         }
 
         return Resource.Failure(IllegalArgumentException("Unknown id"))
+    }
+
+    /**
+     * Data interaction
+     * */
+
+    fun ifPossibleThenCreateBuysCatalog(title: String): Boolean {
+        val actualResource = buyCatalogsResource.value
+        if (actualResource is Resource.Success) {
+            for (catalog in actualResource.data) {
+                if (catalog.title == title) {
+                    return false
+                }
+            }
+            createBuysCatalog(title)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private fun createBuysCatalog(title: String) {
+        createBuysCatalogInFirebase(title)
+    }
+
+    /**
+     * Callback
+     * */
+
+    override fun allBuyCatalogsUpdated(buyCatalogsResourse: Resource<ArrayList<BuyCatalog>>) {
+        this.buyCatalogsResource.value = buyCatalogsResourse
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        allBuyCatalogsEventListener.unregister()
     }
 
 }

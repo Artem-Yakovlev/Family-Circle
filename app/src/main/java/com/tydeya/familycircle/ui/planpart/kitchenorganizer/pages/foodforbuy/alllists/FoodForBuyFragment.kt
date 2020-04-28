@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,8 +36,7 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
         App.getComponent().injectFoodForBuyFragment(this)
 
         _binding = FragmentFoodForBuyBinding.inflate(inflater, container, false)
-        allBuyCatalogsViewModel = ViewModelProviders.of(this)
-                .get(AllBuyCatalogsViewModel::class.java)
+        allBuyCatalogsViewModel = ViewModelProvider(this).get(AllBuyCatalogsViewModel::class.java)
 
         return binding.root
     }
@@ -56,6 +56,7 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
         allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
+
                 }
                 is Resource.Success -> {
                     adapter.refreshData(it.data)
@@ -71,12 +72,11 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
         floating_button.attachToRecyclerView(binding.foodForBuyRecyclerview)
         floating_button.setOnClickListener {
             val newListDialog = CreateBuyListDialog()
-            newListDialog.show(parentFragmentManager, "dialog_new_list")
+            newListDialog.show(childFragmentManager, "dialog_new_list")
         }
     }
 
     override fun onBuyCatalogClick(position: Int) {
-
         val allBuyCatalogsResourse = allBuyCatalogsViewModel.buyCatalogsResource.value
 
         if (allBuyCatalogsResourse is Resource.Success) {
@@ -86,5 +86,10 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
         }
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

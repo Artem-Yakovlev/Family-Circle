@@ -43,7 +43,6 @@ class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListe
                                 document.get(FIRESTORE_BUY_CATALOG_TITLE).toString(),
                                 document.getDate(FIRESTORE_BUY_CATALOG_DATE)
                         ))
-
                     }
 
                     withContext(Dispatchers.Main) {
