@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,8 +20,7 @@ import com.tydeya.familycircle.viewmodel.BuyCatalogViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
 
-class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
-        BuyCatalogSettingsDialogCallback {
+class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
     private lateinit var buyCatalogID: String
 
@@ -85,7 +85,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
                     adapter.refreshData(it.data)
                 }
                 is Resource.Failure -> {
-
+                    Toast.makeText(requireContext(), it.throwable.message, Toast.LENGTH_LONG).show()
+                    NavHostFragment.findNavController(this).popBackStack()
                 }
             }
         })
@@ -98,6 +99,11 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
                 is Resource.Success -> {
                     when (val titleResource = allBuyCatalogsViewModel.getBuysCatalogTitleById(buyCatalogID)) {
                         is Resource.Success -> titleResource.data
+                        is Resource.Failure -> {
+                            Toast.makeText(requireContext(), titleResource.throwable.message, Toast.LENGTH_LONG).show()
+                            NavHostFragment.findNavController(this).popBackStack()
+                            ""
+                        }
                         else -> ""
                     }
                 }
@@ -112,8 +118,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
 
     private fun initSettingsButton() {
         binding.settingsButton.setOnClickListener {
-            val buyCatalogSettingsDialog = BuyCatalogSettingsDialog(buyCatalogID, this)
-            buyCatalogSettingsDialog.show(parentFragmentManager, "dialog_settings")
+            val buyCatalogSettingsDialog = BuyCatalogSettingsDialog()
+            buyCatalogSettingsDialog.show(childFragmentManager, "dialog_settings")
         }
     }
 
@@ -150,26 +156,16 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
     }
 
     /**
-     * Setting dialog callback
-     * */
-
-    override fun onDeleteCatalog() {
-//        buyCatalogEventListener.unregister()
-//        NavHostFragment.findNavController(this).popBackStack()
-//        kitchenInteractor.deleteCatalog(buyCatalogID)
-    }
-
-    /**
      * Recycler callbacks
      * */
 
     override fun onFoodVHDeleteClick(title: String) {
-//        kitchenInteractor.deleteProductInCatalog(buyCatalogID, title)
+        buyCatalogViewModel.deleteProduct(title)
     }
 
     override fun onFoodVHEditDataClick(title: String) {
-//        val editProductDialog = EditProductDataDialog(buyCatalogID, title)
-//        editProductDialog.show(parentFragmentManager, "dialog_edit_product")
+        val editProductDataDialog = EditProductDataDialog.newInstance(title)
+        editProductDataDialog.show(childFragmentManager, "dialog_edit_product")
     }
 
     override fun onFoodVHCheckBoxClicked(title: String) {

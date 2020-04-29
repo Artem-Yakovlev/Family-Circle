@@ -7,9 +7,11 @@ import com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener.B
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.createProductInFirebase
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteProductInFirebase
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.editProductInFirebase
 import com.tydeya.familycircle.utils.Resource
 
-class BuyCatalogViewModel(private val catalogId: String) : ViewModel(), BuyCatalogEventListenerCallback {
+class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventListenerCallback {
 
     private val buyCatalogEventListener: EventListenerObservable =
             KitchenBuyCatalogEventListener(catalogId, this)
@@ -41,6 +43,14 @@ class BuyCatalogViewModel(private val catalogId: String) : ViewModel(), BuyCatal
 
     fun createProduct(title: String) {
         createProductInFirebase(catalogId, title)
+    }
+
+    fun deleteProduct(title: String) {
+        deleteProductInFirebase(catalogId, title)
+    }
+
+    fun editProduct(actualTitle: String, newTitle: String) {
+        editProductInFirebase(catalogId, actualTitle, newTitle)
     }
 
     override fun onCleared() {

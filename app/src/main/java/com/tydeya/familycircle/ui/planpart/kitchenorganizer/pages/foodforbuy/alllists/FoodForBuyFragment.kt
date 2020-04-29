@@ -33,7 +33,6 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        App.getComponent().injectFoodForBuyFragment(this)
 
         _binding = FragmentFoodForBuyBinding.inflate(inflater, container, false)
         allBuyCatalogsViewModel = ViewModelProvider(this).get(AllBuyCatalogsViewModel::class.java)
@@ -84,8 +83,6 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
             val bundle = bundleOf((BUNDLE_ID to allBuyCatalogsResourse.data[position].id))
             navController.navigate(R.id.buyListFragment, bundle)
         }
-
-
     }
 
     override fun onDestroy() {

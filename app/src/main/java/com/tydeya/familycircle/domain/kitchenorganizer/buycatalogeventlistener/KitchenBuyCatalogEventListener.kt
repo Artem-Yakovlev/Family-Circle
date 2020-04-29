@@ -37,6 +37,7 @@ class KitchenBuyCatalogEventListener(
         GlobalScope.launch(Dispatchers.Default) {
 
             if (exception == null) {
+
                 val actualProducts = ArrayList<Food>()
 
                 for (rawFood in querySnapshot!!.documents) {

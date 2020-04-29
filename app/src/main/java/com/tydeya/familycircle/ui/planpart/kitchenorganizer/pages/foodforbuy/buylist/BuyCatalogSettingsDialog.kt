@@ -3,78 +3,112 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.bu
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.databinding.DialogBuyListSettingsBinding
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
+import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.value
-import kotlinx.android.synthetic.main.dialog_buy_list_settings.view.*
-import javax.inject.Inject
+import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class BuyCatalogSettingsDialog(private val catalogId: String,
-                               val callback: BuyCatalogSettingsDialogCallback) : DialogFragment() {
+class BuyCatalogSettingsDialog : DialogFragment() {
 
-    @Inject
-    lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
+    private lateinit var allBuyCatalogsViewModel: AllBuyCatalogsViewModel
+    private lateinit var buyCatalogViewModel: BuyCatalogViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        App.getComponent().injectDialog(this)
-    }
+    private var _binding: DialogBuyListSettingsBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var root: View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+        root = requireActivity().layoutInflater.inflate(R.layout.dialog_buy_list_settings, null)
 
-        val view = requireActivity().layoutInflater
-                .inflate(R.layout.dialog_buy_list_settings, null)
+        return AlertDialog.Builder(activity).apply {
+            setView(root)
+        }.create()
+    }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DialogBuyListSettingsBinding.bind(root)
 
-        view.dialog_shopping_list_settings_name.value =
-                kitchenOrganizerInteractor.requireCatalogData(catalogId).title
+        allBuyCatalogsViewModel = ViewModelProvider(requireParentFragment())
+                .get(AllBuyCatalogsViewModel::class.java)
+        buyCatalogViewModel = ViewModelProviders.of(requireParentFragment())
+                .get(BuyCatalogViewModel::class.java)
 
-        view.dialog_buy_catalog_settings_save_button.setOnClickListener {
-            val title = view.dialog_shopping_list_settings_name.text.toString().trim()
-            var canRenameFlag = true
+        return binding.root
+    }
 
-            if (title == kitchenOrganizerInteractor.requireCatalogData(catalogId).title) {
-                dismiss()
-            } else if (title == "") {
-                canRenameFlag = false
-                view.dialog_shopping_list_settings_name.error = view.context!!
-                        .resources.getString(R.string.empty_necessary_field_warning)
-            } else {
-                for (buyCatalog in kitchenOrganizerInteractor.buyCatalogs) {
-                    if (buyCatalog.title == title) {
-                        canRenameFlag = false
-                        view.dialog_shopping_list_settings_name.error = view.context!!
-                                .resources.getString(R.string.dialog_buy_list_settings_already_exist)
-                        break
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val actualCatalogNameResource = allBuyCatalogsViewModel
+                .getBuysCatalogTitleById(buyCatalogViewModel.catalogId)
+
+        val actualCatalogName = if (actualCatalogNameResource is Resource.Success) {
+            actualCatalogNameResource.data
+        } else {
+            dismiss()
+            ""
+        }
+
+        binding.dialogShoppingListSettingsName.value = actualCatalogName
+
+        binding.dialogBuyCatalogSettingsSaveButton.setOnClickListener {
+            when (val title = binding.dialogShoppingListSettingsName.text.toString().trim()) {
+                actualCatalogName -> {
+                    dismiss()
+                }
+                "" -> {
+                    binding.dialogShoppingListSettingsName.error = view.context!!.resources
+                            .getString(R.string.empty_necessary_field_warning)
+                }
+                else -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (!allBuyCatalogsViewModel.isThereBuysCatalogWithName(title)) {
+                            allBuyCatalogsViewModel.editCatalogName(buyCatalogViewModel.catalogId, title)
+                            withContext(Dispatchers.Main) {
+                                dismiss()
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                binding.dialogShoppingListSettingsName.error = view.context!!
+                                        .resources
+                                        .getString(R.string.dialog_buy_list_settings_already_exist)
+                            }
+                        }
                     }
                 }
             }
+        }
 
-            if (canRenameFlag) {
-                kitchenOrganizerInteractor.renameCatalog(catalogId, title)
-                dismiss()
+        binding.dialogBuyListDeleteButton.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                allBuyCatalogsViewModel.deleteCatalog(buyCatalogViewModel.catalogId)
+                withContext(Dispatchers.Main) {
+                    dismiss()
+                }
             }
         }
 
-        view.dialog_buy_catalog_settings_cancel_button.setOnClickListener {
-            dismiss()
-        }
-
-        view.dialog_buy_list_delete_button.setOnClickListener {
-            callback.onDeleteCatalog()
-            dismiss()
-        }
-
-        builder.setView(view)
-
-        return builder.create()
+        binding.dialogBuyCatalogSettingsCancelButton.setOnClickListener { dismiss() }
     }
 
-}
+    companion object {
 
-interface BuyCatalogSettingsDialogCallback {
-    fun onDeleteCatalog()
+    }
+
 }

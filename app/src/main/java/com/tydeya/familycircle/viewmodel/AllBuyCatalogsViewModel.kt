@@ -7,6 +7,8 @@ import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener.AllBuyCatalogsEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener.AllBuyCatalogsEventListenerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.createBuysCatalogInFirebase
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteBuyCatalogInFirebase
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.editBuysCatalogTitle
 import com.tydeya.familycircle.utils.Resource
 import java.lang.IllegalArgumentException
 
@@ -44,23 +46,29 @@ class AllBuyCatalogsViewModel : ViewModel(), AllBuyCatalogsEventListenerCallback
      * Data interaction
      * */
 
-    fun ifPossibleThenCreateBuysCatalog(title: String): Boolean {
+    fun isThereBuysCatalogWithName(name: String): Boolean {
         val actualResource = buyCatalogsResource.value
         if (actualResource is Resource.Success) {
-            for (catalog in actualResource.data) {
-                if (catalog.title == title) {
-                    return false
+            for (buysCatalog in actualResource.data) {
+                if (buysCatalog.title == name) {
+                    return true
                 }
             }
-            createBuysCatalog(title)
-            return true
-        } else {
             return false
         }
+        return true
     }
 
-    private fun createBuysCatalog(title: String) {
+    fun createBuysCatalog(title: String) {
         createBuysCatalogInFirebase(title)
+    }
+
+    fun editCatalogName(catalogId: String, newTitle: String) {
+        editBuysCatalogTitle(catalogId, newTitle)
+    }
+
+    fun deleteCatalog(catalogId: String) {
+        deleteBuyCatalogInFirebase(catalogId)
     }
 
     /**

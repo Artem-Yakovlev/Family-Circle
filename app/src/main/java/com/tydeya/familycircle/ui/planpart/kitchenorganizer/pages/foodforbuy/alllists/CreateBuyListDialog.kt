@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogFoodForBuyNewListBinding
 import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class CreateBuyListDialog : DialogFragment() {
@@ -41,23 +45,25 @@ class CreateBuyListDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.dialogShoppingListCreateButton.setOnClickListener {
-
-            val createFlag: Boolean
             val title = binding.dialogShoppingListName.text.toString().trim()
 
             if (title == "") {
                 binding.dialogShoppingListName.error = view.context!!
                         .resources.getString(R.string.empty_necessary_field_warning)
-                createFlag = false
             } else {
-                createFlag = allBuyCatalogsViewModel.ifPossibleThenCreateBuysCatalog(title)
-            }
-
-            if (createFlag) {
-                dismiss()
-            } else {
-                binding.dialogShoppingListName.error = view.context!!
-                        .resources.getString(R.string.dialog_new_buy_list_already_exist)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    if (!allBuyCatalogsViewModel.isThereBuysCatalogWithName(title)) {
+                        allBuyCatalogsViewModel.createBuysCatalog(title)
+                        withContext(Dispatchers.Main) {
+                            dismiss()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            binding.dialogShoppingListName.error = view.context!!
+                                    .resources.getString(R.string.dialog_new_buy_list_already_exist)
+                        }
+                    }
+                }
             }
         }
 

@@ -2,6 +2,7 @@ package com.tydeya.familycircle.domain.kitchenorganizer.utils
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.Firebase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -38,3 +39,34 @@ private fun createProductFromTitle(title: String, foodStatusNumber: Int) = hashM
         Firebase.FIRESTORE_FOOD_PROTEIN to 0,
         Firebase.FIRESTORE_FOOD_FATS to 0
 ) as Map<String, Any>
+
+fun deleteProductInFirebase(catalogId: String, title: String) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
+            .document(catalogId).collection(Firebase.FIRESTORE_BUY_CATALOG_FOODS)
+            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, title).get()
+            .addOnSuccessListener { querySnapshot ->
+                GlobalScope.launch(Dispatchers.Default) {
+                    for (document in querySnapshot.documents) {
+                        document.reference.delete()
+                    }
+                }
+            }
+}
+
+fun editProductInFirebase(id: String, actualTitle: String, newTitle: String) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
+            .document(id).collection(Firebase.FIRESTORE_BUY_CATALOG_FOODS)
+            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, actualTitle).get()
+            .addOnSuccessListener { querySnapshot ->
+                GlobalScope.launch(Dispatchers.Default) {
+                    if (querySnapshot.documents.size != 0) {
+                        querySnapshot.documents[0].reference.update(Firebase.FIRESTORE_FOOD_TITLE, newTitle)
+                    }
+                }
+            }
+}
+
+fun editBuysCatalogTitle(catalogId: String, newTitle: String) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
+            .document(catalogId).update(Firebase.FIRESTORE_BUY_CATALOG_TITLE, newTitle)
+}
