@@ -19,7 +19,6 @@ class AllBuyCatalogsViewModel : ViewModel(), AllBuyCatalogsEventListenerCallback
             MutableLiveData(Resource.Loading())
 
     init {
-        Log.d("ASMR", "Я родился")
         allBuyCatalogsEventListener.register()
     }
 

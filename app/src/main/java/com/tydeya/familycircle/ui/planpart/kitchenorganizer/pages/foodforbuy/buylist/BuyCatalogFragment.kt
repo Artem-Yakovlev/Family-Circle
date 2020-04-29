@@ -119,8 +119,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener,
 
     private fun initAddButton() {
         binding.buyListAddButton.setOnClickListener {
-//            val newProductDialog = CreateNewProductDialog(buyCatalogID)
-//            newProductDialog.show(parentFragmentManager, "dialog_new_product")
+            val newProductDialog = CreateNewProductDialog()
+            newProductDialog.show(childFragmentManager, "dialog_new_product")
         }
     }
 
