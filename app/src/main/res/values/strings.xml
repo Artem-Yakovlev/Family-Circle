@@ -300,6 +300,7 @@
     <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
     <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
+    <string name="this_buys_catalog_no_longer_exists">This buys catalog no longer exists</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

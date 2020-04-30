@@ -18,10 +18,7 @@ import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.value
 import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class BuyCatalogSettingsDialog : DialogFragment() {
 
@@ -77,7 +74,7 @@ class BuyCatalogSettingsDialog : DialogFragment() {
                             .getString(R.string.empty_necessary_field_warning)
                 }
                 else -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    GlobalScope.launch(Dispatchers.IO) {
                         if (!allBuyCatalogsViewModel.isThereBuysCatalogWithName(title)) {
                             allBuyCatalogsViewModel.editCatalogName(buyCatalogViewModel.catalogId, title)
                             withContext(Dispatchers.Main) {
@@ -96,7 +93,7 @@ class BuyCatalogSettingsDialog : DialogFragment() {
         }
 
         binding.dialogBuyListDeleteButton.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
+            GlobalScope.launch(Dispatchers.IO) {
                 allBuyCatalogsViewModel.deleteCatalog(buyCatalogViewModel.catalogId)
                 withContext(Dispatchers.Main) {
                     dismiss()

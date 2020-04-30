@@ -4,11 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener.BuyCatalogEventListenerCallback
-import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener.KitchenBuyCatalogEventListener
-import com.tydeya.familycircle.domain.kitchenorganizer.utils.createProductInFirebase
-import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteProductInFirebase
-import com.tydeya.familycircle.domain.kitchenorganizer.utils.editProductInFirebase
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.*
 import com.tydeya.familycircle.utils.Resource
 
 class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventListenerCallback {
@@ -51,6 +48,10 @@ class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventL
 
     fun editProduct(actualTitle: String, newTitle: String) {
         editProductInFirebase(catalogId, actualTitle, newTitle)
+    }
+
+    fun buyProduct(buyCatalogID: String, title: String) {
+        buyProductFirebaseProcessing(buyCatalogID, title)
     }
 
     override fun onCleared() {

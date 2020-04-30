@@ -15,11 +15,6 @@ fun createBuysCatalogInFirebase(title: String) = GlobalScope.launch {
             ) as Map<String, Any>)
 }
 
-fun renameBuysCatalogInFirebase(catalogId: String, newTitle: String) = GlobalScope.launch {
-    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).update(Firebase.FIRESTORE_BUY_CATALOG_TITLE, newTitle)
-}
-
 fun deleteBuyCatalogInFirebase(catalogId: String) = GlobalScope.launch {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
             .document(catalogId).delete()
@@ -69,4 +64,23 @@ fun editProductInFirebase(id: String, actualTitle: String, newTitle: String) {
 fun editBuysCatalogTitle(catalogId: String, newTitle: String) {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
             .document(catalogId).update(Firebase.FIRESTORE_BUY_CATALOG_TITLE, newTitle)
+}
+
+fun buyProductFirebaseProcessing(catalogId: String, title: String) {
+
+    val firestore = FirebaseFirestore.getInstance()
+
+    firestore.collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
+            .document(catalogId).collection(Firebase.FIRESTORE_BUY_CATALOG_FOODS)
+            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, title).get()
+            .addOnSuccessListener { querySnapshot ->
+                GlobalScope.launch(Dispatchers.Default) {
+                    // In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
+                    if (querySnapshot.documents.size != 0) {
+                        querySnapshot.documents[0].reference.update(Firebase.FIRESTORE_FOOD_STATUS, 1)
+                    }
+                }
+            }
+    firestore.collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
+            .add(createProductFromTitle(title, 1))
 }

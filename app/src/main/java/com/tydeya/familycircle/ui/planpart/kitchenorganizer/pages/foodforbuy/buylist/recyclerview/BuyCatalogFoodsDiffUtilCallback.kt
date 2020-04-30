@@ -9,7 +9,7 @@ class BuyCatalogFoodsDiffUtilCallback(
 ) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            areContentsTheSame(oldItemPosition, newItemPosition)
+            oldList[oldItemPosition].title == newList[newItemPosition].title
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
             oldList[oldItemPosition] == newList[newItemPosition]

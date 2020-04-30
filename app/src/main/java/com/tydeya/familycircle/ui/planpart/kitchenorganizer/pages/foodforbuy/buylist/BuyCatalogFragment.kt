@@ -35,6 +35,11 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     private lateinit var buyCatalogViewModel: BuyCatalogViewModel
     private lateinit var buyCatalogViewModelFactory: BuyCatalogViewModelFactory
 
+    companion object {
+        private const val DIALOG_SETTINGS = "dialog_settings"
+        private const val DIALOG_NEW_PRODUCT = "dialog_new_product"
+        private const val DIALOG_EDIT_PRODUCT = "dialog_edit_product"
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,6 +53,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
         allBuyCatalogsViewModel = ViewModelProviders.of(this)
                 .get(AllBuyCatalogsViewModel::class.java)
+
+
 
         return binding.root
     }
@@ -100,7 +107,13 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
                     when (val titleResource = allBuyCatalogsViewModel.getBuysCatalogTitleById(buyCatalogID)) {
                         is Resource.Success -> titleResource.data
                         is Resource.Failure -> {
-                            Toast.makeText(requireContext(), titleResource.throwable.message, Toast.LENGTH_LONG).show()
+                            with(Toast(requireContext())) {
+                                view = LayoutInflater.from(requireContext())
+                                        .inflate(R.layout.toast_kitchen_organizer_buys_catalog_is_not_exist,
+                                                null)
+                                duration = Toast.LENGTH_LONG
+                                show()
+                            }
                             NavHostFragment.findNavController(this).popBackStack()
                             ""
                         }
@@ -119,14 +132,14 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     private fun initSettingsButton() {
         binding.settingsButton.setOnClickListener {
             val buyCatalogSettingsDialog = BuyCatalogSettingsDialog()
-            buyCatalogSettingsDialog.show(childFragmentManager, "dialog_settings")
+            buyCatalogSettingsDialog.show(childFragmentManager, DIALOG_SETTINGS)
         }
     }
 
     private fun initAddButton() {
         binding.buyListAddButton.setOnClickListener {
             val newProductDialog = CreateNewProductDialog()
-            newProductDialog.show(childFragmentManager, "dialog_new_product")
+            newProductDialog.show(childFragmentManager, DIALOG_NEW_PRODUCT)
         }
     }
 
@@ -165,11 +178,11 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
     override fun onFoodVHEditDataClick(title: String) {
         val editProductDataDialog = EditProductDataDialog.newInstance(title)
-        editProductDataDialog.show(childFragmentManager, "dialog_edit_product")
+        editProductDataDialog.show(childFragmentManager, DIALOG_EDIT_PRODUCT)
     }
 
     override fun onFoodVHCheckBoxClicked(title: String) {
-//        kitchenInteractor.buyProduct(buyCatalogID, title)
+        buyCatalogViewModel.buyProduct(buyCatalogID, title)
     }
 
     /**
