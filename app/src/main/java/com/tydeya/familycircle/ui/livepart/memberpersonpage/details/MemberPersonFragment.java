@@ -102,11 +102,11 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
         nameText.setText(dto.getName());
 
         if (!dto.getImageAddress().equals("")) {
-            profileImage.setPadding(0,0,0,0);
+            profileImage.setPadding(0, 0, 0, 0);
             Glide.with(getContext()).load(dto.getImageAddress()).into(profileImage);
         } else {
             int dpForPadding = getDp(getContext(), 20);
-            profileImage.setPadding(dpForPadding,dpForPadding,dpForPadding,dpForPadding);
+            profileImage.setPadding(dpForPadding, dpForPadding, dpForPadding, dpForPadding);
         }
 
         if (dto.getBirthDate().equals("")) {

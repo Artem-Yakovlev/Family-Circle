@@ -48,7 +48,7 @@
             android:padding="20dp"
             android:src="@drawable/ic_add_a_photo_blue_24dp"
             app:shape_mode="circle"
-            android:elevation="110dp"/>
+            android:elevation="110dp" />
 
         <!-- Name input-->
         <androidx.cardview.widget.CardView

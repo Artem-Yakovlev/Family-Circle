@@ -3,8 +3,6 @@ package com.tydeya.familycircle.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.ArrayMap
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData

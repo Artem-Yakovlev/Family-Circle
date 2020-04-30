@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
@@ -10,7 +9,6 @@ import com.tydeya.familycircle.domain.kitchenorganizer.utils.createBuysCatalogIn
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteBuyCatalogInFirebase
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.editBuysCatalogTitle
 import com.tydeya.familycircle.utils.Resource
-import java.lang.IllegalArgumentException
 
 class AllBuyCatalogsViewModel : ViewModel(), AllBuyCatalogsEventListenerCallback {
 

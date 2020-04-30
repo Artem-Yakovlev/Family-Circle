@@ -61,7 +61,7 @@ public final class Firebase {
 
     /**
      * Const of firebase events
-     * */
+     */
 
     public static final String FIRESTORE_EVENTS_COLLECTION = "Events";
     public static final String FIRESTORE_EVENTS_AUTHOR = "author";
@@ -73,7 +73,7 @@ public final class Firebase {
 
     /**
      * Const of firebase tasks
-     * */
+     */
 
     public static final String FIRESTORE_TASKS_COLLECTION = "Tasks";
     public static final String FIRESTORE_TASKS_AUTHOR = "author";
@@ -84,7 +84,7 @@ public final class Firebase {
 
     /**
      * Const of firebase conversation
-     * */
+     */
 
     public static final String FIRESTORE_COOPERATION_COLLECTION = "Cooperation";
     public static final String FIRESTORE_COOPERATION_AUTHOR = "author";

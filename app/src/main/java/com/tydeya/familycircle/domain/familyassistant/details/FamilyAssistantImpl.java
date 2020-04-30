@@ -14,7 +14,7 @@ public class FamilyAssistantImpl implements FamilyAssistant {
 
     @Override
     public FamilyMember getUserByPhone(String fullPhoneNumber) {
-        for (FamilyMember familyMember: family.getFamilyMembers()) {
+        for (FamilyMember familyMember : family.getFamilyMembers()) {
             if (familyMember.getFullPhoneNumber().equals(fullPhoneNumber)) {
                 return familyMember;
             }

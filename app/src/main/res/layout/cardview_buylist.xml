@@ -32,7 +32,7 @@
             android:singleLine="true"
             android:text="22.05.2009"
             android:textSize="12sp"
-            android:textColor="@color/colorGray"/>
+            android:textColor="@color/colorGray" />
 
         <TextView
             android:id="@+id/buylist_card_title"

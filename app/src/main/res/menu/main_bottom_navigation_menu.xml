@@ -4,26 +4,26 @@
     <item
         android:id="@+id/live"
         android:icon="@drawable/ic_bottom_menu_action_tape_24dp"
-        android:title="@string/bottom_menu_action_live"/>
+        android:title="@string/bottom_menu_action_live" />
 
     <item
         android:id="@+id/plan"
         android:icon="@drawable/ic_bottom_menu_action_plan_24dp"
-        android:title="@string/bottom_menu_action_plan"/>
+        android:title="@string/bottom_menu_action_plan" />
 
     <item
         android:id="@+id/correspondence"
         android:icon="@drawable/ic_bottom_menu_action_message_24dp"
-        android:title="@string/bottom_menu_action_message"/>
+        android:title="@string/bottom_menu_action_message" />
 
     <item
         android:id="@+id/map"
         android:icon="@drawable/ic_bottom_menu_action_map_24dp"
-        android:title="@string/bottom_menu_action_map"/>
+        android:title="@string/bottom_menu_action_map" />
 
     <item
         android:id="@+id/manager_menu"
         android:icon="@drawable/ic_bottom_menu_action_panel_24dp"
-        android:title="@string/bottom_menu_action_panel"/>
+        android:title="@string/bottom_menu_action_panel" />
 
 </menu>

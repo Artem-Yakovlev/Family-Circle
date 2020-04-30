@@ -9,16 +9,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogBuyListSettingsBinding
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.value
 import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BuyCatalogSettingsDialog : DialogFragment() {
 

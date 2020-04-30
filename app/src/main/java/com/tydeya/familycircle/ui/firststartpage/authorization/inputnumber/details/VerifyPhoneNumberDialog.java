@@ -8,14 +8,15 @@ import com.tydeya.familycircle.R;
 
 class VerifyPhoneNumberDialog {
 
-    private VerifyPhoneNumberDialog(){}
+    private VerifyPhoneNumberDialog() {
+    }
 
     static AlertDialog create(Context context, String fullPhoneNumber,
                               DialogInterface.OnClickListener positiveButtonListener,
                               DialogInterface.OnClickListener negativeButtonListener) {
 
         StringBuilder questionText = new StringBuilder(context.getResources()
-                .getString(R.string.start_input_number_correct_text ));
+                .getString(R.string.start_input_number_correct_text));
 
         questionText.append(" ").append(fullPhoneNumber).append(" ?");
 

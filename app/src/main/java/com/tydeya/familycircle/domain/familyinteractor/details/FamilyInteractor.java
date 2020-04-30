@@ -4,8 +4,6 @@ import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.data.family.Family;
 import com.tydeya.familycircle.data.family.description.FamilyDescription;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
-import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorObservable;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractor;
@@ -54,7 +52,7 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
 
 
     private void notifyObserversMemberDataUpdated() {
-        for (FamilyInteractorCallback callback: observers) {
+        for (FamilyInteractorCallback callback : observers) {
             callback.memberDataUpdated();
         }
     }

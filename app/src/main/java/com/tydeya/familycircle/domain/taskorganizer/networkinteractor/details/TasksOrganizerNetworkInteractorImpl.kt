@@ -71,7 +71,7 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
             document.getString(FIRESTORE_TASKS_WORKER),
             document.getString(FIRESTORE_TASKS_TEXT),
             document.getDate(FIRESTORE_TASKS_TIME).time,
-            when(document.getLong(FIRESTORE_TASKS_STATUS)) {
+            when (document.getLong(FIRESTORE_TASKS_STATUS)) {
                 0L -> FamilyTaskStatus.REJECTED
                 1L -> FamilyTaskStatus.AWAITING_COMPLETION
                 else -> FamilyTaskStatus.ACCEPTED

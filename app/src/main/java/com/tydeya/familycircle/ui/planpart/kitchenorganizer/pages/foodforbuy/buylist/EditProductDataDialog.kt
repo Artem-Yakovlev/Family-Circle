@@ -9,11 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogEditFoodDataBinding
-import com.tydeya.familycircle.databinding.DialogNewFoodBinding
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.utils.value
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
 import kotlinx.coroutines.Dispatchers

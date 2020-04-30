@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener
 
-import androidx.collection.ArrayMap
 import com.google.firebase.firestore.*
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog

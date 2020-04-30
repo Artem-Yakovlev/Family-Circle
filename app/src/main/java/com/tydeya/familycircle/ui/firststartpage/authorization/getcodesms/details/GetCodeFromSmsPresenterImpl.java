@@ -66,7 +66,7 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
 
     /**
      * Resend button processing
-     * */
+     */
 
     @Override
     public void onClickResendButton(Activity activity) {

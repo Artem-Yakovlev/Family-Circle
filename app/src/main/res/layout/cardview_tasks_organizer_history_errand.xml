@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Your errands for others and my errands for others and errands for others Your errands for others fix errands for others Your errands for so errands for others"
-                android:fontFamily="@font/poppins"/>
+                android:fontFamily="@font/poppins" />
 
         </LinearLayout>
 
@@ -56,7 +56,7 @@
                 android:id="@+id/history_errand_cardview_status_image"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_close_red_36dp"/>
+                android:src="@drawable/ic_close_red_36dp" />
 
         </LinearLayout>
 

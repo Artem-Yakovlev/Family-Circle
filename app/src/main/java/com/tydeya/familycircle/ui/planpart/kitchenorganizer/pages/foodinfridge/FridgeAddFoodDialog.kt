@@ -8,18 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.databinding.DialogDeleteFoodInFridgeBinding
 import com.tydeya.familycircle.databinding.DialogFridgeAddFoodBinding
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
 import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
 import kotlinx.android.synthetic.main.dialog_fridge_add_food.view.*
-import kotlinx.android.synthetic.main.dialog_new_food.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class FridgeAddFoodDialog : DialogFragment() {
 

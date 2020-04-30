@@ -1,8 +1,5 @@
 package com.tydeya.familycircle;
 
-import android.util.ArrayMap;
-import android.util.Log;
-
 import com.tydeya.familycircle.data.familymember.ZodiacSign;
 
 import org.junit.Assert;

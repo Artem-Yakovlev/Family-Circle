@@ -1,10 +1,8 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.CardviewFoodInFridgeBinding
-import kotlinx.android.synthetic.main.cardview_food_in_fridge.view.*
 
 class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
                              private val listener: FoodInFridgeViewHolderClickListener) :

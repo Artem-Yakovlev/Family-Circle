@@ -1,7 +1,6 @@
 package com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.details;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,10 +1,8 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.CardviewFoodInFridgeBinding
 

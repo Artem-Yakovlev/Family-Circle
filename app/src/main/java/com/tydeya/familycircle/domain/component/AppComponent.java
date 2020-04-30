@@ -6,8 +6,6 @@ import com.tydeya.familycircle.domain.eventmanager.networkInteractor.details.Eve
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor;
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.injection.KitchenOrganizerModule;
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener;
 import com.tydeya.familycircle.domain.messenger.inject.MessengerModule;
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor;
@@ -58,7 +56,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {FamilyInteractorModule.class,
-        KitchenOrganizerModule.class, EventInteractorModule.class, TasksOrganizerModule.class,
+        EventInteractorModule.class, TasksOrganizerModule.class,
         MessengerModule.class, OnlineManagerModule.class, CooperationModule.class})
 public interface AppComponent {
 
@@ -142,7 +140,6 @@ public interface AppComponent {
 
     void injectInteractor(@NotNull MessengerInteractor messengerInteractor);
 
-    void injectInteractor(@NotNull KitchenOrganizerInteractor kitchenOrganizerInteractor);
 
     void injectRecyclerViewAdapter(@NotNull CooperationRecyclerViewAdapter cooperationRecyclerViewAdapter);
 }

@@ -62,7 +62,7 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
     }
 
     fun checkExistEventWithData(title: String, timestamp: Long, exceptId: String,
-                                        callback: EventAbleToActionCallback) {
+                                callback: EventAbleToActionCallback) {
         GlobalScope.launch(Dispatchers.Default) {
             if (isExistEventWithData(title, timestamp, exceptId)) {
                 withContext(Dispatchers.Main) {
@@ -162,7 +162,6 @@ class EventInteractor : EventNetworkInteractorCallback, EventInteractorObservabl
     fun deleteEvent(familyEventId: String) {
         networkInteractor.deleteEvent(familyEventId)
     }
-
 
 
 }

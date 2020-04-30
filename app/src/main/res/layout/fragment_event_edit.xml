@@ -177,7 +177,7 @@
                 android:textColor="@color/colorGray"
                 android:textSize="16sp"
                 android:lines="3"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine" />
 
         </LinearLayout>
 

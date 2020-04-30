@@ -15,7 +15,7 @@
         android:text="@string/remove_food_from_fridge_dialog_title"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/dialog_delete_food_fridge_eaten_food_button"

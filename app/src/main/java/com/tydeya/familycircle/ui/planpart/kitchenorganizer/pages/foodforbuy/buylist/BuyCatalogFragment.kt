@@ -15,10 +15,10 @@ import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
-import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
-import com.tydeya.familycircle.viewmodel.BuyCatalogViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
+import com.tydeya.familycircle.viewmodel.BuyCatalogViewModelFactory
 
 class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 

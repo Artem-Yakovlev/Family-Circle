@@ -36,7 +36,7 @@ public class StartPresentationPagerAdapter extends PagerAdapter {
             R.string.start_presentation_achievement_text,
             R.string.start_presentation_productivity_text};
 
-    public StartPresentationPagerAdapter(Context context){
+    public StartPresentationPagerAdapter(Context context) {
         this.context = context;
     }
 

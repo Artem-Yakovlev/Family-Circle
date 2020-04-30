@@ -18,7 +18,7 @@
             android:background="?attr/colorPrimary"
             app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
             app:title="@string/kitchen_organizer_buy_list_toolbar_title"
-            app:titleTextColor="@color/colorWhite" >
+            app:titleTextColor="@color/colorWhite">
 
             <ImageButton
                 android:id="@+id/settings_button"
@@ -30,8 +30,7 @@
                 android:background="@null"
                 android:src="@drawable/ic_settings_white_24dp"
                 tools:ignore="RtlHardcoded"
-                android:visibility="gone"/>
-
+                android:visibility="gone" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -53,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                tools:listitem="@layout/cardview_buycatalog_food"/>
+                tools:listitem="@layout/cardview_buycatalog_food" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buy_list_add_button"

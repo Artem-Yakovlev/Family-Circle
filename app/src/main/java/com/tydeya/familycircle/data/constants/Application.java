@@ -13,7 +13,7 @@ public final class Application {
 
     /**
      * Conversation
-     * */
+     */
 
     public static String CONVERSATION_ID = "conversation_id";
 }
