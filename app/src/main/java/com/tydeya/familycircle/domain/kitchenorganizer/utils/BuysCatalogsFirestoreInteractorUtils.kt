@@ -84,3 +84,20 @@ fun buyProductFirebaseProcessing(catalogId: String, title: String) {
     firestore.collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
             .add(createProductFromTitle(title, 1))
 }
+
+fun deleteFoodFromFridgeInFirebaseProcessing(title: String) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
+            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, title).get()
+            .addOnSuccessListener { querySnapshot ->
+                GlobalScope.launch(Dispatchers.Default) {
+                    if (querySnapshot.documents.size != 0) {
+                        querySnapshot.documents[0].reference.delete()
+                    }
+                }
+            }
+}
+
+fun addFoodInFridgeFirebaseProcessing(title: String) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
+            .add(createProductFromTitle(title, 1))
+}

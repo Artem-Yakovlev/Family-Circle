@@ -3,44 +3,70 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.databinding.DialogDeleteFoodInFridgeBinding
 import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
+import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
 import kotlinx.android.synthetic.main.dialog_delete_food_in_fridge.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DeleteFoodInFridgeDialog(val title: String) : DialogFragment() {
 
-    @Inject
-    lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
+    private lateinit var foodInFridgeViewModel: FoodInFridgeViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        App.getComponent().injectDialog(this)
-    }
+    private var _binding: DialogDeleteFoodInFridgeBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var root: View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+        root = requireActivity().layoutInflater.inflate(R.layout.dialog_delete_food_in_fridge, null)
 
-        val view = activity!!.layoutInflater.inflate(R.layout.dialog_delete_food_in_fridge, null)
+        return AlertDialog.Builder(activity).apply {
+            setView(root)
+        }.create()
+    }
 
-        view.dialog_delete_food_fridge_eaten_food_button.setOnClickListener {
-            kitchenOrganizerInteractor.deleteFromFridgeEatenFood(title)
-            dismiss()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        _binding = DialogDeleteFoodInFridgeBinding.bind(root)
+        foodInFridgeViewModel = ViewModelProviders.of(requireParentFragment())
+                .get(FoodInFridgeViewModel::class.java)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.dialogDeleteFoodFridgeEatenFoodButton.setOnClickListener {
+            GlobalScope.launch(Dispatchers.IO) {
+                foodInFridgeViewModel.deleteFromFridgeEatenFood(title)
+                withContext(Dispatchers.Main) {
+                    dismiss()
+                }
+            }
+        }
+        binding.dialogDeleteFoodFridgeBadFoodButton.setOnClickListener {
+            GlobalScope.launch(Dispatchers.IO) {
+                foodInFridgeViewModel.deleteFromFridgeBadFood(title)
+                withContext(Dispatchers.Main) {
+                    dismiss()
+                }
+            }
         }
 
-        view.dialog_delete_food_fridge_bad_food_button.setOnClickListener {
-            kitchenOrganizerInteractor.deleteFromFridgeBadFood(title)
+        binding.dialogDeleteFoodFridgeCancelButton.setOnClickListener {
             dismiss()
         }
-
-        view.dialog_delete_food_fridge_cancel_button.setOnClickListener {
-            dismiss()
-        }
-
-        builder.setView(view)
-        return builder.create()
     }
 
 }

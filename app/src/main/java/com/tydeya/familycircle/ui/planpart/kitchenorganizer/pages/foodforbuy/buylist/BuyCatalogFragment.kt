@@ -92,15 +92,13 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
                     adapter.refreshData(it.data)
                 }
                 is Resource.Failure -> {
-                    Toast.makeText(requireContext(), it.throwable.message, Toast.LENGTH_LONG).show()
-                    NavHostFragment.findNavController(this).popBackStack()
+
                 }
             }
         })
     }
 
     private fun initToolbar() {
-
         allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
             binding.toolbar.title = when (it) {
                 is Resource.Success -> {

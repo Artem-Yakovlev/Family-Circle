@@ -1,70 +1,80 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
+import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
-import kotlinx.android.synthetic.main.fragment_food_in_fridge.*
-import javax.inject.Inject
+import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
 
 
 class FoodInFridgeFragment
     :
-        Fragment(R.layout.fragment_food_in_fridge),
-        KitchenOrganizerCallback,
-        FoodInFridgeViewHolderClickListener {
+        Fragment(R.layout.fragment_food_in_fridge), FoodInFridgeViewHolderClickListener {
 
-    @Inject
-    lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
+    companion object {
+        private const val FOOD_IN_FRIDGE_DELETE_DIALOG = "food_in_fridge_delete_dialog"
+        private const val FRIDGE_ADD_FOOD_DIALOG = "fridge_add_food_dialog"
+    }
 
     private lateinit var adapter: FoodInFridgeRecyclerViewAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        App.getComponent().injectFoodInFridgeFragment(this)
+    private var _binding: FragmentFoodInFridgeBinding? = null
+    private val binding get() = _binding!!
 
-        adapter = FoodInFridgeRecyclerViewAdapter(context!!,
-                kitchenOrganizerInteractor.foodsInFridge, this)
+    private lateinit var foodInFridgeViewModel: FoodInFridgeViewModel
 
-        food_in_fridge_recyclerview.setAdapter(adapter,
-                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false))
-
-        food_in_fridge_floating_button.attachToRecyclerView(food_in_fridge_recyclerview.getRecyclerView())
-
-        food_in_fridge_floating_button.setOnClickListener {
-            val addFoodDialog = FridgeAddFoodDialog()
-            addFoodDialog.show(parentFragmentManager, "fridge_add_food_dialog")
-        }
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        _binding = FragmentFoodInFridgeBinding.inflate(inflater, container, false)
+        foodInFridgeViewModel = ViewModelProvider(this).get(FoodInFridgeViewModel::class.java)
+        return binding.root
     }
 
-    override fun kitchenDataFromServerUpdated() {
-        if (kitchenOrganizerInteractor.foodsInFridgeStatus == KitchenDataStatus.DATA_RECEIVED) {
-            adapter.refreshData(kitchenOrganizerInteractor.foodsInFridge)
-            food_in_fridge_recyclerview.unVeil()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+        initFloatingButton()
+    }
+
+    private fun initRecyclerView() {
+        adapter = FoodInFridgeRecyclerViewAdapter(ArrayList(), this)
+        binding.foodInFridgeRecyclerview.adapter = adapter
+        binding.foodInFridgeRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
+                LinearLayoutManager.VERTICAL, false)
+        foodInFridgeViewModel.products.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    adapter.refreshData(it.data)
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                }
+            }
+        })
+    }
+
+    private fun initFloatingButton() {
+        binding.foodInFridgeFloatingButton.attachToRecyclerView(binding.foodInFridgeRecyclerview)
+        binding.foodInFridgeFloatingButton.setOnClickListener {
+            val addFoodDialog = FridgeAddFoodDialog()
+            addFoodDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
         }
     }
 
     override fun onFoodInFridgeVHDeleteClick(title: String) {
         val deleteFoodInFridgeDialog = DeleteFoodInFridgeDialog(title)
-        deleteFoodInFridgeDialog.show(parentFragmentManager, "food_in_fridge_delete_dialog")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        kitchenOrganizerInteractor.subscribe(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        kitchenOrganizerInteractor.unsubscribe(this)
+        deleteFoodInFridgeDialog.show(childFragmentManager, FOOD_IN_FRIDGE_DELETE_DIALOG)
     }
 
 }

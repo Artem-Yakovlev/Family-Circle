@@ -6,17 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
+import com.tydeya.familycircle.databinding.CardviewFoodInFridgeBinding
 
 class FoodInFridgeRecyclerViewAdapter(
-        val context: Context,
         private var foods: ArrayList<Food>,
         private var listener: FoodInFridgeViewHolderClickListener
 ) :
         RecyclerView.Adapter<FoodInFridgeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodInFridgeViewHolder =
-            FoodInFridgeViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.cardview_food_in_fridge, parent, false), listener)
+            FoodInFridgeViewHolder(CardviewFoodInFridgeBinding.inflate(LayoutInflater
+                    .from(parent.context), parent, false), listener)
 
     override fun getItemCount(): Int = foods.size
 
