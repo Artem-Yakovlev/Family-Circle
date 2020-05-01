@@ -15,7 +15,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
-import com.tydeya.familycircle.databinding.DialogNewFoodBinding
+import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.utils.value
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,20 +26,22 @@ class CreateNewProductDialog : DialogFragment() {
 
     private lateinit var buyCatalogViewModel: BuyCatalogViewModel
 
-    private var _binding: DialogNewFoodBinding? = null
+    private var _binding: DialogKitchenOrganizerFoodActionBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var root: View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        root = requireActivity().layoutInflater.inflate(R.layout.dialog_new_food, null)
+        root = requireActivity()
+                .layoutInflater.inflate(R.layout.dialog_kitchen_organizer_food_action, null)
         return AlertDialog.Builder(activity).apply {
             setView(root)
         }.create()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = DialogNewFoodBinding.bind(root)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        _binding = DialogKitchenOrganizerFoodActionBinding.bind(root)
         buyCatalogViewModel = ViewModelProviders.of(requireParentFragment())
                 .get(BuyCatalogViewModel::class.java)
 
@@ -66,23 +68,22 @@ class CreateNewProductDialog : DialogFragment() {
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (position == 0) {
-                        binding.numberOfProductsInMeasure.value = ""
-                        binding.numberOfProductsInMeasure.isEnabled = false
+                        binding.numberOfProductsInMeasureInput.value = ""
+                        binding.numberOfProductsInMeasureInput.isEnabled = false
                     } else {
-                        binding.numberOfProductsInMeasure.isEnabled = true
+                        binding.numberOfProductsInMeasureInput.isEnabled = true
                     }
                 }
-
             }
         }
     }
 
     private fun initActionButtons() {
-        binding.dialogNewFoodCreateButton.setOnClickListener {
-            val title = binding.dialogNewFoodName.text.toString().trim()
+        binding.actionButton.setOnClickListener {
+            val title = binding.productNameInput.text.toString().trim()
 
             if (title == "") {
-                binding.dialogNewFoodName.error = requireContext().resources
+                binding.productNameInput.error = requireContext().resources
                         .getString(R.string.empty_necessary_field_warning)
             } else {
                 lifecycleScope.launch(Dispatchers.Default) {
@@ -93,19 +94,19 @@ class CreateNewProductDialog : DialogFragment() {
                         }
                     } else {
                         withContext(Dispatchers.Main) {
-                            binding.dialogNewFoodName.error = requireContext().resources
+                            binding.productNameInput.error = requireContext().resources
                                     .getString(R.string.dialog_edit_food_data_already_exist)
                         }
                     }
                 }
             }
         }
-        binding.dialogNewFoodCancelButton.setOnClickListener { dismiss() }
+        binding.cancelButton.setOnClickListener { dismiss() }
     }
 
     private fun createFoodByInputtedData(title: String) = Food("", title, FoodStatus.NEED_BUY,
-            when (binding.numberOfProductsInMeasure.text.toString().trim()) {
+            when (binding.numberOfProductsInMeasureInput.text.toString().trim()) {
                 "" -> .0
-                else -> binding.numberOfProductsInMeasure.text.toString().trim().toDouble()
+                else -> binding.numberOfProductsInMeasureInput.text.toString().trim().toDouble()
             }, MeasureType.values()[binding.measureSpinner.selectedItemPosition])
 }
