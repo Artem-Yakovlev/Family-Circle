@@ -48,8 +48,8 @@ class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventL
         updateBuysCatalogProductsInfo(catalogId)
     }
 
-    fun editProduct(actualTitle: String, newTitle: String) {
-        editProductInFirebase(catalogId, actualTitle, newTitle)
+    fun editProduct(food: Food) {
+        editProductInFirebase(catalogId, food)
     }
 
     fun buyProduct(food: Food) {

@@ -32,25 +32,23 @@ class EditProductDataDialog private constructor() : FoodActionDialog() {
     }
 
     override fun action() {
-        when (val title = binding.productNameInput.text.toString().trim()) {
-            food.title -> {
+        when (val actualFood = createFoodByInputtedData(food.id)) {
+            food -> {
                 dismiss()
             }
-            "" -> {
-                binding.productNameInput.error = requireContext()
-                        .resources.getString(R.string.empty_necessary_field_warning)
-            }
             else -> {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    if (buyCatalogViewModel.isThereInBuysCatalogProductWithName(title)) {
-                        withContext(Dispatchers.Main) {
-                            binding.productNameInput.error = requireContext().resources
-                                    .getString(R.string.dialog_edit_food_data_already_exist)
-                        }
-                    } else {
-                        buyCatalogViewModel.editProduct(food.title, title)
-                        withContext(Dispatchers.Main) {
-                            dismiss()
+                when (actualFood.title) {
+                    "" -> {
+                        binding.productNameInput.error = requireContext().resources
+                                .getString(R.string.empty_necessary_field_warning)
+                    }
+                    else -> {
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            buyCatalogViewModel.editProduct(actualFood)
+                            withContext(Dispatchers.Main) {
+                                dismiss()
+                            }
+
                         }
                     }
                 }

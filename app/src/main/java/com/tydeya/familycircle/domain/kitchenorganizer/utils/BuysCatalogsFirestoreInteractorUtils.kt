@@ -41,17 +41,10 @@ fun deleteProductInFirebase(catalogId: String, productId: String) {
             .document(productId).delete()
 }
 
-fun editProductInFirebase(id: String, actualTitle: String, newTitle: String) {
+fun editProductInFirebase(catalogId: String, food: Food) {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
-            .document(id).collection(Firebase.FIRESTORE_BUYS_CATALOG_FOODS)
-            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, actualTitle).get()
-            .addOnSuccessListener { querySnapshot ->
-                GlobalScope.launch(Dispatchers.Default) {
-                    if (querySnapshot.documents.size != 0) {
-                        querySnapshot.documents[0].reference.update(Firebase.FIRESTORE_FOOD_TITLE, newTitle)
-                    }
-                }
-            }
+            .document(catalogId).collection(Firebase.FIRESTORE_BUYS_CATALOG_FOODS)
+            .document(food.id).update(food.toFirestoreObject())
 }
 
 fun editBuysCatalogTitle(catalogId: String, newTitle: String) {

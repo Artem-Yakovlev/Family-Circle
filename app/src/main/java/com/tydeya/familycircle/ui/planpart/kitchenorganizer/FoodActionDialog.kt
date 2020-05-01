@@ -100,7 +100,7 @@ abstract class FoodActionDialog protected constructor() : DialogFragment() {
      * Create product from actual data
      * */
 
-    protected fun createFoodByInputtedData() = Food("",
+    protected fun createFoodByInputtedData(productId: String = "") = Food(productId,
             binding.productNameInput.text.toString().trim(), FoodStatus.NEED_BUY,
             when (binding.numberOfProductsInMeasureInput.text.toString().trim()) {
                 "" -> .0
