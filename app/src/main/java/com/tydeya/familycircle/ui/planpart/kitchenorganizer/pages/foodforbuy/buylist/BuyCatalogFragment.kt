@@ -181,7 +181,7 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     }
 
     override fun onFoodVHCheckBoxClicked(food: Food) {
-        buyCatalogViewModel.buyProduct(buyCatalogID, food)
+        buyCatalogViewModel.buyProduct(food)
     }
 
     /**

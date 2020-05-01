@@ -185,6 +185,7 @@
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
     <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
     <string name="kitchen_organizer_add_new_item">add new item</string>
+    <string name="kitchen_organizer_number_of_products">%1$s/%2$s</string>
 
     <!-- Create buy list dialog-->
     <string name="dialog_new_buy_list_title">Shopping list name</string>
@@ -210,6 +211,7 @@
     <string name="dialog_buy_catalog_settings_title">Buy catalog settings</string>
     <string name="dialog_buy_catalog_settings_delete_list">Delete list</string>
     <string name="dialog_buy_catalog_settings_save">Save</string>
+    <string name="this_buys_catalog_no_longer_exists">This buys catalog no longer exists</string>
 
     <!-- ================================================ -->
     <!-- Person page                                      -->
@@ -300,7 +302,6 @@
     <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
     <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
-    <string name="this_buys_catalog_no_longer_exists">This buys catalog no longer exists</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

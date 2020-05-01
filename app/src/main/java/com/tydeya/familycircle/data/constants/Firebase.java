@@ -39,9 +39,11 @@ public final class Firebase {
      */
 
     public static final String FIRESTORE_KITCHEN_COLLECTION = "KitchenOrganizer";
-    public static final String FIRESTORE_BUY_CATALOG_TITLE = "title";
-    public static final String FIRESTORE_BUY_CATALOG_DATE = "date_of_create";
-    public static final String FIRESTORE_BUY_CATALOG_FOODS = "foods";
+    public static final String FIRESTORE_BUYS_CATALOG_TITLE = "title";
+    public static final String FIRESTORE_BUYS_CATALOG_DATE = "date_of_create";
+    public static final String FIRESTORE_BUYS_CATALOG_FOODS = "foods";
+    public static final String FIRESTORE_BUYS_CATALOG_NUMBER_PRODUCTS = "number_of_products";
+    public static final String FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED = "number_of_purchased";
 
     /**
      * Const of firebase food object

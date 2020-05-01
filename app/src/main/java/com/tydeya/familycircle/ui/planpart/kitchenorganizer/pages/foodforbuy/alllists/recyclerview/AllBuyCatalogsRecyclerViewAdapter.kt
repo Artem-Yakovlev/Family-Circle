@@ -9,15 +9,15 @@ import com.tydeya.familycircle.databinding.CardviewBuylistBinding
 
 class AllBuyCatalogsRecyclerViewAdapter(var buyCatalogs: ArrayList<BuyCatalog>,
                                         var onClickListener: OnBuyCatalogClickListener) :
-        RecyclerView.Adapter<AllBuyCatalogsViewHolder>() {
+        RecyclerView.Adapter<AllBuysCatalogsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllBuyCatalogsViewHolder =
-            AllBuyCatalogsViewHolder(CardviewBuylistBinding.inflate(LayoutInflater.from(parent.context),
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllBuysCatalogsViewHolder =
+            AllBuysCatalogsViewHolder(CardviewBuylistBinding.inflate(LayoutInflater.from(parent.context),
                     parent, false), onClickListener)
 
     override fun getItemCount(): Int = buyCatalogs.size
 
-    override fun onBindViewHolder(holderAll: AllBuyCatalogsViewHolder, position: Int) {
+    override fun onBindViewHolder(holderAll: AllBuysCatalogsViewHolder, position: Int) {
         holderAll.bindData(buyCatalogs[position], position)
     }
 

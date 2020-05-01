@@ -15,7 +15,7 @@ class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListe
 
     private val foodCollectionRef = FirebaseFirestore.getInstance()
             .collection(FIRESTORE_KITCHEN_COLLECTION)
-            .orderBy(FIRESTORE_BUY_CATALOG_DATE, Query.Direction.DESCENDING)
+            .orderBy(FIRESTORE_BUYS_CATALOG_DATE, Query.Direction.DESCENDING)
 
     private lateinit var registration: ListenerRegistration
 
@@ -39,8 +39,10 @@ class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListe
                         val document = querySnapshot.documents[i]
 
                         buyCatalogs.add(BuyCatalog(document.id,
-                                document.get(FIRESTORE_BUY_CATALOG_TITLE).toString(),
-                                document.getDate(FIRESTORE_BUY_CATALOG_DATE)
+                                document.get(FIRESTORE_BUYS_CATALOG_TITLE).toString(),
+                                document.getDate(FIRESTORE_BUYS_CATALOG_DATE),
+                                document.getLong(FIRESTORE_BUYS_CATALOG_NUMBER_PRODUCTS) ?: 0,
+                                document.getLong(FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED) ?: 0
                         ))
                     }
 

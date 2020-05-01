@@ -40,18 +40,21 @@ class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventL
 
     fun createProduct(title: String) {
         createProductInFirebase(catalogId, title)
+        updateBuysCatalogProductsInfo(catalogId)
     }
 
     fun deleteProduct(productId: String) {
         deleteProductInFirebase(catalogId, productId)
+        updateBuysCatalogProductsInfo(catalogId)
     }
 
     fun editProduct(actualTitle: String, newTitle: String) {
         editProductInFirebase(catalogId, actualTitle, newTitle)
     }
 
-    fun buyProduct(buyCatalogID: String, food: Food) {
-        buyProductFirebaseProcessing(buyCatalogID, food)
+    fun buyProduct(food: Food) {
+        buyProductFirebaseProcessing(catalogId, food)
+        updateBuysCatalogProductsInfo(catalogId)
     }
 
     override fun onCleared() {
