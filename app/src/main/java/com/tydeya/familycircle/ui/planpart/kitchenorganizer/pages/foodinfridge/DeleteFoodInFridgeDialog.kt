@@ -16,7 +16,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DeleteFoodInFridgeDialog(val title: String) : DialogFragment() {
+class DeleteFoodInFridgeDialog private constructor() : DialogFragment() {
+
+    private lateinit var productId: String
 
     private lateinit var foodInFridgeViewModel: FoodInFridgeViewModel
 
@@ -43,9 +45,12 @@ class DeleteFoodInFridgeDialog(val title: String) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        productId = requireArguments().getString(PRODUCT_ID, "")
+
         binding.dialogDeleteFoodFridgeEatenFoodButton.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
-                foodInFridgeViewModel.deleteFromFridgeEatenFood(title)
+                foodInFridgeViewModel.deleteFromFridgeEatenFood(productId)
                 withContext(Dispatchers.Main) {
                     dismiss()
                 }
@@ -53,7 +58,7 @@ class DeleteFoodInFridgeDialog(val title: String) : DialogFragment() {
         }
         binding.dialogDeleteFoodFridgeBadFoodButton.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
-                foodInFridgeViewModel.deleteFromFridgeBadFood(title)
+                foodInFridgeViewModel.deleteFromFridgeBadFood(productId)
                 withContext(Dispatchers.Main) {
                     dismiss()
                 }
@@ -62,6 +67,18 @@ class DeleteFoodInFridgeDialog(val title: String) : DialogFragment() {
 
         binding.dialogDeleteFoodFridgeCancelButton.setOnClickListener {
             dismiss()
+        }
+    }
+
+    companion object {
+
+        private const val PRODUCT_ID = "product_id"
+
+        @JvmStatic
+        fun newInstance(actualTitle: String) = DeleteFoodInFridgeDialog().apply {
+            arguments = Bundle().apply {
+                putString(PRODUCT_ID, actualTitle)
+            }
         }
     }
 

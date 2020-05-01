@@ -2,6 +2,7 @@ package com.tydeya.familycircle.domain.kitchenorganizer.utils
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.Firebase
+import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,17 +36,10 @@ private fun createProductFromTitle(title: String, foodStatusNumber: Int) = hashM
         Firebase.FIRESTORE_FOOD_FATS to 0
 ) as Map<String, Any>
 
-fun deleteProductInFirebase(catalogId: String, title: String) {
+fun deleteProductInFirebase(catalogId: String, productId: String) {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
             .document(catalogId).collection(Firebase.FIRESTORE_BUY_CATALOG_FOODS)
-            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, title).get()
-            .addOnSuccessListener { querySnapshot ->
-                GlobalScope.launch(Dispatchers.Default) {
-                    for (document in querySnapshot.documents) {
-                        document.reference.delete()
-                    }
-                }
-            }
+            .document(productId).delete()
 }
 
 fun editProductInFirebase(id: String, actualTitle: String, newTitle: String) {
@@ -66,35 +60,18 @@ fun editBuysCatalogTitle(catalogId: String, newTitle: String) {
             .document(catalogId).update(Firebase.FIRESTORE_BUY_CATALOG_TITLE, newTitle)
 }
 
-fun buyProductFirebaseProcessing(catalogId: String, title: String) {
-
-    val firestore = FirebaseFirestore.getInstance()
-
-    firestore.collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
+fun buyProductFirebaseProcessing(catalogId: String, food: Food) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
             .document(catalogId).collection(Firebase.FIRESTORE_BUY_CATALOG_FOODS)
-            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, title).get()
-            .addOnSuccessListener { querySnapshot ->
-                GlobalScope.launch(Dispatchers.Default) {
-                    // In FIRESTORE food_status 1 == FOOD_IN_FRIDGE
-                    if (querySnapshot.documents.size != 0) {
-                        querySnapshot.documents[0].reference.update(Firebase.FIRESTORE_FOOD_STATUS, 1)
-                    }
-                }
-            }
-    firestore.collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
-            .add(createProductFromTitle(title, 1))
+            .document(food.id).update(Firebase.FIRESTORE_FOOD_STATUS, 1)
+
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
+            .add(createProductFromTitle(food.title, 1))
 }
 
 fun deleteFoodFromFridgeInFirebaseProcessing(title: String) {
-    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
-            .whereEqualTo(Firebase.FIRESTORE_FOOD_TITLE, title).get()
-            .addOnSuccessListener { querySnapshot ->
-                GlobalScope.launch(Dispatchers.Default) {
-                    if (querySnapshot.documents.size != 0) {
-                        querySnapshot.documents[0].reference.delete()
-                    }
-                }
-            }
+    FirebaseFirestore.getInstance()
+            .collection(Firebase.FIRESTORE_FRIDGE_COLLECTION).document(title).delete()
 }
 
 fun addFoodInFridgeFirebaseProcessing(title: String) {

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
+import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
@@ -170,8 +171,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
      * Recycler callbacks
      * */
 
-    override fun onFoodVHDeleteClick(title: String) {
-        buyCatalogViewModel.deleteProduct(title)
+    override fun onFoodVHDeleteClick(productId: String) {
+        buyCatalogViewModel.deleteProduct(productId)
     }
 
     override fun onFoodVHEditDataClick(title: String) {
@@ -179,8 +180,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
         editProductDataDialog.show(childFragmentManager, DIALOG_EDIT_PRODUCT)
     }
 
-    override fun onFoodVHCheckBoxClicked(title: String) {
-        buyCatalogViewModel.buyProduct(buyCatalogID, title)
+    override fun onFoodVHCheckBoxClicked(food: Food) {
+        buyCatalogViewModel.buyProduct(buyCatalogID, food)
     }
 
     /**

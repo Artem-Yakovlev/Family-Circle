@@ -18,7 +18,7 @@ class FoodViewHolder(private val binding: CardviewBuycatalogFoodBinding,
         binding.buyListFoodCardEdit.visibility = getEditableVisibility(isEditableMode)
 
         binding.buyListFoodCardDelete.setOnClickListener {
-            listenerInBuyList.onFoodVHDeleteClick(food.title)
+            listenerInBuyList.onFoodVHDeleteClick(food.id)
         }
 
         binding.buyListFoodCardEdit.setOnClickListener {
@@ -38,7 +38,7 @@ class FoodViewHolder(private val binding: CardviewBuycatalogFoodBinding,
         binding.buyListFoodCardCheckbox.setOnClickListener {
             binding.buyListFoodCardCheckbox.isClickable = false
             binding.buyListFoodCardCheckbox.isFocusable = false
-            listenerInBuyList.onFoodVHCheckBoxClicked(food.title)
+            listenerInBuyList.onFoodVHCheckBoxClicked(food)
         }
     }
 
@@ -52,9 +52,9 @@ class FoodViewHolder(private val binding: CardviewBuycatalogFoodBinding,
 
 interface FoodInBuyListViewHolderClickListener {
 
-    fun onFoodVHDeleteClick(title: String)
+    fun onFoodVHDeleteClick(productId: String)
 
     fun onFoodVHEditDataClick(title: String)
 
-    fun onFoodVHCheckBoxClicked(title: String)
+    fun onFoodVHCheckBoxClicked(productId: Food)
 }

@@ -71,8 +71,8 @@ class FoodInFridgeFragment
         }
     }
 
-    override fun onFoodInFridgeVHDeleteClick(title: String) {
-        val deleteFoodInFridgeDialog = DeleteFoodInFridgeDialog(title)
+    override fun onFoodInFridgeVHDeleteClick(productId: String) {
+        val deleteFoodInFridgeDialog = DeleteFoodInFridgeDialog.newInstance(productId)
         deleteFoodInFridgeDialog.show(childFragmentManager, FOOD_IN_FRIDGE_DELETE_DIALOG)
     }
 

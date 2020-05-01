@@ -11,12 +11,12 @@ class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
     fun bindData(food: Food) {
         binding.foodInFridgeTitle.text = food.title
         binding.foodInFridgeDelete.setOnClickListener {
-            listener.onFoodInFridgeVHDeleteClick(food.title)
+            listener.onFoodInFridgeVHDeleteClick(food.id)
         }
     }
 }
 
 interface FoodInFridgeViewHolderClickListener {
 
-    fun onFoodInFridgeVHDeleteClick(title: String)
+    fun onFoodInFridgeVHDeleteClick(productId: String)
 }
