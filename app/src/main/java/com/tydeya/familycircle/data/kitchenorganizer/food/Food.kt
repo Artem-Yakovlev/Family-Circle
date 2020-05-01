@@ -1,9 +1,12 @@
 package com.tydeya.familycircle.data.kitchenorganizer.food
 
+import android.os.Parcelable
 import com.tydeya.familycircle.data.constants.Firebase
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Food(val id: String, var title: String, var foodStatus: FoodStatus,
-                var quantityOfMeasure: Double, var measureType: MeasureType) {
+                var quantityOfMeasure: Double, var measureType: MeasureType) : Parcelable {
 
     fun toFirestoreObject() = hashMapOf(
             Firebase.FIRESTORE_FOOD_TITLE to title,

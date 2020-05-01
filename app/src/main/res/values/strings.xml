@@ -197,7 +197,7 @@
 
     <!-- Edit buy list dialog-->
     <string name="dialog_buy_list_settings_shopping_list_name">Shopping list name</string>
-    <string name="edit_product_name">Edit product name</string>
+    <string name="edit_product">Edit product</string>
     <string name="dialog_edit_food_data_already_exist">Product with this name already exists in this buy list</string>
     <string name="dialog_new_buy_list_accept">Accept</string>
     <string name="remove_food_from_fridge_dialog_title">Why do you want to remove this food?</string>

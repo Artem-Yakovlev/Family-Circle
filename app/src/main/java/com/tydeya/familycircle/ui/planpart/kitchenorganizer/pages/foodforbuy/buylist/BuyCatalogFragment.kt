@@ -137,7 +137,7 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
     private fun initAddButton() {
         binding.buyListAddButton.setOnClickListener {
-            val newProductDialog = CreateNewProductDialog()
+            val newProductDialog = CreateNewProductDialog.newInstance()
             newProductDialog.show(childFragmentManager, DIALOG_NEW_PRODUCT)
         }
     }
@@ -175,8 +175,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
         buyCatalogViewModel.deleteProduct(productId)
     }
 
-    override fun onFoodVHEditDataClick(title: String) {
-        val editProductDataDialog = EditProductDataDialog.newInstance(title)
+    override fun onFoodVHEditDataClick(food: Food) {
+        val editProductDataDialog = EditProductDataDialog.newInstance(food)
         editProductDataDialog.show(childFragmentManager, DIALOG_EDIT_PRODUCT)
     }
 

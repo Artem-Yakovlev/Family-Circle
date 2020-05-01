@@ -23,7 +23,7 @@ class FoodViewHolder(private val binding: CardviewFoodInBuysCatalogBinding,
         }
 
         binding.buyListFoodCardEdit.setOnClickListener {
-            listenerInBuyList.onFoodVHEditDataClick(food.title)
+            listenerInBuyList.onFoodVHEditDataClick(food)
         }
 
         when (food.foodStatus) {
@@ -68,7 +68,7 @@ interface FoodInBuyListViewHolderClickListener {
 
     fun onFoodVHDeleteClick(productId: String)
 
-    fun onFoodVHEditDataClick(title: String)
+    fun onFoodVHEditDataClick(food: Food)
 
     fun onFoodVHCheckBoxClicked(productId: Food)
 }
