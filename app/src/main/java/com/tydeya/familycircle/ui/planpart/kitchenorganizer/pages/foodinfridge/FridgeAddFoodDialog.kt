@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.kitchenorganizer.food.Food
+import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
+import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.DialogFridgeAddFoodBinding
 import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
 import kotlinx.android.synthetic.main.dialog_fridge_add_food.view.*
@@ -52,7 +55,8 @@ class FridgeAddFoodDialog : DialogFragment() {
                         .getString(R.string.empty_necessary_field_warning)
             } else {
                 GlobalScope.launch(Dispatchers.IO) {
-                    foodInFridgeViewModel.addNewFoodInFridge(title)
+                    foodInFridgeViewModel.addNewFoodInFridge(Food("", title,
+                            FoodStatus.IN_FRIDGE, .0, MeasureType.NOT_CHOSEN))
                 }
                 dismiss()
             }

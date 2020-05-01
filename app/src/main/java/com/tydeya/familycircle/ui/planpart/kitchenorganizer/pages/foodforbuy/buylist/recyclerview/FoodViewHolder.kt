@@ -2,11 +2,12 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.bu
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
-import com.tydeya.familycircle.databinding.CardviewBuycatalogFoodBinding
+import com.tydeya.familycircle.databinding.CardviewFoodInBuysCatalogBinding
 
-class FoodViewHolder(private val binding: CardviewBuycatalogFoodBinding,
+class FoodViewHolder(private val binding: CardviewFoodInBuysCatalogBinding,
                      private val listenerInBuyList: FoodInBuyListViewHolderClickListener)
     : RecyclerView.ViewHolder(binding.root) {
 
@@ -40,6 +41,19 @@ class FoodViewHolder(private val binding: CardviewBuycatalogFoodBinding,
             binding.buyListFoodCardCheckbox.isFocusable = false
             listenerInBuyList.onFoodVHCheckBoxClicked(food)
         }
+
+        val measure = itemView.context.resources
+                .getStringArray(R.array.quantitative_type_of_product)[food.measureType.ordinal]
+
+        if (food.measureType.ordinal != 0) {
+            binding.buyListFoodCardQuantityAndMeasure.text = itemView.context.getString(
+                    R.string.kitchen_organizer_buys_catalog_food_quantity_and_measure_placeholder,
+                    food.quantityOfMeasure.toString(), measure)
+        } else {
+            binding.buyListFoodCardQuantityAndMeasure.visibility = View.GONE
+        }
+
+
     }
 
     private fun getEditableVisibility(isEditableMode: Boolean) = if (isEditableMode) {

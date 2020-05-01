@@ -38,8 +38,8 @@ class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventL
         return true
     }
 
-    fun createProduct(title: String) {
-        createProductInFirebase(catalogId, title)
+    fun createProduct(food: Food) {
+        createProductInFirebase(catalogId, food)
         updateBuysCatalogProductsInfo(catalogId)
     }
 

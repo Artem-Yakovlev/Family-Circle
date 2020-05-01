@@ -8,15 +8,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-private fun createProductFromTitle(title: String, foodStatusNumber: Int) = hashMapOf(
-        Firebase.FIRESTORE_FOOD_TITLE to title,
-        Firebase.FIRESTORE_FOOD_DESCRIPTION to "",
-        Firebase.FIRESTORE_FOOD_STATUS to foodStatusNumber,
-        Firebase.FIRESTORE_FOOD_CALORIES to 0,
-        Firebase.FIRESTORE_FOOD_PROTEIN to 0,
-        Firebase.FIRESTORE_FOOD_FATS to 0
-) as Map<String, Any>
-
 fun createBuysCatalogInFirebase(title: String) = GlobalScope.launch {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION).add(
             hashMapOf(
@@ -38,10 +29,10 @@ fun deleteBuyCatalogInFirebase(catalogId: String) = GlobalScope.launch {
             }
 }
 
-fun createProductInFirebase(id: String, title: String) {
+fun createProductInFirebase(catalogId: String, food: Food) {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
-            .document(id).collection(Firebase.FIRESTORE_BUYS_CATALOG_FOODS)
-            .add(createProductFromTitle(title, 0))
+            .document(catalogId).collection(Firebase.FIRESTORE_BUYS_CATALOG_FOODS)
+            .add(food.toFirestoreObject())
 }
 
 fun deleteProductInFirebase(catalogId: String, productId: String) {
@@ -78,7 +69,7 @@ fun buyProductFirebaseProcessing(catalogId: String, food: Food) {
             .document(food.id).update(Firebase.FIRESTORE_FOOD_STATUS, 1)
 
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
-            .add(createProductFromTitle(food.title, 1))
+            .add(food.toFirestoreObject())
 }
 
 fun updateBuysCatalogProductsInfo(catalogId: String) {
@@ -104,7 +95,7 @@ fun deleteFoodFromFridgeInFirebaseProcessing(title: String) {
             .collection(Firebase.FIRESTORE_FRIDGE_COLLECTION).document(title).delete()
 }
 
-fun addFoodInFridgeFirebaseProcessing(title: String) {
+fun addFoodInFridgeFirebaseProcessing(food: Food) {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
-            .add(createProductFromTitle(title, 1))
+            .add(food.toFirestoreObject())
 }

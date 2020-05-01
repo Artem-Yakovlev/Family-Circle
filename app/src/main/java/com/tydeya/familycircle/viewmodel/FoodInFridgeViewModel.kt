@@ -35,7 +35,7 @@ class FoodInFridgeViewModel : ViewModel(), FoodInFridgeEventListenerCallback {
         deleteFoodFromFridgeInFirebaseProcessing(id)
     }
 
-    fun addNewFoodInFridge(title: String) {
-        addFoodInFridgeFirebaseProcessing(title)
+    fun addNewFoodInFridge(food: Food) {
+        addFoodInFridgeFirebaseProcessing(food)
     }
 }

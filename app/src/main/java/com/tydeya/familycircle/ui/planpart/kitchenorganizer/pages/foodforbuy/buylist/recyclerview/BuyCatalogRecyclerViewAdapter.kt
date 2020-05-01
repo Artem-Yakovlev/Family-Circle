@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
-import com.tydeya.familycircle.databinding.CardviewBuycatalogFoodBinding
+import com.tydeya.familycircle.databinding.CardviewFoodInBuysCatalogBinding
 
 class BuyCatalogRecyclerViewAdapter(
         private var products: ArrayList<Food>,
@@ -15,7 +15,7 @@ class BuyCatalogRecyclerViewAdapter(
         RecyclerView.Adapter<FoodViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
-        return FoodViewHolder(CardviewBuycatalogFoodBinding.inflate(LayoutInflater.from(parent.context),
+        return FoodViewHolder(CardviewFoodInBuysCatalogBinding.inflate(LayoutInflater.from(parent.context),
                 parent, false), onClickListenerInBuyList)
     }
 
