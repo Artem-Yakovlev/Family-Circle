@@ -3,6 +3,7 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.bu
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.CardviewFoodInBuysCatalogBinding
@@ -12,7 +13,7 @@ class BuyCatalogRecyclerViewAdapter(
         private var isEditableMode: Boolean,
         private val onClickListenerInBuyList: FoodInBuyListViewHolderClickListener)
     :
-        RecyclerView.Adapter<FoodViewHolder>() {
+        RecyclerView.Adapter<FoodViewHolder>(), SwipeToDeleteCallbackListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         return FoodViewHolder(CardviewFoodInBuysCatalogBinding.inflate(LayoutInflater.from(parent.context),
@@ -20,7 +21,7 @@ class BuyCatalogRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
-        holder.bindData(products[position], 0, isEditableMode)
+        holder.bindData(products[position], isEditableMode)
     }
 
     fun refreshData(products: ArrayList<Food>) {
@@ -36,6 +37,12 @@ class BuyCatalogRecyclerViewAdapter(
         if (this.isEditableMode != isEditableMode) {
             this.isEditableMode = isEditableMode
             notifyDataSetChanged()
+        }
+    }
+
+    override fun onSwipe(position: Int) {
+        if (position in products.indices) {
+            onClickListenerInBuyList.onFoodVHDeleteClick(products[position].id)
         }
     }
 

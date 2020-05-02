@@ -21,18 +21,22 @@
 
         <TextView
             android:id="@+id/buy_list_food_card_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:fontFamily="@font/poppins_medium"
             android:marqueeRepeatLimit="marquee_forever"
-            android:maxLength="30"
+            android:scrollHorizontally="true"
             android:singleLine="true"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/buy_list_food_card_edit"
             app:layout_constraintStart_toEndOf="@+id/buy_list_food_card_checkbox"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Бананы для большого праздника в честь дня ро" />
+            tools:text="Бананы для большого праздника в честь дня рождения - 0.5 kg." />
 
         <ImageButton
             android:id="@+id/buy_list_food_card_edit"
@@ -42,20 +46,8 @@
             android:background="@null"
             android:src="@drawable/ic_edit_gray_24dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintEnd_toStartOf="@+id/buy_list_food_card_delete"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/buy_list_food_card_delete"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="15dp"
-            android:background="@null"
-            android:src="@drawable/ic_delete_gray_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -63,22 +55,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="50dp" />
-
-        <TextView
-            android:id="@+id/buy_list_food_card_quantity_and_measure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:maxLength="30"
-            android:singleLine="true"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/buy_list_food_card_title"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            tools:text="0.50 kg."
-            android:text="@string/dialog_buy_catalog_settings_save" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

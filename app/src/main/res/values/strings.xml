@@ -186,7 +186,7 @@
     <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
     <string name="kitchen_organizer_add_new_item">add new item</string>
     <string name="kitchen_organizer_number_of_products">%1$s/%2$s</string>
-    <string name="kitchen_organizer_buys_catalog_food_quantity_and_measure_placeholder"> %1$s %2$s</string>
+    <string name="kitchen_organizer_buys_catalog_food_title_and_measure_placeholder">%1$s - %2$s %3$s</string>
 
     <!-- Create buy list dialog-->
     <string name="dialog_new_buy_list_title">Shopping list name</string>

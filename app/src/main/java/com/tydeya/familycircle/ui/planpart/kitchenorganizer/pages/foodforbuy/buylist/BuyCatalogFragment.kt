@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
@@ -16,6 +17,7 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
 import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
@@ -26,8 +28,9 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     private lateinit var buyCatalogID: String
 
     private lateinit var adapter: BuyCatalogRecyclerViewAdapter
+    private lateinit var swipeToDeleteCallback: SwipeToDeleteCallback
 
-    private var editableModeIsActive = false
+    private var isEditableMode = false
 
     private var _binding: FragmentBuyCatalogBinding? = null
     private val binding get() = _binding!!
@@ -78,11 +81,15 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     }
 
     private fun initRecyclerView() {
-        adapter = BuyCatalogRecyclerViewAdapter(ArrayList(), editableModeIsActive, this)
+        adapter = BuyCatalogRecyclerViewAdapter(ArrayList(), isEditableMode, this)
         binding.productsRecyclerview.adapter = adapter
 
         binding.productsRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false)
+
+        swipeToDeleteCallback = SwipeToDeleteCallback(requireContext(), adapter, isEditableMode)
+        ItemTouchHelper(swipeToDeleteCallback)
+                .attachToRecyclerView(binding.productsRecyclerview)
 
         buyCatalogViewModel.products.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -145,7 +152,6 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     private fun initFloatingButton() {
         binding.floatingButton.attachToRecyclerView(binding.productsRecyclerview)
         binding.floatingButton.setOnClickListener {
-            editableModeIsActive = !editableModeIsActive
             switchMode()
         }
     }
@@ -155,7 +161,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
      * */
 
     private fun switchMode() {
-        if (editableModeIsActive) {
+        isEditableMode = !isEditableMode
+        if (isEditableMode) {
             binding.floatingButton.setImageResource(R.drawable.ic_close_white_24dp)
             binding.buyListAddButton.visibility = View.VISIBLE
             binding.settingsButton.visibility = View.VISIBLE
@@ -164,7 +171,8 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
             binding.buyListAddButton.visibility = View.GONE
             binding.settingsButton.visibility = View.GONE
         }
-        adapter.switchMode(editableModeIsActive)
+        adapter.switchMode(isEditableMode)
+        swipeToDeleteCallback.isEditableMode = isEditableMode
     }
 
     /**
