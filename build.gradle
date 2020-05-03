@@ -7,7 +7,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
@@ -25,10 +25,10 @@ allprojects {
         configurations.all {
             resolutionStrategy.eachDependency { DependencyResolveDetails details ->
                 def requested = details.requested
-                if (requested.group == 'com.google.android.gms') {
-                    details.useVersion '12.0.1'
-                }
-                if (requested.group == 'com.google.firebase') {
+//                if (requested.group == 'com.google.android.gms') {
+//                    details.useVersion '12.0.1'
+//                }
+                if (requested.name == 'firebase-storage') {
                     details.useVersion '12.0.1'
                 }
             }

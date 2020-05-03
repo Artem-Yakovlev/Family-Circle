@@ -12,6 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CooperationNetworkInteractorImpl(
         val callback: CooperationNetworkInteractorCallback
@@ -28,14 +30,16 @@ class CooperationNetworkInteractorImpl(
                 .orderBy(FIRESTORE_COOPERATION_TIME, Query.Direction.DESCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        val cooperationData = ArrayList<Cooperation>()
+                        querySnapshot?.let {
+                            val cooperationData = ArrayList<Cooperation>()
 
-                        for (document in querySnapshot.documents) {
-                            cooperationData.add(createCooperationDataFromRawData(document))
-                        }
+                            for (document in querySnapshot.documents) {
+                                cooperationData.add(createCooperationDataFromRawData(document))
+                            }
 
-                        withContext(Dispatchers.Main) {
-                            callback.cooperationDataFromServerUpdate(cooperationData)
+                            withContext(Dispatchers.Main) {
+                                callback.cooperationDataFromServerUpdate(cooperationData)
+                            }
                         }
                     }
                 }
@@ -43,10 +47,11 @@ class CooperationNetworkInteractorImpl(
 
     private fun createCooperationDataFromRawData(document: DocumentSnapshot): Cooperation {
         return Cooperation(document.id,
-                document.getString(FIRESTORE_COOPERATION_AUTHOR),
-                document.getString(FIRESTORE_COOPERATION_ITEM),
-                CooperationType.values()[document.getLong(FIRESTORE_COOPERATION_TYPE).toInt()],
-                document.getDate(FIRESTORE_COOPERATION_TIME))
+                document.getString(FIRESTORE_COOPERATION_AUTHOR) ?: "+0",
+                document.getString(FIRESTORE_COOPERATION_ITEM) ?: "",
+                CooperationType.values()[(document.getLong(FIRESTORE_COOPERATION_TYPE)
+                        ?: 0).toInt()],
+                document.getDate(FIRESTORE_COOPERATION_TIME) ?: Date())
     }
 
     /**

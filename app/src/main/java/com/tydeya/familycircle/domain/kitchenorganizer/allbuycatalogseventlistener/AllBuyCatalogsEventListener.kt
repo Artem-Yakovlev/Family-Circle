@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener
 
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import com.tydeya.familycircle.data.constants.Firebase.*
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
@@ -9,6 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListenerCallback)
     : EventListener<QuerySnapshot>, EventListenerObservable {
@@ -40,7 +43,7 @@ class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListe
 
                         buyCatalogs.add(BuyCatalog(document.id,
                                 document.get(FIRESTORE_BUYS_CATALOG_TITLE).toString(),
-                                document.getDate(FIRESTORE_BUYS_CATALOG_DATE),
+                                document.getDate(FIRESTORE_BUYS_CATALOG_DATE) ?: Date(),
                                 document.getLong(FIRESTORE_BUYS_CATALOG_NUMBER_PRODUCTS) ?: 0,
                                 document.getLong(FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED) ?: 0
                         ))

@@ -31,19 +31,23 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
         FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        onlineManager.registerUserActivity()
-                        val conversations = ArrayList<Conversation>()
-                        for (document in querySnapshot.documents) {
+                        querySnapshot?.let {
+                            onlineManager.registerUserActivity()
+                            val conversations = ArrayList<Conversation>()
+                            for (document in querySnapshot.documents) {
 
-                            val members = document.get(FIRESTORE_CONVERSATION_MEMBERS) as ArrayList<String>
-                            if (FirebaseAuth.getInstance().currentUser!!.phoneNumber in members) {
-                                conversations.add(Conversation(
-                                        document.id, document.getString(FIRESTORE_CONVERSATION_TITLE), 0,
-                                        members, ArrayList()
-                                ))
+                                val members = document.get(FIRESTORE_CONVERSATION_MEMBERS) as ArrayList<String>
+                                if (FirebaseAuth.getInstance().currentUser!!.phoneNumber in members) {
+                                    conversations.add(Conversation(
+                                            document.id,
+                                            document.getString(FIRESTORE_CONVERSATION_TITLE) ?: "",
+                                            0,
+                                            members, ArrayList()
+                                    ))
+                                }
                             }
+                            callback.messengerConversationDataUpdated(conversations)
                         }
-                        callback.messengerConversationDataUpdated(conversations)
                     }
 
                 }

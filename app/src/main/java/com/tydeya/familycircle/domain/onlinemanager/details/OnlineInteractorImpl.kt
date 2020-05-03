@@ -22,14 +22,16 @@ class OnlineInteractorImpl : OnlineInteractor {
         FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Main) {
-                        isUserOnlineMap.clear()
-                        querySnapshot.documents.forEach {
+                        querySnapshot?.let {
+                            isUserOnlineMap.clear()
+                            querySnapshot.documents.forEach {
 
-                            val lastInteractionTime = it.getDate(FIRESTORE_USERS_LAST_ONLINE)
-                                    ?: Date(10000)
+                                val lastInteractionTime = it.getDate(FIRESTORE_USERS_LAST_ONLINE)
+                                        ?: Date(10000)
 
-                            isUserOnlineMap[it.getString(FIRESTORE_USERS_PHONE_TAG)] =
-                                    lastInteractionTime.time
+                                isUserOnlineMap[it.getString(FIRESTORE_USERS_PHONE_TAG) ?: "+0"] =
+                                        lastInteractionTime.time
+                            }
                         }
                     }
                 }

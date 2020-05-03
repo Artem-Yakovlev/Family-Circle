@@ -34,22 +34,23 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
                 .orderBy(FIRESTORE_EVENTS_DATE, Query.Direction.ASCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
+                        querySnapshot?.let {
+                            onlineManager.registerUserActivity()
 
-                        onlineManager.registerUserActivity()
+                            val familySingleEvents = ArrayList<FamilyEvent>()
+                            val familyAnnualEvents = ArrayList<FamilyEvent>()
 
-                        val familySingleEvents = ArrayList<FamilyEvent>()
-                        val familyAnnualEvents = ArrayList<FamilyEvent>()
-
-                        querySnapshot.documents.forEach {
-                            val familyEvent = parseEventFromRawServerData(it)
-                            if (familyEvent.type == FamilyEventType.ANNUAL_EVENT) {
-                                familyAnnualEvents.add(familyEvent)
-                            } else {
-                                familySingleEvents.add(familyEvent)
+                            querySnapshot.documents.forEach {
+                                val familyEvent = parseEventFromRawServerData(it)
+                                if (familyEvent.type == FamilyEventType.ANNUAL_EVENT) {
+                                    familyAnnualEvents.add(familyEvent)
+                                } else {
+                                    familySingleEvents.add(familyEvent)
+                                }
                             }
-                        }
-                        withContext(Dispatchers.Main) {
-                            callback.eventDataUpdate(familySingleEvents, familyAnnualEvents)
+                            withContext(Dispatchers.Main) {
+                                callback.eventDataUpdate(familySingleEvents, familyAnnualEvents)
+                            }
                         }
                     }
                 }
@@ -76,10 +77,10 @@ class EventNetworkInteractorImpl(val callback: EventNetworkInteractorCallback) :
 
     private fun parseEventFromRawServerData(document: DocumentSnapshot) = FamilyEvent(
             document.id,
-            document.getString(FIRESTORE_EVENTS_TITLE),
-            document.getDate(FIRESTORE_EVENTS_DATE).time,
-            document.getString(FIRESTORE_EVENTS_AUTHOR),
-            document.getString(FIRESTORE_EVENTS_DESCRIPTION),
+            document.getString(FIRESTORE_EVENTS_TITLE) ?: "",
+            document.getDate(FIRESTORE_EVENTS_DATE)?.time ?: -1,
+            document.getString(FIRESTORE_EVENTS_AUTHOR) ?: "+0",
+            document.getString(FIRESTORE_EVENTS_DESCRIPTION) ?: "",
             when (document.getLong(FIRESTORE_EVENTS_PRIORITY)) {
                 1L -> FamilyEventPriority.MIDDLE
                 2L -> FamilyEventPriority.HIGH
