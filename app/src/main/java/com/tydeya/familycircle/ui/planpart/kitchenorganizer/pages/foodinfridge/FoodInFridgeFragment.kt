@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.BarcodeScannerActivity
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
 import com.tydeya.familycircle.utils.Resource
@@ -66,8 +68,10 @@ class FoodInFridgeFragment
     private fun initFloatingButton() {
         binding.foodInFridgeFloatingButton.attachToRecyclerView(binding.foodInFridgeRecyclerview)
         binding.foodInFridgeFloatingButton.setOnClickListener {
-            val addFoodDialog = FridgeAddFoodDialog()
-            addFoodDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
+//            val addFoodDialog = FridgeAddFoodDialog()
+//            addFoodDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
+            val intent = Intent(context, BarcodeScannerActivity::class.java)
+            startActivity(intent)
         }
     }
 
