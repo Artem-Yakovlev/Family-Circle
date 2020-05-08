@@ -311,6 +311,8 @@
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
     <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
     <string name="dialog_new_food_products_amount_hint">Amount</string>
+    <string name="food_in_fridge_add_speed_dial_button_menu_barcode">Add by barcode</string>
+    <string name="food_in_fridge_add_speed_dial_button_menu_manually">Add manually</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

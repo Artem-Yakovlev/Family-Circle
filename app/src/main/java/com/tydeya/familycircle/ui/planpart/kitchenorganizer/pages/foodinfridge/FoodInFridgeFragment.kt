@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.BarcodeScannerActivity
@@ -66,13 +67,26 @@ class FoodInFridgeFragment
     }
 
     private fun initFloatingButton() {
-        binding.foodInFridgeFloatingButton.attachToRecyclerView(binding.foodInFridgeRecyclerview)
-        binding.foodInFridgeFloatingButton.setOnClickListener {
-//            val addFoodDialog = FridgeAddFoodDialog()
-//            addFoodDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
-            val intent = Intent(context, BarcodeScannerActivity::class.java)
-            startActivity(intent)
-        }
+        binding.foodInFridgeFloatingButton.inflate(R.menu.food_in_fridge_speed_dial_menu)
+
+        binding.foodInFridgeFloatingButton
+                .setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+                    when (actionItem.id) {
+                        R.id.simple_add -> {
+                            val addFoodDialog = FridgeAddFoodDialog()
+                            addFoodDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
+                            binding.foodInFridgeFloatingButton.close()
+                            return@OnActionSelectedListener true
+                        }
+                        R.id.add_from_barcode -> {
+                            val intent = Intent(context, BarcodeScannerActivity::class.java)
+                            startActivity(intent)
+                            binding.foodInFridgeFloatingButton.close()
+                            return@OnActionSelectedListener true
+                        }
+                    }
+                    false
+                })
     }
 
     override fun onFoodInFridgeVHDeleteClick(productId: String) {
