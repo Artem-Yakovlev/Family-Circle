@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.barcodescanner.BarcodeScannerActivity
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
@@ -27,6 +28,7 @@ class FoodInFridgeFragment
 
     companion object {
         private const val FRIDGE_ADD_FOOD_DIALOG = "fridge_add_food_dialog"
+        private const val FRIDGE_EDIT_FOOD_DIALOG = "fridge_edit_food_dialog"
     }
 
     private lateinit var adapter: FoodInFridgeRecyclerViewAdapter
@@ -92,7 +94,7 @@ class FoodInFridgeFragment
                             return@OnActionSelectedListener true
                         }
                     }
-                    false
+                    return@OnActionSelectedListener false
                 })
     }
 
@@ -100,8 +102,9 @@ class FoodInFridgeFragment
         foodInFridgeViewModel.deleteFromFridgeBadFood(productId)
     }
 
-    override fun onFoodInFridgeVhEditClick(productId: String) {
-
+    override fun onFoodInFridgeVhEditClick(food: Food) {
+        val editFoodInFridgeDialog = EditFoodInFridgeDialog.newInstance(food)
+        editFoodInFridgeDialog.show(childFragmentManager, FRIDGE_EDIT_FOOD_DIALOG)
     }
 
 }

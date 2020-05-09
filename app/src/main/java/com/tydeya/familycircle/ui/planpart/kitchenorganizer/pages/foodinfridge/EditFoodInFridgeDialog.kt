@@ -1,32 +1,32 @@
-package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist
+package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.FoodActionDialog
 import com.tydeya.familycircle.utils.value
-import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
+import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-open class EditProductDataDialog constructor() : FoodActionDialog() {
+class EditFoodInFridgeDialog : FoodActionDialog() {
 
     private lateinit var food: Food
 
-    private lateinit var buyCatalogViewModel: BuyCatalogViewModel
+    private lateinit var foodInFridgeViewModel: FoodInFridgeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DialogKitchenOrganizerFoodActionBinding.bind(root)
-        buyCatalogViewModel = ViewModelProviders.of(requireParentFragment())
-                .get(BuyCatalogViewModel::class.java)
+        foodInFridgeViewModel = ViewModelProviders.of(requireParentFragment())
+                .get(FoodInFridgeViewModel::class.java)
 
         return binding.root
     }
@@ -59,8 +59,8 @@ open class EditProductDataDialog constructor() : FoodActionDialog() {
                                 .getString(R.string.empty_necessary_field_warning)
                     }
                     else -> {
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            buyCatalogViewModel.editProduct(actualFood)
+                        GlobalScope.launch(Dispatchers.Main) {
+                            foodInFridgeViewModel.editFoodInFridgeData(actualFood)
                             withContext(Dispatchers.Main) {
                                 dismiss()
                             }
@@ -76,7 +76,7 @@ open class EditProductDataDialog constructor() : FoodActionDialog() {
         private const val FOOD_OBJECT = "food_object"
 
         @JvmStatic
-        fun newInstance(food: Food) = EditProductDataDialog().apply {
+        fun newInstance(food: Food) = EditFoodInFridgeDialog().apply {
             arguments = Bundle().apply {
                 putParcelable(FOOD_OBJECT, food)
             }

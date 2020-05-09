@@ -92,3 +92,8 @@ fun addFoodInFridgeFirebaseProcessing(food: Food) {
     FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
             .add(food.toFirestoreObject())
 }
+
+fun editFoodInFridgeDataFirebaseProcessing(food: Food) {
+    FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
+            .document(food.id).update(food.toFirestoreObject())
+}

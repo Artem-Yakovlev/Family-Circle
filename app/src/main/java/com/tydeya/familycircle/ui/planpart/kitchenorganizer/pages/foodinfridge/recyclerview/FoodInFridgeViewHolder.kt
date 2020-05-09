@@ -27,7 +27,7 @@ class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
         binding.foodInFridgeTitle.isSelected = true
 
         binding.editFoodButton.setOnClickListener {
-            listener.onFoodInFridgeVhEditClick(food.id)
+            listener.onFoodInFridgeVhEditClick(food)
         }
     }
 }
@@ -36,5 +36,5 @@ interface FoodInFridgeViewHolderClickListener {
 
     fun onFoodInFridgeVhDeleteClick(productId: String)
 
-    fun onFoodInFridgeVhEditClick(productId: String)
+    fun onFoodInFridgeVhEditClick(food: Food)
 }

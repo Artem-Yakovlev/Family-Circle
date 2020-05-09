@@ -7,6 +7,7 @@ import com.tydeya.familycircle.domain.kitchenorganizer.foodinfridgeeventlistener
 import com.tydeya.familycircle.domain.kitchenorganizer.foodinfridgeeventlistener.FoodInFridgeEventListenerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.addFoodInFridgeFirebaseProcessing
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteFoodFromFridgeInFirebaseProcessing
+import com.tydeya.familycircle.domain.kitchenorganizer.utils.editFoodInFridgeDataFirebaseProcessing
 import com.tydeya.familycircle.utils.Resource
 
 class FoodInFridgeViewModel : ViewModel(), FoodInFridgeEventListenerCallback {
@@ -37,5 +38,9 @@ class FoodInFridgeViewModel : ViewModel(), FoodInFridgeEventListenerCallback {
 
     fun addNewFoodInFridge(food: Food) {
         addFoodInFridgeFirebaseProcessing(food)
+    }
+
+    fun editFoodInFridgeData(food: Food) {
+        editFoodInFridgeDataFirebaseProcessing(food)
     }
 }
