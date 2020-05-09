@@ -31,7 +31,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLength="20"
             android:singleLine="true"
-            android:text="22.05.2009"
+            tool:text="22.05.2009"
             android:textColor="@color/colorGray"
             android:textSize="12sp" />
 

@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.barcodescanner.BarcodeScannerActivity
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
 import com.tydeya.familycircle.utils.Resource
@@ -24,7 +26,6 @@ class FoodInFridgeFragment
         Fragment(R.layout.fragment_food_in_fridge), FoodInFridgeViewHolderClickListener {
 
     companion object {
-        private const val FOOD_IN_FRIDGE_DELETE_DIALOG = "food_in_fridge_delete_dialog"
         private const val FRIDGE_ADD_FOOD_DIALOG = "fridge_add_food_dialog"
     }
 
@@ -34,6 +35,8 @@ class FoodInFridgeFragment
     private val binding get() = _binding!!
 
     private lateinit var foodInFridgeViewModel: FoodInFridgeViewModel
+
+    private lateinit var swipeToDeleteCallback: SwipeToDeleteCallback
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,6 +56,10 @@ class FoodInFridgeFragment
         binding.foodInFridgeRecyclerview.adapter = adapter
         binding.foodInFridgeRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false)
+
+        swipeToDeleteCallback = SwipeToDeleteCallback(requireContext(), adapter, true)
+        ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.foodInFridgeRecyclerview)
+
         foodInFridgeViewModel.products.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
@@ -73,8 +80,8 @@ class FoodInFridgeFragment
                 .setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
                     when (actionItem.id) {
                         R.id.simple_add -> {
-                            val addFoodDialog = FridgeAddFoodDialog()
-                            addFoodDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
+                            val addFoodInFridgeDialog = AddFoodInFridgeManuallyDialog.newInstance()
+                            addFoodInFridgeDialog.show(childFragmentManager, FRIDGE_ADD_FOOD_DIALOG)
                             binding.foodInFridgeFloatingButton.close()
                             return@OnActionSelectedListener true
                         }
@@ -89,9 +96,12 @@ class FoodInFridgeFragment
                 })
     }
 
-    override fun onFoodInFridgeVHDeleteClick(productId: String) {
-        val deleteFoodInFridgeDialog = DeleteFoodInFridgeDialog.newInstance(productId)
-        deleteFoodInFridgeDialog.show(childFragmentManager, FOOD_IN_FRIDGE_DELETE_DIALOG)
+    override fun onFoodInFridgeVhDeleteClick(productId: String) {
+        foodInFridgeViewModel.deleteFromFridgeBadFood(productId)
+    }
+
+    override fun onFoodInFridgeVhEditClick(productId: String) {
+
     }
 
 }
