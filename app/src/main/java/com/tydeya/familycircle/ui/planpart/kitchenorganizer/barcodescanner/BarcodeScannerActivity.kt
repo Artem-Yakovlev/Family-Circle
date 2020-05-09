@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.planpart.kitchenorganizer
+package com.tydeya.familycircle.ui.planpart.kitchenorganizer.barcodescanner
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,17 +12,24 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
+import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.BarcodeResource
+import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.ScannedProduct
 import com.tydeya.familycircle.databinding.ActivityBarcodeScannerBinding
+import com.tydeya.familycircle.viewmodel.BarcodeScannerViewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+
+const val CREATE_PRODUCT_FROM_BARCODE_DIALOG = "create_product_from_barcode_dialog"
 
 class BarcodeScannerActivity : AppCompatActivity() {
 
@@ -44,8 +51,15 @@ class BarcodeScannerActivity : AppCompatActivity() {
         getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     }
 
+    private lateinit var barcodeScannerViewModel: BarcodeScannerViewModel
+
+    private var isReadyToScan = true
+
+    private var isReadyToCreate = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        barcodeScannerViewModel = ViewModelProvider(this).get(BarcodeScannerViewModel::class.java)
         binding = ActivityBarcodeScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewFinder = binding.viewFinder
@@ -64,6 +78,47 @@ class BarcodeScannerActivity : AppCompatActivity() {
 
             // Bind use cases
             bindCameraUseCases()
+        }
+
+
+        initScannerCallbackProcessing()
+        binding.endScanButton.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun initScannerCallbackProcessing() {
+        barcodeScannerViewModel.barcodeResourse.observe(this, Observer {
+            it.let {
+                initTitle(it)
+                when (it) {
+                    is BarcodeResource.AwaitingScan -> {
+                        isReadyToScan = true
+                        isReadyToCreate = true
+                    }
+                    is BarcodeResource.Success -> {
+                        if (isReadyToCreate) {
+                            isReadyToCreate = false
+                            val newProductDialog = CreateProductFromBarcodeDialog.newInstance(it.data)
+                            newProductDialog
+                                    .show(supportFragmentManager, CREATE_PRODUCT_FROM_BARCODE_DIALOG)
+                        }
+                    }
+                    is BarcodeResource.Failure -> {
+                        Toast.makeText(this, getString(R.string.something_went_wrong),
+                                Toast.LENGTH_LONG).show()
+                        isReadyToScan = true
+                    }
+                }
+            }
+        })
+    }
+
+    private fun initTitle(resource: BarcodeResource<ScannedProduct>) {
+        if (resource is BarcodeResource.Loading) {
+            binding.barcodeScannerTitle.text = getString(R.string.loading)
+        } else {
+            binding.barcodeScannerTitle.text = getString(R.string.barcode_scanner_activity_title)
         }
     }
 
@@ -158,7 +213,7 @@ class BarcodeScannerActivity : AppCompatActivity() {
                 imageCapture?.targetRotation = view.display.rotation
                 imageAnalyzer?.targetRotation = view.display.rotation
             }
-        } ?: Unit
+        }
     }
 
     private fun aspectRatio(width: Int, height: Int): Int {
@@ -178,61 +233,31 @@ class BarcodeScannerActivity : AppCompatActivity() {
             else -> throw Exception("Rotation must be 0, 90, 180, or 270.")
         }
 
-        private var done = false
-
         @SuppressLint("UnsafeExperimentalUsageError")
         override fun analyze(image: ImageProxy) {
             val mediaImage = image.image
             val imageRotation = degreesToFirebaseRotation(image.imageInfo.rotationDegrees)
 
-            if (mediaImage != null) {
-                if (!done) {
-                    startScanner(FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation))
-                }
+            if (mediaImage != null && isReadyToScan) {
+                startScanner(FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation))
             }
             image.close()
         }
 
         private fun startScanner(firebaseVisionImage: FirebaseVisionImage) {
-            val imagePath = "https://nikitaefremov.ru/wp-content/uploads/2014/10/barcode1.jpg"
-
-            val options = FirebaseVisionBarcodeDetectorOptions.Builder()
-                    .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_EAN_13)
-                    .build()
-
-            val detector = FirebaseVision.getInstance().visionBarcodeDetector
-            val result = detector.detectInImage(firebaseVisionImage)
+            FirebaseVision.getInstance()
+                    .visionBarcodeDetector.detectInImage(firebaseVisionImage)
                     .addOnSuccessListener { barcodes ->
-                        Log.d("ASMR", "Success")
                         for (barcode in barcodes) {
-                            val bounds = barcode.boundingBox
-                            val corners = barcode.cornerPoints
-
-                            val rawValue = barcode.rawValue
-
-                            val valueType = barcode.valueType
-
-                            // See API reference for complete list of supported types
-                            when (valueType) {
-                                FirebaseVisionBarcode.FORMAT_EAN_13 -> {
-                                    Log.d("ASMR", "На месте!")
-                                }
-                                FirebaseVisionBarcode.TYPE_PRODUCT -> {
-                                    Log.d("ASMR", "Я продукт!")
-                                    Log.d("ASMR", barcode.displayValue ?: "Пизда")
-                                    Toast.makeText(this@BarcodeScannerActivity,
-                                            barcode.displayValue ?: "???", Toast.LENGTH_LONG).show()
-                                    done = true
-                                }
-                                else -> {
-                                    Log.d("ASMR", "Не на месте !")
+                            if (barcode.valueType == FirebaseVisionBarcode.TYPE_PRODUCT) {
+                                barcode.displayValue?.let {
+                                    if (it.length == 13) {
+                                        barcodeScannerViewModel.requireProductDataByBarcode(it)
+                                        isReadyToScan = false
+                                    }
                                 }
                             }
                         }
-
-                    }
-                    .addOnFailureListener {
-                        Log.d("ASMR", "Suck")
                     }
         }
     }

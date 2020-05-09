@@ -9,23 +9,19 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.utils.value
-import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
 
 abstract class FoodActionDialog protected constructor() : DialogFragment() {
 
-    protected lateinit var buyCatalogViewModel: BuyCatalogViewModel
-
-    private var _binding: DialogKitchenOrganizerFoodActionBinding? = null
+    protected var _binding: DialogKitchenOrganizerFoodActionBinding? = null
     protected val binding get() = _binding!!
 
-    private lateinit var root: View
+    protected lateinit var root: View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         root = requireActivity().layoutInflater
@@ -35,14 +31,8 @@ abstract class FoodActionDialog protected constructor() : DialogFragment() {
         }.create()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        _binding = DialogKitchenOrganizerFoodActionBinding.bind(root)
-        buyCatalogViewModel = ViewModelProviders.of(requireParentFragment())
-                .get(BuyCatalogViewModel::class.java)
-
-        return binding.root
-    }
+    abstract override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                                       savedInstanceState: Bundle?): View?
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

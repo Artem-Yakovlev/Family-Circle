@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.BarcodeScannerActivity
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.barcodescanner.BarcodeScannerActivity
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
 import com.tydeya.familycircle.utils.Resource

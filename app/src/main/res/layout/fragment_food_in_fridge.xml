@@ -1,41 +1,3 @@
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:paddingTop="10dp"-->
-<!--    tools:context=".ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment">-->
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/food_in_fridge_recyclerview"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
-
-<!--        <com.melnykov.fab.FloatingActionButton-->
-<!--            android:id="@+id/food_in_fridge_floating_button"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_gravity="bottom|right"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:src="@drawable/ic_add_blue_24dp"-->
-<!--            app:fab_colorNormal="@color/colorPrimary"-->
-<!--            app:fab_colorPressed="@color/colorPrimaryDark"-->
-<!--            app:fab_colorRipple="@color/colorPrimaryDark"-->
-<!--            tools:ignore="RtlHardcoded" />-->
-
-<!--    <com.leinardi.android.speeddial.SpeedDialView-->
-<!--        android:id="@+id/foodInFridgeFloatingButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:background="@null"-->
-<!--        app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"-->
-<!--        app:sdMainFabClosedSrc="@drawable/ic_add_blue_24dp" />-->
-
-<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinatorLayout"
@@ -67,6 +29,7 @@
         app:sdMainFabClosedIconColor="@color/colorWhite"
         app:sdMainFabClosedSrc="@drawable/ic_add_blue_24dp"
         app:sdMainFabOpenedIconColor="@color/colorWhite"
-        app:sdMainFabOpenedSrc="@drawable/ic_close_black_24dp" />
+        app:sdMainFabOpenedSrc="@drawable/ic_close_black_24dp"
+        app:sdOverlayLayout="@id/overlay" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

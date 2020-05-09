@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_marginTop="1dp"
     android:clickable="true"
     android:focusable="true"
@@ -45,7 +46,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLength="20"
             android:singleLine="true"
-            android:text="К празднику"
+            tool:text="К празднику"
             android:textSize="14sp" />
 
         <TextView
