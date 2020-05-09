@@ -1,8 +1,10 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
+import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.CardviewFoodInFridgeBinding
 
 class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
@@ -10,7 +12,7 @@ class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
         RecyclerView.ViewHolder(binding.root) {
 
     fun bindData(food: Food) {
-        initFoodTitle(food);
+        initFoodTitle(food)
     }
 
     private fun initFoodTitle(food: Food) {
@@ -29,6 +31,14 @@ class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
         binding.editFoodButton.setOnClickListener {
             listener.onFoodInFridgeVhEditClick(food)
         }
+
+        binding.eatFoodButton.setOnClickListener {
+            listener.onFoodInFridgeVhEatClick(food)
+        }
+
+        if (food.measureType == MeasureType.NOT_CHOSEN) {
+            binding.eatFoodButton.visibility = View.INVISIBLE
+        }
     }
 }
 
@@ -37,4 +47,6 @@ interface FoodInFridgeViewHolderClickListener {
     fun onFoodInFridgeVhDeleteClick(productId: String)
 
     fun onFoodInFridgeVhEditClick(food: Food)
+
+    fun onFoodInFridgeVhEatClick(food: Food)
 }

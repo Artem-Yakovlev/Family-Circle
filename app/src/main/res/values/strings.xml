@@ -214,6 +214,10 @@
     <string name="dialog_buy_catalog_settings_save">Save</string>
     <string name="this_buys_catalog_no_longer_exists">This buys catalog no longer exists</string>
 
+    <!-- Food in fridge -->
+    <string name="eat_food_from_fridge_actual_amount_placeholder">%1$s/%2$s</string>
+    <string name="eat_food_from_fridge_actual_amount_error_placeholder">You have only %1$s</string>
+
     <string-array name="quantitative_type_of_product">
         <item>Not chosen</item>
         <item>KG.</item>
@@ -318,6 +322,8 @@
     <string name="loading">Loading...</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="barcode_scanner_activity_product_added">Product successfully added</string>
+    <string name="dialog_eat_food_in_fridge_accept">Accept</string>
+    <string name="dialog_eat_food_in_fridge_title">How much food was eaten?</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

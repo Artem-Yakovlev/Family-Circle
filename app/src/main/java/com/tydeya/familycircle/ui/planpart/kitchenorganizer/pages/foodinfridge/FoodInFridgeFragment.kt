@@ -29,6 +29,7 @@ class FoodInFridgeFragment
     companion object {
         private const val FRIDGE_ADD_FOOD_DIALOG = "fridge_add_food_dialog"
         private const val FRIDGE_EDIT_FOOD_DIALOG = "fridge_edit_food_dialog"
+        private const val FRIDGE_EAT_FOOD_DIALOG = "fridge_eat_food_dialog"
     }
 
     private lateinit var adapter: FoodInFridgeRecyclerViewAdapter
@@ -105,6 +106,12 @@ class FoodInFridgeFragment
     override fun onFoodInFridgeVhEditClick(food: Food) {
         val editFoodInFridgeDialog = EditFoodInFridgeDialog.newInstance(food)
         editFoodInFridgeDialog.show(childFragmentManager, FRIDGE_EDIT_FOOD_DIALOG)
+    }
+
+    override fun onFoodInFridgeVhEatClick(food: Food) {
+        val eatFoodFromFridgeDialog = EatFoodFromFridgeDialog.newInstance(food)
+        eatFoodFromFridgeDialog.show(childFragmentManager, FRIDGE_EAT_FOOD_DIALOG)
+
     }
 
 }
