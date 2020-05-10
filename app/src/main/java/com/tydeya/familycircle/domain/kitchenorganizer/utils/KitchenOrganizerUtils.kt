@@ -17,6 +17,8 @@ fun convertServerDataToFood(documentSnapshot: DocumentSnapshot): Food {
                     .getDouble(Firebase.FIRESTORE_FOOD_QUANTITY_OF_MEASURE) ?: .0),
             MeasureType
                     .values()[(documentSnapshot.getLong(Firebase.FIRESTORE_FOOD_MEASURE_TYPE) ?: 0)
-                    .toInt()]
+                    .toInt()],
+            documentSnapshot.getLong(Firebase.FIRESTORE_FOOD_SHELF_LIFE_TIMESTAMP)
+                    ?: -1L
     )
 }

@@ -9,6 +9,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
+import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.FoodActionDialog
 import com.tydeya.familycircle.utils.value
 import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
@@ -16,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class EditFoodInFridgeDialog : FoodActionDialog() {
 
@@ -39,11 +41,23 @@ class EditFoodInFridgeDialog : FoodActionDialog() {
 
     override fun fillUiWithCurrentData() {
         super.fillUiWithCurrentData()
+
         food = requireArguments().getParcelable(FOOD_OBJECT)!!
         binding.productNameInput.value = food.title
+
         if (food.measureType != MeasureType.NOT_CHOSEN) {
             binding.numberOfProductsInMeasureInput.value = food.quantityOfMeasure.toString()
             binding.measureSpinner.setSelection(food.measureType.ordinal)
+        }
+
+        if (food.shelfLifeTimeStamp == -1L) {
+            binding.choiceShelfLifeButton.text = getString(R.string.product_shelf_life_input_button)
+        } else {
+            val calendar = GregorianCalendar()
+            calendar.timeInMillis = food.shelfLifeTimeStamp
+            binding.choiceShelfLifeButton.text = getString(R.string
+                    .product_shelf_life_input_button_picked_placeholder,
+                    DateRefactoring.getDateLocaleText(calendar))
         }
     }
 

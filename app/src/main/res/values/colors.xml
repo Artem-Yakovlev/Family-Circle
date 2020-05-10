@@ -18,4 +18,9 @@
     <color name="colorTransparentBlue">#d9ecfc</color>
     <color name="colorOnlineGreen">#4EC43A</color>
 
+    <!-- Color for product-->
+    <color name="colorFreshFood">#8BC34A</color>
+    <color name="colorOrdinaryFood">#FF9800</color>
+    <color name="colorSpoiledFood">#BF1E12</color>
+    
 </resources>

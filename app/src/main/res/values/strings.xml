@@ -327,6 +327,11 @@
     <string name="dialog_eat_food_without_measure_type_in_fridge_title">Have you eaten this product?</string>
     <string name="dialog_eat_food_without_measure_type_in_fridge_yes_button">Yes</string>
     <string name="dialog_eat_food_without_measure_type_in_fridge_no_button">No</string>
+    <string name="product_shelf_life_input_button">No shelf life specified</string>
+    <string name="product_shelf_life_input_button_picked_placeholder">Shelf life until: %1$s</string>
+    <string name="food_in_fridge_shelf_life_placeholder">Shelf life until: %1$s (%2$s)</string>
+    <string name="food_in_fridge_shelf_life_tomorrow">Tomorrow</string>
+    <string name="food_in_fridge_shelf_life_days">days</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

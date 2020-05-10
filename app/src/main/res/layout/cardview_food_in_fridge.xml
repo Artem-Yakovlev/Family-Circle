@@ -34,12 +34,32 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/food_in_fridge_shelf_life"
             app:layout_constraintEnd_toStartOf="@+id/edit_food_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/eat_food_button"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Бананы для большого праздника в честь дня рождения - 0.5 kg." />
+
+        <TextView
+            android:id="@+id/food_in_fridge_shelf_life"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/poppins_medium"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textSize="12sp"
+            android:textColor="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/edit_food_button"
+            app:layout_constraintStart_toEndOf="@+id/eat_food_button"
+            app:layout_constraintTop_toBottomOf="@id/food_in_fridge_title"
+            tools:text="Shelf life until 03/15/2009 (1005 days)" />
 
         <ImageButton
             android:id="@+id/edit_food_button"

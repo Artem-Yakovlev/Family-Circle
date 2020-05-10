@@ -52,6 +52,7 @@ public final class Firebase {
     public static final String FIRESTORE_FOOD_STATUS = "food_status";
     public static final String FIRESTORE_FOOD_QUANTITY_OF_MEASURE = "quantity_of_measure";
     public static final String FIRESTORE_FOOD_MEASURE_TYPE = "measure_type";
+    public static final String FIRESTORE_FOOD_SHELF_LIFE_TIMESTAMP = "shelf_life_timestamp";
 
     /**
      * Const of firebase fridge
