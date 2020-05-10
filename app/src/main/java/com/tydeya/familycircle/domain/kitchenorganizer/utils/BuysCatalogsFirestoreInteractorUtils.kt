@@ -1,11 +1,11 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.utils
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.Firebase
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import java.util.*
 
 fun createBuysCatalogInFirebase(title: String) = GlobalScope.launch {
@@ -98,17 +98,15 @@ fun editFoodInFridgeDataFirebaseProcessing(food: Food) {
             .document(food.id).update(food.toFirestoreObject())
 }
 
-fun eatFoodFromFridgeFirebaseProcessing(eatenAmount: Double, food: Food) {
-
+fun eatFoodFromFridgeFirebaseProcessing(eatenAmount: BigDecimal, food: Food) {
     val remainingAmount = food.quantityOfMeasure - eatenAmount
-    Log.d("ASMR", remainingAmount.toString())
 
-    if (remainingAmount > 0) {
-        Log.d("ASMR", ">0")
-        FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
-                .document(food.id).update(food.copy(quantityOfMeasure = remainingAmount).toFirestoreObject())
+    if (remainingAmount > BigDecimal.ZERO) {
+        FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
+                .document(food.id)
+                .update(food.copy(quantityOfMeasure = remainingAmount).toFirestoreObject())
     } else {
-        FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_KITCHEN_COLLECTION)
+        FirebaseFirestore.getInstance().collection(Firebase.FIRESTORE_FRIDGE_COLLECTION)
                 .document(food.id).delete()
     }
 }

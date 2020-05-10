@@ -35,10 +35,6 @@ class FoodInFridgeViewHolder(private val binding: CardviewFoodInFridgeBinding,
         binding.eatFoodButton.setOnClickListener {
             listener.onFoodInFridgeVhEatClick(food)
         }
-
-        if (food.measureType == MeasureType.NOT_CHOSEN) {
-            binding.eatFoodButton.visibility = View.INVISIBLE
-        }
     }
 }
 

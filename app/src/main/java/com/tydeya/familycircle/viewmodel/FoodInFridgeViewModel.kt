@@ -10,6 +10,7 @@ import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteFoodFromFridg
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.eatFoodFromFridgeFirebaseProcessing
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.editFoodInFridgeDataFirebaseProcessing
 import com.tydeya.familycircle.utils.Resource
+import java.math.BigDecimal
 
 class FoodInFridgeViewModel : ViewModel(), FoodInFridgeEventListenerCallback {
     private val foodInFridgeEventListener: FoodInFridgeEventListener = FoodInFridgeEventListener(this)
@@ -45,7 +46,7 @@ class FoodInFridgeViewModel : ViewModel(), FoodInFridgeEventListenerCallback {
         editFoodInFridgeDataFirebaseProcessing(food)
     }
 
-    fun eatFoodFromFridge(eatenAmount: Double, food: Food) {
+    fun eatFoodFromFridge(eatenAmount: BigDecimal, food: Food) {
         eatFoodFromFridgeFirebaseProcessing(eatenAmount, food)
     }
 }

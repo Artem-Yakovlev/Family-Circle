@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
+import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.FragmentFoodInFridgeBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.barcodescanner.BarcodeScannerActivity
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
@@ -29,7 +30,8 @@ class FoodInFridgeFragment
     companion object {
         private const val FRIDGE_ADD_FOOD_DIALOG = "fridge_add_food_dialog"
         private const val FRIDGE_EDIT_FOOD_DIALOG = "fridge_edit_food_dialog"
-        private const val FRIDGE_EAT_FOOD_DIALOG = "fridge_eat_food_dialog"
+        private const val FRIDGE_EAT_FOOD_WITH_TYPE_DIALOG = "fridge_eat_food_with_type_dialog"
+        private const val FRIDGE_EAT_FOOD_WITHOUT_TYPE_DIALOG = "fridge_eat_food_without_type_dialog"
     }
 
     private lateinit var adapter: FoodInFridgeRecyclerViewAdapter
@@ -109,8 +111,16 @@ class FoodInFridgeFragment
     }
 
     override fun onFoodInFridgeVhEatClick(food: Food) {
-        val eatFoodFromFridgeDialog = EatFoodFromFridgeDialog.newInstance(food)
-        eatFoodFromFridgeDialog.show(childFragmentManager, FRIDGE_EAT_FOOD_DIALOG)
+        if (food.measureType == MeasureType.NOT_CHOSEN) {
+            val eatFoodFromFridgeDialog = EatFoodWithoutMeasureTypeFromFridge.newInstance(food)
+            eatFoodFromFridgeDialog.show(childFragmentManager, FRIDGE_EAT_FOOD_WITHOUT_TYPE_DIALOG)
+
+        } else {
+
+            val eatFoodFromFridgeDialog = EatFoodFromFridgeDialog.newInstance(food)
+            eatFoodFromFridgeDialog.show(childFragmentManager, FRIDGE_EAT_FOOD_WITH_TYPE_DIALOG)
+        }
+
 
     }
 

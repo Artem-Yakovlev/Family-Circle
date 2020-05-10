@@ -15,6 +15,7 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.utils.value
+import java.math.BigDecimal
 
 abstract class FoodActionDialog protected constructor() : DialogFragment() {
 
@@ -93,8 +94,8 @@ abstract class FoodActionDialog protected constructor() : DialogFragment() {
     protected fun createFoodByInputtedData(productId: String = "") = Food(productId,
             binding.productNameInput.text.toString().trim(), FoodStatus.NEED_BUY,
             when (binding.numberOfProductsInMeasureInput.text.toString().trim()) {
-                "" -> .0
-                else -> binding.numberOfProductsInMeasureInput.text.toString().trim().toDouble()
+                "" -> BigDecimal.valueOf(0)
+                else -> BigDecimal(binding.numberOfProductsInMeasureInput.text.toString())
             }, MeasureType.values()[binding.measureSpinner.selectedItemPosition])
 
 }
