@@ -53,6 +53,7 @@ class EditFoodInFridgeDialog : FoodActionDialog() {
         if (food.shelfLifeTimeStamp == -1L) {
             binding.choiceShelfLifeButton.text = getString(R.string.product_shelf_life_input_button)
         } else {
+            shelfLifeTimestamp = food.shelfLifeTimeStamp
             val calendar = GregorianCalendar()
             calendar.timeInMillis = food.shelfLifeTimeStamp
             binding.choiceShelfLifeButton.text = getString(R.string
