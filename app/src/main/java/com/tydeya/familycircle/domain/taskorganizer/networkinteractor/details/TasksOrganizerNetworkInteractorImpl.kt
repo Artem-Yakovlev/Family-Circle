@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl

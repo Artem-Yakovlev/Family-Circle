@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.data.eventmanager.FamilyEvent
 import com.tydeya.familycircle.data.eventmanager.FamilyEventPriority
 import com.tydeya.familycircle.data.eventmanager.FamilyEventType

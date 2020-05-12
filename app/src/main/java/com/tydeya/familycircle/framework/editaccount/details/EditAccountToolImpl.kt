@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.editaccount.abstraction.EditAccountTool
@@ -61,8 +61,11 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
                     it.printStackTrace()
                     editDataInFirebase(phoneNumber, editableFamilyMember, "")
                 }
+
     }
 
+
+    @Deprecated("This method ")
     private fun editDataInFirebase(phoneNumber: String, editableFamilyMember: EditableFamilyMember,
                                    imageAddress: String) {
 
@@ -70,7 +73,7 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
                 .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, phoneNumber).get()
                 .addOnSuccessListener { querySnapshot ->
                     run {
-                        querySnapshot.documents[0].reference.set(hashMapOf(
+                        querySnapshot.documents[0].reference.update(hashMapOf(
                                 FIRESTORE_USERS_PHONE_TAG to phoneNumber,
                                 FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
                                 FIRESTORE_USERS_BIRTHDATE_TAG to
@@ -79,6 +82,17 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
                                 FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
                                 FIRESTORE_USERS_LAST_ONLINE to Date(),
                                 FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
+
+                        /*
+                        querySnapshot.documents[0].reference.set(hashMapOf(
+                                FIRESTORE_USERS_PHONE_TAG to phoneNumber,
+                                FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
+                                FIRESTORE_USERS_BIRTHDATE_TAG to
+                                        Date().apply { time = editableFamilyMember.birthdate },
+                                FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
+                                FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
+                                FIRESTORE_USERS_LAST_ONLINE to Date(),
+                                FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)*/
                     }
                 }
     }

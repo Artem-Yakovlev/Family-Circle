@@ -1,7 +1,7 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener
 
 import com.google.firebase.firestore.*
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.convertServerDataToFood

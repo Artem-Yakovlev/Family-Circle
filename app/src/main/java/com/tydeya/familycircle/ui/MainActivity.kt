@@ -3,6 +3,7 @@ package com.tydeya.familycircle.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
@@ -11,10 +12,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.messaging.FirebaseMessaging
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.CLOUD_MESSAGING_KITCHEN_TOPIC
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback
@@ -40,8 +44,10 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        FirebaseMessaging.getInstance().subscribeToTopic(CLOUD_MESSAGING_KITCHEN_TOPIC)
+        Log.d("ASMR", "Hello")
         verificationCheck()
+        KitchenOrganizerShelfLifeReceiver.initAlarm(this)
         if (savedInstanceState == null) {
             isSavedInstanceNull = true
         }

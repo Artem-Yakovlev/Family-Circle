@@ -13,13 +13,13 @@ import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
 
 import java.util.ArrayList;
 
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_IMAGE_ADDRESS;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_STUDY_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_WORK_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_IMAGE_ADDRESS;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_STUDY_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_WORK_TAG;
 import static com.tydeya.familycircle.utils.StringExtensionsKt.ifNullToEmpty;
 
 public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {

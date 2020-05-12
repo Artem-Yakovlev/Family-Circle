@@ -84,6 +84,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.firebaseui:firebase-ui-database:3.1.3'
 
+    // Firebase cloud messaging
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
+
     // CameraX core library
     def camerax_version = '1.0.0-beta03'
     implementation "androidx.camera:camera-core:$camerax_version"
@@ -98,16 +101,16 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.0.0-alpha10'
 
     // CameraX Extensions library
-    // implementation "androidx.camera:camera-extensions:1.0.0-alpha09"
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha09"
 
     //Firebase vision
     implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
     implementation 'com.google.firebase:firebase-ml-vision-barcode-model:16.1.1'
 
     //Dagger 2
-    implementation 'com.google.dagger:dagger:2.7'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
-    kapt 'com.google.dagger:dagger-compiler:2.7'
+    implementation 'com.google.dagger:dagger:2.24'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.24'
+    kapt 'com.google.dagger:dagger-compiler:2.24'
 
     //Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
@@ -141,21 +144,19 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 
     //View model + Live data
-    def lifecycle_version = "2.2.0"
-    def arch_version = "2.1.0"
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     // Lifecycles only (without ViewModel or LiveData)
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
     // Saved state module for ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
 
     // Annotation processor
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0"
 
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
@@ -171,4 +172,8 @@ dependencies {
     //Okhttp3
     implementation "com.squareup.okhttp3:okhttp:3.12.0"
     implementation "com.squareup.okhttp3:logging-interceptor:3.11.0"
+
+    //WorkManager
+    implementation "androidx.work:work-runtime:2.3.4"
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
 }

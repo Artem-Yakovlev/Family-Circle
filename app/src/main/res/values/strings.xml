@@ -332,6 +332,11 @@
     <string name="food_in_fridge_shelf_life_placeholder">Shelf life until: %1$s (%2$s)</string>
     <string name="food_in_fridge_shelf_life_tomorrow">Tomorrow</string>
     <string name="food_in_fridge_shelf_life_days">days</string>
+    <string name="shelf_life_notification_spoiled_placeholder">Already messed up: %1$s. </string>
+    <string name="shelf_life_notification_not_fresh_placeholder">Soon go bad: %1$s. </string>
+    <string name="shelf_life_notification_title">Shelf Life Information from Kitchen organizer</string>
+    <string name="kitchen_organizer_notification_channel_title">Kitchen organizer notification channel</string>
+    <string name="kitchen_organizer_notification_channel_description">With help of this channel, you get all the relevant information from the kitchen organizer</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

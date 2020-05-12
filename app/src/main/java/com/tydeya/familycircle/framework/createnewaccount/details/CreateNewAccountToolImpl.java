@@ -15,12 +15,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_BIRTHDATE_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_COLLECTION;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_IMAGE_ADDRESS;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_LAST_ONLINE;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_NAME_TAG;
-import static com.tydeya.familycircle.data.constants.Firebase.FIRESTORE_USERS_PHONE_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_IMAGE_ADDRESS;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_LAST_ONLINE;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_NAME_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG;
 
 public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 

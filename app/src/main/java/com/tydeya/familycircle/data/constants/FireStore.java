@@ -1,8 +1,8 @@
 package com.tydeya.familycircle.data.constants;
 
-public final class Firebase {
+public final class FireStore {
 
-    private Firebase() {
+    private FireStore() {
     }
 
     /**
@@ -16,6 +16,7 @@ public final class Firebase {
     public static final String FIRESTORE_USERS_WORK_TAG = "work_place";
     public static final String FIRESTORE_USERS_IMAGE_ADDRESS = "image";
     public static final String FIRESTORE_USERS_LAST_ONLINE = "last_online";
+    public static final String FIRESTORE_USERS_FCM_TOKEN = "fcm_token";
 
     /**
      * Const of firebase conversation object
