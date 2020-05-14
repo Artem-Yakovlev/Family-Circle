@@ -337,6 +337,7 @@
     <string name="shelf_life_notification_title">Shelf Life Information from Kitchen organizer</string>
     <string name="kitchen_organizer_notification_channel_title">Kitchen organizer notification channel</string>
     <string name="kitchen_organizer_notification_channel_description">With help of this channel, you get all the relevant information from the kitchen organizer</string>
+    <string name="barcode_scanner_permission_text">In the settings, give permission to this application to use the camera to scan products</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

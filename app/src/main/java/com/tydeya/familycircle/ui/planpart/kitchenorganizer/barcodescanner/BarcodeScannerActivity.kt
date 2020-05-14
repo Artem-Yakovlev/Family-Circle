@@ -1,7 +1,9 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.barcodescanner
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.display.DisplayManager
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -28,6 +30,7 @@ import java.util.concurrent.Executors
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+
 
 const val CREATE_PRODUCT_FROM_BARCODE_DIALOG = "create_product_from_barcode_dialog"
 
@@ -79,9 +82,8 @@ class BarcodeScannerActivity : AppCompatActivity() {
             // Bind use cases
             bindCameraUseCases()
         }
-
-
         initScannerCallbackProcessing()
+
         binding.endScanButton.setOnClickListener {
             finish()
         }
@@ -127,10 +129,8 @@ class BarcodeScannerActivity : AppCompatActivity() {
 
         // Get screen metrics used to setup camera for full screen resolution
         val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
-        Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
 
         val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
-        Log.d(TAG, "Preview aspect ratio: $screenAspectRatio")
 
         val rotation = viewFinder.display.rotation
 
@@ -191,6 +191,18 @@ class BarcodeScannerActivity : AppCompatActivity() {
             }
 
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+
+        if (permissionStatus != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, getString(R.string.barcode_scanner_permission_text),
+                    Toast.LENGTH_LONG).show()
+            finish()
+        }
     }
 
     override fun onDestroy() {

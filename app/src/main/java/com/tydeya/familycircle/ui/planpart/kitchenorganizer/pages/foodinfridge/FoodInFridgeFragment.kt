@@ -1,10 +1,15 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -91,9 +96,26 @@ class FoodInFridgeFragment
                             return@OnActionSelectedListener true
                         }
                         R.id.add_from_barcode -> {
-                            val intent = Intent(context, BarcodeScannerActivity::class.java)
-                            startActivity(intent)
+                            val permissionStatus = ContextCompat.checkSelfPermission(requireContext(),
+                                    Manifest.permission.CAMERA)
                             binding.foodInFridgeFloatingButton.close()
+                            when {
+                                permissionStatus == PackageManager.PERMISSION_GRANTED -> {
+                                    val intent = Intent(context, BarcodeScannerActivity::class.java)
+                                    startActivity(intent)
+                                }
+                                ActivityCompat.shouldShowRequestPermissionRationale(
+                                        requireActivity(), Manifest.permission.CAMERA) -> {
+                                    Toast.makeText(requireContext(),
+                                            getString(R.string.barcode_scanner_permission_text),
+                                            Toast.LENGTH_LONG).show()
+                                }
+                                else -> {
+                                    ActivityCompat.requestPermissions(requireActivity(),
+                                            arrayOf(Manifest.permission.CAMERA), 200)
+                                }
+                            }
+
                             return@OnActionSelectedListener true
                         }
                     }
