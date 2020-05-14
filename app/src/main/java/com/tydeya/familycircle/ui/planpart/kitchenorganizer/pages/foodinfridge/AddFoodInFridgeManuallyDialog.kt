@@ -46,6 +46,10 @@ class AddFoodInFridgeManuallyDialog : FoodActionDialog() {
         }
     }
 
+    override fun fillUiWithCurrentData() {
+        //stub
+    }
+
     companion object {
 
         @JvmStatic

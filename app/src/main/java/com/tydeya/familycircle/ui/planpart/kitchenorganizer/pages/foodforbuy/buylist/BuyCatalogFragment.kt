@@ -184,7 +184,7 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
     }
 
     override fun onFoodVHEditDataClick(food: Food) {
-        val editProductDataDialog = EditProductDataDialog.newInstance(food)
+        val editProductDataDialog = EditFoodInBuysCatalogDialog.newInstance(food)
         editProductDataDialog.show(childFragmentManager, DIALOG_EDIT_PRODUCT)
     }
 

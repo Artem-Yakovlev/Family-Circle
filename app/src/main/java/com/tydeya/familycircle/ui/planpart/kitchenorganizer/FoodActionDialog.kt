@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.DIALOG_FOOD_OBJECT
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
@@ -29,6 +30,8 @@ abstract class FoodActionDialog protected constructor() : DialogFragment() {
     protected lateinit var root: View
 
     protected var shelfLifeTimestamp = -1L
+
+    protected var food: Food? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         root = requireActivity().layoutInflater
@@ -106,11 +109,31 @@ abstract class FoodActionDialog protected constructor() : DialogFragment() {
      * */
 
     open fun initUi() {
-        //stub
+        // stub
     }
 
-    open fun fillUiWithCurrentData() {
-        //stub
+    protected open fun fillUiWithCurrentData() {
+        food = requireArguments().getParcelable(DIALOG_FOOD_OBJECT)
+        food?.let {
+            binding.productNameInput.value = it.title
+
+            if (it.measureType != MeasureType.NOT_CHOSEN) {
+                binding.numberOfProductsInMeasureInput.value = it.quantityOfMeasure.toString()
+                binding.measureSpinner.setSelection(it.measureType.ordinal)
+            }
+
+            if (it.shelfLifeTimeStamp == -1L) {
+                binding.choiceShelfLifeButton.text = getString(R.string.product_shelf_life_input_button)
+            } else {
+                shelfLifeTimestamp = it.shelfLifeTimeStamp
+                val calendar = GregorianCalendar()
+                calendar.timeInMillis = it.shelfLifeTimeStamp
+                binding.choiceShelfLifeButton.text = getString(R.string
+                        .product_shelf_life_input_button_picked_placeholder,
+                        DateRefactoring.getDateLocaleText(calendar))
+            }
+        }
+
     }
 
     abstract fun action()
