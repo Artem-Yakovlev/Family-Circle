@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.viewmodel
+package com.tydeya.familycircle.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

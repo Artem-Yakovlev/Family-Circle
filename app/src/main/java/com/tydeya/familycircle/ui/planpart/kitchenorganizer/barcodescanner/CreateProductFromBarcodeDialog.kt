@@ -11,7 +11,7 @@ import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.ScannedProdu
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.FoodActionDialog
 import com.tydeya.familycircle.utils.value
-import com.tydeya.familycircle.viewmodel.BarcodeScannerViewModel
+import com.tydeya.familycircle.presentation.viewmodel.BarcodeScannerViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

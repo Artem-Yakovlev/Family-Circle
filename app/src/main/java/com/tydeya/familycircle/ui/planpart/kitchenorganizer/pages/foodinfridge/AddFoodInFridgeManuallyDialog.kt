@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.FoodActionDialog
-import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.FoodInFridgeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

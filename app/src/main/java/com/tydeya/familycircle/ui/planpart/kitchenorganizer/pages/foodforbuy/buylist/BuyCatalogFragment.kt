@@ -19,9 +19,9 @@ import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buy
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
-import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
-import com.tydeya.familycircle.viewmodel.BuyCatalogViewModelFactory
+import com.tydeya.familycircle.presentation.viewmodel.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.BuyCatalogViewModel
+import com.tydeya.familycircle.presentation.viewmodel.BuyCatalogViewModelFactory
 
 class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 

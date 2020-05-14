@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.viewmodel
+package com.tydeya.familycircle.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

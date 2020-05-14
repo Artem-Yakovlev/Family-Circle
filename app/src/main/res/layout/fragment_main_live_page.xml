@@ -14,7 +14,6 @@
         app:title="@string/main_live_page_toolbar_title"
         app:titleTextColor="@color/colorWhite">
 
-
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +25,6 @@
             tools:ignore="RtlHardcoded"
             android:visibility="invisible" />
 
-
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
@@ -37,9 +35,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_live_page_family_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="horizontal" />
+            android:layout_height="wrap_content" />
 
     </androidx.cardview.widget.CardView>
 

@@ -13,7 +13,7 @@ import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBindi
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.FoodActionDialog
 import com.tydeya.familycircle.utils.value
-import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.FoodInFridgeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

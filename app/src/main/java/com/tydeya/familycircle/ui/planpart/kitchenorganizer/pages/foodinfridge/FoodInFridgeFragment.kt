@@ -25,7 +25,7 @@ import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buy
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.viewmodel.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.FoodInFridgeViewModel
 
 
 class FoodInFridgeFragment

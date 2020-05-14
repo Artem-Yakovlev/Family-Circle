@@ -28,11 +28,6 @@ import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPerson
 import com.tydeya.familycircle.ui.planpart.eventmanager.EventManagerFragment;
 import com.tydeya.familycircle.ui.planpart.eventmanager.eventeditpage.EventEditFragment;
 import com.tydeya.familycircle.ui.planpart.eventmanager.eventviewpage.EventViewFragment;
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.CreateBuyListDialog;
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment;
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment;
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist.CreateNewProductDialog;
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
@@ -84,19 +79,9 @@ public interface AppComponent {
 
     void injectActivity(MainActivity mainActivity);
 
-    void injectFoodForBuyFragment(FoodForBuyFragment foodForBuyFragment);
-
-    void injectFoodInFridgeFragment(FoodInFridgeFragment foodInFridgeFragment);
-
-    void injectBuyCatalogFragment(BuyCatalogFragment buyCatalogFragment);
-
     void injectViewHolder(MainConversationViewHolder mainConversationViewHolder);
 
-    void injectDialog(CreateBuyListDialog createBuyListDialog);
-
     void injectDialog(ConversationInfoDialog conversationInfoDialog);
-
-    void injectDialog(CreateNewProductDialog createNewProductDialog);
 
     void injectDialog(CreateTaskDialog createTaskDialog);
 
