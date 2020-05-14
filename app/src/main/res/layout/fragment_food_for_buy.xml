@@ -7,21 +7,14 @@
     android:paddingTop="10dp"
     tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment">
 
-    <com.skydoves.androidveil.VeilRecyclerFrameView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_for_buy_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:veilFrame_baseAlpha="0.6"
-        app:veilFrame_baseColor="@color/colorPrimary"
-        app:veilFrame_highlightAlpha="1.0"
-        app:veilFrame_highlightColor="@color/colorTransparentGray"
-        app:veilFrame_layout="@layout/cardview_buylist"
-        app:veilFrame_radius="8dp"
-        app:veilFrame_shimmerEnable="true"
-        app:veilFrame_veiled="true" />
+        tools:listitem="@layout/cardview_buylist" />
 
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/buy_list_floating_button"
+        android:id="@+id/floating_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom|right"

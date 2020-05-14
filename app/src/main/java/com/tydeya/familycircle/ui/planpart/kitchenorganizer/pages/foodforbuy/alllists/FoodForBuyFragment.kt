@@ -1,68 +1,89 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
-import com.tydeya.familycircle.data.kitchenorganizer.kitchendatastatus.KitchenDataStatus
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.abstraction.KitchenOrganizerCallback
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
-import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.BuyCatalogsRecyclerViewAdapter
+import com.tydeya.familycircle.databinding.FragmentFoodForBuyBinding
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.AllBuyCatalogsRecyclerViewAdapter
 import com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.OnBuyCatalogClickListener
+import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
 import kotlinx.android.synthetic.main.fragment_food_for_buy.*
-import javax.inject.Inject
 
-class FoodForBuyFragment : Fragment(R.layout.fragment_food_for_buy), OnBuyCatalogClickListener,
-        KitchenOrganizerCallback {
+class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
 
-    @Inject
-    lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
+    lateinit var adapter: AllBuyCatalogsRecyclerViewAdapter
 
-    lateinit var adapter: BuyCatalogsRecyclerViewAdapter
+    private var _binding: FragmentFoodForBuyBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var allBuyCatalogsViewModel: AllBuyCatalogsViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
+        _binding = FragmentFoodForBuyBinding.inflate(inflater, container, false)
+        allBuyCatalogsViewModel = ViewModelProvider(this).get(AllBuyCatalogsViewModel::class.java)
+
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.getComponent().injectFoodForBuyFragment(this)
+        initRecyclerView()
+        initFloatingButton()
+    }
 
-        adapter = BuyCatalogsRecyclerViewAdapter(context!!,
-                kitchenOrganizerInteractor.buyCatalogs, this)
-        food_for_buy_recyclerview.setAdapter(adapter,
-                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false))
-        food_for_buy_recyclerview.addVeiledItems(12)
+    private fun initRecyclerView() {
+        adapter = AllBuyCatalogsRecyclerViewAdapter(ArrayList(), this)
+        binding.foodForBuyRecyclerview.adapter = adapter
+        binding.foodForBuyRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
+                LinearLayoutManager.VERTICAL, false)
 
-        buy_list_floating_button.attachToRecyclerView(food_for_buy_recyclerview.getRecyclerView())
-        buy_list_floating_button.setOnClickListener {
+        allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    adapter.refreshData(it.data)
+                }
+                is Resource.Failure -> {
+
+                }
+            }
+        })
+    }
+
+    private fun initFloatingButton() {
+        floating_button.attachToRecyclerView(binding.foodForBuyRecyclerview)
+        floating_button.setOnClickListener {
             val newListDialog = CreateBuyListDialog()
-            newListDialog.show(parentFragmentManager, "dialog_new_list")
+            newListDialog.show(childFragmentManager, "dialog_new_list")
         }
     }
 
     override fun onBuyCatalogClick(position: Int) {
-        val navController = NavHostFragment.findNavController(this)
-        val bundle = Bundle()
-        bundle.putString(BUNDLE_ID, kitchenOrganizerInteractor.buyCatalogs[position].id)
-        navController.navigate(R.id.buyListFragment, bundle)
-    }
+        val allBuyCatalogsResourse = allBuyCatalogsViewModel.buyCatalogsResource.value
 
-    override fun kitchenDataFromServerUpdated() {
-        if (kitchenOrganizerInteractor.buyCatalogsStatus == KitchenDataStatus.DATA_RECEIVED) {
-            adapter.refreshData(kitchenOrganizerInteractor.buyCatalogs)
-            adapter.notifyDataSetChanged()
-            food_for_buy_recyclerview.unVeil()
+        if (allBuyCatalogsResourse is Resource.Success) {
+            val navController = NavHostFragment.findNavController(this)
+            val bundle = bundleOf((BUNDLE_ID to allBuyCatalogsResourse.data[position].id))
+            navController.navigate(R.id.buyListFragment, bundle)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        kitchenOrganizerInteractor.subscribe(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        kitchenOrganizerInteractor.unsubscribe(this)
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -3,61 +3,78 @@ package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.al
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.tydeya.familycircle.App
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
-import kotlinx.android.synthetic.main.dialog_food_for_buy_new_list.view.*
-import javax.inject.Inject
+import com.tydeya.familycircle.databinding.DialogFoodForBuyNewListBinding
+import com.tydeya.familycircle.viewmodel.AllBuyCatalogsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class CreateBuyListDialog : DialogFragment() {
 
-    @Inject
-    lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
+    private lateinit var allBuyCatalogsViewModel: AllBuyCatalogsViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        App.getComponent().injectDialog(this)
-    }
+    private var _binding: DialogFoodForBuyNewListBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var root: View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
-        val inflater = activity!!.layoutInflater
-        val view = inflater.inflate(R.layout.dialog_food_for_buy_new_list, null)
+        root = requireActivity().layoutInflater.inflate(R.layout.dialog_food_for_buy_new_list, null)
 
-        builder.setView(view)
+        return AlertDialog.Builder(activity).apply {
+            setView(root)
+        }.create()
+    }
 
-        view.dialog_shopping_list_create_button.setOnClickListener {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DialogFoodForBuyNewListBinding.bind(root)
+        allBuyCatalogsViewModel = ViewModelProvider(requireParentFragment())
+                .get(AllBuyCatalogsViewModel::class.java)
+        return binding.root
+    }
 
-            var createFlag = true
-            val title = view.dialog_shopping_list_name.text.toString().trim()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.dialogShoppingListCreateButton.setOnClickListener {
+            val title = binding.dialogShoppingListName.text.toString().trim()
 
             if (title == "") {
-                view.dialog_shopping_list_name.error = view.context!!
+                binding.dialogShoppingListName.error = view.context!!
                         .resources.getString(R.string.empty_necessary_field_warning)
-                createFlag = false
             } else {
-                for (buyCatalog in kitchenOrganizerInteractor.buyCatalogs) {
-                    if (buyCatalog.title.trim() == title) {
-                        view.dialog_shopping_list_name.error = view.context!!
-                                .resources.getString(R.string.dialog_new_buy_list_already_exist)
-                        createFlag = false
-                        break
+                lifecycleScope.launch(Dispatchers.IO) {
+                    if (!allBuyCatalogsViewModel.isThereBuysCatalogWithName(title)) {
+                        allBuyCatalogsViewModel.createBuysCatalog(title)
+                        withContext(Dispatchers.Main) {
+                            dismiss()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            binding.dialogShoppingListName.error = view.context!!
+                                    .resources.getString(R.string.dialog_new_buy_list_already_exist)
+                        }
                     }
                 }
             }
-
-            if (createFlag) {
-                kitchenOrganizerInteractor.createBuyCatalog(title)
-                dismiss()
-            }
         }
 
-        view.dialog_shopping_list_cancel_button.setOnClickListener {
+        binding.dialogShoppingListCancelButton.setOnClickListener {
             dismiss()
         }
-
-        return builder.create()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

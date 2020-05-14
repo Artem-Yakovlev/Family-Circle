@@ -1,36 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="10dp"
-    tools:context=".ui.planpart.kitchenorganizer.pages.foodinfridge.FoodInFridgeFragment">
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.skydoves.androidveil.VeilRecyclerFrameView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_in_fridge_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:veilFrame_baseAlpha="0.6"
-        app:veilFrame_baseColor="@color/colorPrimary"
-        app:veilFrame_highlightAlpha="1.0"
-        app:veilFrame_highlightColor="@color/colorTransparentGray"
-        app:veilFrame_layout="@layout/cardview_food_in_fridge"
-        app:veilFrame_radius="8dp"
-        app:veilFrame_shimmerEnable="true"
-        app:veilFrame_veiled="true" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/food_in_fridge_floating_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_add_blue_24dp"
-        app:fab_colorNormal="@color/colorPrimary"
-        app:fab_colorPressed="@color/colorPrimaryDark"
-        app:fab_colorRipple="@color/colorPrimaryDark"
-        tools:ignore="RtlHardcoded" />
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:clickable_overlay="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</FrameLayout>
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/foodInFridgeFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="2dp"
+        app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
+        app:sdExpansionMode="top"
+        app:sdMainFabAnimationRotateAngle="90"
+        app:sdMainFabClosedIconColor="@color/colorWhite"
+        app:sdMainFabClosedSrc="@drawable/ic_add_blue_24dp"
+        app:sdMainFabOpenedIconColor="@color/colorWhite"
+        app:sdMainFabOpenedSrc="@drawable/ic_close_black_24dp"
+        app:sdOverlayLayout="@id/overlay" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

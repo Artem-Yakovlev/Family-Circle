@@ -18,7 +18,7 @@
         android:id="@+id/startInputNumberFragment"
         android:name="com.tydeya.familycircle.ui.firststartpage.authorization.inputnumber.details.StartInputNumberFragment"
         android:label="fragment_start_input_number"
-        tools:layout="@layout/fragment_start_input_number" >
+        tools:layout="@layout/fragment_start_input_number">
         <action
             android:id="@+id/action_startInputNumberFragment_to_getCodeFromSmsFragment"
             app:destination="@+id/getCodeFromSmsFragment" />
@@ -27,7 +27,7 @@
         android:id="@+id/getCodeFromSmsFragment"
         android:name="com.tydeya.familycircle.ui.firststartpage.authorization.getcodesms.details.GetCodeFromSmsFragment"
         android:label="fragment_get_code_from_sms"
-        tools:layout="@layout/fragment_get_code_from_sms" >
+        tools:layout="@layout/fragment_get_code_from_sms">
         <argument
             android:name="userCodeId"
             app:argType="string"
@@ -43,7 +43,7 @@
         android:id="@+id/createNewAccountFragment"
         android:name="com.tydeya.familycircle.ui.firststartpage.accountcreation.details.CreateNewAccountFragment"
         android:label="fragment_create_new_account"
-        tools:layout="@layout/fragment_create_new_account" >
+        tools:layout="@layout/fragment_create_new_account">
         <action
             android:id="@+id/action_createNewAccountFragment_to_selectFamilyFragment"
             app:destination="@+id/selectFamilyFragment" />

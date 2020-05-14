@@ -3,7 +3,6 @@ package com.tydeya.familycircle.ui.firststartpage.accountcreation.details;
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

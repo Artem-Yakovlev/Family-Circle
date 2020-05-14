@@ -2,7 +2,7 @@ package com.tydeya.familycircle.domain.onlinemanager.details
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.domain.onlinemanager.abstraction.OnlineInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -22,14 +22,16 @@ class OnlineInteractorImpl : OnlineInteractor {
         FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Main) {
-                        isUserOnlineMap.clear()
-                        querySnapshot.documents.forEach {
+                        querySnapshot?.let {
+                            isUserOnlineMap.clear()
+                            querySnapshot.documents.forEach {
 
-                            val lastInteractionTime = it.getDate(FIRESTORE_USERS_LAST_ONLINE)
-                                    ?: Date(10000)
+                                val lastInteractionTime = it.getDate(FIRESTORE_USERS_LAST_ONLINE)
+                                        ?: Date(10000)
 
-                            isUserOnlineMap[it.getString(FIRESTORE_USERS_PHONE_TAG)] =
-                                    lastInteractionTime.time
+                                isUserOnlineMap[it.getString(FIRESTORE_USERS_PHONE_TAG) ?: "+0"] =
+                                        lastInteractionTime.time
+                            }
                         }
                     }
                 }

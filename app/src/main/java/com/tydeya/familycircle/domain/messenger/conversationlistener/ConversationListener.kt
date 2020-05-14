@@ -2,15 +2,18 @@ package com.tydeya.familycircle.domain.messenger.conversationlistener
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class ConversationListener(private val conversationId: String,
                            private val callback: ConversationListenerCallback
@@ -61,9 +64,9 @@ class ConversationListener(private val conversationId: String,
     }
 
     private fun parseMessageFromServer(document: DocumentSnapshot) = ChatMessage(
-            document.getString(FIRESTORE_MESSAGE_AUTHOR_PHONE),
-            document.getString(FIRESTORE_MESSAGE_TEXT),
-            document.getDate(FIRESTORE_MESSAGE_DATETIME),
+            document.getString(FIRESTORE_MESSAGE_AUTHOR_PHONE) ?: "+0",
+            document.getString(FIRESTORE_MESSAGE_TEXT) ?: "",
+            document.getDate(FIRESTORE_MESSAGE_DATETIME) ?: Date(),
             !isMessageUnread(document)
 
     )

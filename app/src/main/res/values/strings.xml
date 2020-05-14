@@ -185,6 +185,8 @@
     <string name="kitchen_organizer_toolbar_title">Kitchen organizer</string>
     <string name="kitchen_organizer_buy_list_toolbar_title">Buy list</string>
     <string name="kitchen_organizer_add_new_item">add new item</string>
+    <string name="kitchen_organizer_number_of_products">%1$s/%2$s</string>
+    <string name="kitchen_organizer_buys_catalog_food_title_and_measure_placeholder">%1$s - %2$s %3$s</string>
 
     <!-- Create buy list dialog-->
     <string name="dialog_new_buy_list_title">Shopping list name</string>
@@ -195,7 +197,7 @@
 
     <!-- Edit buy list dialog-->
     <string name="dialog_buy_list_settings_shopping_list_name">Shopping list name</string>
-    <string name="edit_product_name">Edit product name</string>
+    <string name="edit_product">Edit product</string>
     <string name="dialog_edit_food_data_already_exist">Product with this name already exists in this buy list</string>
     <string name="dialog_new_buy_list_accept">Accept</string>
     <string name="remove_food_from_fridge_dialog_title">Why do you want to remove this food?</string>
@@ -210,6 +212,18 @@
     <string name="dialog_buy_catalog_settings_title">Buy catalog settings</string>
     <string name="dialog_buy_catalog_settings_delete_list">Delete list</string>
     <string name="dialog_buy_catalog_settings_save">Save</string>
+    <string name="this_buys_catalog_no_longer_exists">This buys catalog no longer exists</string>
+
+    <!-- Food in fridge -->
+    <string name="eat_food_from_fridge_actual_amount_placeholder">%1$s/%2$s</string>
+    <string name="eat_food_from_fridge_actual_amount_error_placeholder">You have only %1$s</string>
+
+    <string-array name="quantitative_type_of_product">
+        <item>Not chosen</item>
+        <item>KG.</item>
+        <item>L.</item>
+        <item>PCS.</item>
+    </string-array>
 
     <!-- ================================================ -->
     <!-- Person page                                      -->
@@ -300,6 +314,30 @@
     <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
     <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
+    <string name="dialog_new_food_products_amount_hint">Amount</string>
+    <string name="food_in_fridge_add_speed_dial_button_menu_barcode">Add by barcode</string>
+    <string name="food_in_fridge_add_speed_dial_button_menu_manually">Add manually</string>
+    <string name="barcode_scanner_activity_title">Point the camera at the product barcode</string>
+    <string name="barcode_scanner_activity_end_scan_button">End scan</string>
+    <string name="loading">Loading...</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="barcode_scanner_activity_product_added">Product successfully added</string>
+    <string name="dialog_eat_food_in_fridge_accept">Accept</string>
+    <string name="dialog_eat_food_in_fridge_title">How much food was eaten?</string>
+    <string name="dialog_eat_food_without_measure_type_in_fridge_title">Have you eaten this product?</string>
+    <string name="dialog_eat_food_without_measure_type_in_fridge_yes_button">Yes</string>
+    <string name="dialog_eat_food_without_measure_type_in_fridge_no_button">No</string>
+    <string name="product_shelf_life_input_button">No shelf life specified</string>
+    <string name="product_shelf_life_input_button_picked_placeholder">Shelf life until: %1$s</string>
+    <string name="food_in_fridge_shelf_life_placeholder">Shelf life until: %1$s (%2$s)</string>
+    <string name="food_in_fridge_shelf_life_tomorrow">Tomorrow</string>
+    <string name="food_in_fridge_shelf_life_days">days</string>
+    <string name="shelf_life_notification_spoiled_placeholder">Already messed up: %1$s. </string>
+    <string name="shelf_life_notification_not_fresh_placeholder">Soon go bad: %1$s. </string>
+    <string name="shelf_life_notification_title">Shelf Life Information from Kitchen organizer</string>
+    <string name="kitchen_organizer_notification_channel_title">Kitchen organizer notification channel</string>
+    <string name="kitchen_organizer_notification_channel_description">With help of this channel, you get all the relevant information from the kitchen organizer</string>
+    <string name="barcode_scanner_permission_text">In the settings, give permission to this application to use the camera to scan products</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>

@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
@@ -41,11 +41,13 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
                 .addSnapshotListener { querySnapshot, _ ->
                     onlineManager.registerUserActivity()
                     GlobalScope.launch(Dispatchers.Default) {
-                        val tasksForUser = ArrayList<FamilyTask>()
-                        for (document in querySnapshot) {
-                            tasksForUser.add(convertServerDataToFamilyTask(document))
+                        querySnapshot?.let {
+                            val tasksForUser = ArrayList<FamilyTask>()
+                            for (document in querySnapshot) {
+                                tasksForUser.add(convertServerDataToFamilyTask(document))
+                            }
+                            callback.tasksForUserDataFromServerUpdate(tasksForUser)
                         }
-                        callback.tasksForUserDataFromServerUpdate(tasksForUser)
                     }
                 }
     }
@@ -56,22 +58,24 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
                         FirebaseAuth.getInstance().currentUser!!.phoneNumber)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        val tasksByUser = ArrayList<FamilyTask>()
-                        for (document in querySnapshot) {
-                            tasksByUser.add(convertServerDataToFamilyTask(document))
+                        querySnapshot?.let {
+                            val tasksByUser = ArrayList<FamilyTask>()
+                            for (document in querySnapshot) {
+                                tasksByUser.add(convertServerDataToFamilyTask(document))
+                            }
+                            callback.tasksByUserDataFromServerUpdate(tasksByUser)
                         }
-                        callback.tasksByUserDataFromServerUpdate(tasksByUser)
                     }
                 }
     }
 
     private fun convertServerDataToFamilyTask(document: QueryDocumentSnapshot) = FamilyTask(
             document.id,
-            document.getString(FIRESTORE_TASKS_AUTHOR),
-            document.getString(FIRESTORE_TASKS_WORKER),
-            document.getString(FIRESTORE_TASKS_TEXT),
-            document.getDate(FIRESTORE_TASKS_TIME).time,
-            when(document.getLong(FIRESTORE_TASKS_STATUS)) {
+            document.getString(FIRESTORE_TASKS_AUTHOR) ?: "+0",
+            document.getString(FIRESTORE_TASKS_WORKER) ?: "+0",
+            document.getString(FIRESTORE_TASKS_TEXT) ?: "",
+            document.getDate(FIRESTORE_TASKS_TIME)?.time ?: 0,
+            when (document.getLong(FIRESTORE_TASKS_STATUS)) {
                 0L -> FamilyTaskStatus.REJECTED
                 1L -> FamilyTaskStatus.AWAITING_COMPLETION
                 else -> FamilyTaskStatus.ACCEPTED

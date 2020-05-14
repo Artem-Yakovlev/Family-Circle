@@ -7,10 +7,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath 'com.google.gms:google-services:4.3.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
@@ -25,10 +25,10 @@ allprojects {
         configurations.all {
             resolutionStrategy.eachDependency { DependencyResolveDetails details ->
                 def requested = details.requested
-                if (requested.group == 'com.google.android.gms') {
-                    details.useVersion '12.0.1'
-                }
-                if (requested.group == 'com.google.firebase') {
+//                if (requested.group == 'com.google.android.gms') {
+//                    details.useVersion '12.0.1'
+//                }
+                if (requested.name == 'firebase-storage') {
                     details.useVersion '12.0.1'
                 }
             }

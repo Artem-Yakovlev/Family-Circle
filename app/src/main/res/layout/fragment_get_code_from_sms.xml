@@ -48,7 +48,7 @@
             android:maxLength="6"
             android:textAlignment="gravity"
             android:textSize="@dimen/get_code_page_input_text_size"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -81,7 +81,7 @@
             android:textColor="@color/get_code_page_resend_sms_color"
             android:background="@drawable/get_code_page_resend_sms_btn_selector"
             android:drawableStart="@drawable/get_code_page_resend_sms_pic_selector"
-            android:drawablePadding="10dp"/>
+            android:drawablePadding="10dp" />
 
         <TextView
             android:id="@+id/get_code_page_resend_timer"
@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins"
             android:textColor="@color/colorGray"
-            android:text="@string/create_account_page_minute_timer"/>
+            android:text="@string/create_account_page_minute_timer" />
 
     </LinearLayout>
 

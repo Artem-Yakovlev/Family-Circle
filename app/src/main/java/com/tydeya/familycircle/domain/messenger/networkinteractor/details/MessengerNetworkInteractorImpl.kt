@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.Firebase.*
+import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
@@ -31,19 +31,23 @@ class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCal
         FirebaseFirestore.getInstance().collection(FIRESTORE_CONVERSATION_COLLECTION)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
-                        onlineManager.registerUserActivity()
-                        val conversations = ArrayList<Conversation>()
-                        for (document in querySnapshot.documents) {
+                        querySnapshot?.let {
+                            onlineManager.registerUserActivity()
+                            val conversations = ArrayList<Conversation>()
+                            for (document in querySnapshot.documents) {
 
-                            val members = document.get(FIRESTORE_CONVERSATION_MEMBERS) as ArrayList<String>
-                            if (FirebaseAuth.getInstance().currentUser!!.phoneNumber in members) {
-                                conversations.add(Conversation(
-                                        document.id, document.getString(FIRESTORE_CONVERSATION_TITLE), 0,
-                                        members, ArrayList()
-                                ))
+                                val members = document.get(FIRESTORE_CONVERSATION_MEMBERS) as ArrayList<String>
+                                if (FirebaseAuth.getInstance().currentUser!!.phoneNumber in members) {
+                                    conversations.add(Conversation(
+                                            document.id,
+                                            document.getString(FIRESTORE_CONVERSATION_TITLE) ?: "",
+                                            0,
+                                            members, ArrayList()
+                                    ))
+                                }
                             }
+                            callback.messengerConversationDataUpdated(conversations)
                         }
-                        callback.messengerConversationDataUpdated(conversations)
                     }
 
                 }

@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Your errands for others and my errands for others and errands for others Your errands for others fix errands for others Your errands for so errands for others"
-                android:fontFamily="@font/poppins"/>
+                android:fontFamily="@font/poppins" />
 
         </LinearLayout>
 

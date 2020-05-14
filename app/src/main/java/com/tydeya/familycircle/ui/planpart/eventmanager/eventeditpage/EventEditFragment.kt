@@ -135,14 +135,14 @@ class EventEditFragment : Fragment(R.layout.fragment_event_edit), DatePickerUsab
     private fun editIntent() {
         if (isDataCorrect()) {
             eventInteractor.checkExistEventWithData(event_reminder_edit_title.text.toString().trim(),
-            editableDate, eventId, this)
+                    editableDate, eventId, this)
         }
     }
 
     private fun createIntent() {
         if (isDataCorrect()) {
             eventInteractor.checkExistEventWithData(event_reminder_edit_title.text.toString().trim(),
-                    editableDate, "",this)
+                    editableDate, "", this)
         }
     }
 

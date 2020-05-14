@@ -11,7 +11,6 @@ import com.tydeya.familycircle.R
 class InConversationActivity : AppCompatActivity(R.layout.activity_in_conversation) {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
     }

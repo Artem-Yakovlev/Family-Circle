@@ -26,10 +26,10 @@
     </style>
 
     <!-- Start input phone number page-->
-    <style name="StartInputPhoneNumberInputStyle" >
+    <style name="StartInputPhoneNumberInputStyle">
         <item name="colorControlNormal">@color/colorAppTagLine</item>
         <item name="colorControlActivated">@color/colorAppTagLine</item>
-        <item name="colorControlHighlight" >@color/colorAppTagLine</item>
+        <item name="colorControlHighlight">@color/colorAppTagLine</item>
         <item name="colorAccent">@color/colorAppTagLine</item>
         <item name="android:textColorHint">@color/colorGray</item>
         <item name="android:textColor">@color/colorAppTagLine</item>
@@ -40,7 +40,7 @@
     <style name="CommonOnWhiteInputStyle">
         <item name="colorControlNormal">@color/colorAppTagLine</item>
         <item name="colorControlActivated">@color/colorAppTagLine</item>
-        <item name="colorControlHighlight" >@color/colorAppTagLine</item>
+        <item name="colorControlHighlight">@color/colorAppTagLine</item>
         <item name="colorAccent">@color/colorAppTagLine</item>
         <item name="android:textColorHint">@color/colorGray</item>
         <item name="android:textColor">@color/colorAppTagLine</item>

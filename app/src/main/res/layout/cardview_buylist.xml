@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_marginTop="1dp"
-    android:focusable="true"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -30,22 +31,33 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLength="20"
             android:singleLine="true"
-            android:text="22.05.2009"
-            android:textSize="12sp"
-            android:textColor="@color/colorGray"/>
+            tool:text="22.05.2009"
+            android:textColor="@color/colorGray"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/buylist_card_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_weight="1"
             android:ellipsize="marquee"
             android:fontFamily="@font/poppins_medium"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLength="20"
             android:singleLine="true"
-            android:text="К празднику"
+            tool:text="К празднику"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/number_of_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLength="10"
+            android:minWidth="70dp"
+            android:text="@string/kitchen_organizer_number_of_products"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

@@ -1,64 +1,57 @@
 package com.tydeya.familycircle.ui.planpart.kitchenorganizer.pages.foodforbuy.buylist
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import com.tydeya.familycircle.App
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.domain.kitchenorganizer.kitchenorhanizerinteractor.details.KitchenOrganizerInteractor
-import kotlinx.android.synthetic.main.dialog_new_food.view.*
-import javax.inject.Inject
+import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
+import com.tydeya.familycircle.ui.planpart.kitchenorganizer.FoodActionDialog
+import com.tydeya.familycircle.viewmodel.BuyCatalogViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class CreateNewProductDialog(val catalogId: String) : DialogFragment() {
+class CreateNewProductDialog private constructor() : FoodActionDialog() {
 
-    @Inject
-    lateinit var kitchenOrganizerInteractor: KitchenOrganizerInteractor
+    private lateinit var buyCatalogViewModel: BuyCatalogViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        App.getComponent().injectDialog(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DialogKitchenOrganizerFoodActionBinding.bind(root)
+        buyCatalogViewModel = ViewModelProviders.of(requireParentFragment())
+                .get(BuyCatalogViewModel::class.java)
+
+        return binding.root
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+    override fun action() {
+        val title = binding.productNameInput.text.toString().trim()
 
-        val view = activity!!.layoutInflater
-                .inflate(R.layout.dialog_new_food, null)
-
-        view.dialog_new_food_create_button.setOnClickListener {
-            var isCanCreateProduct = true
-            val title = view.dialog_new_food_name.text.toString().trim()
-
-            if (title == "") {
-
-                view.dialog_new_food_name.error = view.context!!
-                        .resources.getString(R.string.empty_necessary_field_warning)
-                isCanCreateProduct = false
-
-            } else {
-
-                for (food in kitchenOrganizerInteractor.requireCatalogData(catalogId).products) {
-                    if (food.title == title) {
-                        isCanCreateProduct = false
-                        break
+        if (title == "") {
+            binding.productNameInput.error = requireContext().resources
+                    .getString(R.string.empty_necessary_field_warning)
+        } else {
+            lifecycleScope.launch(Dispatchers.Default) {
+                if (!buyCatalogViewModel.isThereInBuysCatalogProductWithName(title)) {
+                    buyCatalogViewModel.createProduct(createFoodByInputtedData())
+                    withContext(Dispatchers.Main) {
+                        dismiss()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        binding.productNameInput.error = requireContext().resources
+                                .getString(R.string.dialog_edit_food_data_already_exist)
                     }
                 }
-
-            }
-
-            if (isCanCreateProduct) {
-                kitchenOrganizerInteractor.createProductInCatalog(catalogId, title)
-                dismiss()
             }
         }
-
-        view.dialog_new_food_cancel_button.setOnClickListener {
-            dismiss()
-        }
-
-        builder.setView(view)
-
-        return builder.create()
     }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = CreateNewProductDialog()
+    }
+
 }

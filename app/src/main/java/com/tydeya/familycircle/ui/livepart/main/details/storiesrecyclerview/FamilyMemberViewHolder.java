@@ -41,12 +41,12 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
     private void setProfileImage(String imageAddress) {
         if (imageAddress.equals("")) {
             int dipForPadding = getDp(nameText.getContext(), 10);
-            userShapedImage.setPadding(dipForPadding,dipForPadding,dipForPadding,dipForPadding);
+            userShapedImage.setPadding(dipForPadding, dipForPadding, dipForPadding, dipForPadding);
             Glide.with(nameText.getContext())
                     .load(R.drawable.ic_photo_camera_blue_36dp)
                     .into(userShapedImage);
         } else {
-            userShapedImage.setPadding(0,0,0,0);
+            userShapedImage.setPadding(0, 0, 0, 0);
             Glide.with(nameText.getContext())
                     .load(imageAddress)
                     .into(userShapedImage);
