@@ -338,11 +338,15 @@
     <string name="kitchen_organizer_notification_channel_title">Kitchen organizer notification channel</string>
     <string name="kitchen_organizer_notification_channel_description">With help of this channel, you get all the relevant information from the kitchen organizer</string>
     <string name="barcode_scanner_permission_text">In the settings, give permission to this application to use the camera to scan products</string>
+    <string name="event_reminder_main_toolbar">Event Reminder</string>
 
     <string-array name="tasks_status">
         <item>Rejected </item>
         <item>Awaiting completion</item>
         <item>Accepted</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

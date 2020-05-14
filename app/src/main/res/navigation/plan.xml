@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_buy_catalog" />
     <fragment
         android:id="@+id/eventReminder"
-        android:name="com.tydeya.familycircle.ui.planpart.eventmanager.EventManagerFragment"
+        android:name="com.tydeya.familycircle.ui.planpart.eventreminder.EventManagerFragment"
         android:label="fragment_event_reminder"
         tools:layout="@layout/fragment_event_reminder">
         <action

@@ -1,8 +1,6 @@
 package com.tydeya.familycircle.domain.component;
 
 import com.tydeya.familycircle.domain.cooperationorganizer.inject.CooperationModule;
-import com.tydeya.familycircle.domain.eventmanager.interactor.injection.EventInteractorModule;
-import com.tydeya.familycircle.domain.eventmanager.networkInteractor.details.EventNetworkInteractorImpl;
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener;
@@ -25,9 +23,6 @@ import com.tydeya.familycircle.ui.livepart.main.details.MainLiveFragment;
 import com.tydeya.familycircle.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
-import com.tydeya.familycircle.ui.planpart.eventmanager.EventManagerFragment;
-import com.tydeya.familycircle.ui.planpart.eventmanager.eventeditpage.EventEditFragment;
-import com.tydeya.familycircle.ui.planpart.eventmanager.eventviewpage.EventViewFragment;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
 import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
@@ -44,8 +39,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {FamilyInteractorModule.class,
-        EventInteractorModule.class, TasksOrganizerModule.class,
+@Component(modules = {FamilyInteractorModule.class, TasksOrganizerModule.class,
         MessengerModule.class, OnlineManagerModule.class, CooperationModule.class})
 public interface AppComponent {
 
@@ -60,10 +54,6 @@ public interface AppComponent {
     void injectFragment(TasksForUserFragment tasksForUserFragment);
 
     void injectFragment(TasksHistoryFragment tasksHistoryFragment);
-
-    void injectFragment(EventViewFragment eventViewFragment);
-
-    void injectFragment(EventEditFragment eventEditFragment);
 
     void injectFragment(TasksByUserFragment tasksByUserFragment);
 
@@ -91,8 +81,6 @@ public interface AppComponent {
 
     void injectDialog(ConversationAddMemberDialog conversationAddMemberDialog);
 
-    void injectEventReminderFragment(EventManagerFragment eventManagerFragment);
-
     void injectInteractor(MessengerNetworkInteractorImpl messengerNetworkInteractorImpl);
 
     FamilyInteractor getFamilyInteractor();
@@ -100,8 +88,6 @@ public interface AppComponent {
     void injectInteractor(ConversationListener conversationListener);
 
     void injectInteractor(TasksOrganizerNetworkInteractorImpl tasksOrganizerNetworkInteractorImpl);
-
-    void injectInteractor(@NotNull EventNetworkInteractorImpl eventNetworkInteractorImpl);
 
     void injectTool(@NotNull EditAccountToolImpl editAccountToolImpl);
 
