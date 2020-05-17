@@ -9,12 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.data.eventreminder.EventType
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.databinding.FragmentEventRibbonBinding
-import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.EventRibbonGroup
-import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.EventRibbonItem
-import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.toEventRibbonItems
+import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.DailySection
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Section
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -38,14 +35,13 @@ class EventRibbonFragment : Fragment() {
             add(FamilyEvent(GregorianCalendar(), "Ежедневная пробежка", EventType.ROUTINE))
         }
 
-        initRecyclerView(eventsList.toEventRibbonItems())
+        initRecyclerView(eventsList)
     }
 
-    private fun initRecyclerView(eventItems: List<EventRibbonItem>) {
+    private fun initRecyclerView(eventItems: List<FamilyEvent>) {
         val groupieAdapter = GroupAdapter<GroupieViewHolder>()
-        val group = EventRibbonGroup("22.05.2005")
 
-        groupieAdapter.add(Section(group, eventItems))
+        groupieAdapter.add(DailySection(eventItems))
 
         with(binding.eventsRibbonMainRecyclerview) {
             adapter = groupieAdapter
