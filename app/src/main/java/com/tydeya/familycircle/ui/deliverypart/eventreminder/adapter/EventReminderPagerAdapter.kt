@@ -2,7 +2,7 @@ package com.tydeya.familycircle.ui.deliverypart.eventreminder.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.EventRibbonFragment
+import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.EventRibbonFragment
 import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.EventReminderCalendarFragment
 
 class EventReminderPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

@@ -40,4 +40,9 @@ class EventManagerFragment(
         }.attach()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }
