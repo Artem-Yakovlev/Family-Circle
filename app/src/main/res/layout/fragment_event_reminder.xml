@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.planpart.eventreminder.EventManagerFragment">
+    tools:context=".ui.deliverypart.eventreminder.EventManagerFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_reminder_toolbar"

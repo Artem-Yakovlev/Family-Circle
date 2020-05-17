@@ -23,14 +23,14 @@ import com.tydeya.familycircle.ui.livepart.main.details.MainLiveFragment;
 import com.tydeya.familycircle.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
 import com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksbyuser.recyclerview.TasksByUserRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.TasksForUserFragment;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.tasksforuser.recyclerview.TasksForUserRecyclerViewAdapter;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.TasksHistoryFragment;
-import com.tydeya.familycircle.ui.planpart.taskorganizer.pages.taskshistory.recyclerview.HistoryTasksRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.tasksbyuser.recyclerview.TasksByUserRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.tasksforuser.TasksForUserFragment;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.tasksforuser.recyclerview.TasksForUserRecyclerViewAdapter;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.taskshistory.TasksHistoryFragment;
+import com.tydeya.familycircle.ui.deliverypart.taskorganizer.pages.taskshistory.recyclerview.HistoryTasksRecyclerViewAdapter;
 
 import org.jetbrains.annotations.NotNull;
 

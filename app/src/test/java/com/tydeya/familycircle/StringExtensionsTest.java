@@ -3,6 +3,8 @@ package com.tydeya.familycircle;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static com.tydeya.familycircle.utils.StringExtensionsKt.ifNullToEmpty;
 
 public class StringExtensionsTest {
@@ -17,5 +19,4 @@ public class StringExtensionsTest {
 
         Assert.assertEquals(notNullString, ifNullToEmpty(notNullString));
     }
-
 }

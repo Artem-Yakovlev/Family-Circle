@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="10dp"
-    tools:context=".ui.planpart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment">
+    tools:context=".ui.deliverypart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_for_buy_recyclerview"
