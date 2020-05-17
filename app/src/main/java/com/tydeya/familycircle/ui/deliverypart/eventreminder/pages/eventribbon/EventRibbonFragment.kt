@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.data.eventreminder.EventType
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.databinding.FragmentEventRibbonBinding
+import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.EventRibbonGroup
 import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.EventRibbonItem
 import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.toEventRibbonItems
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Section
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,7 +43,9 @@ class EventRibbonFragment : Fragment() {
 
     private fun initRecyclerView(eventItems: List<EventRibbonItem>) {
         val groupieAdapter = GroupAdapter<GroupieViewHolder>()
-        groupieAdapter.addAll(eventItems)
+        val group = EventRibbonGroup("22.05.2005")
+
+        groupieAdapter.add(Section(group, eventItems))
 
         with(binding.eventsRibbonMainRecyclerview) {
             adapter = groupieAdapter
