@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview
+package com.tydeya.familycircle.ui.deliverypart.eventreminder.recyclerview
 
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.RecyclerItemEventRibbonGroupHeaderBinding

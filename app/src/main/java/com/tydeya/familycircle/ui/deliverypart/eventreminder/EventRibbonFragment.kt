@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon
+package com.tydeya.familycircle.ui.deliverypart.eventreminder
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.data.eventreminder.EventType
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.databinding.FragmentEventRibbonBinding
-import com.tydeya.familycircle.ui.deliverypart.eventreminder.pages.eventribbon.recyclerview.DailySection
+import com.tydeya.familycircle.ui.deliverypart.eventreminder.recyclerview.DailySection
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import java.util.*

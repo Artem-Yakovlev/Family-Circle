@@ -75,7 +75,7 @@ public class MainPlanFragment extends Fragment implements MainPlanView, OnClickM
                 navController.navigate(R.id.kitchenOrganizerFragment);
                 break;
             case EVENTS:
-                navController.navigate(R.id.eventReminder);
+                navController.navigate(R.id.eventRibbonFragment);
                 break;
             case PLANNING:
                 navController.navigate(R.id.tasksOrganizerMainFragment);

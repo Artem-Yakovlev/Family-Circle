@@ -14,11 +14,11 @@
             android:id="@+id/action_mainPlanPage_to_kitchenOrganizerFragment"
             app:destination="@id/kitchenOrganizerFragment" />
         <action
-            android:id="@+id/action_mainPlanPage_to_eventReminder"
-            app:destination="@id/eventReminder" />
-        <action
             android:id="@+id/action_mainPlanPage_to_tasksOrganizerMainFragment"
             app:destination="@id/tasksOrganizerMainFragment" />
+        <action
+            android:id="@+id/action_mainPlanPage_to_eventRibbonFragment"
+            app:destination="@id/eventRibbonFragment" />
     </fragment>
     <fragment
         android:id="@+id/kitchenOrganizerFragment"
@@ -35,33 +35,12 @@
         android:label="fragment_buy_list"
         tools:layout="@layout/fragment_buy_catalog" />
     <fragment
-        android:id="@+id/eventReminder"
-        android:name="com.tydeya.familycircle.ui.deliverypart.eventreminder.EventManagerFragment"
-        android:label="fragment_event_reminder"
-        tools:layout="@layout/fragment_event_reminder">
-        <action
-            android:id="@+id/action_eventReminder_to_eventViewPage"
-            app:destination="@id/eventViewPage" />
-        <action
-            android:id="@+id/action_eventReminder_to_eventEditFragment"
-            app:destination="@id/eventEditFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/eventViewPage"
-        android:name="com.tydeya.familycircle.ui.deliverypart.eventmanager.eventviewpage.EventViewFragment"
-        android:label="fragment_event_view_page"
-        tools:layout="@layout/fragment_event_view_page">
-        <action
-            android:id="@+id/action_eventViewPage_to_eventEditFragment"
-            app:destination="@id/eventEditFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/eventEditFragment"
-        android:name="com.tydeya.familycircle.ui.deliverypart.eventmanager.eventeditpage.EventEditFragment"
-        android:label="fragment_event_edit"
-        tools:layout="@layout/fragment_event_edit" />
-    <fragment
         android:id="@+id/tasksOrganizerMainFragment"
         android:name="com.tydeya.familycircle.ui.deliverypart.taskorganizer.TasksOrganizerMainFragment"
         android:label="TasksOrganizerMainFragment" />
+    <fragment
+        android:id="@+id/eventRibbonFragment"
+        android:name="com.tydeya.familycircle.ui.deliverypart.eventreminder.EventRibbonFragment"
+        android:label="fragment_event_ribbon"
+        tools:layout="@layout/fragment_event_ribbon" />
 </navigation>
