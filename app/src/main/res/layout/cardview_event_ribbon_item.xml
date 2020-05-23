@@ -3,46 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/event_card_background"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingHorizontal="10dp">
-
-        <ImageView
-            android:id="@+id/event_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_circle_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp">
 
         <TextView
             android:id="@+id/event_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:ellipsize="marquee"
             android:fontFamily="@font/poppins_medium"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/event_button"
-            app:layout_constraintStart_toEndOf="@+id/event_icon"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Очередное важное событие" />
 
-        <ImageButton
-            android:id="@+id/event_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@null"
-            android:src="@drawable/ic_chevron_right_black_36dp"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/event_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/poppins"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            tools:text="15:30-17:30" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/event_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/poppins"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            tools:text="Этот день мы приблежали как могли" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

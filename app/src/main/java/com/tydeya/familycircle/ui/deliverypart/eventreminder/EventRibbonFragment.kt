@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tydeya.familycircle.data.eventreminder.EventStyleTheme
 import com.tydeya.familycircle.data.eventreminder.EventType
 import com.tydeya.familycircle.data.eventreminder.FamilyEvent
 import com.tydeya.familycircle.databinding.FragmentEventRibbonBinding
@@ -29,10 +31,42 @@ class EventRibbonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         val eventsList = ArrayList<FamilyEvent>().apply {
-            add(FamilyEvent(GregorianCalendar(), "День пива", EventType.IMPORTANT))
-            add(FamilyEvent(GregorianCalendar(), "День рождения Семена", EventType.BIRTHDATE))
-            add(FamilyEvent(GregorianCalendar(), "Ежедневная пробежка", EventType.ROUTINE))
+            add(FamilyEvent(
+                    id = "",
+                    information = FamilyEvent.FamilyEventInformation(
+                            title = "Выгулять рэкса",
+                            type = EventType.ROUTINE),
+                    time = FamilyEvent.FamilyEventTime(firstCalendar = GregorianCalendar()),
+                    audience = FamilyEvent.FamilyEventAudience(""),
+                    style = FamilyEvent.FamilyEventStyle(theme = EventStyleTheme.COLOR_LIGHT_GREEN)
+            ))
+
+            add(FamilyEvent(
+                    id = "",
+                    information = FamilyEvent.FamilyEventInformation(
+                            title = "Семейный завтрак",
+                            description = "Не забудь про булочки",
+                            type = EventType.ROUTINE),
+                    time = FamilyEvent.FamilyEventTime(firstCalendar = GregorianCalendar()),
+                    audience = FamilyEvent.FamilyEventAudience(""),
+                    style = FamilyEvent.FamilyEventStyle(theme = EventStyleTheme.COLOR_DARK_GREEN)
+            ))
+
+            add(FamilyEvent(
+                    id = "",
+                    information = FamilyEvent.FamilyEventInformation(
+                            title = "День рождение Марка",
+                            type = EventType.BIRTHDATE),
+                    time = FamilyEvent.FamilyEventTime(firstCalendar = GregorianCalendar()),
+                    audience = FamilyEvent.FamilyEventAudience(""),
+                    style = FamilyEvent.FamilyEventStyle(theme = EventStyleTheme.COLOR_LIGHT_BLUE)
+            ))
+
         }
 
         initRecyclerView(eventsList)

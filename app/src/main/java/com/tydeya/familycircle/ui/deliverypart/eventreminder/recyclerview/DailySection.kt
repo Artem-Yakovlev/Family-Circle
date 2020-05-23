@@ -10,7 +10,7 @@ class DailySection() : Section() {
     constructor(events: List<FamilyEvent>) : this() {
         if (events.isNotEmpty()) {
             setHeader(EventRibbonGroup(SimpleDateFormat("EEEE, dd MMMM", Locale.getDefault())
-                    .format(events[0].calendar.timeInMillis).toUpperCase()))
+                    .format(events[0].time.firstCalendar.timeInMillis).toUpperCase()))
         }
         addAll(events.toEventRibbonItems())
     }
