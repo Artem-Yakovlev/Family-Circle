@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.deliverypart.taskorganizer.pages.tasksforuser.TasksForUserFragment">
+    tools:context=".presentation.ui.deliverypart.taskorganizer.pages.tasksforuser.TasksForUserFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_for_user_recycler_view"

@@ -15,9 +15,9 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_app_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
@@ -36,15 +36,15 @@
 
         <activity android:name=".ui.deliverypart.kitchenorganizer.barcodescanner.BarcodeScannerActivity" />
         <activity
-            android:name=".ui.conversationpart.inconversation.InConversationActivity"
+            android:name=".presentation.ui.conversationpart.inconversation.InConversationActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.firststartpage.FirstStartActivity"
+            android:name=".presentation.ui.firststartpage.FirstStartActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".presentation.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

@@ -11,7 +11,7 @@ import com.tydeya.familycircle.data.constants.FireStore.*
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.editaccount.abstraction.EditAccountTool
-import com.tydeya.familycircle.ui.managerpart.editprofile.details.EditableFamilyMember
+import com.tydeya.familycircle.presentation.ui.managerpart.editprofile.details.EditableFamilyMember
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

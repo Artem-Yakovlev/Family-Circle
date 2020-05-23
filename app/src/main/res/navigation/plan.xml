@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainPlanPage"
-        android:name="com.tydeya.familycircle.ui.deliverypart.main.details.MainPlanFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.main.details.MainPlanFragment"
         tools:layout="@layout/fragment_main_plan_page"
         android:label="fragment_main_plan_page">
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/kitchenOrganizerFragment"
-        android:name="com.tydeya.familycircle.ui.deliverypart.kitchenorganizer.KitchenOrganizerFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.KitchenOrganizerFragment"
         tools:layout="@layout/fragment_kitchen_organizer"
         android:label="fragment_kitchen_organizer">
         <action
@@ -36,11 +36,11 @@
         tools:layout="@layout/fragment_buy_catalog" />
     <fragment
         android:id="@+id/tasksOrganizerMainFragment"
-        android:name="com.tydeya.familycircle.ui.deliverypart.taskorganizer.TasksOrganizerMainFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.TasksOrganizerMainFragment"
         android:label="TasksOrganizerMainFragment" />
     <fragment
         android:id="@+id/eventRibbonFragment"
-        android:name="com.tydeya.familycircle.ui.deliverypart.eventreminder.EventRibbonFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.EventRibbonFragment"
         android:label="fragment_event_ribbon"
         tools:layout="@layout/fragment_event_ribbon" />
 </navigation>

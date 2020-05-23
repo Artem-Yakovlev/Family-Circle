@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainPanelPage"
-        android:name="com.tydeya.familycircle.ui.managerpart.menu.details.ManagerMenuPage"
+        android:name="com.tydeya.familycircle.presentation.ui.managerpart.menu.details.ManagerMenuPage"
         tools:layout="@layout/fragment_main_panel_page"
         android:label="fragment_main_panel_page">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/memberPersonFragment"
-        android:name="com.tydeya.familycircle.ui.livepart.memberpersonpage.details.MemberPersonFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.details.MemberPersonFragment"
         android:label="fragment_family_member_view"
         tools:layout="@layout/fragment_family_member_view">
         <action
@@ -25,6 +25,6 @@
     </fragment>
     <fragment
         android:id="@+id/memberPersonEditFragment"
-        android:name="com.tydeya.familycircle.ui.managerpart.editprofile.details.MemberPersonEditFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.managerpart.editprofile.details.MemberPersonEditFragment"
         android:label="MemberPersonEditFragment" />
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainMapPage"
-        android:name="com.tydeya.familycircle.ui.mappart.MainMapPage"
+        android:name="com.tydeya.familycircle.presentation.ui.mappart.MainMapPage"
         android:label="fragment_main_map_page"
         tools:layout="@layout/fragment_main_map_page" />
 </navigation>

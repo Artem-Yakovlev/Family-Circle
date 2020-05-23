@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.deliverypart.main.details.MainPlanFragment">
+    tools:context=".presentation.ui.deliverypart.main.details.MainPlanFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/family_member_view_toolbar"
