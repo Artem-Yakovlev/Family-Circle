@@ -354,5 +354,18 @@
     <string name="event_reminder_new_event_ordinal_radio_btn">Ordinal</string>
     <string name="event_reminder_new_event_birthdate_radio_btn">Birthdate</string>
     <string name="event_reminder_new_event_important_radio_btn">Important</string>
+    <string name="select_event_date">Event date</string>
+    <string name="select_event_date_and_time">Event date and Time</string>
+    <string name="select_event_start">Event time of start</string>
+    <string name="select_event_finish">Event time of finish</string>
+    <string name="event_reminder_new_event_switch_title">No exact time</string>
+
+    <string-array name="event_reminder_time_types">
+        <item>Specific day</item>
+        <item>Specific day and time</item>
+        <item>Specific interval</item>
+
+
+    </string-array>
 
 </resources>

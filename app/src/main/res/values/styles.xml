@@ -46,4 +46,8 @@
         <item name="android:textColor">@color/colorAppTagLine</item>
     </style>
 
+    <style name="DateButton" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/colorModernPrimary</item>
+    </style>
+
 </resources>
