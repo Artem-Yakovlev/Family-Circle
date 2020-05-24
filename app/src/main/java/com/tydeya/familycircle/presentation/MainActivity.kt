@@ -3,7 +3,7 @@ package com.tydeya.familycircle.presentation
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FirebaseMessaging.getInstance().subscribeToTopic(CLOUD_MESSAGING_KITCHEN_TOPIC)
-        Log.d("ASMR", "Hello")
         verificationCheck()
         KitchenOrganizerShelfLifeReceiver.initAlarm(this)
         if (savedInstanceState == null) {
@@ -181,5 +180,16 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         }
     }
 
+    /**
+     * Main application activity
+     * */
+
+    public fun setBottomNavigationVisibility(isVisible: Boolean) {
+        main_bottom_navigation_view.visibility = if (isVisible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
 
 }

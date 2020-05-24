@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.recyclerview
+package com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.eventribbon.recyclerview
 
 import android.view.View
 import androidx.core.content.ContextCompat

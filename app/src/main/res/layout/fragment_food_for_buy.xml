@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    tools:context=".ui.deliverypart.kitchenorganizer.pages.foodforbuy.alllists.FoodForBuyFragment">
+    android:paddingTop="10dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_for_buy_recyclerview"
@@ -23,6 +22,7 @@
         android:src="@drawable/ic_add_blue_24dp"
         app:fab_colorNormal="@color/colorPrimary"
         app:fab_colorPressed="@color/colorPrimaryDark"
-        app:fab_colorRipple="@color/colorPrimaryDark" />
+        app:fab_colorRipple="@color/colorPrimaryDark"
+        tools:ignore="RtlHardcoded" />
 
 </FrameLayout>

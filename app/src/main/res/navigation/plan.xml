@@ -40,7 +40,16 @@
         android:label="TasksOrganizerMainFragment" />
     <fragment
         android:id="@+id/eventRibbonFragment"
-        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.EventRibbonFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.eventribbon.EventRibbonFragment"
         android:label="fragment_event_ribbon"
-        tools:layout="@layout/fragment_event_ribbon" />
+        tools:layout="@layout/fragment_event_ribbon" >
+        <action
+            android:id="@+id/action_eventRibbonFragment_to_createNewFamilyEventFragment"
+            app:destination="@id/createNewFamilyEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewFamilyEventFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.createevent.CreateNewFamilyEventFragment"
+        android:label="fragment_create_new_family_event"
+        tools:layout="@layout/fragment_create_new_family_event" />
 </navigation>
