@@ -10,9 +10,13 @@ import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.tydeya.familycircle.databinding.FragmentCreateNewFamilyEventBinding
 import com.tydeya.familycircle.presentation.MainActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -48,6 +52,7 @@ class CreateNewFamilyEventFragment : Fragment() {
                 binding.firstTimePickerButton.visibility = View.VISIBLE
                 binding.secondTimePickerButton.visibility = View.VISIBLE
             }
+            sortEventTimeInterval()
         }
 
         val actualCalendar = GregorianCalendar()
@@ -61,8 +66,8 @@ class CreateNewFamilyEventFragment : Fragment() {
             override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                 listenerText.text = eventDateFormat
                         .format(GregorianCalendar(year, month, dayOfMonth).time)
+                sortEventTimeInterval()
             }
-
         }
 
         val datePickerButtonClickListener = View.OnClickListener {
@@ -82,8 +87,8 @@ class CreateNewFamilyEventFragment : Fragment() {
                     set(Calendar.HOUR_OF_DAY, hourOfDay)
                     set(Calendar.MINUTE, minute)
                 }.time)
+                sortEventTimeInterval()
             }
-
         }
 
         val timePickerButtonClickListener = View.OnClickListener {
@@ -105,6 +110,46 @@ class CreateNewFamilyEventFragment : Fragment() {
         binding.secondTimePickerButton.text = actualTimeString
         binding.secondTimePickerButton.setOnClickListener(timePickerButtonClickListener)
 
+    }
+
+    private fun sortEventTimeInterval() = lifecycleScope.launch(Dispatchers.Main) {
+
+        var firstTimeString = binding.firstTimePickerButton.text
+        var secondTimeString = binding.secondTimePickerButton.text
+
+        if (binding.eventTimeTypeSwitch.isChecked) {
+            firstTimeString = "00:00"
+            secondTimeString = "00:00"
+        }
+
+        val firstDateAndTimeString = "${binding.firstDatePickerButton.text} $firstTimeString"
+
+        val secondDateAndTimeString = "${binding.secondDatePickerButton.text} $secondTimeString"
+
+        withContext(Dispatchers.Default) {
+
+            val eventTimeAndDateFormat = SimpleDateFormat("E, dd MMM yyyy HH:mm",
+                    Locale.getDefault())
+            val firstDate = eventTimeAndDateFormat.parse(firstDateAndTimeString) ?: Date()
+            val secondDate = eventTimeAndDateFormat.parse(secondDateAndTimeString) ?: Date()
+
+            if (firstDate.time > secondDate.time) {
+                withContext(Dispatchers.Main) {
+
+                    binding.firstDatePickerButton.text = binding.secondDatePickerButton.text
+                            .also {
+                                binding.secondDatePickerButton.text =
+                                        binding.firstDatePickerButton.text
+                            }
+
+                    binding.firstTimePickerButton.text = binding.secondTimePickerButton.text
+                            .also {
+                                binding.secondTimePickerButton.text =
+                                        binding.firstTimePickerButton.text
+                            }
+                }
+            }
+        }
     }
 
     override fun onResume() {
