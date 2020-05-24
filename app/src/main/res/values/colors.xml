@@ -31,5 +31,6 @@
     <color name="colorEventLightGreen">#4CAF50</color>
 
     <color name="colorEventOrange">#FF5722</color>
+    <color name="colorBlack">#000</color>
 
 </resources>

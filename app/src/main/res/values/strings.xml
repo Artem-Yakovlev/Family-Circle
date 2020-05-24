@@ -349,7 +349,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="event_ribbon_title">Event ribbon</string>
     <string name="event_reminder_new_event_toolbar_title">New family event</string>
-    <string name="event_reminder_new_event_input_title_hint">Title</string>
+    <string name="event_reminder_new_event_input_title_hint">Title*</string>
     <string name="event_reminder_new_event_input_description_hint">Description</string>
     <string name="event_reminder_new_event_ordinal_radio_btn">Ordinal</string>
     <string name="event_reminder_new_event_birthdate_radio_btn">Birthdate</string>
@@ -359,13 +359,16 @@
     <string name="select_event_start">Event time of start</string>
     <string name="select_event_finish">Event time of finish</string>
     <string name="event_reminder_new_event_switch_title">No exact time</string>
+    <string name="event_reminder_new_event_repeat_title">Repeat:</string>
+    <string name="event_reminder_new_event_color_title">Color</string>
 
-    <string-array name="event_reminder_time_types">
-        <item>Specific day</item>
-        <item>Specific day and time</item>
-        <item>Specific interval</item>
-
-
+    <string-array name="event_reminder_repeat_types">
+        <item>Not repeated</item>
+        <item>Everyday</item>
+        <item>Every 2 days</item>
+        <item>Every week</item>
+        <item>Every month</item>
+        <item>Every year</item>
     </string-array>
 
 </resources>

@@ -21,6 +21,7 @@
         app:titleTextColor="@color/colorWhite">
 
         <ImageButton
+            android:id="@+id/create_event_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="right"
@@ -182,6 +183,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:paddingHorizontal="20dp"
+                            android:textColor="@color/colorBlack"
                             android:textSize="14sp"
                             tools:text="Вс, 24 мая 2020 г." />
 
@@ -192,6 +194,7 @@
                             android:layout_gravity="right"
                             android:fontFamily="@font/poppins_medium"
                             android:paddingHorizontal="20dp"
+                            android:textColor="@color/colorBlack"
                             android:textSize="14sp"
                             tools:ignore="RtlHardcoded"
                             tools:text="19:00" />
@@ -212,6 +215,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:paddingHorizontal="20dp"
+                            android:textColor="@color/colorBlack"
                             android:textSize="14sp"
                             tools:text="Вс, 24 мая 2020 г." />
 
@@ -222,11 +226,107 @@
                             android:layout_gravity="right"
                             android:fontFamily="@font/poppins_medium"
                             android:paddingHorizontal="20dp"
+                            android:textColor="@color/colorBlack"
                             android:textSize="14sp"
                             tools:ignore="RtlHardcoded"
                             tools:text="21:30" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/event_reminder_new_event_repeat_title"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/repeat_type_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/support_simple_spinner_dropdown_item" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/event_reminder_new_event_color_title"
+                        android:textSize="14sp" />
+
+                    <RadioGroup
+                        android:id="@+id/event_color_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@id/radio_color_dark_blue"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp"
+                        android:paddingBottom="5dp">
+
+                        <RadioButton
+                            android:id="@+id/radio_color_dark_blue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorEventDarkBlue" />
+
+                        <RadioButton
+                            android:id="@+id/radio_color_light_blue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorEventLightBlue" />
+
+                        <RadioButton
+                            android:id="@+id/radio_color_dark_green"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorEventDarkGreen" />
+
+                        <RadioButton
+                            android:id="@+id/radio_color_light_green"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorEventLightGreen" />
+
+                        <RadioButton
+                            android:id="@+id/radio_color_orange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorEventOrange" />
+
+                    </RadioGroup>
 
                 </LinearLayout>
 

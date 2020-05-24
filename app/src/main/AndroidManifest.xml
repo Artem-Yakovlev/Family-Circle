@@ -34,7 +34,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ui.deliverypart.kitchenorganizer.barcodescanner.BarcodeScannerActivity" />
+        <activity android:name=".presentation.ui.deliverypart.kitchenorganizer.barcodescanner.BarcodeScannerActivity" />
         <activity
             android:name=".presentation.ui.conversationpart.inconversation.InConversationActivity"
             android:screenOrientation="portrait"

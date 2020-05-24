@@ -19,7 +19,8 @@ data class FamilyEvent(
     data class FamilyEventTime(
             val firstCalendar: Calendar,
             val secondCalendar: Calendar = firstCalendar.clone() as Calendar,
-            val timeType: EventTimeType = EventTimeType.ONLY_DATE
+            val timeType: EventTimeType = EventTimeType.ONLY_DATE_WITHOUT_PERIOD,
+            val repeatType: EventRepeatType = EventRepeatType.NOT_REPEATED
     )
 
     data class FamilyEventAudience(
@@ -29,7 +30,6 @@ data class FamilyEvent(
     )
 
     data class FamilyEventStyle(
-            val size: EventStyleSize = EventStyleSize.ORDINAL,
             val theme: EventStyleTheme = EventStyleTheme.COLOR_LIGHT_BLUE
     )
 
@@ -40,18 +40,19 @@ public enum class EventType {
 }
 
 public enum class EventTimeType {
-    ONLY_DATE, DATE_AND_TIME_WITHOUT_PERIOD, DATA_AND_TIME_WITH_PERIOD
+    ONLY_DATE_WITHOUT_PERIOD, ONLY_DATE_WITH_PERIOD, DATE_AND_TIME_WITHOUT_PERIOD,
+    DATE_AND_TIME_WITH_PERIOD
 }
 
 public enum class EventAudienceType {
     ALL, GROUP
 }
 
-public enum class EventStyleSize {
-    ORDINAL, ADVANCED
-}
-
 public enum class EventStyleTheme {
     COLOR_DARK_BLUE, COLOR_LIGHT_BLUE, COLOR_DARK_GREEN, COLOR_LIGHT_GREEN, COLOR_ORANGE,
     THEME_CUSTOM
+}
+
+public enum class EventRepeatType {
+    NOT_REPEATED, EVERYDAY, EVERY_2_DAY, EVERY_WEEK, EVERY_MONTH, EVERY_YEAR
 }

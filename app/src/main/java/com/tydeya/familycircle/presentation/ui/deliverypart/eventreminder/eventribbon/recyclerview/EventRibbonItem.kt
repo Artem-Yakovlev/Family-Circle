@@ -31,7 +31,7 @@ class EventRibbonItem(private val eventData: FamilyEvent) : Item<GroupieViewHold
             View.VISIBLE
         }
 
-        binding.eventTime.visibility = if (eventData.time.timeType == EventTimeType.ONLY_DATE) {
+        binding.eventTime.visibility = if (eventData.time.timeType == EventTimeType.ONLY_DATE_WITHOUT_PERIOD) {
             View.GONE
         } else {
             View.VISIBLE

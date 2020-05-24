@@ -3,15 +3,20 @@ package com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.creat
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.eventreminder.*
 import com.tydeya.familycircle.databinding.FragmentCreateNewFamilyEventBinding
 import com.tydeya.familycircle.presentation.MainActivity
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +33,9 @@ class CreateNewFamilyEventFragment : Fragment() {
 
     private val eventDateFormat get() = SimpleDateFormat("E, dd MMM yyyy", Locale.getDefault())
     private val eventTimeFormat get() = SimpleDateFormat("HH:mm", Locale.getDefault())
+    private val eventTimeAndDateFormat
+        get() = SimpleDateFormat("E, dd MMM yyyy HH:mm",
+                Locale.getDefault())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,6 +49,8 @@ class CreateNewFamilyEventFragment : Fragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
         initEventDatePickers()
+        initRepeatTypeSpinner()
+        initCreateEventButton()
     }
 
     private fun initEventDatePickers() {
@@ -114,26 +124,22 @@ class CreateNewFamilyEventFragment : Fragment() {
 
     private fun sortEventTimeInterval() = lifecycleScope.launch(Dispatchers.Main) {
 
-        var firstTimeString = binding.firstTimePickerButton.text
-        var secondTimeString = binding.secondTimePickerButton.text
+        var firstTimeString = binding.firstTimePickerButton.text.toString()
+        var secondTimeString = binding.secondTimePickerButton.text.toString()
 
         if (binding.eventTimeTypeSwitch.isChecked) {
             firstTimeString = "00:00"
             secondTimeString = "00:00"
         }
 
-        val firstDateAndTimeString = "${binding.firstDatePickerButton.text} $firstTimeString"
-
-        val secondDateAndTimeString = "${binding.secondDatePickerButton.text} $secondTimeString"
-
         withContext(Dispatchers.Default) {
 
-            val eventTimeAndDateFormat = SimpleDateFormat("E, dd MMM yyyy HH:mm",
-                    Locale.getDefault())
-            val firstDate = eventTimeAndDateFormat.parse(firstDateAndTimeString) ?: Date()
-            val secondDate = eventTimeAndDateFormat.parse(secondDateAndTimeString) ?: Date()
+            val firstDate = getCalendarFromInputtedData(binding.firstDatePickerButton.text.toString(),
+                    firstTimeString)
+            val secondDate = getCalendarFromInputtedData(binding.secondDatePickerButton.text.toString(),
+                    secondTimeString)
 
-            if (firstDate.time > secondDate.time) {
+            if (firstDate.timeInMillis > secondDate.timeInMillis) {
                 withContext(Dispatchers.Main) {
 
                     binding.firstDatePickerButton.text = binding.secondDatePickerButton.text
@@ -151,6 +157,87 @@ class CreateNewFamilyEventFragment : Fragment() {
             }
         }
     }
+
+    private fun getCalendarFromInputtedData(dateString: String, timeString: String): Calendar {
+        return GregorianCalendar().apply {
+            time = eventTimeAndDateFormat.parse("$dateString $timeString") ?: Date()
+        }
+
+    }
+
+    private fun initRepeatTypeSpinner() {
+        binding.repeatTypeSpinner.adapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.event_reminder_repeat_types, R.layout.support_simple_spinner_dropdown_item)
+    }
+
+    private fun initCreateEventButton() {
+        binding.createEventButton.setOnClickListener {
+            if (binding.createEventInputTitle.text.toString() != "") {
+                createEventFromInputtedData()
+            } else {
+                binding.createEventInputTitle.error = getString(R.string.empty_necessary_field_warning)
+            }
+        }
+    }
+
+    private fun createEventFromInputtedData() {
+        val eventInformation = FamilyEvent.FamilyEventInformation(
+                title = binding.createEventInputTitle.text.toString(),
+                description = binding.createEventInputDescription.text.toString(),
+                type = when(binding.eventTypeRadioGroup.checkedRadioButtonId) {
+                    binding.radioBirthdate.id -> EventType.BIRTHDATE
+                    binding.radioOrdinal.id -> EventType.ROUTINE
+                    else -> EventType.IMPORTANT
+                })
+
+        val eventStyle = FamilyEvent.FamilyEventStyle(
+                theme = when(binding.eventColorRadioGroup.checkedRadioButtonId) {
+                    binding.radioColorDarkBlue.id -> EventStyleTheme.COLOR_DARK_BLUE
+                    binding.radioColorLightBlue.id -> EventStyleTheme.COLOR_LIGHT_BLUE
+                    binding.radioColorDarkGreen.id -> EventStyleTheme.COLOR_DARK_GREEN
+                    binding.radioColorLightGreen.id -> EventStyleTheme.COLOR_LIGHT_GREEN
+                    else -> EventStyleTheme.COLOR_ORANGE
+                }
+        )
+
+        val eventAudience = FamilyEvent.FamilyEventAudience(
+                author = FirebaseAuth.getInstance().currentUser?.phoneNumber ?: ""
+        )
+
+        val firstCalendar = getCalendarFromInputtedData(binding.firstDatePickerButton.text.toString(),
+                binding.firstTimePickerButton.text.toString())
+
+        val secondCalendar = getCalendarFromInputtedData(binding.secondDatePickerButton.text.toString(),
+                binding.secondTimePickerButton.text.toString())
+
+        if (binding.eventTimeTypeSwitch.isChecked) {
+            firstCalendar.set(Calendar.HOUR_OF_DAY, 0)
+            secondCalendar.set(Calendar.HOUR_OF_DAY, 0)
+            firstCalendar.set(Calendar.MINUTE, 0)
+            secondCalendar.set(Calendar.MINUTE, 0)
+        }
+
+        val eventTimeType = getEventTimeType(firstCalendar.timeInMillis, secondCalendar.timeInMillis,
+                !binding.eventTimeTypeSwitch.isChecked)
+
+
+        val eventTime = FamilyEvent.FamilyEventTime(firstCalendar = firstCalendar,
+                secondCalendar = secondCalendar, timeType = eventTimeType,
+                repeatType = EventRepeatType.values()[binding.repeatTypeSpinner.selectedItemPosition])
+
+        val event = FamilyEvent("", eventInformation, eventTime, eventAudience, eventStyle)
+    }
+
+    private fun getEventTimeType(firstMillis: Long, secondMillis: Long, exactTime: Boolean) =
+            if (firstMillis == secondMillis && exactTime) {
+                EventTimeType.DATE_AND_TIME_WITHOUT_PERIOD
+            } else if (firstMillis == secondMillis && !exactTime) {
+                EventTimeType.ONLY_DATE_WITHOUT_PERIOD
+            } else if (firstMillis != secondMillis && exactTime) {
+                EventTimeType.DATE_AND_TIME_WITH_PERIOD
+            } else {
+                EventTimeType.ONLY_DATE_WITH_PERIOD
+            }
 
     override fun onResume() {
         super.onResume()
