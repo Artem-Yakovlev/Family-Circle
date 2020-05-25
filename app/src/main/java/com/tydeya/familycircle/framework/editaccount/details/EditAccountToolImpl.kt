@@ -28,8 +28,7 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
         App.getComponent().injectTool(this)
     }
 
-    override suspend fun editAccountData(phoneNumber: String,
-                                         editableFamilyMember: EditableFamilyMember,
+    override suspend fun editAccountData(phoneNumber: String, editableFamilyMember: EditableFamilyMember,
                                          editableBitmap: Bitmap?) {
         GlobalScope.launch(Dispatchers.Default) {
 
@@ -52,48 +51,51 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
 
-        val fileAddress = "/$FIRESTORAGE_PROFILE_IMAGE_DIRECTORY/${FirebaseAuth.getInstance().currentUser!!.phoneNumber}.jpg"
+        val fileAddress = "/$FIRESTORAGE_PROFILE_IMAGE_DIRECTORY/${FirebaseAuth.getInstance()
+                .currentUser!!.phoneNumber}.jpg"
+        val firestorageReference = FirebaseStorage.getInstance().getReference(fileAddress)
 
-        FirebaseStorage.getInstance().getReference(fileAddress)
-                .putBytes(byteArrayOutputStream.toByteArray()).addOnSuccessListener {
-                    editDataInFirebase(phoneNumber, editableFamilyMember, it.downloadUrl.toString())
-                }.addOnFailureListener {
-                    it.printStackTrace()
-                    editDataInFirebase(phoneNumber, editableFamilyMember, "")
-                }
+        firestorageReference.putBytes(byteArrayOutputStream.toByteArray()).addOnSuccessListener {
+            firestorageReference.downloadUrl.addOnSuccessListener { downloadUri ->
+                editDataInFirebase(phoneNumber, editableFamilyMember, downloadUri.toString())
+            }.addOnFailureListener {
+                editDataInFirebase(phoneNumber, editableFamilyMember, "")
+            }
+
+        }.addOnFailureListener {
+            editDataInFirebase(phoneNumber, editableFamilyMember, "")
+        }
 
     }
 
 
-    @Deprecated("This method ")
     private fun editDataInFirebase(phoneNumber: String, editableFamilyMember: EditableFamilyMember,
                                    imageAddress: String) {
 
         FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
                 .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, phoneNumber).get()
                 .addOnSuccessListener { querySnapshot ->
-                    run {
-                        querySnapshot.documents[0].reference.update(hashMapOf(
-                                FIRESTORE_USERS_PHONE_TAG to phoneNumber,
-                                FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
-                                FIRESTORE_USERS_BIRTHDATE_TAG to
-                                        Date().apply { time = editableFamilyMember.birthdate },
-                                FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
-                                FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
-                                FIRESTORE_USERS_LAST_ONLINE to Date(),
-                                FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
+                    querySnapshot.documents[0].reference.update(hashMapOf(
+                            FIRESTORE_USERS_PHONE_TAG to phoneNumber,
+                            FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
+                            FIRESTORE_USERS_BIRTHDATE_TAG to
+                                    Date().apply { time = editableFamilyMember.birthdate },
+                            FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
+                            FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
+                            FIRESTORE_USERS_LAST_ONLINE to Date(),
+                            FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
 
-                        /*
-                        querySnapshot.documents[0].reference.set(hashMapOf(
-                                FIRESTORE_USERS_PHONE_TAG to phoneNumber,
-                                FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
-                                FIRESTORE_USERS_BIRTHDATE_TAG to
-                                        Date().apply { time = editableFamilyMember.birthdate },
-                                FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
-                                FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
-                                FIRESTORE_USERS_LAST_ONLINE to Date(),
-                                FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)*/
-                    }
+                    /*
+                    querySnapshot.documents[0].reference.set(hashMapOf(
+                            FIRESTORE_USERS_PHONE_TAG to phoneNumber,
+                            FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
+                            FIRESTORE_USERS_BIRTHDATE_TAG to
+                                    Date().apply { time = editableFamilyMember.birthdate },
+                            FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
+                            FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
+                            FIRESTORE_USERS_LAST_ONLINE to Date(),
+                            FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)*/
+
                 }
     }
 

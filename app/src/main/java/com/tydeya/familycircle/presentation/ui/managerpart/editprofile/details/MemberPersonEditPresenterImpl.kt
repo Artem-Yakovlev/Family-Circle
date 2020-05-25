@@ -17,7 +17,7 @@ class MemberPersonEditPresenterImpl(val context: Context, val view: MemberPerson
     override fun checkDataForCorrect(editableFamilyMember: EditableFamilyMember): Boolean = editableFamilyMember.name != ""
 
     override fun editAccount(editableFamilyMember: EditableFamilyMember, editableBitmap: Bitmap?) {
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.Default) {
             editAccountTool.editAccountData(FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
                     editableFamilyMember, editableBitmap)
         }

@@ -7,9 +7,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.messaging.FirebaseMessaging
@@ -23,8 +22,8 @@ import com.tydeya.familycircle.domain.messenger.interactor.abstraction.Messenger
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback
 import com.tydeya.familycircle.framework.accountsync.details.AccountExistingCheckUpImpl
-import com.tydeya.familycircle.framework.datepickerdialog.ImageCropperUsable
 import com.tydeya.familycircle.presentation.ui.firststartpage.FirstStartActivity
+import com.tydeya.familycircle.presentation.viewmodel.CroppedImageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -144,22 +143,18 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
-            val navController = Navigation.findNavController(this, R.id.nav_host_container)
+            val croppedImageViewModel = ViewModelProvider(this).get(CroppedImageViewModel::class.java)
+
+
             val result = CropImage.getActivityResult(data)
-
-            if (navController.currentDestination!!.id == R.id.memberPersonEditFragment) {
-                val navHostFragment = (supportFragmentManager.findFragmentById(R.id.nav_host_container)
-                        as NavHostFragment?)!!
-
-                val imageCropperUsable = (navHostFragment
-                        .childFragmentManager.fragments[0] as ImageCropperUsable)
-                if (resultCode == Activity.RESULT_OK) {
-                    imageCropperUsable.imageCroppedSuccessfully(result)
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    imageCropperUsable.imageCroppedWithError(result)
-                }
+            if (resultCode == Activity.RESULT_OK) {
+                croppedImageViewModel.imageCroppedSuccessfully(result)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                croppedImageViewModel.imageCroppedWithError(result)
             }
         }
     }

@@ -54,8 +54,8 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
                 .putBytes(byteArrayOutputStream.toByteArray())
                 .addOnSuccessListener(taskSnapshot -> {
 
-                    createAccount(createDataForFirestore(fullPhoneNumber, name, birthDate,
-                            Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString()));
+//                    createAccount(createDataForFirestore(fullPhoneNumber, name, birthDate,
+//                            Objects.requireNonNull(taskSnapshot.getDownloadUrl()).toString()));
 
                 })
                 .addOnFailureListener(e -> {
