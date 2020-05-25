@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.conversationpart.chatpart.MessagingActivity">
+    tools:context="presentation.ui.conversationpart.inconversation.InConversationActivity">
 
     <fragment
         android:id="@+id/in_conversation_main_container"
-        android:name="com.tydeya.familycircle.ui.conversationpart.inconversation.conversationfragment.InConversationFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.InConversationFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".ui.firststartpage.selectfamily.details.SelectFamilyFragment">
+    tools:context=".presentation.ui.firststartpage.selectfamily.details.SelectFamilyFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

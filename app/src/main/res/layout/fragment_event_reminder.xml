@@ -2,103 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.planpart.eventmanager.EventManagerFragment">
+    tools:context=".ui.deliverypart.eventreminder.EventManagerFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/event_reminder_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="@string/event_reminder_toolbar_title"
+        app:title="@string/event_reminder_main_toolbar"
         app:titleTextColor="@color/colorWhite" />
 
-    <FrameLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/event_reminder_tab_layout"
+        style="@style/Widget.Design.TabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable" />
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/event_reminder_main_nested_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <com.applandeo.materialcalendarview.CalendarView
-                            android:id="@+id/event_reminder_main_calendar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:type="one_day_picker"
-                            app:eventsEnabled="true"
-                            app:headerColor="@color/colorWhite"
-                            app:headerLabelColor="@color/colorPrimary"
-                            app:todayLabelColor="@color/colorPrimaryDark"
-                            app:selectionColor="@color/colorPrimaryDark"
-                            app:previousButtonSrc="@drawable/ic_keyboard_arrow_left_blue_24dp"
-                            app:forwardButtonSrc="@drawable/ic_keyboard_arrow_right_blue_24dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/event_reminder_main_calendar_reset_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginHorizontal="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/poppins_medium"
-                            android:text="@string/back_to_today"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12sp"
-                            android:theme="@style/FormButton"
-                            android:visibility="invisible"
-                            tools:ignore="RtlHardcoded" />
-
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/event_reminder_main_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:nestedScrollingEnabled="false" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/event_reminder_floating_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_add_blue_24dp"
-            tools:ignore="RtlHardcoded" />
-
-    </FrameLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/event_reminder_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

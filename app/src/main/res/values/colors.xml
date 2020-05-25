@@ -22,5 +22,15 @@
     <color name="colorFreshFood">#8BC34A</color>
     <color name="colorOrdinaryFood">#FF9800</color>
     <color name="colorSpoiledFood">#BF1E12</color>
-    
+
+    <!-- Color for events -->
+    <color name="colorEventDarkBlue">#3F51B5</color>
+    <color name="colorEventLightBlue">#03A9F4</color>
+
+    <color name="colorEventDarkGreen">#009688</color>
+    <color name="colorEventLightGreen">#4CAF50</color>
+
+    <color name="colorEventOrange">#FF5722</color>
+    <color name="colorBlack">#000</color>
+
 </resources>

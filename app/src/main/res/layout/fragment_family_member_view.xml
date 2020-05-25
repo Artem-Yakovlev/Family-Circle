@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F7F7"
     android:orientation="vertical"
-    tools:context=".ui.livepart.memberpersonpage.details.MemberPersonFragment">
+    tools:context=".presentation.ui.livepart.memberpersonpage.details.MemberPersonFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/family_member_view_toolbar"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".ui.firststartpage.authorization.presentation.details.StartPresentationFragment">
+    tools:context=".presentation.ui.firststartpage.authorization.presentation.details.StartPresentationFragment">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/start_presentation_view_pager"
