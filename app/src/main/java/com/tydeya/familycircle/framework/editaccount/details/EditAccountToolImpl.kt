@@ -84,18 +84,6 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
                             FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
                             FIRESTORE_USERS_LAST_ONLINE to Date(),
                             FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
-
-                    /*
-                    querySnapshot.documents[0].reference.set(hashMapOf(
-                            FIRESTORE_USERS_PHONE_TAG to phoneNumber,
-                            FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
-                            FIRESTORE_USERS_BIRTHDATE_TAG to
-                                    Date().apply { time = editableFamilyMember.birthdate },
-                            FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
-                            FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
-                            FIRESTORE_USERS_LAST_ONLINE to Date(),
-                            FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)*/
-
                 }
     }
 
