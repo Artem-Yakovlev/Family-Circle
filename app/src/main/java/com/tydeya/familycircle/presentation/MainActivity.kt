@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         FirebaseMessaging.getInstance().subscribeToTopic(CLOUD_MESSAGING_KITCHEN_TOPIC)
         verificationCheck()
         KitchenOrganizerShelfLifeReceiver.initAlarm(this)

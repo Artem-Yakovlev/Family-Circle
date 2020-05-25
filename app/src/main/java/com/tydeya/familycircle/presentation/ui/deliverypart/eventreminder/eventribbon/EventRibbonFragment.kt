@@ -46,11 +46,11 @@ class EventRibbonFragment : Fragment() {
     private fun initRecyclerView() {
         val groupieAdapter = GroupAdapter<GroupieViewHolder>()
 
-        viewModel.eventsResource.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if (it is Resource.Success) {
-                groupieAdapter.add(DailySection(it.data))
-            }
-        })
+//        viewModel.eventsResource.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+//            if (it is Resource.Success) {
+//                groupieAdapter.add(DailySection(it.data))
+//            }
+//        })
 
         with(binding.eventsRibbonMainRecyclerview) {
             adapter = groupieAdapter
