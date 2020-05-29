@@ -6,14 +6,11 @@ public final class Application {
     }
 
     /**
-     * Event reminder
+     * RegistrationMode
      */
+    public static String REGISTRATION_MODE = "registration_mode";
 
-    public static String EVENT_EDIT_PAGE_WORKING_MODE = "working_mode";
-
-    /**
-     * Conversation
-     */
-
-    public static String CONVERSATION_ID = "conversation_id";
+    public static String REGISTRATION_FULL = "registration_auth";
+    public static String REGISTRATION_ONLY_ACCOUNT_CREATION = "registration_account_create";
+    public static String REGISTRATION_ONLY_FAMILY_SELECTION = "registration_family_selection";
 }

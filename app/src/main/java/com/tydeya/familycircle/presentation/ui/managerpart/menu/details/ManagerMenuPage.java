@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.abstraction.ManagerMenuView;
-import com.tydeya.familycircle.presentation.ui.firststartpage.FirstStartActivity;
+import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuItem;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuItemType;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuRecyclerViewAdapter;

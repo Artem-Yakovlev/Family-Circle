@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.firststartpage.FirstStartActivity">
+    tools:context=".presentation.ui.registrationpart.FirstStartActivity">
 
     <fragment
-        android:id="@+id/first_start_activity_main_navigation"
+        android:id="@+id/first_start_activity_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

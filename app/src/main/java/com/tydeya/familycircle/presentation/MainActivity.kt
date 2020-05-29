@@ -3,6 +3,7 @@ package com.tydeya.familycircle.presentation
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,11 +16,12 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback
 import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool
+import com.tydeya.familycircle.data.constants.Application.*
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
-import com.tydeya.familycircle.presentation.ui.firststartpage.FirstStartActivity
+import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity
 import com.tydeya.familycircle.presentation.viewmodel.CroppedImageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         verificationCheck()
         KitchenOrganizerShelfLifeReceiver.initAlarm(this)
         if (savedInstanceState == null) {
@@ -78,25 +79,31 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
             AccountSyncTool(this).isAccountWithPhoneExist(it)
             return
         }
-        startRegistration()
+        startRegistration(REGISTRATION_FULL)
     }
 
-    private fun startRegistration() {
-        startActivity(Intent(this, FirstStartActivity::class.java))
+    private fun startRegistration(tag: String) {
+        startActivity(Intent(this, FirstStartActivity::class.java).apply {
+            putExtra(REGISTRATION_MODE, tag)
+        })
         finish()
     }
 
     override fun accountIsNotExist() {
-        FirebaseAuth.getInstance().signOut()
-        startRegistration()
+        startRegistration(REGISTRATION_ONLY_ACCOUNT_CREATION)
     }
 
     override fun accountIsExist(userId: String, families: List<String>, currentFamily: String) {
-        App.getComponent().injectActivity(this)
-        if (isSavedInstanceNull) {
-            isEntrySuccessful = true
-            setupBottomNavigationBar()
-            messengerInteractor.subscribe(this)
+
+        if (families.isNotEmpty() && currentFamily != "") {
+            App.getComponent().injectActivity(this)
+            if (isSavedInstanceNull) {
+                isEntrySuccessful = true
+                setupBottomNavigationBar()
+                messengerInteractor.subscribe(this)
+            }
+        } else {
+            startRegistration(REGISTRATION_ONLY_FAMILY_SELECTION)
         }
     }
 
