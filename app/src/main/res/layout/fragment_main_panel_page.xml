@@ -8,7 +8,7 @@
     tools:context=".presentation.ui.managerpart.menu.details.ManagerMenuPage">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/family_member_view_toolbar"
+        android:id="@+id/select_family_page_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"

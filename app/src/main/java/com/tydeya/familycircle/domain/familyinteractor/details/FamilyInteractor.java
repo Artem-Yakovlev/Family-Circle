@@ -2,7 +2,6 @@ package com.tydeya.familycircle.domain.familyinteractor.details;
 
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.data.family.Family;
-import com.tydeya.familycircle.data.family.description.FamilyDescription;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback;
 import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorObservable;
@@ -29,13 +28,13 @@ public class FamilyInteractor implements FamilyNetworkInteractorCallback, Family
         if (families.size() != 0) {
             return families.get(actualFamilyIndex);
         }
-        return new Family(0, new FamilyDescription("Test family"), new ArrayList<>());
+        return new Family(0, "Test family", new ArrayList<>());
     }
 
     private void prepareFamilyData() {
         ArrayList<FamilyMember> familyMembers = new ArrayList<>(App.getDatabase().familyMembersDao().getAll());
 
-        families.add(new Family(actualFamilyIndex, new FamilyDescription("Test family"), familyMembers));
+        families.add(new Family(actualFamilyIndex, "Test family", familyMembers));
 
         networkInteractor.requireMembersDataFromServer();
     }

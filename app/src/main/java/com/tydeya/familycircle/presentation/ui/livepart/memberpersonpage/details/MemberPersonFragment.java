@@ -63,7 +63,7 @@ public class MemberPersonFragment extends Fragment implements MemberPersonView, 
 
         View root = inflater.inflate(R.layout.fragment_family_member_view, container, false);
 
-        toolbar = root.findViewById(R.id.family_member_view_toolbar);
+        toolbar = root.findViewById(R.id.select_family_page_toolbar);
         settingsButton = root.findViewById(R.id.family_member_view_settings);
 
         nameText = root.findViewById(R.id.family_member_view_name_text);

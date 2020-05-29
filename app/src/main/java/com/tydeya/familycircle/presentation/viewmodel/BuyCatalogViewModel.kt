@@ -25,7 +25,6 @@ class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventL
 
     fun isThereInBuysCatalogProductWithName(name: String): Boolean {
         val actualResource = products.value
-
         if (actualResource is Resource.Success) {
             for (product in actualResource.data) {
                 if (product.title == name) {
@@ -34,7 +33,6 @@ class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventL
             }
             return false
         }
-
         return true
     }
 

@@ -24,8 +24,8 @@ import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.bar
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
-import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.presentation.viewmodel.FoodInFridgeViewModel
+import com.tydeya.familycircle.utils.Resource
 
 
 class FoodInFridgeFragment
@@ -136,14 +136,9 @@ class FoodInFridgeFragment
         if (food.measureType == MeasureType.NOT_CHOSEN) {
             val eatFoodFromFridgeDialog = EatFoodWithoutMeasureTypeFromFridge.newInstance(food)
             eatFoodFromFridgeDialog.show(childFragmentManager, FRIDGE_EAT_FOOD_WITHOUT_TYPE_DIALOG)
-
         } else {
-
             val eatFoodFromFridgeDialog = EatFoodFromFridgeDialog.newInstance(food)
             eatFoodFromFridgeDialog.show(childFragmentManager, FRIDGE_EAT_FOOD_WITH_TYPE_DIALOG)
         }
-
-
     }
-
 }
