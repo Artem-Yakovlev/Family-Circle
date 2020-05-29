@@ -7,7 +7,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY
-import com.tydeya.familycircle.data.constants.FireStore.*
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_BIRTHDATE_TAG
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_IMAGE_ADDRESS
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_LAST_ONLINE
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_NAME_TAG
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_STUDY_TAG
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_WORK_TAG
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.editaccount.abstraction.EditAccountTool

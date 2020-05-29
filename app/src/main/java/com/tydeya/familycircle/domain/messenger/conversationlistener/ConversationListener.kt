@@ -4,7 +4,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.FireStore.*
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_MESSAGES
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_AUTHOR_PHONE
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_DATETIME
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_TEXT
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_UNREAD_PATTERN
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers

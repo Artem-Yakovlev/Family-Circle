@@ -4,7 +4,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.FireStore.*
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_AUTHOR
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_STATUS
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_TEXT
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_TIME
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_WORKER
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl

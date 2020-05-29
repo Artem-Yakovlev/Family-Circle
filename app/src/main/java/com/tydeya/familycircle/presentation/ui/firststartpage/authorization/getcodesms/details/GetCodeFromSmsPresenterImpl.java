@@ -6,9 +6,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUp;
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback;
-import com.tydeya.familycircle.framework.accountsync.details.AccountExistingCheckUpImpl;
+import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool;
+import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback;
 import com.tydeya.familycircle.framework.signInWithCode.abstraction.SignInWithPhoneCodeTool;
 import com.tydeya.familycircle.framework.signInWithCode.abstraction.SignInWithPhoneCodeToolCallback;
 import com.tydeya.familycircle.framework.signInWithCode.details.SignInWithPhoneCodeToolImpl;
@@ -18,12 +17,16 @@ import com.tydeya.familycircle.presentation.ui.firststartpage.authorization.getc
 import com.tydeya.familycircle.presentation.ui.firststartpage.authorization.getcodesms.abstraction.GetCodeFromSmsView;
 import com.tydeya.familycircle.presentation.ui.firststartpage.authorization.getcodesms.abstraction.ResendCountDownTimerCallback;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
 public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, SignInWithPhoneCodeToolCallback,
         AccountExistingCheckUpCallback, ResendCountDownTimerCallback {
 
     private GetCodeFromSmsView view;
     private SignInWithPhoneCodeTool signInWithPhoneCodeTool;
-    private AccountExistingCheckUp accountExistingCheckUp;
+    private AccountSyncTool accountSyncTool;
     private String phoneNumber;
 
     private AuthResendSmsTool authResendSmsTool;
@@ -33,7 +36,7 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
     GetCodeFromSmsPresenterImpl(GetCodeFromSmsView getCodeFromSmsView, FirebaseAuth firebaseAuth, String phoneNumber) {
         this.view = getCodeFromSmsView;
         this.signInWithPhoneCodeTool = new SignInWithPhoneCodeToolImpl(this, firebaseAuth);
-        this.accountExistingCheckUp = new AccountExistingCheckUpImpl(this);
+        this.accountSyncTool = new AccountSyncTool(this);
         this.authResendSmsTool = new AuthResendSmsToolImpl();
         this.phoneNumber = phoneNumber;
         this.resendTimer = new ResendCountDownTimer(this);
@@ -84,7 +87,7 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
 
     @Override
     public void signInIsSuccessful() {
-        accountExistingCheckUp.isAccountWithPhoneExist(phoneNumber);
+        accountSyncTool.isAccountWithPhoneExist(phoneNumber);
     }
 
     @Override
@@ -97,7 +100,9 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
      */
 
     @Override
-    public void accountIsExist(QuerySnapshot querySnapshot) {
+    public void accountIsExist(@NotNull String userId,
+                               @NotNull List<String> families,
+                               @NotNull String currentFamily) {
         view.accountIsExist();
     }
 

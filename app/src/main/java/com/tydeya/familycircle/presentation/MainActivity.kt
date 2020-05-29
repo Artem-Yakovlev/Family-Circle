@@ -10,18 +10,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.messaging.FirebaseMessaging
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.constants.CLOUD_MESSAGING_KITCHEN_TOPIC
+import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback
+import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool
 import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback
-import com.tydeya.familycircle.framework.accountsync.details.AccountExistingCheckUpImpl
 import com.tydeya.familycircle.presentation.ui.firststartpage.FirstStartActivity
 import com.tydeya.familycircle.presentation.viewmodel.CroppedImageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,8 +41,6 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        FirebaseMessaging.getInstance().subscribeToTopic(CLOUD_MESSAGING_KITCHEN_TOPIC)
         verificationCheck()
         KitchenOrganizerShelfLifeReceiver.initAlarm(this)
         if (savedInstanceState == null) {
@@ -63,7 +58,6 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     }
 
     private fun setupBottomNavigationBar() {
-
         val navGraphIds = listOf(R.navigation.live, R.navigation.plan,
                 R.navigation.correspondence, R.navigation.map, R.navigation.manager_menu)
 
@@ -79,22 +73,17 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
      * Verification
      * */
 
-    private fun verificationCheck(): Boolean {
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            startRegistration()
-            return false
-        } else {
-            AccountExistingCheckUpImpl(this).isAccountWithPhoneExist(
-                    FirebaseAuth.getInstance().currentUser!!.phoneNumber)
-
+    private fun verificationCheck() {
+        FirebaseAuth.getInstance().currentUser?.phoneNumber?.let {
+            AccountSyncTool(this).isAccountWithPhoneExist(it)
+            return
         }
-        return true
+        startRegistration()
     }
 
     private fun startRegistration() {
-        val intent = Intent(this, FirstStartActivity::class.java)
-        startActivity(intent)
-        this.finish()
+        startActivity(Intent(this, FirstStartActivity::class.java))
+        finish()
     }
 
     override fun accountIsNotExist() {
@@ -102,7 +91,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         startRegistration()
     }
 
-    override fun accountIsExist(querySnapshot: QuerySnapshot?) {
+    override fun accountIsExist(userId: String, families: List<String>, currentFamily: String) {
         App.getComponent().injectActivity(this)
         if (isSavedInstanceNull) {
             isEntrySuccessful = true
@@ -114,24 +103,16 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     /**
      * Bottom navigation badges
      * */
-
-
     override fun messengerDataFromServerUpdated() {
         updateBadges()
     }
 
     private fun updateBadges() {
-
         if (messengerInteractor.numberOfUnreadMessages == 0) {
-
             main_bottom_navigation_view.removeBadge(R.id.correspondence)
-
         } else {
-
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
                     .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
-
-
             main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
                     .number = messengerInteractor.numberOfUnreadMessages
         }
@@ -144,11 +125,9 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-
-            val croppedImageViewModel = ViewModelProvider(this).get(CroppedImageViewModel::class.java)
-
+            val croppedImageViewModel = ViewModelProvider(this)
+                    .get(CroppedImageViewModel::class.java)
 
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
@@ -181,7 +160,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
      * Main application activity
      * */
 
-    public fun setBottomNavigationVisibility(isVisible: Boolean) {
+    fun setBottomNavigationVisibility(isVisible: Boolean) {
         main_bottom_navigation_view.visibility = if (isVisible) {
             View.VISIBLE
         } else {

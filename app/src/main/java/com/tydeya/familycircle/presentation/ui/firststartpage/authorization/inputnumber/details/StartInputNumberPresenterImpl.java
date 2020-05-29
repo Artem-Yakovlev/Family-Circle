@@ -6,30 +6,31 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUp;
-import com.tydeya.familycircle.framework.accountsync.abstraction.AccountExistingCheckUpCallback;
-import com.tydeya.familycircle.framework.accountsync.details.AccountExistingCheckUpImpl;
+import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback;
+import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool;
 import com.tydeya.familycircle.framework.verification.abstraction.AuthVerificationCallback;
 import com.tydeya.familycircle.framework.verification.abstraction.AuthVerificationTool;
 import com.tydeya.familycircle.framework.verification.details.AuthVerificationToolImpl;
 import com.tydeya.familycircle.presentation.ui.firststartpage.authorization.inputnumber.abstraction.StartInputNumberPresenter;
 import com.tydeya.familycircle.presentation.ui.firststartpage.authorization.inputnumber.abstraction.StartInputNumberView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
         AuthVerificationCallback, AccountExistingCheckUpCallback {
 
     private WeakReference<StartInputNumberView> startInputNumberView;
     private AuthVerificationTool authVerificationTool;
-    private AccountExistingCheckUp accountExistingCheckUp;
+    private AccountSyncTool accountSyncTool;
 
 
     StartInputNumberPresenterImpl(StartInputNumberView startInputNumberView) {
         this.startInputNumberView = new WeakReference<>(startInputNumberView);
         this.authVerificationTool = new AuthVerificationToolImpl(this);
-        this.accountExistingCheckUp = new AccountExistingCheckUpImpl(this);
+        this.accountSyncTool = new AccountSyncTool(this);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
     @Override
     public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential, String fullPhoneNumber) {
         FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential);
-        accountExistingCheckUp.isAccountWithPhoneExist(fullPhoneNumber);
+        accountSyncTool.isAccountWithPhoneExist(fullPhoneNumber);
     }
 
     @Override
@@ -76,7 +77,10 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
     }
 
     @Override
-    public void accountIsExist(QuerySnapshot querySnapshot) {
+    public void accountIsExist(@NotNull String userId,
+                               @NotNull List<String> families,
+                               @NotNull String currentFamily) {
         startInputNumberView.get().accountExist();
     }
+
 }

@@ -4,7 +4,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.tydeya.familycircle.App
-import com.tydeya.familycircle.data.constants.FireStore.*
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_MEMBERS
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_MESSAGES
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_TITLE
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_AUTHOR_PHONE
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_DATETIME
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_TEXT
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_UNREAD_PATTERN
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor

@@ -3,7 +3,11 @@ package com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.de
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.tydeya.familycircle.data.constants.FireStore.*
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_AUTHOR
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_ITEM
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_TIME
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_TYPE
 import com.tydeya.familycircle.data.cooperation.Cooperation
 import com.tydeya.familycircle.data.cooperation.CooperationType
 import com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.abstraction.CooperationNetworkInteractor

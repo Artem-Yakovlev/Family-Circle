@@ -2,7 +2,9 @@ package com.tydeya.familycircle.domain.onlinemanager.details
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.tydeya.familycircle.data.constants.FireStore.*
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_LAST_ONLINE
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG
 import com.tydeya.familycircle.domain.onlinemanager.abstraction.OnlineInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
