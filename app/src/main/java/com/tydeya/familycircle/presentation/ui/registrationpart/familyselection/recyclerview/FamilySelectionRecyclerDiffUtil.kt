@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.ui.registrationpart.selectfamily.recyclerview
+package com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.recyclerview
 
 import androidx.recyclerview.widget.DiffUtil
 import com.tydeya.familycircle.data.family.FamilyDTO

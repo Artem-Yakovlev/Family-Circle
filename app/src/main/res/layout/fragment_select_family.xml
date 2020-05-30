@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".presentation.ui.registrationpart.selectfamily.SelectFamilyFragment">
+    tools:context=".presentation.ui.registrationpart.familyselection.SelectFamilyFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/select_family_page_toolbar"

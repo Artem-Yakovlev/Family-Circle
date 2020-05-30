@@ -50,7 +50,16 @@
     </fragment>
     <fragment
         android:id="@+id/selectFamilyFragment"
-        android:name="com.tydeya.familycircle.presentation.ui.registrationpart.selectfamily.SelectFamilyFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.SelectFamilyFragment"
         android:label="fragment_select_family"
-        tools:layout="@layout/fragment_select_family" />
+        tools:layout="@layout/fragment_select_family" >
+        <action
+            android:id="@+id/action_selectFamilyFragment_to_welcomeFamilyFragment"
+            app:destination="@id/welcomeFamilyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFamilyFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.WelcomeFamilyFragment"
+        android:label="fragment_welcome_family"
+        tools:layout="@layout/fragment_welcome_family" />
 </navigation>
