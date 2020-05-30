@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/select_family_page_toolbar_title"
-        app:titleTextColor="@color/colorWhite"/>
+        app:titleTextColor="@color/colorWhite" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/families_recyclerview"
@@ -29,5 +29,35 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_family_page_toolbar" />
+
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:clickable_overlay="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_family_page_toolbar" />
+
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/floatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
+        app:layout_constraintBottom_toBottomOf="@+id/families_recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:sdExpansionMode="top"
+        app:sdMainFabAnimationRotateAngle="90"
+        app:sdMainFabClosedIconColor="@color/colorWhite"
+        app:sdMainFabClosedSrc="@drawable/ic_add_blue_24dp"
+        app:sdMainFabOpenedIconColor="@color/colorWhite"
+        app:sdMainFabOpenedSrc="@drawable/ic_close_black_24dp"
+        app:sdOverlayLayout="@id/overlay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

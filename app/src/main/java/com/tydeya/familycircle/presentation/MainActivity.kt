@@ -3,7 +3,6 @@ package com.tydeya.familycircle.presentation
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        splashStubVisibility(true)
         verificationCheck()
         KitchenOrganizerShelfLifeReceiver.initAlarm(this)
         if (savedInstanceState == null) {
@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     }
 
     private fun setupBottomNavigationBar() {
-        val navGraphIds = listOf(R.navigation.live, R.navigation.plan,
-                R.navigation.correspondence, R.navigation.map, R.navigation.manager_menu)
+        val navGraphIds = listOf(R.navigation.live, R.navigation.plan, R.navigation.correspondence,
+                R.navigation.map, R.navigation.manager_menu)
 
         currentNavController = main_bottom_navigation_view.setupWithNavController(
                 navGraphIds = navGraphIds,
@@ -68,6 +68,18 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
                 containerId = R.id.nav_host_container,
                 intent = intent
         )
+    }
+
+    /**
+     * SPLASH
+     * */
+
+    private fun splashStubVisibility(isSplashVisible: Boolean) {
+        splash_image.visibility = if (isSplashVisible) View.VISIBLE else View.INVISIBLE
+
+        val interfaceVisibility = if (isSplashVisible) View.INVISIBLE else View.VISIBLE
+        main_bottom_navigation_view.visibility = interfaceVisibility
+        nav_host_container.visibility = interfaceVisibility
     }
 
     /**
@@ -102,6 +114,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
                 setupBottomNavigationBar()
                 messengerInteractor.subscribe(this)
             }
+            splashStubVisibility(false)
         } else {
             startRegistration(REGISTRATION_ONLY_FAMILY_SELECTION)
         }

@@ -29,16 +29,27 @@
             android:id="@+id/number_of_members"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="parent"
             tool:text="5" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_group_black_36dp"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

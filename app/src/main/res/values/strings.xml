@@ -362,6 +362,8 @@
     <string name="event_reminder_new_event_repeat_title">Repeat:</string>
     <string name="event_reminder_new_event_color_title">Color</string>
     <string name="select_family_page_toolbar_title">Select or create family account</string>
+    <string name="family_selection_speed_dial_button_menu_join_via_code">Join via code</string>
+    <string name="family_selection_speed_dial_button_menu_create_family">Create a new family</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

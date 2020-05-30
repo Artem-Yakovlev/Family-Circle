@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.leinardi.android.speeddial.SpeedDialView
+import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.FragmentSelectFamilyBinding
 import com.tydeya.familycircle.presentation.ui.registrationpart.selectfamily.recyclerview.SelectFamilyRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.viewmodel.SelectableFamilySelectionViewModel
@@ -35,6 +37,7 @@ class SelectFamilyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initFloatingButton()
     }
 
     private fun initRecyclerView() {
@@ -50,6 +53,25 @@ class SelectFamilyFragment : Fragment() {
                 adapter.refreshData(ArrayList())
             }
         })
+    }
+
+    private fun initFloatingButton() {
+        binding.floatingButton.inflate(R.menu.add_new_family_menu)
+
+        binding.floatingButton
+                .setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+                    when (actionItem.id) {
+                        R.id.join_via_code -> {
+                            binding.floatingButton.close()
+                            return@OnActionSelectedListener true
+                        }
+                        R.id.create_new_family -> {
+                            binding.floatingButton.close()
+                            return@OnActionSelectedListener true
+                        }
+                    }
+                    return@OnActionSelectedListener false
+                })
     }
 
     override fun onDestroy() {
