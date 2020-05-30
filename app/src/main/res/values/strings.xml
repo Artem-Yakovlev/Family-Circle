@@ -369,6 +369,7 @@
     <string name="family_account_created">Family account created!</string>
     <string name="welcome_message_description">Thank you for using our application. Everything is ready to use.</string>
     <string name="welcome_message_title">You are welcome</string>
+    <string name="manager_menu_item_select_family_title">Switch family</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

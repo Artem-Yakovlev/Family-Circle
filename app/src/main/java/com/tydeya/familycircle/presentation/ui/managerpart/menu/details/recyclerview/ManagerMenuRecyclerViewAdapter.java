@@ -27,7 +27,7 @@ public class ManagerMenuRecyclerViewAdapter extends RecyclerView.Adapter<Manager
     @NonNull
     @Override
     public ManagerMenuItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ManagerMenuItemViewHolder(LayoutInflater.from(context).inflate(R.layout.manager_menu_common_card,
+        return new ManagerMenuItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_item_manager_menu,
                 parent, false), onClickManagerMenuItemListener);
     }
 

@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.presentation.ui.managerpart.menu.details;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,14 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.abstraction.ManagerMenuView;
-import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuItem;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuItemType;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuRecyclerViewAdapter;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.OnClickManagerMenuItemListener;
+import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity;
 
 import java.util.ArrayList;
 
+import static com.tydeya.familycircle.data.constants.Application.CURRENT_FAMILY_ID;
+import static com.tydeya.familycircle.data.constants.Application.REGISTRATION_MODE;
+import static com.tydeya.familycircle.data.constants.Application.REGISTRATION_ONLY_FAMILY_SELECTION;
+import static com.tydeya.familycircle.data.constants.Application.SHARED_PREFERENCE_USER_SETTINGS;
 import static com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER;
 
 
@@ -54,10 +59,21 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
 
     private void generateDataForManagerMenuItems() {
         managerMenuItems.clear();
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_account_circle_blue_24dp,
-                getString(R.string.manager_menu_item_your_profile_title), ManagerMenuItemType.PROFILE));
-        managerMenuItems.add(new ManagerMenuItem(R.drawable.ic_exit_to_app_blue_24dp,
-                getString(R.string.manager_menu_item_sign_out_title), ManagerMenuItemType.EXIT));
+
+        managerMenuItems.add(new ManagerMenuItem(
+                R.drawable.ic_account_circle_blue_24dp,
+                getString(R.string.manager_menu_item_your_profile_title),
+                ManagerMenuItemType.PROFILE));
+
+        managerMenuItems.add(new ManagerMenuItem(
+                R.drawable.ic_cached_black_24dp,
+                getString(R.string.manager_menu_item_select_family_title),
+                ManagerMenuItemType.SELECT_FAMILY));
+
+        managerMenuItems.add(new ManagerMenuItem(
+                R.drawable.ic_exit_to_app_blue_24dp,
+                getString(R.string.manager_menu_item_sign_out_title),
+                ManagerMenuItemType.EXIT));
     }
 
     /**
@@ -68,6 +84,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     public void onClickPanelItem(ManagerMenuItemType managerMenuItemType) {
         switch (managerMenuItemType) {
             case PROFILE:
+            case SELECT_FAMILY:
                 openPage(managerMenuItemType);
                 break;
             case EXIT:
@@ -89,7 +106,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(getContext(), FirstStartActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    requireActivity().finish();
                 });
         alertDialogBuilder.setNegativeButton(R.string.no_text,
                 null);
@@ -105,6 +122,15 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
                 Bundle bundle = new Bundle();
                 bundle.putString(BUNDLE_FULL_PHONE_NUMBER, FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
                 navController.navigate(R.id.memberPersonFragment, bundle);
+                break;
+            case SELECT_FAMILY:
+                requireActivity()
+                        .getSharedPreferences(SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
+                        .edit().putString(CURRENT_FAMILY_ID, "").apply();
+                Intent intent = new Intent(requireContext(), FirstStartActivity.class);
+                intent.putExtra(REGISTRATION_MODE, REGISTRATION_ONLY_FAMILY_SELECTION);
+                startActivity(intent);
+                requireActivity().finish();
                 break;
         }
     }

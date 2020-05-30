@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:clickable="true">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingHorizontal="20dp">
 
         <ImageView
             android:id="@+id/panel_common_item_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_exit_to_app_white_24dp" />
+            android:src="@drawable/ic_exit_to_app_white_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/panel_common_item_title"
@@ -26,8 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/poppins"
-            android:text="Exit the app"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            tool:ignore="RtlHardcoded"
+            tool:text="Exit the app" />
 
     </LinearLayout>
 
