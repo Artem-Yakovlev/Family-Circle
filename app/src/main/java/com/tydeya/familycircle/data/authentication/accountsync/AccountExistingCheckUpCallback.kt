@@ -6,5 +6,5 @@ interface AccountExistingCheckUpCallback {
 
     fun accountIsNotExist()
 
-    fun accountIsExist(userId: String, families: List<String>, currentFamily: String)
+    fun accountIsExist(userId: String, families: List<String>)
 }

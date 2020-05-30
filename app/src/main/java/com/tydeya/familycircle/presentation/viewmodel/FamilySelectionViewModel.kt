@@ -7,11 +7,8 @@ import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.familyselection.SelectableFamiliesListener
 import com.tydeya.familycircle.domain.familyselection.SelectableFamilyListenerCallback
 import com.tydeya.familycircle.domain.familyselection.createFamilyInFirebase
-import com.tydeya.familycircle.domain.familyselection.selectCurrentFamilyInFirebase
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class FamilySelectionViewModel : ViewModel(), SelectableFamilyListenerCallback {
 
@@ -23,22 +20,14 @@ class FamilySelectionViewModel : ViewModel(), SelectableFamilyListenerCallback {
 
     val familiesLiveData: LiveData<Resource<List<FamilyDTO>>> get() = familiesMutableLiveData
 
-
-    private val currentFamilyIdMutableLiveData: MutableLiveData<Resource<String>> =
-            MutableLiveData(Resource.Success(""))
-
-    val currentFamilyIdLiveData: LiveData<Resource<String>> = currentFamilyIdMutableLiveData
-
     init {
         selectableFamiliesListener.register()
     }
 
     override fun selectableFamiliesUpdated(
-            selectableFamilies: Resource<List<FamilyDTO>>,
-            currentFamilyId: Resource<String>
+            selectableFamilies: Resource<List<FamilyDTO>>
     ) {
         familiesMutableLiveData.value = selectableFamilies
-        currentFamilyIdMutableLiveData.value = currentFamilyId
     }
 
     override fun onCleared() {
@@ -48,12 +37,5 @@ class FamilySelectionViewModel : ViewModel(), SelectableFamilyListenerCallback {
 
     fun createNewFamily(name: String) {
         createFamilyInFirebase(name)
-    }
-
-    fun selectFamily(familyId: String) {
-        currentFamilyIdMutableLiveData.value = Resource.Loading()
-        GlobalScope.launch {
-            selectCurrentFamilyInFirebase(familyId)
-        }
     }
 }

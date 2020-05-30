@@ -40,10 +40,6 @@ class SelectableFamiliesListener(
                 querySnapshot?.let { snapshot ->
                     snapshot.documents[0]?.let {
 
-                        val currentFamilyId = Resource.Success(
-                                it.getString(FireStore.FIRESTORE_USERS_CURRENT_FAMILY_ID) ?: ""
-                        )
-
                         val selectableFamilies = Resource.Success(parseToFamilyDTO(
                                 titles = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_TITLES),
                                 sizes = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_SIZES),
@@ -51,13 +47,13 @@ class SelectableFamiliesListener(
                         )
 
                         withContext(Dispatchers.Main) {
-                            callback.selectableFamiliesUpdated(selectableFamilies, currentFamilyId)
+                            callback.selectableFamiliesUpdated(selectableFamilies)
                         }
                     }
                 }
             }
         } else {
-            callback.selectableFamiliesUpdated(Resource.Failure(exception), Resource.Success(""))
+            callback.selectableFamiliesUpdated(Resource.Failure(exception))
         }
     }
 

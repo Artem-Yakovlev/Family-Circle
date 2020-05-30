@@ -78,8 +78,7 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
 
     @Override
     public void accountIsExist(@NotNull String userId,
-                               @NotNull List<String> families,
-                               @NotNull String currentFamily) {
+                               @NotNull List<String> families) {
         startInputNumberView.get().accountExist();
     }
 

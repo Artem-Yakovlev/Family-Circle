@@ -100,8 +100,7 @@ public class GetCodeFromSmsPresenterImpl implements GetCodeFromSmsPresenter, Sig
 
     @Override
     public void accountIsExist(@NotNull String userId,
-                               @NotNull List<String> families,
-                               @NotNull String currentFamily) {
+                               @NotNull List<String> families) {
         view.accountIsExist();
     }
 

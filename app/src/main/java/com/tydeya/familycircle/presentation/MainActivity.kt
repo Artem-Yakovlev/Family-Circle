@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.presentation
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -105,9 +106,12 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         startRegistration(REGISTRATION_ONLY_ACCOUNT_CREATION)
     }
 
-    override fun accountIsExist(userId: String, families: List<String>, currentFamily: String) {
+    override fun accountIsExist(userId: String, families: List<String>) {
 
-        if (families.isNotEmpty() && currentFamily != "") {
+        val preferences = getSharedPreferences(SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
+        val currentFamily = preferences.getString(CURRENT_FAMILY_ID, "")
+
+        if (currentFamily in families) {
             App.getComponent().injectActivity(this)
             if (isSavedInstanceNull) {
                 isEntrySuccessful = true
@@ -116,6 +120,8 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
             }
             splashStubVisibility(false)
         } else {
+            getSharedPreferences(SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
+                    .edit().putString(CURRENT_FAMILY_ID, "").apply()
             startRegistration(REGISTRATION_ONLY_FAMILY_SELECTION)
         }
     }

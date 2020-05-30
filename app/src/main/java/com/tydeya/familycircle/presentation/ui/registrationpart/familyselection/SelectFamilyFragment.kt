@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.presentation.ui.registrationpart.familyselection
 
-import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +12,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.Application.CURRENT_FAMILY_ID
+import com.tydeya.familycircle.data.constants.Application.SHARED_PREFERENCE_USER_SETTINGS
 import com.tydeya.familycircle.databinding.FragmentSelectFamilyBinding
 import com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.recyclerview.SelectFamilyRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.recyclerview.SelectFamilyRecyclerViewClickListener
 import com.tydeya.familycircle.presentation.viewmodel.FamilySelectionViewModel
 import com.tydeya.familycircle.utils.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class SelectFamilyFragment : Fragment(), SelectFamilyRecyclerViewClickListener {
 
@@ -29,8 +28,6 @@ class SelectFamilyFragment : Fragment(), SelectFamilyRecyclerViewClickListener {
     private lateinit var viewModel: FamilySelectionViewModel
 
     private lateinit var adapter: SelectFamilyRecyclerViewAdapter
-
-    private lateinit var loadingDialog: ProgressDialog
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -44,13 +41,8 @@ class SelectFamilyFragment : Fragment(), SelectFamilyRecyclerViewClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        loadingDialog = ProgressDialog.show(context, null,
-                getString(R.string.loading_text), true)
-
         initRecyclerView()
         initFloatingButton()
-        initCurrentFamilyListener()
     }
 
     private fun initRecyclerView() {
@@ -89,38 +81,11 @@ class SelectFamilyFragment : Fragment(), SelectFamilyRecyclerViewClickListener {
                 })
     }
 
-
-    private fun initCurrentFamilyListener() {
-
-        viewModel.currentFamilyIdLiveData.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Resource.Success -> {
-                    closeLoadingDialog()
-                    if (it.data != "") {
-                        NavHostFragment.findNavController(this)
-                                .navigate(R.id.welcomeFamilyFragment)
-                    }
-                }
-                is Resource.Loading -> {
-                    loadingDialog.show()
-                }
-                is Resource.Failure -> {
-                    closeLoadingDialog()
-                }
-            }
-        })
-    }
-
-    private fun closeLoadingDialog() {
-        if (loadingDialog.isShowing) {
-            loadingDialog.cancel()
-        }
-    }
-
     override fun familySelected(familyId: String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            viewModel.selectFamily(familyId)
-        }
+        requireActivity().getSharedPreferences(SHARED_PREFERENCE_USER_SETTINGS,
+                Context.MODE_PRIVATE).edit().putString(CURRENT_FAMILY_ID, familyId).apply()
+
+        NavHostFragment.findNavController(this).navigate(R.id.welcomeFamilyFragment)
     }
 
     override fun onDestroy() {

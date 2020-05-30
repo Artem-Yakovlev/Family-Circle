@@ -106,8 +106,6 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
                 bundle.putString(BUNDLE_FULL_PHONE_NUMBER, FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
                 navController.navigate(R.id.memberPersonFragment, bundle);
                 break;
-            case FAMILY:
-                break;
         }
     }
 }

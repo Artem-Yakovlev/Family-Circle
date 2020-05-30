@@ -5,6 +5,9 @@ public final class Application {
     private Application() {
     }
 
+    public static String SHARED_PREFERENCE_USER_SETTINGS = "user_settings";
+    public static String CURRENT_FAMILY_ID = "current_family_id";
+
     /**
      * RegistrationMode
      */
