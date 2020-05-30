@@ -1,6 +1,6 @@
-package com.tydeya.familycircle.domain.familyinteractor.injection;
+package com.tydeya.familycircle.domain.oldfamilyinteractor.injection;
 
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor;
 
 import javax.inject.Singleton;
 

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor;
 import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl;
 
 import java.util.ArrayList;

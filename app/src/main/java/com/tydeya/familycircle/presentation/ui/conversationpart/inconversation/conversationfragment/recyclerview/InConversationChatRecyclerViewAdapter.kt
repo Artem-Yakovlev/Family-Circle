@@ -9,7 +9,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import javax.inject.Inject
 
 const val OUTGOING_MESSAGE_VIEW_TYPE = 0

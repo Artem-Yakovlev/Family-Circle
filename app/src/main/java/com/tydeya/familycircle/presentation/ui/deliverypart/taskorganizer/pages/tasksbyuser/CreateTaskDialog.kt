@@ -11,7 +11,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
 import kotlinx.android.synthetic.main.dialog_tasks_create.view.*

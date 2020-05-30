@@ -19,9 +19,9 @@ fun createFamilyInFirebase(title: String) {
             .addOnSuccessListener { familyDocument ->
 
                 firebaseFirestore.collection(FIRESTORE_USERS_COLLECTION)
-                        .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, authorPhone).get()
+                        .document(authorPhone).get()
                         .addOnSuccessListener {
-                            it.documents[0]?.let { document ->
+                            it?.let { document ->
 
                                 val titles = document
                                         .getListByTag<String>(FIRESTORE_USERS_FAMILY_TITLES)

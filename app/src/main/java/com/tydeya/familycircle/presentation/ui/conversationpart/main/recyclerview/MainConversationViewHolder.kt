@@ -10,7 +10,7 @@ import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import kotlinx.android.synthetic.main.cardview_conversation.view.*
 import java.text.SimpleDateFormat
 import java.util.*

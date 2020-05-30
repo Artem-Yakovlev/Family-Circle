@@ -17,7 +17,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback
 import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool
 import com.tydeya.familycircle.data.constants.Application.*
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor

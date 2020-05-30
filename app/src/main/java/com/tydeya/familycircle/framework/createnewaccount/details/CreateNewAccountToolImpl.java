@@ -69,7 +69,10 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
     }
 
     private void createAccount(Map<String, Object> dataForFirestore) {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION).add(dataForFirestore)
+        
+        FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
+                .document(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
+                .set(dataForFirestore)
                 .addOnSuccessListener(documentReference -> {
                     callback.accountCreatedSuccessful();
                 })

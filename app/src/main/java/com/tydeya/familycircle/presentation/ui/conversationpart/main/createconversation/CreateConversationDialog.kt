@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
 import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview.CreateConversationMembersCheckBoxListener

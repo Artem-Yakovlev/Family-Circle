@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.domain.familyinteractor.abstraction;
+package com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction;
 
 public interface FamilyInteractorCallback {
 

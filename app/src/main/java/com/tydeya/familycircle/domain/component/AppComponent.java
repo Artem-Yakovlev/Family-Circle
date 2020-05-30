@@ -1,8 +1,8 @@
 package com.tydeya.familycircle.domain.component;
 
 import com.tydeya.familycircle.domain.cooperationorganizer.inject.CooperationModule;
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor;
-import com.tydeya.familycircle.domain.familyinteractor.injection.FamilyInteractorModule;
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor;
+import com.tydeya.familycircle.domain.oldfamilyinteractor.injection.FamilyInteractorModule;
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener;
 import com.tydeya.familycircle.domain.messenger.inject.MessengerModule;
 import com.tydeya.familycircle.domain.messenger.networkinteractor.details.MessengerNetworkInteractorImpl;

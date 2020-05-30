@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.domain.familyinteractor.details;
+package com.tydeya.familycircle.domain.oldfamilyinteractor.details;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -7,8 +7,8 @@ import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.data.familymember.contacts.FamilyMemberContacts;
 import com.tydeya.familycircle.data.familymember.description.FamilyMemberDescription;
 import com.tydeya.familycircle.data.familymember.otherdata.FamilyMemberCareerData;
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractor;
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractorCallback;
+import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyNetworkInteractor;
+import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyNetworkInteractorCallback;
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring;
 
 import java.util.ArrayList;

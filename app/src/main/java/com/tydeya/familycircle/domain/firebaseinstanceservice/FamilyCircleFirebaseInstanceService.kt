@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.firebaseinstanceservice
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -10,7 +9,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.tydeya.familycircle.data.constants.CLOUD_MESSAGING_KITCHEN_FRIDGE_DATA_TAG
-import com.tydeya.familycircle.domain.familyinteractor.utils.updateUserTokenInFirebase
+import com.tydeya.familycircle.domain.oldfamilyinteractor.utils.updateUserTokenInFirebase
 
 
 class FamilyCircleFirebaseInstanceService : FirebaseMessagingService() {

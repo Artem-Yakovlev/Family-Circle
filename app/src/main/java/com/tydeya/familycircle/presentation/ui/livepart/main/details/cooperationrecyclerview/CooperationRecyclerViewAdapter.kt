@@ -9,7 +9,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.cooperation.Cooperation
 import com.tydeya.familycircle.data.cooperation.CooperationType
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import javax.inject.Inject
 
 class CooperationRecyclerViewAdapter(

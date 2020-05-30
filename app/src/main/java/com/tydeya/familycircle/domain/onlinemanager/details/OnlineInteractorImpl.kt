@@ -49,14 +49,10 @@ class OnlineInteractorImpl : OnlineInteractor {
 
     override fun registerUserActivity() {
         GlobalScope.launch(Dispatchers.Default) {
-            val phoneNumber = FirebaseAuth.getInstance().currentUser!!.phoneNumber
-            FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
-                    .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, phoneNumber).get()
-                    .addOnSuccessListener {
-                        it.documents[0].reference
-                                .update(hashMapOf(FIRESTORE_USERS_LAST_ONLINE to Date())
-                                        as Map<String, Any>)
-                    }
+            FirebaseFirestore.getInstance()
+                    .collection(FIRESTORE_USERS_COLLECTION)
+                    .document(FirebaseAuth.getInstance().currentUser!!.phoneNumber ?: "")
+                    .update(hashMapOf(FIRESTORE_USERS_LAST_ONLINE to Date()) as Map<String, Any>)
         }
     }
 

@@ -3,8 +3,6 @@ package com.tydeya.familycircle.presentation.ui.registrationpart
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,7 +19,7 @@ class FirstStartActivity : AppCompatActivity(R.layout.activity_first_start) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = Navigation.findNavController(this, R.id.first_start_activity_container)
-        navigateToDestinationByMode(REGISTRATION_ONLY_FAMILY_SELECTION)
+        navigateToDestinationByMode(intent.getStringExtra(REGISTRATION_MODE) ?: REGISTRATION_FULL)
     }
 
     private fun navigateToDestinationByMode(mode: String) {

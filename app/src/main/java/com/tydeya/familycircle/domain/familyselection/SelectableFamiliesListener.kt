@@ -4,7 +4,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.tydeya.familycircle.data.constants.FireStore
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG
 import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
@@ -16,13 +15,12 @@ import kotlinx.coroutines.withContext
 class SelectableFamiliesListener(
         private val callback: SelectableFamilyListenerCallback
 ) :
-        EventListener<QuerySnapshot>, EventListenerObservable {
+        EventListener<DocumentSnapshot>, EventListenerObservable {
 
-    private val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber ?: ""
+    private val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
 
     private val userRef = FirebaseFirestore.getInstance()
-            .collection(FIRESTORE_USERS_COLLECTION)
-            .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, phoneNumber)
+            .collection(FIRESTORE_USERS_COLLECTION).document(phoneNumber)
 
     private lateinit var registration: ListenerRegistration
 
@@ -34,21 +32,19 @@ class SelectableFamiliesListener(
         registration.remove()
     }
 
-    override fun onEvent(querySnapshot: QuerySnapshot?, exception: FirebaseFirestoreException?) {
+    override fun onEvent(document: DocumentSnapshot?, exception: FirebaseFirestoreException?) {
         if (exception == null) {
             GlobalScope.launch(Dispatchers.Default) {
-                querySnapshot?.let { snapshot ->
-                    snapshot.documents[0]?.let {
+                document?.let {
 
-                        val selectableFamilies = Resource.Success(parseToFamilyDTO(
-                                titles = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_TITLES),
-                                sizes = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_SIZES),
-                                ids = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_IDS))
-                        )
+                    val selectableFamilies = Resource.Success(parseToFamilyDTO(
+                            titles = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_TITLES),
+                            sizes = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_SIZES),
+                            ids = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_IDS))
+                    )
 
-                        withContext(Dispatchers.Main) {
-                            callback.selectableFamiliesUpdated(selectableFamilies)
-                        }
+                    withContext(Dispatchers.Main) {
+                        callback.selectableFamiliesUpdated(selectableFamilies)
                     }
                 }
             }
@@ -57,9 +53,7 @@ class SelectableFamiliesListener(
         }
     }
 
-    private fun parseToFamilyDTO(titles: List<String>,
-                                 sizes: List<Int>,
-                                 ids: List<String>
+    private fun parseToFamilyDTO(titles: List<String>, sizes: List<Int>, ids: List<String>
     ):
             List<FamilyDTO> {
 

@@ -16,7 +16,7 @@ import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TA
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_STUDY_TAG
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_WORK_TAG
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
-import com.tydeya.familycircle.domain.familyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.framework.editaccount.abstraction.EditAccountTool
 import com.tydeya.familycircle.presentation.ui.managerpart.editprofile.details.EditableFamilyMember
 import kotlinx.coroutines.Dispatchers
@@ -76,23 +76,20 @@ class EditAccountToolImpl(val context: Context) : EditAccountTool {
     }
 
 
-    private fun editDataInFirebase(phoneNumber: String, editableFamilyMember: EditableFamilyMember,
+    private fun editDataInFirebase(phoneNumber: String,
+                                   editableFamilyMember: EditableFamilyMember,
                                    imageAddress: String) {
 
         FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
-                .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, phoneNumber).get()
-                .addOnSuccessListener { querySnapshot ->
-                    querySnapshot.documents[0].reference.update(hashMapOf(
-                            FIRESTORE_USERS_PHONE_TAG to phoneNumber,
-                            FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
-                            FIRESTORE_USERS_BIRTHDATE_TAG to
-                                    Date().apply { time = editableFamilyMember.birthdate },
-                            FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
-                            FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
-                            FIRESTORE_USERS_LAST_ONLINE to Date(),
-                            FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
-                }
+                .document(phoneNumber).update(hashMapOf(
+                        FIRESTORE_USERS_PHONE_TAG to phoneNumber,
+                        FIRESTORE_USERS_NAME_TAG to editableFamilyMember.name,
+                        FIRESTORE_USERS_BIRTHDATE_TAG to
+                                Date().apply { time = editableFamilyMember.birthdate },
+                        FIRESTORE_USERS_STUDY_TAG to editableFamilyMember.studyPlace,
+                        FIRESTORE_USERS_WORK_TAG to editableFamilyMember.workPlace,
+                        FIRESTORE_USERS_LAST_ONLINE to Date(),
+                        FIRESTORE_USERS_IMAGE_ADDRESS to imageAddress) as Map<String, Any>)
     }
-
-
 }
+

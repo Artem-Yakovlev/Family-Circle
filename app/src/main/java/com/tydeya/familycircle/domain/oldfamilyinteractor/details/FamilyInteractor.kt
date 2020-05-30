@@ -1,11 +1,11 @@
-package com.tydeya.familycircle.domain.familyinteractor.details
+package com.tydeya.familycircle.domain.oldfamilyinteractor.details
 
 import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.data.familymember.FamilyMember
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorCallback
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyInteractorObservable
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractor
-import com.tydeya.familycircle.domain.familyinteractor.abstraction.FamilyNetworkInteractorCallback
+import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorCallback
+import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorObservable
+import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyNetworkInteractor
+import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyNetworkInteractorCallback
 import java.util.*
 
 class FamilyInteractor : FamilyNetworkInteractorCallback, FamilyInteractorObservable {
