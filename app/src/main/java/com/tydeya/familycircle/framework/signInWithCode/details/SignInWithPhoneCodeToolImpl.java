@@ -17,12 +17,10 @@ public class SignInWithPhoneCodeToolImpl implements SignInWithPhoneCodeTool {
         this.auth = auth;
     }
 
-
     @Override
     public void signInWithCredentialCode(PhoneAuthCredential phoneAuthCredential, Activity activity) {
         auth.signInWithCredential(phoneAuthCredential)
                 .addOnCompleteListener(activity, task -> {
-
                     if (task.isSuccessful()) {
                         callback.signInIsSuccessful();
                     } else {

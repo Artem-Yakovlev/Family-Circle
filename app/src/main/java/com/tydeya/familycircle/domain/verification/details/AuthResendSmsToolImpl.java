@@ -1,11 +1,11 @@
-package com.tydeya.familycircle.framework.verification.details;
+package com.tydeya.familycircle.domain.verification.details;
 
 import android.app.Activity;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.tydeya.familycircle.framework.verification.abstraction.AuthResendSmsTool;
+import com.tydeya.familycircle.domain.verification.abstraction.AuthResendSmsTool;
 
 import java.util.concurrent.TimeUnit;
 

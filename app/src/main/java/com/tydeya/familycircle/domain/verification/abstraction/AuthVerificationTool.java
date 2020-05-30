@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.framework.verification.abstraction;
+package com.tydeya.familycircle.domain.verification.abstraction;
 
 import android.app.Activity;
 

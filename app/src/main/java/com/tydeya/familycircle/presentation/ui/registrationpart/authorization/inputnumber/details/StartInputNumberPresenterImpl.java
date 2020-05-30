@@ -6,11 +6,11 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback;
-import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool;
-import com.tydeya.familycircle.framework.verification.abstraction.AuthVerificationCallback;
-import com.tydeya.familycircle.framework.verification.abstraction.AuthVerificationTool;
-import com.tydeya.familycircle.framework.verification.details.AuthVerificationToolImpl;
+import com.tydeya.familycircle.domain.accountsync.AccountExistingCheckUpCallback;
+import com.tydeya.familycircle.domain.accountsync.AccountSyncTool;
+import com.tydeya.familycircle.domain.verification.abstraction.AuthVerificationCallback;
+import com.tydeya.familycircle.domain.verification.abstraction.AuthVerificationTool;
+import com.tydeya.familycircle.domain.verification.details.AuthVerificationToolImpl;
 import com.tydeya.familycircle.presentation.ui.registrationpart.authorization.inputnumber.abstraction.StartInputNumberPresenter;
 import com.tydeya.familycircle.presentation.ui.registrationpart.authorization.inputnumber.abstraction.StartInputNumberView;
 
@@ -52,8 +52,7 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
      */
 
     @Override
-    public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential, String fullPhoneNumber) {
-        FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential);
+    public void onVerificationCompleted(String fullPhoneNumber) {
         accountSyncTool.isAccountWithPhoneExist(fullPhoneNumber);
     }
 
@@ -63,7 +62,7 @@ public class StartInputNumberPresenterImpl implements StartInputNumberPresenter,
     }
 
     @Override
-    public void onVerificationFailed(FirebaseException e) {
+    public void onVerificationFailed(Exception e) {
         startInputNumberView.get().verificationFailed(e);
     }
 

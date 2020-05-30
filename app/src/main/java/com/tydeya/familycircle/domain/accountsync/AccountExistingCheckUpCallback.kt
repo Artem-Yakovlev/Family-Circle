@@ -1,6 +1,4 @@
-package com.tydeya.familycircle.data.authentication.accountsync
-
-import com.google.firebase.firestore.QuerySnapshot
+package com.tydeya.familycircle.domain.accountsync
 
 interface AccountExistingCheckUpCallback {
 

@@ -15,5 +15,5 @@ public interface StartInputNumberView {
 
     void accountNotExistButAuthIsSuccess();
 
-    void verificationFailed(FirebaseException e);
+    void verificationFailed(Exception e);
 }

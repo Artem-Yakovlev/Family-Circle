@@ -51,15 +51,12 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         root = inflater.inflate(R.layout.fragment_start_input_number, container, false);
 
-        // Processing of country code picker
         countryPicker = root.findViewById(R.id.start_input_phone_number_ccp);
         phoneNumberInput = root.findViewById(R.id.start_input_phone_number_input);
         countryPicker.registerCarrierNumberEditText(phoneNumberInput);
 
-        // Processing of next button
         navController = NavHostFragment.findNavController(this);
         nextButton = root.findViewById(R.id.start_input_phone_number_next);
 
@@ -69,7 +66,6 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         presenter = new StartInputNumberPresenterImpl(this);
         nextButton.setOnClickListener(v -> presenter.onClickNextButton(countryPicker.isValidFullNumber()));
     }
@@ -110,7 +106,6 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
     @Override
     public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
         closeLoadingDialog();
-
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_USER_CODE_ID, s);
         bundle.putString(BUNDLE_USER_PHONE_NUMBER, countryPicker.getFullNumberWithPlus());
@@ -118,14 +113,13 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
     }
 
     @Override
-    public void verificationFailed(FirebaseException e) {
+    public void verificationFailed(Exception e) {
         closeLoadingDialog();
         if (isOnline()) {
             Snackbar.make(root, R.string.error_message_unexpected_error, Snackbar.LENGTH_LONG).show();
         } else {
             Snackbar.make(root, R.string.error_message_no_internet_access, Snackbar.LENGTH_LONG).show();
         }
-
     }
 
     /**

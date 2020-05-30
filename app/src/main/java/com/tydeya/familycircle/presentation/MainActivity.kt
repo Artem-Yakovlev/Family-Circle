@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.authentication.accountsync.AccountExistingCheckUpCallback
-import com.tydeya.familycircle.data.authentication.accountsync.AccountSyncTool
+import com.tydeya.familycircle.domain.accountsync.AccountExistingCheckUpCallback
+import com.tydeya.familycircle.domain.accountsync.AccountSyncTool
 import com.tydeya.familycircle.data.constants.Application.*
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver

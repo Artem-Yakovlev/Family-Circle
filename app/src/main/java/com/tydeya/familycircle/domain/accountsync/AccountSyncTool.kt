@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.data.authentication.accountsync
+package com.tydeya.familycircle.domain.accountsync
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
