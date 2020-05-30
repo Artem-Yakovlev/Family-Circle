@@ -366,6 +366,7 @@
     <string name="family_selection_speed_dial_button_menu_create_family">Create a new family</string>
     <string name="dialog_create_new_family_title">Create a new family account</string>
     <string name="dialog_create_new_family_name_hint">Family Account Name</string>
+    <string name="family_account_created">Family account created!</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

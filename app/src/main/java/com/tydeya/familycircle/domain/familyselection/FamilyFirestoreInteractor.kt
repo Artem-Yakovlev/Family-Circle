@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_CURRENT_FAMILY_ID
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_IDS
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_SIZES
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_TITLES
@@ -49,4 +50,16 @@ fun createFamilyInFirebase(title: String) {
                         }
             }
 
+}
+
+fun selectCurrentFamilyInFirebase(familyId: String) {
+    val userPhone = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
+
+    FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
+            .whereEqualTo(FIRESTORE_USERS_PHONE_TAG, userPhone).get()
+            .addOnSuccessListener {
+                FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
+                        .document(it.documents[0].id)
+                        .update(mapOf(FIRESTORE_USERS_CURRENT_FAMILY_ID to familyId))
+            }
 }

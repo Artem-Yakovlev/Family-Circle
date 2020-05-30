@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogCreateNewFamilyAccountBinding
 import com.tydeya.familycircle.presentation.viewmodel.FamilySelectionViewModel
 import com.tydeya.familycircle.utils.value
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CreateNewFamilyDialogFragment : DialogFragment() {
 
@@ -46,8 +51,15 @@ class CreateNewFamilyDialogFragment : DialogFragment() {
             if (binding.familyNameInput.value == "") {
                 binding.familyNameInput.error = getString(R.string.empty_necessary_field_warning)
             } else {
-                familySelectionViewModel.createNewFamily(binding.familyNameInput.value)
-                dismiss()
+                GlobalScope.launch(Dispatchers.Default) {
+                    familySelectionViewModel.createNewFamily(binding.familyNameInput.value)
+
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), getString(R.string.family_account_created),
+                                Toast.LENGTH_LONG).show()
+                        dismiss()
+                    }
+                }
             }
         }
 

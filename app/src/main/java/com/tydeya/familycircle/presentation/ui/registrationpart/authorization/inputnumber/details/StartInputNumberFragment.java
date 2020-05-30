@@ -88,7 +88,7 @@ public class StartInputNumberFragment extends Fragment implements StartInputNumb
     public void validPhoneNumber() {
         VerifyPhoneNumberDialog.create(countryPicker.getContext(), countryPicker.getFullNumberWithPlus(),
                 (dialog, which) -> {
-                    KeyboardHelper.hideKeyboard(Objects.requireNonNull(getActivity()));
+                    KeyboardHelper.hideKeyboard(requireActivity());
 
                     loadingDialog = ProgressDialog.show(getContext(), null,
                             getString(R.string.loading_text), true);

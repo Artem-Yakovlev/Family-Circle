@@ -5,6 +5,9 @@ import com.tydeya.familycircle.utils.Resource
 
 interface SelectableFamilyListenerCallback {
 
-    fun selectableFamiliesUpdated(selectableFamilies: Resource<List<FamilyDTO>>)
+    fun selectableFamiliesUpdated(
+            selectableFamilies: Resource<List<FamilyDTO>>,
+            currentFamilyId: Resource<String>
+    )
 
 }

@@ -8,12 +8,13 @@ import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.databinding.RecyclerItemFamilySelectionBinding
 
 class SelectFamilyRecyclerViewAdapter(
+        private val clickListener: SelectFamilyRecyclerViewClickListener,
         private val families: ArrayList<FamilyDTO>
 ) :
         RecyclerView.Adapter<FamilyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FamilyViewHolder {
-        return FamilyViewHolder(RecyclerItemFamilySelectionBinding.inflate(
+        return FamilyViewHolder(clickListener, RecyclerItemFamilySelectionBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false)
         )
     }
