@@ -12,7 +12,6 @@ import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
 
-@Suppress("UNCHECKED_CAST")
 class SelectableFamiliesListener(
         private val callback: SelectableFamilyListenerCallback
 ) :
@@ -39,10 +38,10 @@ class SelectableFamiliesListener(
             querySnapshot?.let { snapshot ->
                 snapshot.documents[0]?.let {
                     callback.selectableFamiliesUpdated(Resource.Success(parseToFamilyDTO(
-                            titles = getListByTag(it, FIRESTORE_USERS_FAMILY_TITLES),
-                            icons = getListByTag(it, FIRESTORE_USERS_FAMILY_ICONS),
-                            sizes = getListByTag(it, FIRESTORE_USERS_FAMILY_SIZES),
-                            ids = getListByTag(it, FIRESTORE_USERS_FAMILY_IDS))
+                            titles = it.getListByTag(FIRESTORE_USERS_FAMILY_TITLES),
+                            icons = it.getListByTag(FIRESTORE_USERS_FAMILY_ICONS),
+                            sizes = it.getListByTag(FIRESTORE_USERS_FAMILY_SIZES),
+                            ids = it.getListByTag(FIRESTORE_USERS_FAMILY_IDS))
                     ))
                 }
             }
@@ -62,16 +61,11 @@ class SelectableFamiliesListener(
             for (i in ids.indices) {
                 add(FamilyDTO(
                         ids[i],
-                        icons[i],
                         titles[i],
                         sizes[i])
                 )
             }
         }
-    }
-
-    private fun <T> getListByTag(snapshot: DocumentSnapshot, tag: String): List<T> {
-        return (snapshot.get(tag) ?: emptyList<T>()) as List<T>
     }
 
 }

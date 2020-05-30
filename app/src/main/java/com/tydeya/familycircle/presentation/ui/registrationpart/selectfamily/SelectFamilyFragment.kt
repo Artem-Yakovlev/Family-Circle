@@ -12,7 +12,7 @@ import com.leinardi.android.speeddial.SpeedDialView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.FragmentSelectFamilyBinding
 import com.tydeya.familycircle.presentation.ui.registrationpart.selectfamily.recyclerview.SelectFamilyRecyclerViewAdapter
-import com.tydeya.familycircle.presentation.viewmodel.SelectableFamilySelectionViewModel
+import com.tydeya.familycircle.presentation.viewmodel.FamilySelectionViewModel
 import com.tydeya.familycircle.utils.Resource
 
 class SelectFamilyFragment : Fragment() {
@@ -20,7 +20,7 @@ class SelectFamilyFragment : Fragment() {
     private var _binding: FragmentSelectFamilyBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: SelectableFamilySelectionViewModel
+    private lateinit var viewModel: FamilySelectionViewModel
 
     private lateinit var adapter: SelectFamilyRecyclerViewAdapter
 
@@ -30,7 +30,7 @@ class SelectFamilyFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSelectFamilyBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(SelectableFamilySelectionViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FamilySelectionViewModel::class.java)
         return binding.root
     }
 
@@ -66,6 +66,8 @@ class SelectFamilyFragment : Fragment() {
                             return@OnActionSelectedListener true
                         }
                         R.id.create_new_family -> {
+                            CreateNewFamilyDialogFragment.newInstance()
+                                    .show(parentFragmentManager, CreateNewFamilyDialogFragment.TAG)
                             binding.floatingButton.close()
                             return@OnActionSelectedListener true
                         }

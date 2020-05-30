@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.familyselection.SelectableFamiliesListener
 import com.tydeya.familycircle.domain.familyselection.SelectableFamilyListenerCallback
+import com.tydeya.familycircle.domain.familyselection.createFamilyInFirebase
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
 
-class SelectableFamilySelectionViewModel : ViewModel(), SelectableFamilyListenerCallback {
+class FamilySelectionViewModel : ViewModel(), SelectableFamilyListenerCallback {
 
     private val selectableFamiliesListener: EventListenerObservable =
             SelectableFamiliesListener(this)
@@ -27,5 +28,9 @@ class SelectableFamilySelectionViewModel : ViewModel(), SelectableFamilyListener
 
     override fun selectableFamiliesUpdated(selectableFamilies: Resource<List<FamilyDTO>>) {
         familiesLiveData.value = selectableFamilies
+    }
+
+    fun createNewFamily(name: String) {
+        createFamilyInFirebase(name)
     }
 }

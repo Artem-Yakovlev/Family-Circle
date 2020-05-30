@@ -7,9 +7,9 @@ object FireStore {
      * */
 
     const val FIRESTORE_FAMILY_COLLECTION = "Families"
-    const val FIRESTORE_FAMILY_TITLE = "title"
-    const val FIRESTORE_FAMILY_USER_PHONES = "user_phones"
-    const val FIRESTORE_FAMILY_ICON = "icon"
+    const val FIRESTORE_FAMILY_TITLE_TAG = "title"
+    const val FIRESTORE_AUTHOR_PHONE_TAG = "author_phone"
+    const val FIRESTORE_FAMILY_MEMBER_PHONE_PREFIX = "family_member_"
 
     /**
      * Const for firestore user object
