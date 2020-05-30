@@ -73,8 +73,7 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
 
     private fun setAdapter(recyclerView: RecyclerView) {
         val adapter = CreateConversationMembersRecyclerViewAdapter(requireContext(),
-                familyInteractor.actualFamily
-                        .getFamilyMemberExceptUserPhone(
+                familyInteractor.actualFamily.getFamilyMemberExceptUserPhone(
                                 FirebaseAuth.getInstance().currentUser?.phoneNumber ?: ""),
                 this)
 

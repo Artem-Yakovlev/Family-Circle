@@ -1,8 +1,18 @@
 package com.tydeya.familycircle.data.constants
 
 object FireStore {
+
     /**
-     * Const for firebase user object
+     * Const for firestore family
+     * */
+
+    const val FIRESTORE_FAMILY_COLLECTION = "Families"
+    const val FIRESTORE_FAMILY_TITLE = "title"
+    const val FIRESTORE_FAMILY_USER_PHONES = "user_phones"
+    const val FIRESTORE_FAMILY_ICON = "icon"
+
+    /**
+     * Const for firestore user object
      */
     const val FIRESTORE_USERS_COLLECTION = "Users"
     const val FIRESTORE_USERS_PHONE_TAG = "phone_number"
@@ -12,12 +22,15 @@ object FireStore {
     const val FIRESTORE_USERS_WORK_TAG = "work_place"
     const val FIRESTORE_USERS_IMAGE_ADDRESS = "image"
     const val FIRESTORE_USERS_LAST_ONLINE = "last_online"
-    const val FIRESTORE_USERS_FAMILIES = "families"
-    const val FIRESTORE_USERS_CURRENT_FAMILY = "current_family"
+    const val FIRESTORE_USERS_FAMILY_TITLES = "family_titles"
+    const val FIRESTORE_USERS_FAMILY_ICONS = "family_icons"
+    const val FIRESTORE_USERS_FAMILY_SIZES = "family_sizes"
+    const val FIRESTORE_USERS_FAMILY_IDS = "family_ids"
+    const val FIRESTORE_USERS_CURRENT_FAMILY_ID = "current_family"
     const val FIRESTORE_USERS_FCM_TOKEN = "fcm_token"
 
     /**
-     * Const of firebase conversation object
+     * Const of firestore conversation object
      */
     const val FIRESTORE_CONVERSATION_COLLECTION = "Messenger"
     const val FIRESTORE_CONVERSATION_TITLE = "title"
@@ -25,7 +38,7 @@ object FireStore {
     const val FIRESTORE_CONVERSATION_MESSAGES = "messages"
 
     /**
-     * Const of firebase message object
+     * Const of firestore message object
      */
     const val FIRESTORE_MESSAGE_COLLECTION = "Messages"
     const val FIRESTORE_MESSAGE_TEXT = "text"
@@ -34,7 +47,7 @@ object FireStore {
     const val FIRESTORE_MESSAGE_UNREAD_PATTERN = "unread_by_"
 
     /**
-     * Const of firebase buy catalog object
+     * Const of firestore buy catalog object
      */
     const val FIRESTORE_KITCHEN_COLLECTION = "KitchenOrganizer"
     const val FIRESTORE_BUYS_CATALOG_TITLE = "title"
@@ -44,7 +57,7 @@ object FireStore {
     const val FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED = "number_of_purchased"
 
     /**
-     * Const of firebase food object
+     * Const of firestore food object
      */
     const val FIRESTORE_FOOD_TITLE = "title"
     const val FIRESTORE_FOOD_STATUS = "food_status"
@@ -53,12 +66,12 @@ object FireStore {
     const val FIRESTORE_FOOD_SHELF_LIFE_TIMESTAMP = "shelf_life_timestamp"
 
     /**
-     * Const of firebase fridge
+     * Const of firestore fridge
      */
     const val FIRESTORE_FRIDGE_COLLECTION = "Fridge"
 
     /**
-     * Const of firebase events
+     * Const of firestore events
      */
     const val FIRESTORE_EVENTS_COLLECTION = "Events"
     const val FIRESTORE_EVENTS_AUTHOR = "author"
@@ -69,7 +82,7 @@ object FireStore {
     const val FIRESTORE_EVENTS_DESCRIPTION = "description"
 
     /**
-     * Const of firebase tasks
+     * Const of firestore tasks
      */
     const val FIRESTORE_TASKS_COLLECTION = "Tasks"
     const val FIRESTORE_TASKS_AUTHOR = "author"
@@ -79,7 +92,7 @@ object FireStore {
     const val FIRESTORE_TASKS_TIME = "time"
 
     /**
-     * Const of firebase conversation
+     * Const of firestore conversation
      */
     const val FIRESTORE_COOPERATION_COLLECTION = "Cooperation"
     const val FIRESTORE_COOPERATION_AUTHOR = "author"
