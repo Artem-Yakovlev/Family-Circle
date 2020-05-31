@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.domain.oldfamilyinteractor.details
 
-import com.tydeya.familycircle.data.family.Family
+import com.tydeya.familycircle.data.family.OldFamily
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorCallback
 import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorObservable
@@ -14,7 +14,7 @@ class FamilyInteractor : FamilyNetworkInteractorCallback, FamilyInteractorObserv
 
     private val observers: ArrayList<FamilyInteractorCallback> = ArrayList()
 
-    val actualFamily = Family(0, "Test family", ArrayList())
+    val actualFamily = OldFamily(0, "Test family", ArrayList())
 
     init {
         networkInteractor.requireMembersDataFromServer()

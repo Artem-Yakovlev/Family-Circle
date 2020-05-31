@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.tydeya.familycircle.App;
 import com.tydeya.familycircle.R;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
-import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
+import com.tydeya.familycircle.data.familymember.FamilyMemberDto;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl;
 import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorCallback;

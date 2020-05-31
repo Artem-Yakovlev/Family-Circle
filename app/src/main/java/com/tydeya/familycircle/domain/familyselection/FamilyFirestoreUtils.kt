@@ -1,7 +1,7 @@
 package com.tydeya.familycircle.domain.familyselection
 
 import com.google.firebase.firestore.DocumentSnapshot
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_AUTHOR_PHONE_TAG
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_AUTHOR_PHONE_TAG
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_TITLE_TAG
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_IDS
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_SIZES
@@ -10,7 +10,7 @@ import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_T
 fun createNewFamilyFirestoreData(title: String, authorPhone: String) =
         hashMapOf(
                 FIRESTORE_FAMILY_TITLE_TAG to title,
-                FIRESTORE_AUTHOR_PHONE_TAG to authorPhone
+                FIRESTORE_FAMILY_AUTHOR_PHONE_TAG to authorPhone
         ) as Map<String, Any>
 
 

@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.data.familymember.dto;
+package com.tydeya.familycircle.data.familymember;
 
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.data.familymember.ZodiacSign;

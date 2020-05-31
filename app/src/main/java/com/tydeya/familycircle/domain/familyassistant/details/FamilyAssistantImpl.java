@@ -1,20 +1,20 @@
 package com.tydeya.familycircle.domain.familyassistant.details;
 
-import com.tydeya.familycircle.data.family.Family;
+import com.tydeya.familycircle.data.family.OldFamily;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
 import com.tydeya.familycircle.domain.familyassistant.abstraction.FamilyAssistant;
 
 public class FamilyAssistantImpl implements FamilyAssistant {
 
-    private Family family;
+    private OldFamily oldFamily;
 
-    public FamilyAssistantImpl(Family family) {
-        this.family = family;
+    public FamilyAssistantImpl(OldFamily oldFamily) {
+        this.oldFamily = oldFamily;
     }
 
     @Override
     public FamilyMember getUserByPhone(String fullPhoneNumber) {
-        for (FamilyMember familyMember : family.getFamilyMembers()) {
+        for (FamilyMember familyMember : oldFamily.getFamilyMembers()) {
             if (familyMember.getFullPhoneNumber().equals(fullPhoneNumber)) {
                 return familyMember;
             }

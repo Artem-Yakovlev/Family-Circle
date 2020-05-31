@@ -2,7 +2,7 @@ package com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.detail
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.data.familymember.FamilyMember;
-import com.tydeya.familycircle.data.familymember.dto.FamilyMemberDto;
+import com.tydeya.familycircle.data.familymember.FamilyMemberDto;
 import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.abstraction.MemberPersonPresenter;
 import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.abstraction.MemberPersonView;
 

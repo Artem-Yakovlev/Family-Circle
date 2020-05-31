@@ -21,7 +21,7 @@ import com.tydeya.familycircle.presentation.ui.conversationpart.main.recyclervie
 import com.tydeya.familycircle.presentation.MainActivity;
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.MainLiveFragment;
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
-import com.tydeya.familycircle.presentation.ui.livepart.main.details.storiesrecyclerview.FamilyMembersStoriesRecyclerViewAdapter;
+import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.FamilyMembersRecyclerViewAdapter;
 import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.details.MemberPersonFragment;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
@@ -65,7 +65,7 @@ public interface AppComponent {
 
     void injectRecyclerViewAdapter(TasksByUserRecyclerViewAdapter tasksByUserRecyclerViewAdapter);
 
-    void injectRecyclerViewAdapter(FamilyMembersStoriesRecyclerViewAdapter adapter);
+    void injectRecyclerViewAdapter(FamilyMembersRecyclerViewAdapter adapter);
 
     void injectActivity(MainActivity mainActivity);
 

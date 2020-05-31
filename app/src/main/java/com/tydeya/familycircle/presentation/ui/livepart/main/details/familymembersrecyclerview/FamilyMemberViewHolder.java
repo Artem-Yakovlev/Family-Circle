@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.ui.livepart.main.details.storiesrecyclerview;
+package com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview;
 
 import android.view.View;
 import android.widget.TextView;
@@ -30,11 +30,11 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
      * Data binding
      */
 
-    void bindData(FamilyMember familyMember, int onlineStatusColor) {
+    void bindData(FamilyMember familyMember, Boolean isOnline) {
         findAllViews();
 
         nameText.setText(familyMember.getDescription().getName());
-        userShapedImage.setStrokeColor(onlineStatusColor);
+        userShapedImage.setStrokeColor(itemView.getContext().getResources().getColor(R.color.colorTransparentGray));
         setProfileImage(familyMember.getDescription().getImageAddress());
     }
 

@@ -33,7 +33,7 @@
         android:layout_marginTop="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_live_page_family_recycler_view"
+            android:id="@+id/main_live_page_family_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -50,7 +50,7 @@
         android:textColor="@color/colorPrimary" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_live_page_family_live_tape_recycler_view"
+        android:id="@+id/main_live_page_live_tape_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
