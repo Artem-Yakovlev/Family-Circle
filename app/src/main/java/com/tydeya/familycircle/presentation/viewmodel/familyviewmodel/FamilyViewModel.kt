@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.data.familymember.FamilyMember
+import com.tydeya.familycircle.domain.familyinteraction.FamilyInteractor
 import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractor
 import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractorCallback
 import com.tydeya.familycircle.domain.familyselection.addFamilyMemberInFirestore
@@ -23,6 +24,8 @@ class FamilyViewModel(
 
     private val familyNetworkInteractor = FamilyNetworkInteractor(familyId, this)
 
+    private var familyInteractor = FamilyInteractor(ArrayList())
+
     init {
         familyNetworkInteractor.register()
     }
@@ -33,11 +36,21 @@ class FamilyViewModel(
 
     override fun familyMembersUpdated(familyMembers: Resource<ArrayList<FamilyMember>>) {
         familyMembersLiveData.value = familyMembers
+
+        familyInteractor = if (familyMembers is Resource.Success) {
+            FamilyInteractor(familyMembers.data)
+        } else {
+            FamilyInteractor(ArrayList())
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
         familyNetworkInteractor.unregister()
+    }
+
+    fun getFamilyMemberByNumber(phoneNumber: String): Resource<FamilyMember> {
+        return familyInteractor.familyMemberByPhone(phoneNumber)
     }
 
     fun inviteUserToFamily(familyId: String, phoneNumber: String) {

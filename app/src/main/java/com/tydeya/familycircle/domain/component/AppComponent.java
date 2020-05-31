@@ -22,7 +22,7 @@ import com.tydeya.familycircle.presentation.MainActivity;
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.MainLiveFragment;
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.cooperationrecyclerview.CooperationRecyclerViewAdapter;
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.FamilyMembersRecyclerViewAdapter;
-import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.details.MemberPersonFragment;
+import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.MemberPersonFragment;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;
