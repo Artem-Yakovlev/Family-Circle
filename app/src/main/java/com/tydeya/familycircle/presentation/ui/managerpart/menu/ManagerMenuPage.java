@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.ui.managerpart.menu.details;
+package com.tydeya.familycircle.presentation.ui.managerpart.menu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tydeya.familycircle.R;
-import com.tydeya.familycircle.presentation.ui.managerpart.menu.abstraction.ManagerMenuView;
-import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuItem;
-import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuItemType;
-import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.ManagerMenuRecyclerViewAdapter;
-import com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview.OnClickManagerMenuItemListener;
+import com.tydeya.familycircle.data.constants.Application;
+import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.ManagerMenuItem;
+import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.ManagerMenuItemType;
+import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.ManagerMenuRecyclerViewAdapter;
+import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.OnClickManagerMenuItemListener;
 import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity;
 
 import java.util.ArrayList;
@@ -39,11 +39,17 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     private RecyclerView recyclerView;
     private ArrayList<ManagerMenuItem> managerMenuItems = new ArrayList<>();
     private NavController navController;
+    private String familyId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main_panel_page, container, false);
         recyclerView = root.findViewById(R.id.main_panel_recycler_view);
+
+        familyId = requireActivity()
+                .getSharedPreferences(Application.SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
+                .getString(Application.CURRENT_FAMILY_ID, "");
+
         return root;
     }
 
@@ -52,7 +58,8 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
         super.onViewCreated(view, savedInstanceState);
         navController = NavHostFragment.findNavController(this);
         generateDataForManagerMenuItems();
-        ManagerMenuRecyclerViewAdapter recyclerViewAdapter = new ManagerMenuRecyclerViewAdapter(getContext(), managerMenuItems, this);
+        ManagerMenuRecyclerViewAdapter recyclerViewAdapter = new ManagerMenuRecyclerViewAdapter(
+                requireContext(), managerMenuItems, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
     }
@@ -64,6 +71,12 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
                 R.drawable.ic_account_circle_blue_24dp,
                 getString(R.string.manager_menu_item_your_profile_title),
                 ManagerMenuItemType.PROFILE));
+
+        managerMenuItems.add(new ManagerMenuItem(
+                R.drawable.ic_group_add_black_24dp,
+                getString(R.string.manager_menu_item_add_family_member),
+                ManagerMenuItemType.ADD_FAMILY_MEMBER
+        ));
 
         managerMenuItems.add(new ManagerMenuItem(
                 R.drawable.ic_cached_black_24dp,
@@ -81,11 +94,14 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
      */
 
     @Override
-    public void onClickPanelItem(ManagerMenuItemType managerMenuItemType) {
-        switch (managerMenuItemType) {
+    public void onClickPanelItem(ManagerMenuItemType itemType) {
+        switch (itemType) {
+            case ADD_FAMILY_MEMBER:
+                showDialog(itemType);
+                break;
             case PROFILE:
             case SELECT_FAMILY:
-                openPage(managerMenuItemType);
+                openPage(itemType);
                 break;
             case EXIT:
                 signOut();
@@ -116,11 +132,12 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
     }
 
     @Override
-    public void openPage(ManagerMenuItemType managerMenuItemType) {
-        switch (managerMenuItemType) {
+    public void openPage(ManagerMenuItemType itemType) {
+        switch (itemType) {
             case PROFILE:
                 Bundle bundle = new Bundle();
-                bundle.putString(BUNDLE_FULL_PHONE_NUMBER, FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+                bundle.putString(BUNDLE_FULL_PHONE_NUMBER, FirebaseAuth.getInstance()
+                        .getCurrentUser().getPhoneNumber());
                 navController.navigate(R.id.memberPersonFragment, bundle);
                 break;
             case SELECT_FAMILY:
@@ -131,6 +148,20 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
                 intent.putExtra(REGISTRATION_MODE, REGISTRATION_ONLY_FAMILY_SELECTION);
                 startActivity(intent);
                 requireActivity().finish();
+                break;
+        }
+    }
+
+    @Override
+    public void showDialog(ManagerMenuItemType itemType) {
+        switch (itemType) {
+            case ADD_FAMILY_MEMBER:
+                AddFamilyMemberDialogFragment.newInstance(familyId).show(
+                        getParentFragmentManager(),
+                        AddFamilyMemberDialogFragment.Companion.getTAG()
+                );
+                break;
+            default:
                 break;
         }
     }

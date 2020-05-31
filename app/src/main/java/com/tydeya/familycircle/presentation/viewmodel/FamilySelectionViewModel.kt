@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.familyselection.SelectableFamiliesListener
 import com.tydeya.familycircle.domain.familyselection.SelectableFamilyListenerCallback
-import com.tydeya.familycircle.domain.familyselection.createFamilyInFirebase
+import com.tydeya.familycircle.domain.familyselection.createFamilyInFirestore
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
 
@@ -36,6 +36,6 @@ class FamilySelectionViewModel : ViewModel(), SelectableFamilyListenerCallback {
     }
 
     fun createNewFamily(name: String) {
-        createFamilyInFirebase(name)
+        createFamilyInFirestore(name)
     }
 }

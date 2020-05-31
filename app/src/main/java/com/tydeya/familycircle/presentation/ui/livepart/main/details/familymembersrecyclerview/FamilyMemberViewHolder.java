@@ -14,16 +14,15 @@ import cn.gavinliu.android.lib.shapedimageview.ShapedImageView;
 
 import static com.tydeya.familycircle.utils.DipKt.getDp;
 
-public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FamilyMemberViewHolder extends RecyclerView.ViewHolder {
 
     private TextView nameText;
     private ShapedImageView userShapedImage;
-    private OnClickMemberStoryListener onClickMemberStoryListener;
+    private OnClickMemberStoryListener clickListener;
 
-    FamilyMemberViewHolder(@NonNull View itemView, OnClickMemberStoryListener onClickMemberStoryListener) {
+    FamilyMemberViewHolder(@NonNull View itemView, OnClickMemberStoryListener clickListener) {
         super(itemView);
-        this.onClickMemberStoryListener = onClickMemberStoryListener;
-        itemView.setOnClickListener(this);
+        this.clickListener = clickListener;
     }
 
     /**
@@ -36,6 +35,9 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
         nameText.setText(familyMember.getDescription().getName());
         userShapedImage.setStrokeColor(itemView.getContext().getResources().getColor(R.color.colorTransparentGray));
         setProfileImage(familyMember.getDescription().getImageAddress());
+        itemView.setOnClickListener(v -> {
+            clickListener.onClickFamilyMember(familyMember.getFullPhoneNumber());
+        });
     }
 
     private void setProfileImage(String imageAddress) {
@@ -56,10 +58,5 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder implements V
     private void findAllViews() {
         userShapedImage = itemView.findViewById(R.id.family_member_live_page_image);
         nameText = itemView.findViewById(R.id.family_member_live_page_text);
-    }
-
-    @Override
-    public void onClick(View view) {
-        onClickMemberStoryListener.onClickMemberStory(getAdapterPosition());
     }
 }

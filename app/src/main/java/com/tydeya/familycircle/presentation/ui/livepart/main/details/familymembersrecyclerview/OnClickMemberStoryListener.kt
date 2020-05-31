@@ -2,5 +2,5 @@ package com.tydeya.familycircle.presentation.ui.livepart.main.details.familymemb
 
 interface OnClickMemberStoryListener {
 
-    fun onClickMemberStory(position: Int)
+    fun onClickFamilyMember(phoneNumber: String)
 }

@@ -370,6 +370,10 @@
     <string name="welcome_message_description">Thank you for using our application. Everything is ready to use.</string>
     <string name="welcome_message_title">You are welcome</string>
     <string name="manager_menu_item_select_family_title">Switch family</string>
+    <string name="manager_menu_item_add_family_member">Add family member</string>
+    <string name="dialog_add_family_member_title">Add family number by phone</string>
+    <string name="dialog_add_family_member_input_hint">Phone Number</string>
+    <string name="add_family_member_success_toast_text">The invitation is sent</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

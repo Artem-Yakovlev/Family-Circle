@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application
+import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER
 import com.tydeya.familycircle.databinding.FragmentMainLivePageBinding
 import com.tydeya.familycircle.domain.cooperationorganizer.interactor.abstraction.CooperationInteractorCallback
 import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorCallback
@@ -20,7 +24,7 @@ import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyView
 import com.tydeya.familycircle.utils.Resource
 import java.util.*
 
-class MainLiveFragment : Fragment(), OnClickMemberStoryListener, FamilyInteractorCallback, CooperationInteractorCallback {
+class MainLiveFragment : Fragment(), OnClickMemberStoryListener, CooperationInteractorCallback {
 
     private var _binding: FragmentMainLivePageBinding? = null
     private val binding get() = _binding!!
@@ -80,17 +84,11 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener, FamilyInteracto
 //                context, LinearLayoutManager.VERTICAL, false)
 //    }
 
-    override fun onClickMemberStory(position: Int) {
-//        Bundle bundle = new Bundle();
-//        bundle.putString(BUNDLE_FULL_PHONE_NUMBER, familyInteractor.getActualFamily()
-//                .getFamilyMembers().get(position).getFullPhoneNumber());
-//
-//        NavHostFragment.findNavController(this)
-//                .navigate(R.id.familyMemberViewFragment, bundle);
-    }
-
-    override fun memberDataUpdated() {
-//        recyclerViewAdapter.refreshData(familyInteractor.getActualFamily().getFamilyMembers());
+    override fun onClickFamilyMember(phoneNumber: String) {
+        NavHostFragment.findNavController(this).navigate(
+                R.id.familyMemberViewFragment,
+                bundleOf(BUNDLE_FULL_PHONE_NUMBER to phoneNumber)
+        )
     }
 
     override fun cooperationDataFromServerUpdated() {

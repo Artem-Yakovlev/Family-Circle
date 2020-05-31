@@ -5,11 +5,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_IDS
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_INVITES
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_SIZES
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_TITLES
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG
 
-fun createFamilyInFirebase(title: String) {
+fun createFamilyInFirestore(title: String) {
 
     val firebaseFirestore = FirebaseFirestore.getInstance()
     val authorPhone = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
@@ -48,5 +48,19 @@ fun createFamilyInFirebase(title: String) {
                             }
                         }
             }
+}
 
+fun addFamilyMemberInFirestore(familyId: String, phoneNumber: String) {
+    val firebaseFirestore = FirebaseFirestore.getInstance()
+
+    firebaseFirestore
+            .collection(FIRESTORE_USERS_COLLECTION)
+            .document(phoneNumber).get()
+            .addOnSuccessListener {
+                val invites = it.getListByTag<String>(FIRESTORE_USERS_FAMILY_INVITES)
+                invites.add(familyId)
+                firebaseFirestore.collection(FIRESTORE_USERS_COLLECTION)
+                        .document(phoneNumber)
+                        .update(mapOf(FIRESTORE_USERS_FAMILY_INVITES to invites))
+            }
 }

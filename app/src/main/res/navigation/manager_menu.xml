@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainPanelPage"
-        android:name="com.tydeya.familycircle.presentation.ui.managerpart.menu.details.ManagerMenuPage"
+        android:name="com.tydeya.familycircle.presentation.ui.managerpart.menu.ManagerMenuPage"
         tools:layout="@layout/fragment_main_panel_page"
         android:label="fragment_main_panel_page">
         <action

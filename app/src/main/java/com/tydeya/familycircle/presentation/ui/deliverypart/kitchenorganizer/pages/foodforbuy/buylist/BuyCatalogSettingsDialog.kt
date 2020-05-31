@@ -104,8 +104,4 @@ class BuyCatalogSettingsDialog : DialogFragment() {
         binding.dialogBuyCatalogSettingsCancelButton.setOnClickListener { dismiss() }
     }
 
-    companion object {
-
-    }
-
 }

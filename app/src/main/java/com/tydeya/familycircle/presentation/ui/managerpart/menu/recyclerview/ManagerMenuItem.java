@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.ui.managerpart.menu.details.recyclerview;
+package com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview;
 
 public class ManagerMenuItem {
 

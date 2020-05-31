@@ -7,6 +7,7 @@ import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractor
 import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractorCallback
+import com.tydeya.familycircle.domain.familyselection.addFamilyMemberInFirestore
 import com.tydeya.familycircle.utils.Resource
 
 class FamilyViewModel(
@@ -37,5 +38,9 @@ class FamilyViewModel(
     override fun onCleared() {
         super.onCleared()
         familyNetworkInteractor.unregister()
+    }
+
+    fun inviteUserToFamily(familyId: String, phoneNumber: String) {
+        addFamilyMemberInFirestore(familyId, phoneNumber)
     }
 }

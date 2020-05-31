@@ -25,6 +25,7 @@ object FireStore {
     const val FIRESTORE_USERS_FAMILY_TITLES = "family_titles"
     const val FIRESTORE_USERS_FAMILY_ICONS = "family_icons"
     const val FIRESTORE_USERS_FAMILY_SIZES = "family_sizes"
+    const val FIRESTORE_USERS_FAMILY_INVITES = "family_invites"
     const val FIRESTORE_USERS_FAMILY_IDS = "family_ids"
     const val FIRESTORE_USERS_FCM_TOKEN = "fcm_token"
 
