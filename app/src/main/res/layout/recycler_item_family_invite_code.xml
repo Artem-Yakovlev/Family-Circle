@@ -13,37 +13,41 @@
 
         <TextView
             android:id="@+id/invite_code"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            tool:text="12345678901234567890" />
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="12345678901234567890"
+            android:gravity="center_horizontal"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/accept_code_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/accept"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textColor="@color/colorWhite"
+            android:theme="@style/FormButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/invite_code"
-            app:layout_constraintTop_toBottomOf="@+id/invite_code" />
+            app:layout_constraintTop_toBottomOf="@+id/invite_code"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/refuse_code_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/refuse"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textColor="@color/colorWhite"
+            android:theme="@style/FormButton"
             app:layout_constraintEnd_toEndOf="@+id/invite_code"
-            app:layout_constraintTop_toBottomOf="@+id/invite_code" />
+            app:layout_constraintTop_toBottomOf="@+id/invite_code"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

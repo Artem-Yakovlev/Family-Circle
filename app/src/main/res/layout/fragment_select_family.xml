@@ -9,7 +9,7 @@
     tools:context=".presentation.ui.registrationpart.familyselection.SelectFamilyFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/select_family_page_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_family_page_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.leinardi.android.speeddial.SpeedDialOverlayLayout
         android:id="@+id/overlay"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_family_page_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/floatingButton"

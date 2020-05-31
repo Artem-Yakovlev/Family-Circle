@@ -15,8 +15,6 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER
 import com.tydeya.familycircle.databinding.FragmentMainLivePageBinding
-import com.tydeya.familycircle.domain.cooperationorganizer.interactor.abstraction.CooperationInteractorCallback
-import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyInteractorCallback
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.FamilyMembersRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.OnClickMemberStoryListener
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
@@ -24,7 +22,7 @@ import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyView
 import com.tydeya.familycircle.utils.Resource
 import java.util.*
 
-class MainLiveFragment : Fragment(), OnClickMemberStoryListener, CooperationInteractorCallback {
+class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
 
     private var _binding: FragmentMainLivePageBinding? = null
     private val binding get() = _binding!!
@@ -33,9 +31,6 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener, CooperationInte
 
     private lateinit var familyViewModelFactory: FamilyViewModelFactory
     private lateinit var familyViewModel: FamilyViewModel
-
-//    @Inject
-//    var cooperationInteractor: CooperationInteractor? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMainLivePageBinding.inflate(inflater, container, false)
@@ -54,6 +49,7 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener, CooperationInte
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFamilyStoriesRecyclerView()
+        initToolbar()
     }
 
     private fun initFamilyStoriesRecyclerView() {
@@ -77,12 +73,19 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener, CooperationInte
         })
     }
 
-//    private fun initCooperationRecyclerView() {
-//        cooperationRecyclerViewAdapter = CooperationRecyclerViewAdapter(requireContext(), ArrayList())
-//        binding.mainLivePageLiveTapeRecyclerview.adapter = cooperationRecyclerViewAdapter
-//        binding.mainLivePageLiveTapeRecyclerview.layoutManager = LinearLayoutManager(
-//                context, LinearLayoutManager.VERTICAL, false)
-//    }
+    private fun initToolbar() {
+        familyViewModel.familyData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            when(it) {
+                is Resource.Success -> {
+                    binding.toolbar.title = it.data.title
+                }
+
+                is Resource.Loading -> {
+                    binding.toolbar.title = getString(R.string.loading)
+                }
+            }
+        })
+    }
 
     override fun onClickFamilyMember(phoneNumber: String) {
         NavHostFragment.findNavController(this).navigate(
@@ -91,17 +94,4 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener, CooperationInte
         )
     }
 
-    override fun cooperationDataFromServerUpdated() {
-//        cooperationRecyclerViewAdapter!!.refreshData(cooperationInteractor!!.cooperationData)
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        cooperationInteractor!!.unsubscribe(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        cooperationInteractor!!.subscribe(this)
-    }
 }

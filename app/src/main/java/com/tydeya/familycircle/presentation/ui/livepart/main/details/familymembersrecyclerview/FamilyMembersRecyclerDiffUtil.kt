@@ -11,8 +11,10 @@ class FamilyMembersRecyclerDiffUtil(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
             oldList[oldItemPosition].fullPhoneNumber == newList[newItemPosition].fullPhoneNumber
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldList[oldItemPosition] == newList[newItemPosition]
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].description.name == newList[newItemPosition].description.name
+                && oldList[oldItemPosition].description.imageAddress == newList[newItemPosition].description.imageAddress
+    }
 
     override fun getOldListSize() = oldList.size
 
