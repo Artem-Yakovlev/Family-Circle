@@ -7,7 +7,7 @@
         android:title="@string/family_selection_speed_dial_button_menu_create_family" />
 
     <item
-        android:id="@+id/join_via_code"
+        android:id="@+id/join_via_invite_code"
         android:icon="@drawable/ic_link_black_24dp"
         android:title="@string/family_selection_speed_dial_button_menu_join_via_code" />
 

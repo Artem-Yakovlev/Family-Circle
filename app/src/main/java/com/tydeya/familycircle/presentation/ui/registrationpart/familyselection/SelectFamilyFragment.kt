@@ -15,6 +15,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.Application.CURRENT_FAMILY_ID
 import com.tydeya.familycircle.data.constants.Application.SHARED_PREFERENCE_USER_SETTINGS
 import com.tydeya.familycircle.databinding.FragmentSelectFamilyBinding
+import com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.jointofamilyviacode.JoinToFamilyViaCodeDialog
 import com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.recyclerview.SelectFamilyRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.registrationpart.familyselection.recyclerview.SelectFamilyRecyclerViewClickListener
 import com.tydeya.familycircle.presentation.viewmodel.FamilySelectionViewModel
@@ -51,7 +52,7 @@ class SelectFamilyFragment : Fragment(), SelectFamilyRecyclerViewClickListener {
         binding.familiesRecyclerview.layoutManager = LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false)
 
-        viewModel.familiesLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.families.observe(viewLifecycleOwner, Observer {
             if (it is Resource.Success) {
                 adapter.refreshData(it.data)
             } else {
@@ -66,7 +67,9 @@ class SelectFamilyFragment : Fragment(), SelectFamilyRecyclerViewClickListener {
         binding.floatingButton
                 .setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
                     when (actionItem.id) {
-                        R.id.join_via_code -> {
+                        R.id.join_via_invite_code -> {
+                            JoinToFamilyViaCodeDialog.newInstance()
+                                    .show(parentFragmentManager, JoinToFamilyViaCodeDialog.TAG)
                             binding.floatingButton.close()
                             return@OnActionSelectedListener true
                         }

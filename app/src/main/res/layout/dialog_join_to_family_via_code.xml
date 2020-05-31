@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/dialog_selection_family_page_invites_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dialog_selection_page_invites_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingVertical="10dp"
+        tool:listitem="@layout/recycler_item_family_invite_code"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/dialog_new_buy_list_cancel"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textColor="@color/colorWhite"
+            android:theme="@style/FormButton" />
+
+    </LinearLayout>
+
+</LinearLayout>

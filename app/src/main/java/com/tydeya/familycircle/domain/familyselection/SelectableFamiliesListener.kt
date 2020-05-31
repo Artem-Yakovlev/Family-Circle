@@ -2,8 +2,11 @@ package com.tydeya.familycircle.domain.familyselection
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.tydeya.familycircle.data.constants.FireStore
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_IDS
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_INVITES
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_SIZES
+import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_TITLES
 import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
@@ -38,18 +41,22 @@ class SelectableFamiliesListener(
                 document?.let {
 
                     val selectableFamilies = Resource.Success(parseToFamilyDTO(
-                            titles = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_TITLES),
-                            sizes = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_SIZES),
-                            ids = it.getListByTag(FireStore.FIRESTORE_USERS_FAMILY_IDS))
+                            titles = it.getListByTag(FIRESTORE_USERS_FAMILY_TITLES),
+                            sizes = it.getListByTag(FIRESTORE_USERS_FAMILY_SIZES),
+                            ids = it.getListByTag(FIRESTORE_USERS_FAMILY_IDS))
+                    )
+
+                    val inviteCodes = Resource.Success(
+                            it.getListByTag<String>(FIRESTORE_USERS_FAMILY_INVITES)
                     )
 
                     withContext(Dispatchers.Main) {
-                        callback.selectableFamiliesUpdated(selectableFamilies)
+                        callback.selectableFamiliesUpdated(selectableFamilies, inviteCodes)
                     }
                 }
             }
         } else {
-            callback.selectableFamiliesUpdated(Resource.Failure(exception))
+            callback.selectableFamiliesUpdated(Resource.Failure(exception), Resource.Failure(exception))
         }
     }
 

@@ -8,8 +8,8 @@ object FireStore {
 
     const val FIRESTORE_FAMILY_COLLECTION = "Families"
     const val FIRESTORE_FAMILY_TITLE_TAG = "title"
+    const val FIRESTORE_FAMILY_NUMBER_OF_MEMBERS_TAG = "number_of_members"
     const val FIRESTORE_FAMILY_AUTHOR_PHONE_TAG = "author_phone"
-    const val FIRESTORE_FAMILY_MEMBERS_COLLECTION = "Members"
 
     /**
      * Const for firestore user object
