@@ -15,9 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_BIRTHDATE_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_BIRTH_TAG;
 import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_IMAGE_ADDRESS;
+import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_IMAGE_PATH;
 import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_LAST_ONLINE;
 import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_NAME_TAG;
 import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG;
@@ -88,9 +88,9 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 
         userDataForFirestore.put(FIRESTORE_USERS_PHONE_TAG, fullPhoneNumber);
         userDataForFirestore.put(FIRESTORE_USERS_NAME_TAG, name);
-        userDataForFirestore.put(FIRESTORE_USERS_BIRTHDATE_TAG, new Date(birthDate));
+        userDataForFirestore.put(FIRESTORE_USERS_BIRTH_TAG, new Date(birthDate));
         userDataForFirestore.put(FIRESTORE_USERS_LAST_ONLINE, new Date());
-        userDataForFirestore.put(FIRESTORE_USERS_IMAGE_ADDRESS, imageAddress);
+        userDataForFirestore.put(FIRESTORE_USERS_IMAGE_PATH, imageAddress);
 
         return userDataForFirestore;
     }

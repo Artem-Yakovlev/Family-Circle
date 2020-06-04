@@ -16,7 +16,7 @@ import com.tydeya.familycircle.databinding.FragmentFoodForBuyBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.AllBuyCatalogsRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.OnBuyCatalogClickListener
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.presentation.viewmodel.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.AllBuyCatalogsViewModel
 import kotlinx.android.synthetic.main.fragment_food_for_buy.*
 
 class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {

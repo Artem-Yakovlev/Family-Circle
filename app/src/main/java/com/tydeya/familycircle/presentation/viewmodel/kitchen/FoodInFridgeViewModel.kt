@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.viewmodel
+package com.tydeya.familycircle.presentation.viewmodel.kitchen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

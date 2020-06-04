@@ -1,7 +1,6 @@
 package com.tydeya.familycircle.presentation
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -14,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.domain.accountsync.AccountExistingCheckUpCallback
-import com.tydeya.familycircle.domain.accountsync.AccountSyncTool
+import com.tydeya.familycircle.domain.account.AccountExistingCheckUpCallback
+import com.tydeya.familycircle.domain.account.AccountSyncTool
 import com.tydeya.familycircle.data.constants.Application.*
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver
@@ -23,6 +22,7 @@ import com.tydeya.familycircle.domain.messenger.interactor.abstraction.Messenger
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity
 import com.tydeya.familycircle.presentation.viewmodel.CroppedImageViewModel
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -108,10 +108,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
 
     override fun accountIsExist(userId: String, families: List<String>) {
 
-        val preferences = getSharedPreferences(SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
-        val currentFamily = preferences.getString(CURRENT_FAMILY_ID, "")
-
-        if (currentFamily in families) {
+        if (currentFamilyId in families) {
             App.getComponent().injectActivity(this)
             if (isSavedInstanceNull) {
                 isEntrySuccessful = true
@@ -120,8 +117,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
             }
             splashStubVisibility(false)
         } else {
-            getSharedPreferences(SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
-                    .edit().putString(CURRENT_FAMILY_ID, "").apply()
+            currentFamilyId = ""
             startRegistration(REGISTRATION_ONLY_FAMILY_SELECTION)
         }
     }

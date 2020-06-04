@@ -19,7 +19,7 @@ import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pag
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.presentation.viewmodel.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.AllBuyCatalogsViewModel
 import com.tydeya.familycircle.presentation.viewmodel.buycatalogviewmodel.BuyCatalogViewModel
 import com.tydeya.familycircle.presentation.viewmodel.buycatalogviewmodel.BuyCatalogViewModelFactory
 

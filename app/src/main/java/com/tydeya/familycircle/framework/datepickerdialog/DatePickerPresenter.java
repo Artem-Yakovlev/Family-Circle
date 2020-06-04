@@ -9,10 +9,10 @@ import java.util.GregorianCalendar;
 
 public class DatePickerPresenter implements View.OnClickListener {
 
-    private WeakReference<DatePickerUsable> datePickerUsable;
+    private DatePickerUsable datePickerUsable;
     private Calendar datePickerUpperLimit;
 
-    public DatePickerPresenter(WeakReference<DatePickerUsable> datePickerUsable,
+    public DatePickerPresenter(DatePickerUsable datePickerUsable,
                                Calendar datePickerUpperLimit) {
 
         this.datePickerUsable = datePickerUsable;
@@ -27,7 +27,7 @@ public class DatePickerPresenter implements View.OnClickListener {
 
         DatePickerDialog.OnDateSetListener dateSetListener =
                 (view1, year, monthOfYear, dayOfMonth) -> {
-                    datePickerUsable.get().dateChanged(year, monthOfYear, dayOfMonth);
+                    datePickerUsable.dateChanged(year, monthOfYear, dayOfMonth);
                 };
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(), dateSetListener,

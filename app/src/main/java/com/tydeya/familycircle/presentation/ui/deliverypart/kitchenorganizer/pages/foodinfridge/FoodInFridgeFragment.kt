@@ -24,7 +24,7 @@ import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.bar
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
-import com.tydeya.familycircle.presentation.viewmodel.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.FoodInFridgeViewModel
 import com.tydeya.familycircle.utils.Resource
 
 

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogCreateNewFamilyAccountBinding
 import com.tydeya.familycircle.presentation.viewmodel.FamilySelectionViewModel
-import com.tydeya.familycircle.utils.value
+import com.tydeya.familycircle.utils.extensions.value
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

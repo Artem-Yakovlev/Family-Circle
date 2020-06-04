@@ -31,7 +31,6 @@ import com.tydeya.familycircle.framework.simplehelpers.DataConfirming;
 import com.tydeya.familycircle.presentation.ui.registrationpart.accountcreation.abstraction.CreateNewAccountPresenter;
 import com.tydeya.familycircle.presentation.ui.registrationpart.accountcreation.abstraction.CreateNewAccountView;
 
-import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -78,7 +77,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
         presenter = new CreateNewAccountPresenterImpl(this, getArguments().getString(BUNDLE_PHONE_NUMBER));
 
-        dateCard.setOnClickListener(new DatePickerPresenter(new WeakReference<>(this), Calendar.getInstance()));
+        dateCard.setOnClickListener(new DatePickerPresenter(this, Calendar.getInstance()));
 
         userPhotoImage.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)

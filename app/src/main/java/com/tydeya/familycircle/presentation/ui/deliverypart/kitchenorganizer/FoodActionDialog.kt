@@ -18,7 +18,7 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.FoodStatus
 import com.tydeya.familycircle.data.kitchenorganizer.food.MeasureType
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
-import com.tydeya.familycircle.utils.value
+import com.tydeya.familycircle.utils.extensions.value
 import java.math.BigDecimal
 import java.util.*
 

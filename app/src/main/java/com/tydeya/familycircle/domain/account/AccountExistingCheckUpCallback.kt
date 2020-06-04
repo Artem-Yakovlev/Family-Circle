@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.domain.accountsync
+package com.tydeya.familycircle.domain.account
 
 interface AccountExistingCheckUpCallback {
 

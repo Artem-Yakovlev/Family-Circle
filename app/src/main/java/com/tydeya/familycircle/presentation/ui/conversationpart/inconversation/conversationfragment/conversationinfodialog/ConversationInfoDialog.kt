@@ -13,7 +13,7 @@ import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImp
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
-import com.tydeya.familycircle.utils.value
+import com.tydeya.familycircle.utils.extensions.value
 import kotlinx.android.synthetic.main.dialog_conversation_info.view.*
 import javax.inject.Inject
 

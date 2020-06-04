@@ -1,6 +1,5 @@
-package com.tydeya.familycircle.presentation.viewmodel
+package com.tydeya.familycircle.presentation.viewmodel.kitchen
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.constants.progaOnlineAuthentic

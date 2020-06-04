@@ -13,7 +13,7 @@ import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.c
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialogListener
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter
-import com.tydeya.familycircle.utils.value
+import com.tydeya.familycircle.utils.extensions.value
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
 import javax.inject.Inject
 

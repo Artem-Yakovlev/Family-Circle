@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -14,13 +13,13 @@ import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.constants.Application
 import com.tydeya.familycircle.data.constants.NavigateConsts
 import com.tydeya.familycircle.data.familymember.FamilyMemberDto
 import com.tydeya.familycircle.databinding.FragmentFamilyMemberViewBinding
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import com.tydeya.familycircle.utils.getDp
 
 class MemberPersonFragment : Fragment() {
@@ -28,18 +27,13 @@ class MemberPersonFragment : Fragment() {
     private var _binding: FragmentFamilyMemberViewBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var familyViewModelFactory: FamilyViewModelFactory
     private lateinit var familyViewModel: FamilyViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentFamilyMemberViewBinding.inflate(inflater, container, false)
 
-        val familyId = requireActivity()
-                .getSharedPreferences(Application.SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
-                .getString(Application.CURRENT_FAMILY_ID, "")!!
-
-        familyViewModelFactory = FamilyViewModelFactory(familyId)
-        familyViewModel = ViewModelProviders.of(requireActivity(), familyViewModelFactory)
+        familyViewModel = ViewModelProviders
+                .of(requireActivity(), FamilyViewModelFactory(requireActivity().currentFamilyId))
                 .get(FamilyViewModel::class.java)
         return binding.root
     }

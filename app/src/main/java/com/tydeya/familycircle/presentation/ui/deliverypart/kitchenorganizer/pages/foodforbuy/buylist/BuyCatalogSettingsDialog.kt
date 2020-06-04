@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogBuyListSettingsBinding
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.presentation.viewmodel.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.AllBuyCatalogsViewModel
 import com.tydeya.familycircle.presentation.viewmodel.buycatalogviewmodel.BuyCatalogViewModel
-import com.tydeya.familycircle.utils.value
+import com.tydeya.familycircle.utils.extensions.value
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

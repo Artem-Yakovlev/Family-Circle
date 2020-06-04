@@ -377,6 +377,7 @@
     <string name="select_family_page_active_recycler_title">Active families:</string>
     <string name="select_family_page_invites_recycler_title">Family Invitation Codes:</string>
     <string name="dialog_selection_family_page_invites_title">Invitation Keys</string>
+    <string name="success">Success</string>
     <string name="accept">Accept</string>
     <string name="refuse">Refuse</string>
 

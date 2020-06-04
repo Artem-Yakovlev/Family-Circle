@@ -2,12 +2,9 @@ package com.tydeya.familycircle.presentation.ui.registrationpart.authorization.i
 
 import android.app.Activity;
 
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.tydeya.familycircle.domain.accountsync.AccountExistingCheckUpCallback;
-import com.tydeya.familycircle.domain.accountsync.AccountSyncTool;
+import com.tydeya.familycircle.domain.account.AccountExistingCheckUpCallback;
+import com.tydeya.familycircle.domain.account.AccountSyncTool;
 import com.tydeya.familycircle.domain.verification.abstraction.AuthVerificationCallback;
 import com.tydeya.familycircle.domain.verification.abstraction.AuthVerificationTool;
 import com.tydeya.familycircle.domain.verification.details.AuthVerificationToolImpl;

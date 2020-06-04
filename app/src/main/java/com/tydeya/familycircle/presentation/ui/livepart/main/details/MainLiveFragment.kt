@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.presentation.ui.livepart.main.details
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.constants.Application
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER
 import com.tydeya.familycircle.databinding.FragmentMainLivePageBinding
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.FamilyMembersRecyclerViewAdapter
@@ -20,6 +18,7 @@ import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembe
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import java.util.*
 
 class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
@@ -29,18 +28,13 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
 
     private lateinit var familyRecyclerViewAdapter: FamilyMembersRecyclerViewAdapter
 
-    private lateinit var familyViewModelFactory: FamilyViewModelFactory
     private lateinit var familyViewModel: FamilyViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMainLivePageBinding.inflate(inflater, container, false)
 
-        val familyId = requireActivity()
-                .getSharedPreferences(Application.SHARED_PREFERENCE_USER_SETTINGS, Context.MODE_PRIVATE)
-                .getString(Application.CURRENT_FAMILY_ID, "")!!
-
-        familyViewModelFactory = FamilyViewModelFactory(familyId)
-        familyViewModel = ViewModelProviders.of(requireActivity(), familyViewModelFactory)
+        familyViewModel = ViewModelProviders
+                .of(requireActivity(), FamilyViewModelFactory(requireActivity().currentFamilyId))
                 .get(FamilyViewModel::class.java)
 
         return binding.root
@@ -75,7 +69,7 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
 
     private fun initToolbar() {
         familyViewModel.familyData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            when(it) {
+            when (it) {
                 is Resource.Success -> {
                     binding.toolbar.title = it.data.title
                 }

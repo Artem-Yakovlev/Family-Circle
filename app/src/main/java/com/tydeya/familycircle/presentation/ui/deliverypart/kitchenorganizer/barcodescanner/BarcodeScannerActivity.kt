@@ -24,7 +24,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.BarcodeResource
 import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.ScannedProduct
 import com.tydeya.familycircle.databinding.ActivityBarcodeScannerBinding
-import com.tydeya.familycircle.presentation.viewmodel.BarcodeScannerViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.BarcodeScannerViewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.math.abs
