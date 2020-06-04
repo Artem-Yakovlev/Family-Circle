@@ -10,6 +10,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 import javax.inject.Inject
 
 const val OUTGOING_MESSAGE_VIEW_TYPE = 0
@@ -23,7 +24,7 @@ class InConversationChatRecyclerViewAdapter(
     @Inject
     lateinit var familyInteractor: FamilyInteractor
 
-    private val userPhoneNumber = FirebaseAuth.getInstance().currentUser!!.phoneNumber
+    private val userPhoneNumber = getUserPhone()
 
     init {
         App.getComponent().injectRecyclerViewAdapter(this)

@@ -12,7 +12,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FRIDGE_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FRIDGE_COLLECTION
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.convertServerDataToFood
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,7 +28,7 @@ const val SHELF_LIFE_TAG = "SHELF_LIFE"
 class KitchenOrganizerShelfLifeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_FRIDGE_COLLECTION).get()
+        FirebaseFirestore.getInstance().collection(FRIDGE_COLLECTION).get()
                 .addOnSuccessListener { querySnapshot ->
 
                     val actualTimestamp = System.currentTimeMillis()

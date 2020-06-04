@@ -2,11 +2,11 @@ package com.tydeya.familycircle.domain.familyselection
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_IDS
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_INVITES
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_SIZES
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_TITLES
+import com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_IDS
+import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_INVITES
+import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_SIZES
+import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_TITLES
 import com.tydeya.familycircle.data.family.FamilyDTO
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
@@ -23,7 +23,7 @@ class SelectableFamiliesListener(
     private val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
 
     private val userRef = FirebaseFirestore.getInstance()
-            .collection(FIRESTORE_USERS_COLLECTION).document(phoneNumber)
+            .collection(USERS_COLLECTION).document(phoneNumber)
 
     private lateinit var registration: ListenerRegistration
 
@@ -41,13 +41,13 @@ class SelectableFamiliesListener(
                 document?.let {
 
                     val selectableFamilies = Resource.Success(parseToFamilyDTO(
-                            titles = it.getListByTag(FIRESTORE_USERS_FAMILY_TITLES),
-                            sizes = it.getListByTag(FIRESTORE_USERS_FAMILY_SIZES),
-                            ids = it.getListByTag(FIRESTORE_USERS_FAMILY_IDS))
+                            titles = it.getListByTag(USERS_FAMILY_TITLES),
+                            sizes = it.getListByTag(USERS_FAMILY_SIZES),
+                            ids = it.getListByTag(USERS_FAMILY_IDS))
                     )
 
                     val inviteCodes = Resource.Success(
-                            it.getListByTag<String>(FIRESTORE_USERS_FAMILY_INVITES)
+                            it.getListByTag<String>(USERS_FAMILY_INVITES)
                     )
 
                     withContext(Dispatchers.Main) {

@@ -11,8 +11,8 @@ class FamilyEventsReminderEventListener(
         EventListener<QuerySnapshot>, EventListenerObservable {
 
     private val familyEventsCollectionRef = FirebaseFirestore.getInstance()
-            .collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .orderBy(FireStore.FIRESTORE_BUYS_CATALOG_DATE, Query.Direction.DESCENDING)
+            .collection(FireStore.KITCHEN_COLLECTION)
+            .orderBy(FireStore.BUYS_CATALOG_DATE, Query.Direction.DESCENDING)
 
     private lateinit var registration: ListenerRegistration
 

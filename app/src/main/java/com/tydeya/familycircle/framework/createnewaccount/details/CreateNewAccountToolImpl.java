@@ -15,12 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.tydeya.familycircle.data.constants.FireStorage.FIRESTORAGE_PROFILE_IMAGE_DIRECTORY;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_BIRTH_TAG;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_IMAGE_PATH;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_LAST_ONLINE;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_NAME_TAG;
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_PHONE_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_BIRTH_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_IMAGE_PATH;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_LAST_ONLINE;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_NAME_TAG;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_PHONE_TAG;
 
 public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 
@@ -70,7 +70,7 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 
     private void createAccount(Map<String, Object> dataForFirestore) {
         
-        FirebaseFirestore.getInstance().collection(FIRESTORE_USERS_COLLECTION)
+        FirebaseFirestore.getInstance().collection(USERS_COLLECTION)
                 .document(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
                 .set(dataForFirestore)
                 .addOnSuccessListener(documentReference -> {
@@ -86,11 +86,11 @@ public class CreateNewAccountToolImpl implements CreateNewAccountTool {
 
         Map<String, Object> userDataForFirestore = new HashMap<>();
 
-        userDataForFirestore.put(FIRESTORE_USERS_PHONE_TAG, fullPhoneNumber);
-        userDataForFirestore.put(FIRESTORE_USERS_NAME_TAG, name);
-        userDataForFirestore.put(FIRESTORE_USERS_BIRTH_TAG, new Date(birthDate));
-        userDataForFirestore.put(FIRESTORE_USERS_LAST_ONLINE, new Date());
-        userDataForFirestore.put(FIRESTORE_USERS_IMAGE_PATH, imageAddress);
+        userDataForFirestore.put(USERS_PHONE_TAG, fullPhoneNumber);
+        userDataForFirestore.put(USERS_NAME_TAG, name);
+        userDataForFirestore.put(USERS_BIRTH_TAG, new Date(birthDate));
+        userDataForFirestore.put(USERS_LAST_ONLINE, new Date());
+        userDataForFirestore.put(USERS_IMAGE_PATH, imageAddress);
 
         return userDataForFirestore;
     }

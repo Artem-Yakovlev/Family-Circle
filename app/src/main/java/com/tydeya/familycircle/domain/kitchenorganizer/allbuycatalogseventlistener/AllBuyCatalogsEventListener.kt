@@ -2,11 +2,11 @@ package com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventliste
 
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_BUYS_CATALOG_DATE
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_BUYS_CATALOG_NUMBER_PRODUCTS
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_BUYS_CATALOG_TITLE
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_KITCHEN_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.BUYS_CATALOG_DATE
+import com.tydeya.familycircle.data.constants.FireStore.BUYS_CATALOG_NUMBER_PRODUCTS
+import com.tydeya.familycircle.data.constants.FireStore.BUYS_CATALOG_NUMBER_PURCHASED
+import com.tydeya.familycircle.data.constants.FireStore.BUYS_CATALOG_TITLE
+import com.tydeya.familycircle.data.constants.FireStore.KITCHEN_COLLECTION
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
@@ -21,8 +21,8 @@ class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListe
     : EventListener<QuerySnapshot>, EventListenerObservable {
 
     private val foodCollectionRef = FirebaseFirestore.getInstance()
-            .collection(FIRESTORE_KITCHEN_COLLECTION)
-            .orderBy(FIRESTORE_BUYS_CATALOG_DATE, Query.Direction.DESCENDING)
+            .collection(KITCHEN_COLLECTION)
+            .orderBy(BUYS_CATALOG_DATE, Query.Direction.DESCENDING)
 
     private lateinit var registration: ListenerRegistration
 
@@ -46,10 +46,10 @@ class AllBuyCatalogsEventListener(private val callback: AllBuyCatalogsEventListe
                         val document = querySnapshot.documents[i]
 
                         buyCatalogs.add(BuyCatalog(document.id,
-                                document.get(FIRESTORE_BUYS_CATALOG_TITLE).toString(),
-                                document.getDate(FIRESTORE_BUYS_CATALOG_DATE) ?: Date(),
-                                document.getLong(FIRESTORE_BUYS_CATALOG_NUMBER_PRODUCTS) ?: 0,
-                                document.getLong(FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED) ?: 0
+                                document.get(BUYS_CATALOG_TITLE).toString(),
+                                document.getDate(BUYS_CATALOG_DATE) ?: Date(),
+                                document.getLong(BUYS_CATALOG_NUMBER_PRODUCTS) ?: 0,
+                                document.getLong(BUYS_CATALOG_NUMBER_PURCHASED) ?: 0
                         ))
                     }
 

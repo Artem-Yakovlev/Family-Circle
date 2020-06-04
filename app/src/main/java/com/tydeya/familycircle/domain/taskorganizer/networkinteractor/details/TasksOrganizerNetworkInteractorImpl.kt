@@ -3,12 +3,12 @@ package com.tydeya.familycircle.domain.taskorganizer.networkinteractor.details
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_AUTHOR
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_STATUS
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_TEXT
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_TIME
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_TASKS_WORKER
+import com.tydeya.familycircle.data.constants.FireStore.TASKS_AUTHOR
+import com.tydeya.familycircle.data.constants.FireStore.TASKS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.TASKS_STATUS
+import com.tydeya.familycircle.data.constants.FireStore.TASKS_TEXT
+import com.tydeya.familycircle.data.constants.FireStore.TASKS_TIME
+import com.tydeya.familycircle.data.constants.FireStore.TASKS_WORKER
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
 import com.tydeya.familycircle.domain.taskorganizer.networkinteractor.abstraction.TasksOrganizerNetworkInteractor
@@ -33,8 +33,8 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
     }
 
     private fun requireTasksForUser() {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
-                .whereEqualTo(FIRESTORE_TASKS_WORKER,
+        FirebaseFirestore.getInstance().collection(TASKS_COLLECTION)
+                .whereEqualTo(TASKS_WORKER,
                         FirebaseAuth.getInstance().currentUser!!.phoneNumber)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
@@ -50,8 +50,8 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
     }
 
     private fun requireTasksByUser() {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
-                .whereEqualTo(FIRESTORE_TASKS_AUTHOR,
+        FirebaseFirestore.getInstance().collection(TASKS_COLLECTION)
+                .whereEqualTo(TASKS_AUTHOR,
                         FirebaseAuth.getInstance().currentUser!!.phoneNumber)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
@@ -68,11 +68,11 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
 
     private fun convertServerDataToFamilyTask(document: QueryDocumentSnapshot) = FamilyTask(
             document.id,
-            document.getString(FIRESTORE_TASKS_AUTHOR) ?: "+0",
-            document.getString(FIRESTORE_TASKS_WORKER) ?: "+0",
-            document.getString(FIRESTORE_TASKS_TEXT) ?: "",
-            document.getDate(FIRESTORE_TASKS_TIME)?.time ?: 0,
-            when (document.getLong(FIRESTORE_TASKS_STATUS)) {
+            document.getString(TASKS_AUTHOR) ?: "+0",
+            document.getString(TASKS_WORKER) ?: "+0",
+            document.getString(TASKS_TEXT) ?: "",
+            document.getDate(TASKS_TIME)?.time ?: 0,
+            when (document.getLong(TASKS_STATUS)) {
                 0L -> FamilyTaskStatus.REJECTED
                 1L -> FamilyTaskStatus.AWAITING_COMPLETION
                 else -> FamilyTaskStatus.ACCEPTED
@@ -85,35 +85,35 @@ class TasksOrganizerNetworkInteractorImpl(val callback: TasksOrganizerNetworkInt
 
     override fun setTaskStatus(taskId: String, familyTaskStatus: FamilyTaskStatus) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
+            FirebaseFirestore.getInstance().collection(TASKS_COLLECTION)
                     .document(taskId)
-                    .update(mapOf(FIRESTORE_TASKS_STATUS to familyTaskStatus.ordinal))
+                    .update(mapOf(TASKS_STATUS to familyTaskStatus.ordinal))
         }
     }
 
     override fun deleteTask(taskId: String) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
+            FirebaseFirestore.getInstance().collection(TASKS_COLLECTION)
                     .document(taskId).delete()
         }
     }
 
     override fun editTaskText(taskId: String, actualText: String) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION)
+            FirebaseFirestore.getInstance().collection(TASKS_COLLECTION)
                     .document(taskId)
-                    .update(mapOf(FIRESTORE_TASKS_TEXT to actualText))
+                    .update(mapOf(TASKS_TEXT to actualText))
         }
     }
 
     override fun createTask(familyTask: FamilyTask) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(FIRESTORE_TASKS_COLLECTION).add(hashMapOf(
-                    FIRESTORE_TASKS_AUTHOR to familyTask.author,
-                    FIRESTORE_TASKS_WORKER to familyTask.worker,
-                    FIRESTORE_TASKS_STATUS to 1,
-                    FIRESTORE_TASKS_TEXT to familyTask.text,
-                    FIRESTORE_TASKS_TIME to Date(familyTask.time)
+            FirebaseFirestore.getInstance().collection(TASKS_COLLECTION).add(hashMapOf(
+                    TASKS_AUTHOR to familyTask.author,
+                    TASKS_WORKER to familyTask.worker,
+                    TASKS_STATUS to 1,
+                    TASKS_TEXT to familyTask.text,
+                    TASKS_TIME to Date(familyTask.time)
             ) as Map<String, Any>)
         }
     }

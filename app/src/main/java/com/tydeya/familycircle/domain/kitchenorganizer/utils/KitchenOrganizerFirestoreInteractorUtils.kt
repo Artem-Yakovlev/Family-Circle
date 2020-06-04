@@ -9,19 +9,19 @@ import java.math.BigDecimal
 import java.util.*
 
 fun createBuysCatalogInFirebase(title: String) = GlobalScope.launch {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION).add(
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION).add(
             hashMapOf(
-                    FireStore.FIRESTORE_BUYS_CATALOG_TITLE to title,
-                    FireStore.FIRESTORE_BUYS_CATALOG_DATE to Date()
+                    FireStore.BUYS_CATALOG_TITLE to title,
+                    FireStore.BUYS_CATALOG_DATE to Date()
             ) as Map<String, Any>)
 }
 
 fun deleteBuyCatalogInFirebase(catalogId: String) = GlobalScope.launch {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
             .document(catalogId).delete()
 
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).collection(FireStore.FIRESTORE_BUYS_CATALOG_FOODS).get()
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
+            .document(catalogId).collection(FireStore.BUYS_CATALOG_FOODS).get()
             .addOnSuccessListener {
                 for (document in it.documents) {
                     document.reference.delete()
@@ -30,26 +30,26 @@ fun deleteBuyCatalogInFirebase(catalogId: String) = GlobalScope.launch {
 }
 
 fun createProductInFirebase(catalogId: String, food: Food) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).collection(FireStore.FIRESTORE_BUYS_CATALOG_FOODS)
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
+            .document(catalogId).collection(FireStore.BUYS_CATALOG_FOODS)
             .add(food.toFirestoreObject())
 }
 
 fun deleteProductInFirebase(catalogId: String, productId: String) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).collection(FireStore.FIRESTORE_BUYS_CATALOG_FOODS)
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
+            .document(catalogId).collection(FireStore.BUYS_CATALOG_FOODS)
             .document(productId).delete()
 }
 
 fun editProductInFirebase(catalogId: String, food: Food) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).collection(FireStore.FIRESTORE_BUYS_CATALOG_FOODS)
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
+            .document(catalogId).collection(FireStore.BUYS_CATALOG_FOODS)
             .document(food.id).update(food.toFirestoreObject())
 }
 
 fun editBuysCatalogTitle(catalogId: String, newTitle: String) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).update(FireStore.FIRESTORE_BUYS_CATALOG_TITLE, newTitle)
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
+            .document(catalogId).update(FireStore.BUYS_CATALOG_TITLE, newTitle)
 }
 
 /**
@@ -57,25 +57,25 @@ fun editBuysCatalogTitle(catalogId: String, newTitle: String) {
  * */
 
 fun buyProductFirebaseProcessing(catalogId: String, food: Food) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_KITCHEN_COLLECTION)
-            .document(catalogId).collection(FireStore.FIRESTORE_BUYS_CATALOG_FOODS)
-            .document(food.id).update(FireStore.FIRESTORE_FOOD_STATUS, 1)
+    FirebaseFirestore.getInstance().collection(FireStore.KITCHEN_COLLECTION)
+            .document(catalogId).collection(FireStore.BUYS_CATALOG_FOODS)
+            .document(food.id).update(FireStore.FOOD_STATUS, 1)
 
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_FRIDGE_COLLECTION)
+    FirebaseFirestore.getInstance().collection(FireStore.FRIDGE_COLLECTION)
             .add(food.toFirestoreObject())
 }
 
 fun updateBuysCatalogProductsInfo(catalogId: String) {
     val actualBuysCatalog = FirebaseFirestore.getInstance()
-            .collection(FireStore.FIRESTORE_KITCHEN_COLLECTION).document(catalogId)
+            .collection(FireStore.KITCHEN_COLLECTION).document(catalogId)
 
-    actualBuysCatalog.collection(FireStore.FIRESTORE_BUYS_CATALOG_FOODS)
+    actualBuysCatalog.collection(FireStore.BUYS_CATALOG_FOODS)
             .get().addOnSuccessListener {
                 val nPurchased = it.documents.filter { product ->
-                    product.getLong(FireStore.FIRESTORE_FOOD_STATUS) == 1L
+                    product.getLong(FireStore.FOOD_STATUS) == 1L
                 }.size
-                actualBuysCatalog.update(FireStore.FIRESTORE_BUYS_CATALOG_NUMBER_PURCHASED, nPurchased)
-                actualBuysCatalog.update(FireStore.FIRESTORE_BUYS_CATALOG_NUMBER_PRODUCTS, it.documents.size)
+                actualBuysCatalog.update(FireStore.BUYS_CATALOG_NUMBER_PURCHASED, nPurchased)
+                actualBuysCatalog.update(FireStore.BUYS_CATALOG_NUMBER_PRODUCTS, it.documents.size)
             }
 }
 
@@ -85,16 +85,16 @@ fun updateBuysCatalogProductsInfo(catalogId: String) {
 
 fun deleteFoodFromFridgeInFirebaseProcessing(title: String) {
     FirebaseFirestore.getInstance()
-            .collection(FireStore.FIRESTORE_FRIDGE_COLLECTION).document(title).delete()
+            .collection(FireStore.FRIDGE_COLLECTION).document(title).delete()
 }
 
 fun addFoodInFridgeFirebaseProcessing(food: Food) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_FRIDGE_COLLECTION)
+    FirebaseFirestore.getInstance().collection(FireStore.FRIDGE_COLLECTION)
             .add(food.toFirestoreObject())
 }
 
 fun editFoodInFridgeDataFirebaseProcessing(food: Food) {
-    FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_FRIDGE_COLLECTION)
+    FirebaseFirestore.getInstance().collection(FireStore.FRIDGE_COLLECTION)
             .document(food.id).update(food.toFirestoreObject())
 }
 
@@ -102,11 +102,11 @@ fun eatFoodFromFridgeFirebaseProcessing(eatenAmount: BigDecimal, food: Food) {
     val remainingAmount = food.quantityOfMeasure - eatenAmount
 
     if (remainingAmount > BigDecimal.ZERO) {
-        FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_FRIDGE_COLLECTION)
+        FirebaseFirestore.getInstance().collection(FireStore.FRIDGE_COLLECTION)
                 .document(food.id)
                 .update(food.copy(quantityOfMeasure = remainingAmount).toFirestoreObject())
     } else {
-        FirebaseFirestore.getInstance().collection(FireStore.FIRESTORE_FRIDGE_COLLECTION)
+        FirebaseFirestore.getInstance().collection(FireStore.FRIDGE_COLLECTION)
                 .document(food.id).delete()
     }
 }

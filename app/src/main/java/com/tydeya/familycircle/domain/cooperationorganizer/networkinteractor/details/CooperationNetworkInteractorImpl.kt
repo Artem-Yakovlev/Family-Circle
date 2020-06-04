@@ -3,11 +3,11 @@ package com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.de
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_AUTHOR
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_ITEM
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_TIME
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_COOPERATION_TYPE
+import com.tydeya.familycircle.data.constants.FireStore.COOPERATION_AUTHOR
+import com.tydeya.familycircle.data.constants.FireStore.COOPERATION_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.COOPERATION_ITEM
+import com.tydeya.familycircle.data.constants.FireStore.COOPERATION_TIME
+import com.tydeya.familycircle.data.constants.FireStore.COOPERATION_TYPE
 import com.tydeya.familycircle.data.cooperation.Cooperation
 import com.tydeya.familycircle.data.cooperation.CooperationType
 import com.tydeya.familycircle.domain.cooperationorganizer.networkinteractor.abstraction.CooperationNetworkInteractor
@@ -30,8 +30,8 @@ class CooperationNetworkInteractorImpl(
      * */
 
     override fun listenCooperationData() {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_COOPERATION_COLLECTION)
-                .orderBy(FIRESTORE_COOPERATION_TIME, Query.Direction.DESCENDING)
+        FirebaseFirestore.getInstance().collection(COOPERATION_COLLECTION)
+                .orderBy(COOPERATION_TIME, Query.Direction.DESCENDING)
                 .addSnapshotListener { querySnapshot, _ ->
                     GlobalScope.launch(Dispatchers.Default) {
                         querySnapshot?.let {
@@ -51,11 +51,11 @@ class CooperationNetworkInteractorImpl(
 
     private fun createCooperationDataFromRawData(document: DocumentSnapshot): Cooperation {
         return Cooperation(document.id,
-                document.getString(FIRESTORE_COOPERATION_AUTHOR) ?: "+0",
-                document.getString(FIRESTORE_COOPERATION_ITEM) ?: "",
-                CooperationType.values()[(document.getLong(FIRESTORE_COOPERATION_TYPE)
+                document.getString(COOPERATION_AUTHOR) ?: "+0",
+                document.getString(COOPERATION_ITEM) ?: "",
+                CooperationType.values()[(document.getLong(COOPERATION_TYPE)
                         ?: 0).toInt()],
-                document.getDate(FIRESTORE_COOPERATION_TIME) ?: Date())
+                document.getDate(COOPERATION_TIME) ?: Date())
     }
 
     /**
@@ -63,12 +63,12 @@ class CooperationNetworkInteractorImpl(
      * */
 
     override fun registerCooperation(cooperation: Cooperation) {
-        FirebaseFirestore.getInstance().collection(FIRESTORE_COOPERATION_COLLECTION).add(
+        FirebaseFirestore.getInstance().collection(COOPERATION_COLLECTION).add(
                 hashMapOf(
-                        FIRESTORE_COOPERATION_AUTHOR to cooperation.userPhone,
-                        FIRESTORE_COOPERATION_ITEM to cooperation.item,
-                        FIRESTORE_COOPERATION_TYPE to cooperation.type.ordinal,
-                        FIRESTORE_COOPERATION_TIME to cooperation.time) as Map<String, Any>
+                        COOPERATION_AUTHOR to cooperation.userPhone,
+                        COOPERATION_ITEM to cooperation.item,
+                        COOPERATION_TYPE to cooperation.type.ordinal,
+                        COOPERATION_TIME to cooperation.time) as Map<String, Any>
         )
     }
 }

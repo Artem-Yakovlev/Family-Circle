@@ -19,6 +19,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.eventreminder.*
 import com.tydeya.familycircle.databinding.FragmentCreateNewFamilyEventBinding
 import com.tydeya.familycircle.presentation.MainActivity
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -201,7 +202,7 @@ class CreateNewFamilyEventFragment : Fragment() {
         )
 
         val eventAudience = FamilyEvent.FamilyEventAudience(
-                author = FirebaseAuth.getInstance().currentUser?.phoneNumber ?: ""
+                author = getUserPhone()
         )
 
         val firstCalendar = getCalendarFromInputtedData(binding.firstDatePickerButton.text.toString(),

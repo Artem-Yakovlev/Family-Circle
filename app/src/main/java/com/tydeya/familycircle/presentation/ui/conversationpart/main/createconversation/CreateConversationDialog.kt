@@ -15,6 +15,7 @@ import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInte
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
 import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview.CreateConversationMembersCheckBoxListener
 import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview.CreateConversationMembersRecyclerViewAdapter
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.android.synthetic.main.dialog_create_conversation.view.*
 import javax.inject.Inject
 
@@ -33,7 +34,7 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
     init {
         App.getComponent().injectDialog(this)
         familyInteractor.actualFamily.familyMembers.forEach {
-            if (it.fullPhoneNumber != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
+            if (it.fullPhoneNumber != getUserPhone()) {
                 names.add(it.description.name)
                 phoneNumbers.add(it.fullPhoneNumber)
                 needToAdd.add(false)
@@ -73,8 +74,7 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
 
     private fun setAdapter(recyclerView: RecyclerView) {
         val adapter = CreateConversationMembersRecyclerViewAdapter(requireContext(),
-                familyInteractor.actualFamily.getFamilyMemberExceptUserPhone(
-                                FirebaseAuth.getInstance().currentUser?.phoneNumber ?: ""),
+                familyInteractor.actualFamily.getFamilyMemberExceptUserPhone(getUserPhone()),
                 this)
 
         recyclerView.adapter = adapter
@@ -89,7 +89,7 @@ class CreateConversationDialog : DialogFragment(), CreateConversationMembersChec
 
     private fun getConversationMembers(): ArrayList<String> {
         val members = ArrayList<String>()
-        members.add(0, FirebaseAuth.getInstance().currentUser!!.phoneNumber!!)
+        members.add(0, getUserPhone())
 
         for (i in 0 until needToAdd.size) {
             if (needToAdd[i]) {

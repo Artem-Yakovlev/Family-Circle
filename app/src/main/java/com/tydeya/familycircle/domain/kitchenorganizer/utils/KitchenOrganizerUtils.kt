@@ -10,15 +10,15 @@ import java.math.BigDecimal
 
 fun convertServerDataToFood(documentSnapshot: DocumentSnapshot): Food {
     return Food(documentSnapshot.id,
-            documentSnapshot.get(FireStore.FIRESTORE_FOOD_TITLE).toString(),
-            FoodStatus.values()[(documentSnapshot.getLong(FireStore.FIRESTORE_FOOD_STATUS)
+            documentSnapshot.get(FireStore.FOOD_TITLE).toString(),
+            FoodStatus.values()[(documentSnapshot.getLong(FireStore.FOOD_STATUS)
                     ?: 0).toInt()],
             BigDecimal.valueOf(documentSnapshot
-                    .getDouble(FireStore.FIRESTORE_FOOD_QUANTITY_OF_MEASURE) ?: .0),
+                    .getDouble(FireStore.FOOD_QUANTITY_OF_MEASURE) ?: .0),
             MeasureType
-                    .values()[(documentSnapshot.getLong(FireStore.FIRESTORE_FOOD_MEASURE_TYPE) ?: 0)
+                    .values()[(documentSnapshot.getLong(FireStore.FOOD_MEASURE_TYPE) ?: 0)
                     .toInt()],
-            documentSnapshot.getLong(FireStore.FIRESTORE_FOOD_SHELF_LIFE_TIMESTAMP)
+            documentSnapshot.getLong(FireStore.FOOD_SHELF_LIFE_TIMESTAMP)
                     ?: -1L
     )
 }

@@ -23,15 +23,13 @@ import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInte
 import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity
 import com.tydeya.familycircle.presentation.viewmodel.CroppedImageViewModel
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountExistingCheckUpCallback {
 
     private var currentNavController: LiveData<NavController>? = null
-
-    @Inject
-    lateinit var familyInteractor: FamilyInteractor
 
     @Inject
     lateinit var messengerInteractor: MessengerInteractor
@@ -89,7 +87,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
 
     private fun verificationCheck() {
         FirebaseAuth.getInstance().currentUser?.phoneNumber?.let {
-            AccountSyncTool(this).isAccountWithPhoneExist(it)
+            AccountSyncTool(this).isAccountWithPhoneExist(getUserPhone())
             return
         }
         startRegistration(REGISTRATION_FULL)

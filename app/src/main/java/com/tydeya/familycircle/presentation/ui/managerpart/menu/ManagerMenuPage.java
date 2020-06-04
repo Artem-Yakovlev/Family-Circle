@@ -24,6 +24,7 @@ import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.Man
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.ManagerMenuRecyclerViewAdapter;
 import com.tydeya.familycircle.presentation.ui.managerpart.menu.recyclerview.OnClickManagerMenuItemListener;
 import com.tydeya.familycircle.presentation.ui.registrationpart.FirstStartActivity;
+import com.tydeya.familycircle.utils.extensions.FirebaseExstensionsKt;
 
 import java.util.ArrayList;
 
@@ -136,8 +137,7 @@ public class ManagerMenuPage extends Fragment implements OnClickManagerMenuItemL
         switch (itemType) {
             case PROFILE:
                 Bundle bundle = new Bundle();
-                bundle.putString(BUNDLE_FULL_PHONE_NUMBER, FirebaseAuth.getInstance()
-                        .getCurrentUser().getPhoneNumber());
+                bundle.putString(BUNDLE_FULL_PHONE_NUMBER, FirebaseExstensionsKt.getUserPhone());
                 navController.navigate(R.id.memberPersonFragment, bundle);
                 break;
             case SELECT_FAMILY:

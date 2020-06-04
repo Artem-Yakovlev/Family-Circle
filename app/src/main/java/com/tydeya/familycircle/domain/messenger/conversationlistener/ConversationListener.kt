@@ -3,12 +3,12 @@ package com.tydeya.familycircle.domain.messenger.conversationlistener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_MESSAGES
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_AUTHOR_PHONE
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_DATETIME
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_TEXT
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_UNREAD_PATTERN
+import com.tydeya.familycircle.data.constants.FireStore.CONVERSATION_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.CONVERSATION_MESSAGES
+import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_AUTHOR_PHONE
+import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_DATETIME
+import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_TEXT
+import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_UNREAD_PATTERN
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -23,9 +23,9 @@ class ConversationListener(private val conversationId: String,
         EventListener<QuerySnapshot>, ConversationListenerObservable {
 
     private val conversationMessagesReference = FirebaseFirestore.getInstance()
-            .collection(FIRESTORE_CONVERSATION_COLLECTION)
+            .collection(CONVERSATION_COLLECTION)
             .document(conversationId)
-            .collection(FIRESTORE_CONVERSATION_MESSAGES)
+            .collection(CONVERSATION_MESSAGES)
 
     private lateinit var registration: ListenerRegistration
 
@@ -57,15 +57,15 @@ class ConversationListener(private val conversationId: String,
     }
 
     private fun parseMessageFromServer(document: DocumentSnapshot) = ChatMessage(
-            document.getString(FIRESTORE_MESSAGE_AUTHOR_PHONE) ?: "+0",
-            document.getString(FIRESTORE_MESSAGE_TEXT) ?: "",
-            document.getDate(FIRESTORE_MESSAGE_DATETIME) ?: Date(),
+            document.getString(MESSAGE_AUTHOR_PHONE) ?: "+0",
+            document.getString(MESSAGE_TEXT) ?: "",
+            document.getDate(MESSAGE_DATETIME) ?: Date(),
             !isMessageUnread(document)
 
     )
 
     private fun isMessageUnread(document: DocumentSnapshot) = document.getBoolean(
-            FIRESTORE_MESSAGE_UNREAD_PATTERN + FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+            MESSAGE_UNREAD_PATTERN + FirebaseAuth.getInstance().currentUser!!.phoneNumber)
             ?: false
 
 

@@ -9,7 +9,7 @@ import com.tydeya.familycircle.domain.oldfamilyinteractor.abstraction.FamilyNetw
 
 import java.util.ArrayList;
 
-import static com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION;
+import static com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION;
 
 public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
@@ -28,7 +28,7 @@ public class FamilyNetworkInteractorImpl implements FamilyNetworkInteractor {
 
     @Override
     public void requireMembersDataFromServer() {
-        firebaseFirestore.collection(FIRESTORE_USERS_COLLECTION).addSnapshotListener((queryDocumentSnapshots, e) -> {
+        firebaseFirestore.collection(USERS_COLLECTION).addSnapshotListener((queryDocumentSnapshots, e) -> {
             ArrayList<FamilyMember> members = getMembersBySnapshot(queryDocumentSnapshots);
             callback.memberDataFromServerUpdate(members);
         });

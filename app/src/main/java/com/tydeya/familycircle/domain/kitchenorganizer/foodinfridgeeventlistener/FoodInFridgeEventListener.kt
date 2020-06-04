@@ -17,8 +17,8 @@ class FoodInFridgeEventListener(
         EventListener<QuerySnapshot>, EventListenerObservable {
 
     private val foodCollectionRef = FirebaseFirestore.getInstance()
-            .collection(FireStore.FIRESTORE_FRIDGE_COLLECTION)
-            .orderBy(FireStore.FIRESTORE_FOOD_TITLE, Query.Direction.ASCENDING)
+            .collection(FireStore.FRIDGE_COLLECTION)
+            .orderBy(FireStore.FOOD_TITLE, Query.Direction.ASCENDING)
 
     private lateinit var registration: ListenerRegistration
 

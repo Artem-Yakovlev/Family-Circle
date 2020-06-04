@@ -14,6 +14,7 @@ import com.tydeya.familycircle.data.taskorganizer.FamilyTaskStatus
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.android.synthetic.main.dialog_tasks_create.view.*
 import java.util.*
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class CreateTaskDialog : DialogFragment() {
     init {
         App.getComponent().injectDialog(this)
         familyInteractor.actualFamily.familyMembers.forEach {
-            if (it.fullPhoneNumber != FirebaseAuth.getInstance().currentUser!!.phoneNumber) {
+            if (it.fullPhoneNumber != getUserPhone()) {
                 names.add(it.description.name)
                 phoneNumbers.add(it.fullPhoneNumber)
             }
@@ -57,7 +58,7 @@ class CreateTaskDialog : DialogFragment() {
             if (!DataConfirming.isEmptyNecessaryCheck(view.create_task_dialog_main_text, true)) {
                 tasksOrganizerInteractor.createTask(
                         FamilyTask("",
-                                FirebaseAuth.getInstance().currentUser!!.phoneNumber!!,
+                                getUserPhone(),
                                 phoneNumbers[view.create_task_dialog_spinner.selectedItemPosition],
                                 view.create_task_dialog_main_text.text.toString(),
                                 Date().time,

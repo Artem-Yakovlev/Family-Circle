@@ -1,12 +1,11 @@
 package com.tydeya.familycircle.domain.familyinteraction
 
-import android.util.Log
 import com.google.firebase.firestore.*
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_AUTHOR_PHONE_TAG
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_FAMILY_TITLE_TAG
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_COLLECTION
-import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_USERS_FAMILY_IDS
+import com.tydeya.familycircle.data.constants.FireStore.FAMILY_AUTHOR_PHONE_TAG
+import com.tydeya.familycircle.data.constants.FireStore.FAMILY_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.FAMILY_TITLE_TAG
+import com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION
+import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_IDS
 import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
@@ -18,14 +17,14 @@ class FamilyNetworkInteractor(
         EventListenerObservable {
 
     private val familyDataRef = FirebaseFirestore.getInstance()
-            .collection(FIRESTORE_FAMILY_COLLECTION)
+            .collection(FAMILY_COLLECTION)
             .document(familyId)
 
     private lateinit var familyDataRegistration: ListenerRegistration
 
     private val familyMembersRef = FirebaseFirestore.getInstance()
-            .collection(FIRESTORE_USERS_COLLECTION)
-            .whereArrayContains(FIRESTORE_USERS_FAMILY_IDS, familyId)
+            .collection(USERS_COLLECTION)
+            .whereArrayContains(USERS_FAMILY_IDS, familyId)
 
     private lateinit var familyMembersRegistration: ListenerRegistration
 
@@ -45,8 +44,8 @@ class FamilyNetworkInteractor(
 
                 callback.familyDataUpdated(Resource.Success(Family(
                         id = it.id,
-                        title = it.getString(FIRESTORE_FAMILY_TITLE_TAG) ?: "",
-                        author = it.getString(FIRESTORE_FAMILY_AUTHOR_PHONE_TAG) ?: ""
+                        title = it.getString(FAMILY_TITLE_TAG) ?: "",
+                        author = it.getString(FAMILY_AUTHOR_PHONE_TAG) ?: ""
                 )))
             }
         } else {
