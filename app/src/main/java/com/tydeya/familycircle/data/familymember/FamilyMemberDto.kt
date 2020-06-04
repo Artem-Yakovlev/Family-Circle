@@ -11,6 +11,7 @@ class FamilyMemberDto(familyMember: FamilyMember) {
     val workPlace = familyMember.careerData.workPlace
     val studyPlace = familyMember.careerData.studyPlace
     val imageAddress = familyMember.description.imageAddress
+    val isOnline = familyMember.isOnline
 
     private fun parseDateForPresenter(birthDateTimeStamp: Long): String {
         return if (birthDateTimeStamp == -1L) {

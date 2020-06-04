@@ -8,9 +8,10 @@ import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlisten
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.createBuysCatalogInFirebase
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteBuyCatalogInFirebase
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.editBuysCatalogTitle
+import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
 
-class AllBuyCatalogsViewModel : ViewModel(), AllBuyCatalogsEventListenerCallback {
+class AllBuyCatalogsViewModel : FirestoreViewModel(), AllBuyCatalogsEventListenerCallback {
 
     private val allBuyCatalogsEventListener: AllBuyCatalogsEventListener =
             AllBuyCatalogsEventListener(this)

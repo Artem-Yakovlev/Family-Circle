@@ -3,7 +3,6 @@ package com.tydeya.familycircle.domain.messenger.conversationlistener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_CONVERSATION_MESSAGES
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_AUTHOR_PHONE
@@ -11,13 +10,11 @@ import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_DATETI
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_TEXT
 import com.tydeya.familycircle.data.constants.FireStore.FIRESTORE_MESSAGE_UNREAD_PATTERN
 import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
-import com.tydeya.familycircle.domain.onlinemanager.details.OnlineInteractorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class ConversationListener(private val conversationId: String,
@@ -32,13 +29,6 @@ class ConversationListener(private val conversationId: String,
 
     private lateinit var registration: ListenerRegistration
 
-    @Inject
-    lateinit var onlineManager: OnlineInteractorImpl
-
-    init {
-        App.getComponent().injectInteractor(this)
-    }
-
     override fun register() {
         registration = conversationMessagesReference.addSnapshotListener(this)
     }
@@ -48,9 +38,7 @@ class ConversationListener(private val conversationId: String,
     }
 
     override fun onEvent(querySnapshot: QuerySnapshot?, p1: FirebaseFirestoreException?) {
-        onlineManager.registerUserActivity()
         GlobalScope.launch(Dispatchers.Default) {
-            onlineManager.registerUserActivity()
             val messages = ArrayList<ChatMessage>()
             var unreadCounter = 0
 

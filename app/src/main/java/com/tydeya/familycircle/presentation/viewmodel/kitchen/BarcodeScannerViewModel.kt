@@ -12,13 +12,14 @@ import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.ScannedProdu
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.barcodescanner.BarcodeScannerServer
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.addFoodInFridgeFirebaseProcessing
+import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class BarcodeScannerViewModel : ViewModel() {
+class BarcodeScannerViewModel : FirestoreViewModel() {
 
     val barcodeResourse: MutableLiveData<BarcodeResource<ScannedProduct>> =
             MutableLiveData(BarcodeResource.AwaitingScan())

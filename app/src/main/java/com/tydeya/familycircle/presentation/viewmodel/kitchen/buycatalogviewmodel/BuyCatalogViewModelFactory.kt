@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.viewmodel.buycatalogviewmodel
+package com.tydeya.familycircle.presentation.viewmodel.kitchen.buycatalogviewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

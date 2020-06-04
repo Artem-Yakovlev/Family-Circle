@@ -97,7 +97,7 @@ class MemberPersonFragment : Fragment() {
             binding.familyMemberViewWorkPlace.text = dto.workPlace
         }
 
-        if (false) {
+        if (dto.isOnline) {
             binding.familyMemberViewOnlineText.text = requireContext().getString(R.string.online_text);
             binding.familyMemberViewOnlineText.setBackgroundColor(resources.getColor(R.color.colorOnlineGreen));
         } else {

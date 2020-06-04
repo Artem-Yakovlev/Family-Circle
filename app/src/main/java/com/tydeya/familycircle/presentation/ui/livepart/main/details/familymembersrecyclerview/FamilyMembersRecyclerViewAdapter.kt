@@ -21,7 +21,7 @@ class FamilyMembersRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: FamilyMemberViewHolder, position: Int) {
-        holder.bindData(members[position], false)
+        holder.bindData(members[position])
     }
 
     override fun getItemCount() = members.size

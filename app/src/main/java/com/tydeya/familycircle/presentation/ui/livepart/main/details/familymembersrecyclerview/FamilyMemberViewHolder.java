@@ -29,11 +29,18 @@ public class FamilyMemberViewHolder extends RecyclerView.ViewHolder {
      * Data binding
      */
 
-    void bindData(FamilyMember familyMember, Boolean isOnline) {
+    void bindData(FamilyMember familyMember) {
         findAllViews();
-
         nameText.setText(familyMember.getDescription().getName());
-        userShapedImage.setStrokeColor(itemView.getContext().getResources().getColor(R.color.colorTransparentGray));
+
+        if (familyMember.isOnline()) {
+            userShapedImage.setStrokeColor(itemView.getContext()
+                    .getResources().getColor(R.color.colorOnlineGreen));
+        } else {
+            userShapedImage.setStrokeColor(itemView.getContext()
+                    .getResources().getColor(R.color.colorTransparentGray));
+        }
+
         setProfileImage(familyMember.getDescription().getImageAddress());
         itemView.setOnClickListener(v -> {
             clickListener.onClickFamilyMember(familyMember.getFullPhoneNumber());

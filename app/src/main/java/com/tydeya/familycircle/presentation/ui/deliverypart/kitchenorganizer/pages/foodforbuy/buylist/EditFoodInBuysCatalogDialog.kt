@@ -11,7 +11,7 @@ import com.tydeya.familycircle.data.constants.DIALOG_FOOD_OBJECT
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.FoodActionDialog
-import com.tydeya.familycircle.presentation.viewmodel.buycatalogviewmodel.BuyCatalogViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.buycatalogviewmodel.BuyCatalogViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

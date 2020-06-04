@@ -10,12 +10,13 @@ import com.tydeya.familycircle.domain.familyinteraction.FamilyInteractor
 import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractor
 import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractorCallback
 import com.tydeya.familycircle.domain.familyselection.addFamilyMemberInFirestore
+import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
 
 class FamilyViewModel(
         familyId: String
 ) :
-        ViewModel(), FamilyNetworkInteractorCallback {
+        FirestoreViewModel(), FamilyNetworkInteractorCallback {
 
     private val familyDataLiveData = MutableLiveData<Resource<Family>>(Resource.Loading())
     val familyData: LiveData<Resource<Family>> get() = familyDataLiveData

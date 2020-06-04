@@ -1,14 +1,17 @@
-package com.tydeya.familycircle.presentation.viewmodel.buycatalogviewmodel
+package com.tydeya.familycircle.presentation.viewmodel.kitchen.buycatalogviewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener.BuyCatalogEventListenerCallback
 import com.tydeya.familycircle.domain.kitchenorganizer.buycatalogeventlistener.KitchenBuyCatalogEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.*
+import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
 
-class BuyCatalogViewModel(val catalogId: String) : ViewModel(), BuyCatalogEventListenerCallback {
+class BuyCatalogViewModel(
+        val catalogId: String
+) :
+        FirestoreViewModel(), BuyCatalogEventListenerCallback {
 
     private val buyCatalogEventListener: EventListenerObservable =
             KitchenBuyCatalogEventListener(catalogId, this)

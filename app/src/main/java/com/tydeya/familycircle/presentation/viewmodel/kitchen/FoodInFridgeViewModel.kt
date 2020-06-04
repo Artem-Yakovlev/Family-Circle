@@ -9,13 +9,14 @@ import com.tydeya.familycircle.domain.kitchenorganizer.utils.addFoodInFridgeFire
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.deleteFoodFromFridgeInFirebaseProcessing
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.eatFoodFromFridgeFirebaseProcessing
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.editFoodInFridgeDataFirebaseProcessing
+import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class FoodInFridgeViewModel : ViewModel(), FoodInFridgeEventListenerCallback {
+class FoodInFridgeViewModel : FirestoreViewModel(), FoodInFridgeEventListenerCallback {
     private val foodInFridgeEventListener: FoodInFridgeEventListener = FoodInFridgeEventListener(this)
 
     val products: MutableLiveData<Resource<ArrayList<Food>>> = MutableLiveData(Resource.Loading())
