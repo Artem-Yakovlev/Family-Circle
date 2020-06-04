@@ -10,6 +10,7 @@ import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_IDS
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_INVITES
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_SIZES
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_TITLES
+import com.tydeya.familycircle.utils.extensions.firestoreFamily
 
 fun createFamilyInFirestore(title: String) {
 
@@ -73,9 +74,7 @@ fun addFamilyMemberInFirestore(familyId: String, phoneNumber: String) {
 
 fun acceptFamilyInvite(familyId: String) {
     val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber ?: "_"
-    FirebaseFirestore.getInstance()
-            .collection(FAMILY_COLLECTION)
-            .document(familyId).get()
+    firestoreFamily(familyId).get()
             .addOnSuccessListener { familyDoc ->
                 val title = familyDoc.getString(FAMILY_TITLE_TAG) ?: ""
                 val nMembers = familyDoc.getLong(FAMILY_NUMBER_OF_MEMBERS_TAG) ?: 1

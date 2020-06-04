@@ -16,6 +16,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -24,7 +25,11 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.BarcodeResource
 import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.ScannedProduct
 import com.tydeya.familycircle.databinding.ActivityBarcodeScannerBinding
-import com.tydeya.familycircle.presentation.viewmodel.kitchen.BarcodeScannerViewModel
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.barcodescanner.BarcodeScannerViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.barcodescanner.BarcodeScannerViewModelFactory
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.math.abs
@@ -62,7 +67,10 @@ class BarcodeScannerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        barcodeScannerViewModel = ViewModelProvider(this).get(BarcodeScannerViewModel::class.java)
+        barcodeScannerViewModel = ViewModelProviders
+                .of(this, BarcodeScannerViewModelFactory(this.currentFamilyId))
+                .get(BarcodeScannerViewModel::class.java)
+        
         binding = ActivityBarcodeScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewFinder = binding.viewFinder

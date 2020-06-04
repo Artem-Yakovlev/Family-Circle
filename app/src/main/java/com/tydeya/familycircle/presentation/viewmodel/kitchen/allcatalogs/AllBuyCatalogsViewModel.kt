@@ -1,7 +1,6 @@
-package com.tydeya.familycircle.presentation.viewmodel.kitchen
+package com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.kitchenorganizer.buylist.BuyCatalog
 import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener.AllBuyCatalogsEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.allbuycatalogseventlistener.AllBuyCatalogsEventListenerCallback
@@ -11,10 +10,13 @@ import com.tydeya.familycircle.domain.kitchenorganizer.utils.editBuysCatalogTitl
 import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
 
-class AllBuyCatalogsViewModel : FirestoreViewModel(), AllBuyCatalogsEventListenerCallback {
+class AllBuyCatalogsViewModel(
+        private val familyId: String
+) :
+        FirestoreViewModel(), AllBuyCatalogsEventListenerCallback {
 
     private val allBuyCatalogsEventListener: AllBuyCatalogsEventListener =
-            AllBuyCatalogsEventListener(this)
+            AllBuyCatalogsEventListener(familyId, this)
 
     val buyCatalogsResource: MutableLiveData<Resource<ArrayList<BuyCatalog>>> =
             MutableLiveData(Resource.Loading())
@@ -37,7 +39,6 @@ class AllBuyCatalogsViewModel : FirestoreViewModel(), AllBuyCatalogsEventListene
                 }
             }
         }
-
         return Resource.Failure(IllegalArgumentException("Unknown id"))
     }
 
@@ -59,15 +60,15 @@ class AllBuyCatalogsViewModel : FirestoreViewModel(), AllBuyCatalogsEventListene
     }
 
     fun createBuysCatalog(title: String) {
-        createBuysCatalogInFirebase(title)
+        createBuysCatalogInFirebase(familyId, title)
     }
 
     fun editCatalogName(catalogId: String, newTitle: String) {
-        editBuysCatalogTitle(catalogId, newTitle)
+        editBuysCatalogTitle(familyId, catalogId, newTitle)
     }
 
     fun deleteCatalog(catalogId: String) {
-        deleteBuyCatalogInFirebase(catalogId)
+        deleteBuyCatalogInFirebase(familyId, catalogId)
     }
 
     /**

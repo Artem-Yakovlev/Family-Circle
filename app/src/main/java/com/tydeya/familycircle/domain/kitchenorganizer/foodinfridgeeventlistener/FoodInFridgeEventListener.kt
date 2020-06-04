@@ -6,17 +6,19 @@ import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.convertServerDataToFood
 import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.firestoreFamily
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FoodInFridgeEventListener(
+        private val familyId: String,
         private val callback: FoodInFridgeEventListenerCallback
 ) :
         EventListener<QuerySnapshot>, EventListenerObservable {
 
-    private val foodCollectionRef = FirebaseFirestore.getInstance()
+    private val foodCollectionRef = firestoreFamily(familyId)
             .collection(FireStore.FRIDGE_COLLECTION)
             .orderBy(FireStore.FOOD_TITLE, Query.Direction.ASCENDING)
 

@@ -9,12 +9,13 @@ import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
 
 class BuyCatalogViewModel(
+        val familyId: String,
         val catalogId: String
 ) :
         FirestoreViewModel(), BuyCatalogEventListenerCallback {
 
     private val buyCatalogEventListener: EventListenerObservable =
-            KitchenBuyCatalogEventListener(catalogId, this)
+            KitchenBuyCatalogEventListener(catalogId, familyId, this)
 
     val products: MutableLiveData<Resource<ArrayList<Food>>> = MutableLiveData(Resource.Loading())
 
@@ -40,22 +41,22 @@ class BuyCatalogViewModel(
     }
 
     fun createProduct(food: Food) {
-        createProductInFirebase(catalogId, food)
-        updateBuysCatalogProductsInfo(catalogId)
+        createProductInFirebase(familyId, catalogId, food)
+        updateBuysCatalogProductsInfo(familyId, catalogId)
     }
 
     fun deleteProduct(productId: String) {
-        deleteProductInFirebase(catalogId, productId)
-        updateBuysCatalogProductsInfo(catalogId)
+        deleteProductInFirebase(familyId, catalogId, productId)
+        updateBuysCatalogProductsInfo(familyId, catalogId)
     }
 
     fun editProduct(food: Food) {
-        editProductInFirebase(catalogId, food)
+        editProductInFirebase(familyId, catalogId, food)
     }
 
     fun buyProduct(food: Food) {
-        buyProductFirebaseProcessing(catalogId, food)
-        updateBuysCatalogProductsInfo(catalogId)
+        buyProductFirebaseProcessing(familyId, catalogId, food)
+        updateBuysCatalogProductsInfo(familyId, catalogId)
     }
 
     override fun onCleared() {

@@ -1,7 +1,6 @@
-package com.tydeya.familycircle.presentation.viewmodel.kitchen
+package com.tydeya.familycircle.presentation.viewmodel.kitchen.barcodescanner
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.constants.progaOnlineAuthentic
 import com.tydeya.familycircle.data.constants.progaOnlineBaseUrl
 import com.tydeya.familycircle.data.constants.progaOnlineTokenApi
@@ -19,7 +18,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class BarcodeScannerViewModel : FirestoreViewModel() {
+class BarcodeScannerViewModel(
+        private val familyId: String
+) :
+        FirestoreViewModel() {
 
     val barcodeResourse: MutableLiveData<BarcodeResource<ScannedProduct>> =
             MutableLiveData(BarcodeResource.AwaitingScan())
@@ -30,7 +32,7 @@ class BarcodeScannerViewModel : FirestoreViewModel() {
     private val server = retrofit.create(BarcodeScannerServer::class.java)
 
     fun addProductToFridge(food: Food) {
-        addFoodInFridgeFirebaseProcessing(food)
+        addFoodInFridgeFirebaseProcessing(familyId, food)
         barcodeResourse.value = BarcodeResource.AwaitingScan()
     }
 

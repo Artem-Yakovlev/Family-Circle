@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
@@ -15,8 +15,10 @@ import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_ID
 import com.tydeya.familycircle.databinding.FragmentFoodForBuyBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.AllBuyCatalogsRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.alllists.recyclerview.OnBuyCatalogClickListener
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuyCatalogsViewModelFactory
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.presentation.viewmodel.kitchen.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import kotlinx.android.synthetic.main.fragment_food_for_buy.*
 
 class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
@@ -32,7 +34,10 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
                               savedInstanceState: Bundle?): View? {
 
         _binding = FragmentFoodForBuyBinding.inflate(inflater, container, false)
-        allBuyCatalogsViewModel = ViewModelProvider(this).get(AllBuyCatalogsViewModel::class.java)
+
+        allBuyCatalogsViewModel = ViewModelProviders
+                .of(this, AllBuyCatalogsViewModelFactory(requireContext().currentFamilyId))
+                .get(AllBuyCatalogsViewModel::class.java)
 
         return binding.root
     }

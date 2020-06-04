@@ -12,7 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leinardi.android.speeddial.SpeedDialView
@@ -24,8 +24,10 @@ import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.bar
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodinfridge.recyclerview.FoodInFridgeViewHolderClickListener
-import com.tydeya.familycircle.presentation.viewmodel.kitchen.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.foodinfridge.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.foodinfridge.FoodInFridgeViewModelFactory
 import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 
 
 class FoodInFridgeFragment
@@ -51,7 +53,9 @@ class FoodInFridgeFragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentFoodInFridgeBinding.inflate(inflater, container, false)
-        foodInFridgeViewModel = ViewModelProvider(this).get(FoodInFridgeViewModel::class.java)
+        foodInFridgeViewModel = ViewModelProviders
+                .of(this, FoodInFridgeViewModelFactory(requireContext().currentFamilyId))
+                .get(FoodInFridgeViewModel::class.java)
         return binding.root
     }
 

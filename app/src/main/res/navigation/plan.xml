@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/mainPlanPage"
         android:name="com.tydeya.familycircle.presentation.ui.deliverypart.main.details.MainPlanFragment"
-        tools:layout="@layout/fragment_main_plan_page"
-        android:label="fragment_main_plan_page">
+        android:label="fragment_main_plan_page"
+        tools:layout="@layout/fragment_main_plan_page">
         <action
             android:id="@+id/action_mainPlanPage_to_kitchenOrganizerFragment"
             app:destination="@id/kitchenOrganizerFragment" />
@@ -23,15 +23,15 @@
     <fragment
         android:id="@+id/kitchenOrganizerFragment"
         android:name="com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.KitchenOrganizerFragment"
-        tools:layout="@layout/fragment_kitchen_organizer"
-        android:label="fragment_kitchen_organizer">
+        android:label="fragment_kitchen_organizer"
+        tools:layout="@layout/fragment_kitchen_organizer">
         <action
             android:id="@+id/action_kitchenOrganizerFragment_to_buyListFragment"
             app:destination="@id/buyListFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyListFragment"
-        android:name="com.tydeya.familycircle.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment"
         android:label="fragment_buy_list"
         tools:layout="@layout/fragment_buy_catalog" />
     <fragment
@@ -42,7 +42,7 @@
         android:id="@+id/eventRibbonFragment"
         android:name="com.tydeya.familycircle.presentation.ui.deliverypart.eventreminder.eventribbon.EventRibbonFragment"
         android:label="fragment_event_ribbon"
-        tools:layout="@layout/fragment_event_ribbon" >
+        tools:layout="@layout/fragment_event_ribbon">
         <action
             android:id="@+id/action_eventRibbonFragment_to_createNewFamilyEventFragment"
             app:destination="@id/createNewFamilyEventFragment" />

@@ -2,13 +2,13 @@ package com.tydeya.familycircle.domain.familyinteraction
 
 import com.google.firebase.firestore.*
 import com.tydeya.familycircle.data.constants.FireStore.FAMILY_AUTHOR_PHONE_TAG
-import com.tydeya.familycircle.data.constants.FireStore.FAMILY_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.FAMILY_TITLE_TAG
 import com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_IDS
 import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.EventListenerObservable
 import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.firestoreFamily
 
 class FamilyNetworkInteractor(
         private val familyId: String,
@@ -16,9 +16,7 @@ class FamilyNetworkInteractor(
 ) :
         EventListenerObservable {
 
-    private val familyDataRef = FirebaseFirestore.getInstance()
-            .collection(FAMILY_COLLECTION)
-            .document(familyId)
+    private val familyDataRef = firestoreFamily(familyId)
 
     private lateinit var familyDataRegistration: ListenerRegistration
 

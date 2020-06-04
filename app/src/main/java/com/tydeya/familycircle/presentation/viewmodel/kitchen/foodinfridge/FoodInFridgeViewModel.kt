@@ -1,7 +1,6 @@
-package com.tydeya.familycircle.presentation.viewmodel.kitchen
+package com.tydeya.familycircle.presentation.viewmodel.kitchen.foodinfridge
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.domain.kitchenorganizer.foodinfridgeeventlistener.FoodInFridgeEventListener
 import com.tydeya.familycircle.domain.kitchenorganizer.foodinfridgeeventlistener.FoodInFridgeEventListenerCallback
@@ -11,13 +10,14 @@ import com.tydeya.familycircle.domain.kitchenorganizer.utils.eatFoodFromFridgeFi
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.editFoodInFridgeDataFirebaseProcessing
 import com.tydeya.familycircle.presentation.viewmodel.base.FirestoreViewModel
 import com.tydeya.familycircle.utils.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class FoodInFridgeViewModel : FirestoreViewModel(), FoodInFridgeEventListenerCallback {
-    private val foodInFridgeEventListener: FoodInFridgeEventListener = FoodInFridgeEventListener(this)
+class FoodInFridgeViewModel(
+        private val familyId: String
+) :
+        FirestoreViewModel(), FoodInFridgeEventListenerCallback {
+
+    private val foodInFridgeEventListener: FoodInFridgeEventListener = FoodInFridgeEventListener(familyId, this)
 
     val products: MutableLiveData<Resource<ArrayList<Food>>> = MutableLiveData(Resource.Loading())
 
@@ -35,22 +35,22 @@ class FoodInFridgeViewModel : FirestoreViewModel(), FoodInFridgeEventListenerCal
     }
 
     fun deleteFromFridgeEatenFood(title: String) {
-        deleteFoodFromFridgeInFirebaseProcessing(title)
+        deleteFoodFromFridgeInFirebaseProcessing(familyId, title)
     }
 
     fun deleteFromFridgeBadFood(id: String) {
-        deleteFoodFromFridgeInFirebaseProcessing(id)
+        deleteFoodFromFridgeInFirebaseProcessing(familyId, id)
     }
 
     fun addNewFoodInFridge(food: Food) {
-        addFoodInFridgeFirebaseProcessing(food)
+        addFoodInFridgeFirebaseProcessing(familyId, food)
     }
 
     fun editFoodInFridgeData(food: Food) {
-        editFoodInFridgeDataFirebaseProcessing(food)
+        editFoodInFridgeDataFirebaseProcessing(familyId, food)
     }
 
     fun eatFoodFromFridge(eatenAmount: BigDecimal, food: Food) {
-        eatFoodFromFridgeFirebaseProcessing(eatenAmount, food)
+        eatFoodFromFridgeFirebaseProcessing(familyId, eatenAmount, food)
     }
 }

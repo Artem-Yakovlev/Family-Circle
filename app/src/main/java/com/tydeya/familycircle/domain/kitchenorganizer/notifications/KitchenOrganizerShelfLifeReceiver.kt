@@ -10,10 +10,11 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.FireStore.FRIDGE_COLLECTION
 import com.tydeya.familycircle.domain.kitchenorganizer.utils.convertServerDataToFood
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.firestoreFamily
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,11 +29,10 @@ const val SHELF_LIFE_TAG = "SHELF_LIFE"
 class KitchenOrganizerShelfLifeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        FirebaseFirestore.getInstance().collection(FRIDGE_COLLECTION).get()
+        firestoreFamily(context.currentFamilyId).collection(FRIDGE_COLLECTION).get()
                 .addOnSuccessListener { querySnapshot ->
 
                     val actualTimestamp = System.currentTimeMillis()
-
                     val spoiledProductsTitles = ArrayList<String>()
                     val notFreshProductsTitles = ArrayList<String>()
 

@@ -18,10 +18,13 @@ import com.tydeya.familycircle.databinding.FragmentBuyCatalogBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.BuyCatalogRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.FoodInBuyListViewHolderClickListener
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.recyclerview.SwipeToDeleteCallback
-import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.presentation.viewmodel.kitchen.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuyCatalogsViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuyCatalogsViewModelFactory
 import com.tydeya.familycircle.presentation.viewmodel.kitchen.buycatalogviewmodel.BuyCatalogViewModel
 import com.tydeya.familycircle.presentation.viewmodel.kitchen.buycatalogviewmodel.BuyCatalogViewModelFactory
+import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.popBackStack
 
 class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
@@ -37,7 +40,6 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
     private lateinit var allBuyCatalogsViewModel: AllBuyCatalogsViewModel
     private lateinit var buyCatalogViewModel: BuyCatalogViewModel
-    private lateinit var buyCatalogViewModelFactory: BuyCatalogViewModelFactory
 
     companion object {
         private const val DIALOG_SETTINGS = "dialog_settings"
@@ -47,38 +49,36 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        buyCatalogID = requireArguments().getString(BUNDLE_ID)!!
+        buyCatalogID = requireArguments().getString(BUNDLE_ID) ?: ""
+        if (buyCatalogID == "") {
+            popBackStack()
+        }
+
         _binding = FragmentBuyCatalogBinding.inflate(inflater, container, false)
 
-        buyCatalogViewModelFactory = BuyCatalogViewModelFactory(buyCatalogID)
-
-        buyCatalogViewModel = ViewModelProviders.of(this, buyCatalogViewModelFactory)
+        buyCatalogViewModel = ViewModelProviders.of(this,
+                BuyCatalogViewModelFactory(requireContext().currentFamilyId, buyCatalogID))
                 .get(BuyCatalogViewModel::class.java)
 
-        allBuyCatalogsViewModel = ViewModelProviders.of(this)
+        allBuyCatalogsViewModel = ViewModelProviders
+                .of(this, AllBuyCatalogsViewModelFactory(requireContext().currentFamilyId))
                 .get(AllBuyCatalogsViewModel::class.java)
-
-
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi()
-    }
-
-    /**
-     * prepare Ui
-     * */
-
-    private fun initUi() {
         initRecyclerView()
         initFloatingButton()
         initToolbar()
         initAddButton()
         initSettingsButton()
     }
+
+    /**
+     * prepare Ui
+     * */
 
     private fun initRecyclerView() {
         adapter = BuyCatalogRecyclerViewAdapter(ArrayList(), isEditableMode, this)
