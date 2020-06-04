@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts
 import com.tydeya.familycircle.data.familymember.FamilyMemberDto
@@ -20,6 +19,8 @@ import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyView
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.getUserPhone
+import com.tydeya.familycircle.utils.extensions.popBackStack
 import com.tydeya.familycircle.utils.getDp
 
 class MemberPersonFragment : Fragment() {
@@ -42,7 +43,7 @@ class MemberPersonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initFamilyView(requireArguments().getString(NavigateConsts.BUNDLE_FULL_PHONE_NUMBER)!!)
         binding.toolbar.setNavigationOnClickListener {
-            NavHostFragment.findNavController(this).popBackStack()
+            popBackStack()
         }
     }
 
@@ -51,18 +52,15 @@ class MemberPersonFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     val memberResource = familyViewModel.getFamilyMemberByNumber(userPhoneNumber)
-
                     if (memberResource is Resource.Success) {
                         setCurrentData(FamilyMemberDto(memberResource.data))
-                        setManagerMode(memberResource.data.fullPhoneNumber ==
-                                FirebaseAuth.getInstance().currentUser?.phoneNumber)
+                        setManagerMode(memberResource.data.fullPhoneNumber == getUserPhone())
                     } else {
-                        NavHostFragment.findNavController(this).popBackStack()
+                        popBackStack()
                     }
                 }
-                is Resource.Failure -> {
-                    NavHostFragment.findNavController(this).popBackStack()
-                }
+                is Resource.Failure -> popBackStack()
+
             }
         })
     }

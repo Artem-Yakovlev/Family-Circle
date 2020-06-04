@@ -78,9 +78,9 @@ class MemberPersonEditFragment : Fragment(), DatePickerUsable {
             }
         }
 
-        binding.editPersonDatetimePicker.setOnClickListener {
-            DatePickerPresenter(this, GregorianCalendar())
-        }
+        binding.editPersonDatetimePicker.setOnClickListener(
+                DatePickerPresenter(this, GregorianCalendar())
+        )
 
         binding.familyViewPhotoEdit.setOnClickListener {
             CropImage.activity()
@@ -123,7 +123,6 @@ class MemberPersonEditFragment : Fragment(), DatePickerUsable {
         } else {
             binding.familyViewPhotoEdit.setPadding(20, 20, 20, 20)
         }
-
     }
 
     private fun updateEditablePerson() {

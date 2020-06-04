@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.presentation.viewmodel.familyviewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import com.tydeya.familycircle.domain.familyselection.addFamilyMemberInFirestore
 import com.tydeya.familycircle.utils.Resource
 
 class FamilyViewModel(
-        private val familyId: String
+        familyId: String
 ) :
         ViewModel(), FamilyNetworkInteractorCallback {
 
@@ -30,18 +31,17 @@ class FamilyViewModel(
         familyNetworkInteractor.register()
     }
 
-    override fun familyDataUpdated(family: Resource<Family>) {
-        familyDataLiveData.value = family
+    override fun familyDataUpdated(familyServerResource: Resource<Family>) {
+        familyDataLiveData.value = familyServerResource
     }
 
-    override fun familyMembersUpdated(familyMembers: Resource<ArrayList<FamilyMember>>) {
-        familyMembersLiveData.value = familyMembers
-
-        familyInteractor = if (familyMembers is Resource.Success) {
-            FamilyInteractor(familyMembers.data)
+    override fun familyMembersUpdated(membersServerResource: Resource<ArrayList<FamilyMember>>) {
+        if (membersServerResource is Resource.Success) {
+            familyInteractor.refreshData(membersServerResource.data)
         } else {
-            FamilyInteractor(ArrayList())
+            familyInteractor.refreshData(ArrayList())
         }
+        familyMembersLiveData.value = membersServerResource
     }
 
     override fun onCleared() {

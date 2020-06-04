@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.familyinteraction
 
+import android.util.Log
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.utils.Resource
 
@@ -8,7 +9,6 @@ class FamilyInteractor(familyMembers: ArrayList<FamilyMember>) {
     private val membersMap = HashMap<String, FamilyMember>()
 
     init {
-        membersMap.clear()
         familyMembers.forEach { membersMap[it.fullPhoneNumber] = it }
     }
 
@@ -18,5 +18,10 @@ class FamilyInteractor(familyMembers: ArrayList<FamilyMember>) {
         } else {
             Resource.Failure(IllegalStateException("Family member is not found"))
         }
+    }
+
+    fun refreshData(members: ArrayList<FamilyMember>) {
+        membersMap.clear()
+        members.forEach { membersMap[it.fullPhoneNumber] = it }
     }
 }

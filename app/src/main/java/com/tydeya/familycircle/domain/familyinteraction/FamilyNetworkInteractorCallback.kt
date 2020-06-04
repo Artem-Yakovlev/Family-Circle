@@ -6,7 +6,7 @@ import com.tydeya.familycircle.utils.Resource
 
 interface FamilyNetworkInteractorCallback {
 
-    fun familyDataUpdated(family: Resource<Family>)
+    fun familyDataUpdated(familyServerResource: Resource<Family>)
 
-    fun familyMembersUpdated(familyMembers: Resource<ArrayList<FamilyMember>>)
+    fun familyMembersUpdated(membersServerResource: Resource<ArrayList<FamilyMember>>)
 }

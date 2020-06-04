@@ -18,8 +18,8 @@
 
         <ImageButton
             android:id="@+id/edit_person_page_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
             android:background="@null"
@@ -44,19 +44,19 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/circle_image_background"
             android:clickable="true"
+            android:elevation="110dp"
             android:focusable="true"
             android:padding="20dp"
             android:src="@drawable/ic_add_a_photo_blue_24dp"
-            app:shape_mode="circle"
-            android:elevation="110dp" />
+            app:shape_mode="circle" />
 
         <!-- Name input-->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginRight="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -117,9 +117,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginRight="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -147,8 +147,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
