@@ -11,6 +11,8 @@ import com.tydeya.familycircle.data.kitchenorganizer.barcodescanner.ScannedProdu
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.FoodActionDialog
 import com.tydeya.familycircle.presentation.viewmodel.kitchen.barcodescanner.BarcodeScannerViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.barcodescanner.BarcodeScannerViewModelFactory
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import com.tydeya.familycircle.utils.extensions.value
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -23,21 +25,19 @@ class CreateProductFromBarcodeDialog : FoodActionDialog() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DialogKitchenOrganizerFoodActionBinding.bind(root)
-        barcodeScannerViewModel = ViewModelProviders.of(requireActivity())
+        barcodeScannerViewModel = ViewModelProviders
+                .of(requireActivity(), BarcodeScannerViewModelFactory(requireContext().currentFamilyId))
                 .get(BarcodeScannerViewModel::class.java)
-
         return binding.root
     }
 
     override fun fillUiWithCurrentData() {
         super.fillUiWithCurrentData()
         binding.productNameInput.value = requireArguments().getString(FOOD_NAME, "")
-
     }
 
     override fun action() {
         val title = binding.productNameInput.text.toString().trim()
-
         if (title == "") {
             binding.productNameInput.error = requireContext().resources
                     .getString(R.string.empty_necessary_field_warning)

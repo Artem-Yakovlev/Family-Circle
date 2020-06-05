@@ -113,8 +113,8 @@ abstract class FoodActionDialog protected constructor() : DialogFragment() {
     }
 
     protected open fun fillUiWithCurrentData() {
-        food = requireArguments().getParcelable(DIALOG_FOOD_OBJECT)
-        food?.let {
+        arguments?.getParcelable<Food>(DIALOG_FOOD_OBJECT)?.let {
+            food = it
             binding.productNameInput.value = it.title
 
             if (it.measureType != MeasureType.NOT_CHOSEN) {

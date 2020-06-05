@@ -10,6 +10,8 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.databinding.DialogKitchenOrganizerFoodActionBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.kitchenorganizer.FoodActionDialog
 import com.tydeya.familycircle.presentation.viewmodel.kitchen.foodinfridge.FoodInFridgeViewModel
+import com.tydeya.familycircle.presentation.viewmodel.kitchen.foodinfridge.FoodInFridgeViewModelFactory
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,11 +19,12 @@ import kotlinx.coroutines.withContext
 
 class AddFoodInFridgeManuallyDialog : FoodActionDialog() {
 
-    private lateinit var barcodeScannerViewModel: FoodInFridgeViewModel
+    private lateinit var viewModel: FoodInFridgeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DialogKitchenOrganizerFoodActionBinding.bind(root)
-        barcodeScannerViewModel = ViewModelProviders.of(requireActivity())
+        viewModel = ViewModelProviders
+                .of(this, FoodInFridgeViewModelFactory(requireContext().currentFamilyId))
                 .get(FoodInFridgeViewModel::class.java)
         return binding.root
     }
@@ -34,7 +37,7 @@ class AddFoodInFridgeManuallyDialog : FoodActionDialog() {
         } else {
             GlobalScope.launch(Dispatchers.Default) {
 
-                barcodeScannerViewModel.addNewFoodInFridge(createFoodByInputtedData())
+                viewModel.addNewFoodInFridge(createFoodByInputtedData())
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), resources

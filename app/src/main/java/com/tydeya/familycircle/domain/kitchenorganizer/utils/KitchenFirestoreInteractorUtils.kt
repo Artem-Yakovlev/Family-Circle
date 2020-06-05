@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.kitchenorganizer.utils
 
-import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.FireStore
 import com.tydeya.familycircle.data.kitchenorganizer.food.Food
 import com.tydeya.familycircle.utils.extensions.firestoreFamily
@@ -62,7 +61,7 @@ fun buyProductFirebaseProcessing(familyId: String, catalogId: String, food: Food
             .document(catalogId).collection(FireStore.BUYS_CATALOG_FOODS)
             .document(food.id).update(FireStore.FOOD_STATUS, 1)
 
-    FirebaseFirestore.getInstance().collection(FireStore.FRIDGE_COLLECTION)
+    firestoreFamily(familyId).collection(FireStore.FRIDGE_COLLECTION)
             .add(food.toFirestoreObject())
 }
 
