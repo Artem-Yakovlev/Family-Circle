@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -13,10 +12,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.Application.*
 import com.tydeya.familycircle.domain.account.AccountExistingCheckUpCallback
 import com.tydeya.familycircle.domain.account.AccountSyncTool
-import com.tydeya.familycircle.data.constants.Application.*
-import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.kitchenorganizer.notifications.KitchenOrganizerShelfLifeReceiver
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
@@ -25,14 +23,10 @@ import com.tydeya.familycircle.presentation.viewmodel.CroppedImageViewModel
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountExistingCheckUpCallback {
 
     private var currentNavController: LiveData<NavController>? = null
-
-    @Inject
-    lateinit var messengerInteractor: MessengerInteractor
 
     private var isSavedInstanceNull = false
     private var isEntrySuccessful = false
@@ -105,13 +99,12 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     }
 
     override fun accountIsExist(userId: String, families: List<String>) {
-
         if (currentFamilyId in families) {
             App.getComponent().injectActivity(this)
             if (isSavedInstanceNull) {
                 isEntrySuccessful = true
                 setupBottomNavigationBar()
-                messengerInteractor.subscribe(this)
+                MessengerInteractor.connectToFamily(familyId = currentFamilyId)
             }
             splashStubVisibility(false)
         } else {
@@ -128,14 +121,14 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     }
 
     private fun updateBadges() {
-        if (messengerInteractor.numberOfUnreadMessages == 0) {
-            main_bottom_navigation_view.removeBadge(R.id.correspondence)
-        } else {
-            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
-            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-                    .number = messengerInteractor.numberOfUnreadMessages
-        }
+//        if (messengerInteractor.numberOfUnreadMessages == 0) {
+//            main_bottom_navigation_view.removeBadge(R.id.correspondence)
+//        } else {
+//            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
+//                    .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
+//            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
+//                    .number = messengerInteractor.numberOfUnreadMessages
+//        }
     }
 
     /**
@@ -159,24 +152,6 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     }
 
     /**
-     * Interaction callbacks
-     * */
-
-    override fun onResume() {
-        super.onResume()
-        if (isEntrySuccessful) {
-            messengerInteractor.subscribe(this)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (isEntrySuccessful) {
-            messengerInteractor.unsubscribe(this)
-        }
-    }
-
-    /**
      * Main application activity
      * */
 
@@ -186,6 +161,11 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         } else {
             View.GONE
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        MessengerInteractor.disconnect()
     }
 
 }

@@ -1,117 +1,129 @@
 package com.tydeya.familycircle.domain.messenger.networkinteractor.details
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import com.tydeya.familycircle.data.constants.FireStore.CONVERSATION_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.CONVERSATION_MEMBERS
 import com.tydeya.familycircle.data.constants.FireStore.CONVERSATION_MESSAGES
 import com.tydeya.familycircle.data.constants.FireStore.CONVERSATION_TITLE
+import com.tydeya.familycircle.data.constants.FireStore.FAMILY_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_AUTHOR_PHONE
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_DATETIME
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_TEXT
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_UNREAD_PATTERN
-import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
-import com.tydeya.familycircle.data.messenger.conversation.Conversation
+import com.tydeya.familycircle.data.messenger.ChatMessage
+import com.tydeya.familycircle.data.messenger.Conversation
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractorCallback
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MessengerNetworkInteractorImpl(val callback: MessengerNetworkInteractorCallback)
-    :
+class MessengerNetworkInteractorImpl(
+        private val familyId: String,
+        private val callback: MessengerNetworkInteractorCallback
+) :
         MessengerNetworkInteractor {
 
-    @Suppress("UNCHECKED_CAST")
-    override fun requireData() {
-        FirebaseFirestore.getInstance().collection(CONVERSATION_COLLECTION)
-                .addSnapshotListener { querySnapshot, _ ->
-                    GlobalScope.launch(Dispatchers.Default) {
-                        querySnapshot?.let {
-                            val conversations = ArrayList<Conversation>()
-                            for (document in querySnapshot.documents) {
+    private val conversationsPath = FirebaseFirestore.getInstance()
+            .collection(FAMILY_COLLECTION)
+            .document(familyId)
+            .collection(CONVERSATION_COLLECTION)
 
-                                val members = document.get(CONVERSATION_MEMBERS) as ArrayList<String>
-                                if (FirebaseAuth.getInstance().currentUser!!.phoneNumber in members) {
-                                    conversations.add(Conversation(
-                                            document.id,
-                                            document.getString(CONVERSATION_TITLE) ?: "",
-                                            0,
-                                            members, ArrayList()
-                                    ))
-                                }
-                            }
-                            callback.messengerConversationDataUpdated(conversations)
+    private lateinit var conversationsRegistration: ListenerRegistration
+
+    @Suppress("UNCHECKED_CAST")
+    override fun connect() {
+        conversationsRegistration = conversationsPath.addSnapshotListener { querySnapshot, _ ->
+            GlobalScope.launch(Dispatchers.Default) {
+                querySnapshot?.let {
+                    val conversations = ArrayList<Conversation>()
+                    for (document in querySnapshot.documents) {
+                        val members = document.get(CONVERSATION_MEMBERS) as ArrayList<String>
+                        if (getUserPhone() in members) {
+                            conversations.add(Conversation(
+                                    id = document.id,
+                                    title = document.getString(CONVERSATION_TITLE) ?: "",
+                                    members = members
+                            ))
                         }
                     }
-
+                    callback.messengerConversationDataUpdated(conversations)
                 }
+            }
+        }
+    }
+
+    override fun disconnect() {
+        conversationsRegistration.remove()
     }
 
     override fun createConversation(title: String, members: ArrayList<String>) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(CONVERSATION_COLLECTION).add(
-                    hashMapOf(
-                            CONVERSATION_TITLE to title,
-                            CONVERSATION_MEMBERS to members
-                    ) as Map<String, Any>
-            )
+            conversationsPath.add(mutableMapOf<String, Any>(
+                    CONVERSATION_TITLE to title,
+                    CONVERSATION_MEMBERS to members
+            ))
         }
     }
 
     override fun changeConversationMembers(conversationId: String, members: ArrayList<String>) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(CONVERSATION_COLLECTION)
-                    .document(conversationId).update(hashMapOf(CONVERSATION_MEMBERS to members) as Map<String, Any>)
+            conversationsPath.document(conversationId)
+                    .update(mutableMapOf<String, Any>(CONVERSATION_MEMBERS to members))
         }
     }
 
     override fun editConversationTitle(conversationId: String, title: String) {
         GlobalScope.launch(Dispatchers.Default) {
-            FirebaseFirestore.getInstance().collection(CONVERSATION_COLLECTION)
-                    .document(conversationId)
-                    .update(hashMapOf(CONVERSATION_TITLE to title) as Map<String, Any>)
+            conversationsPath.document(conversationId)
+                    .update(mutableMapOf<String, Any>(CONVERSATION_TITLE to title))
         }
     }
 
-    override fun sendMessage(conversationId: String, message: ChatMessage, unreadByPhones: ArrayList<String>) {
-        FirebaseFirestore.getInstance().collection(CONVERSATION_COLLECTION)
-                .document(conversationId).collection(CONVERSATION_MESSAGES).add(
-                        createMessageForFirebase(message, unreadByPhones)
-                )
+    override fun sendMessage(
+            conversationId: String,
+            message: ChatMessage,
+            unreadByPhones: ArrayList<String>
+    ) {
+        conversationsPath.document(conversationId).collection(CONVERSATION_MESSAGES).add(
+                createMessageForFirebase(message, unreadByPhones)
+        )
     }
 
     override fun readAllMessages(conversationId: String) {
-        FirebaseFirestore.getInstance().collection(CONVERSATION_COLLECTION)
+        conversationsPath
                 .document(conversationId)
                 .collection(CONVERSATION_MESSAGES).get()
                 .addOnSuccessListener { querySnapshot: QuerySnapshot? ->
                     GlobalScope.launch(Dispatchers.Default) {
                         querySnapshot?.let { query ->
                             query.documents.forEach {
-                                it.reference.update(
-                                        hashMapOf(MESSAGE_UNREAD_PATTERN +
-                                                "${FirebaseAuth.getInstance().currentUser!!.phoneNumber}"
-                                                to false
-                                        ) as Map<String, Any>)
+                                it.reference.update(mutableMapOf<String, Any>(
+                                        "$MESSAGE_UNREAD_PATTERN ${getUserPhone()}" to false
+                                ))
                             }
                         }
                     }
                 }
     }
 
-    private fun createMessageForFirebase(message: ChatMessage, unreadByPhones: ArrayList<String>): Map<String, Any> {
-        val firebaseMessageData = hashMapOf(
+    private fun createMessageForFirebase(
+            message: ChatMessage,
+            unreadByPhones: ArrayList<String>
+    ):
+            Map<String, Any> {
+
+        val firebaseMessageData = mutableMapOf<String, Any>(
                 MESSAGE_TEXT to message.text,
                 MESSAGE_AUTHOR_PHONE to message.authorPhoneNumber,
                 MESSAGE_DATETIME to message.dateTime
-        ) as MutableMap<String, Any>
+        )
         unreadByPhones.forEach {
             firebaseMessageData["${MESSAGE_UNREAD_PATTERN}${it}"] = true
         }
         return firebaseMessageData
     }
-
-
 }

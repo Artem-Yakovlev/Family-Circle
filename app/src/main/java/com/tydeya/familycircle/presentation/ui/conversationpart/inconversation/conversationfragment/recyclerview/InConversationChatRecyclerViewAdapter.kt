@@ -4,10 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.ChatMessage
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.utils.extensions.getUserPhone
@@ -27,7 +25,7 @@ class InConversationChatRecyclerViewAdapter(
     private val userPhoneNumber = getUserPhone()
 
     init {
-        App.getComponent().injectRecyclerViewAdapter(this)
+//        App.getComponent().injectRecyclerViewAdapter(this)
     }
 
     /**

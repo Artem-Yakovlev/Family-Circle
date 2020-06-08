@@ -1,102 +1,131 @@
 package com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.data.messenger.ConversationMember
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
-import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
-import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview.CreateConversationMembersCheckBoxListener
 import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview.CreateConversationMembersRecyclerViewAdapter
-import com.tydeya.familycircle.utils.extensions.getUserPhone
-import kotlinx.android.synthetic.main.dialog_create_conversation.view.*
-import javax.inject.Inject
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
+import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.*
+import kotlinx.android.synthetic.main.dialog_create_conversation.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class CreateConversationDialog : DialogFragment(), CreateConversationMembersCheckBoxListener {
+class CreateConversationDialog : DialogFragment() {
 
-    @Inject
-    lateinit var messengerInteractor: MessengerInteractor
+    private lateinit var familyViewModel: FamilyViewModel
+    private lateinit var recyclerAdapter: CreateConversationMembersRecyclerViewAdapter
 
-    @Inject
-    lateinit var familyInteractor: FamilyInteractor
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
 
-    private val names = ArrayList<String>()
-    private val phoneNumbers = ArrayList<String>()
-    private val needToAdd = ArrayList<Boolean>()
+        familyViewModel = ViewModelProviders
+                .of(requireActivity(), FamilyViewModelFactory(requireActivity().currentFamilyId))
+                .get(FamilyViewModel::class.java)
 
-    init {
-        App.getComponent().injectDialog(this)
-        familyInteractor.actualFamily.familyMembers.forEach {
-            if (it.fullPhoneNumber != getUserPhone()) {
-                names.add(it.description.name)
-                phoneNumbers.add(it.fullPhoneNumber)
-                needToAdd.add(false)
-            }
-        }
+        return inflater.inflate(R.layout.dialog_create_conversation, container, false)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val view = requireActivity().layoutInflater.inflate(R.layout.dialog_create_conversation, null)
+        initAdapter()
 
-        setAdapter(view.dialog_create_conversation_recyclerview)
+        dialog_create_conversation_create_button.setOnClickListener {
+            if (dialog_create_conversation_title.isNotEmptyCheck(true)) {
+                GlobalScope.launch(Dispatchers.Default) {
 
-        view.dialog_create_conversation_create_button.setOnClickListener {
-            if (!DataConfirming.isEmptyNecessaryCheck(view.dialog_create_conversation_title, true)) {
-                if (needToAdd.contains(true)) {
+                    val conversationMembers = recyclerAdapter.members
+                            .filter(ConversationMember::isChecked)
+                            .map(ConversationMember::phoneNumber)
+                            .toArrayList()
 
-                    messengerInteractor.createConversation(view.dialog_create_conversation_title
-                            .text.toString().trim(), getConversationMembers())
-                    dismiss()
-
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.messenger_create_conversation_dialog_add_someone_text),
-                            Toast.LENGTH_LONG).show()
+                    withContext(Dispatchers.Main) {
+                        if (conversationMembers.isNotEmpty()) {
+                            MessengerInteractor.createConversation(
+                                    dialog_create_conversation_title.text.toString(),
+                                    conversationMembers.apply { add(getUserPhone()) }
+                            )
+                            dismiss()
+                        } else {
+                            requireContext().showToast(
+                                    R.string.messenger_create_conversation_dialog_add_someone_text
+                            )
+                        }
+                    }
                 }
             }
         }
 
-        view.dialog_create_conversation_cancel_button.setOnClickListener {
+        dialog_create_conversation_cancel_button.setOnClickListener {
             dismiss()
         }
-
-        builder.setView(view)
-        return builder.create()
     }
 
-    private fun setAdapter(recyclerView: RecyclerView) {
-        val adapter = CreateConversationMembersRecyclerViewAdapter(requireContext(),
-                familyInteractor.actualFamily.getFamilyMemberExceptUserPhone(getUserPhone()),
-                this)
-
-        recyclerView.adapter = adapter
-
-        recyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    }
-
-    override fun checkboxChangeState(phoneNumber: String, actualState: Boolean) {
-        needToAdd[phoneNumbers.indexOf(phoneNumber)] = actualState
-    }
-
-    private fun getConversationMembers(): ArrayList<String> {
-        val members = ArrayList<String>()
-        members.add(0, getUserPhone())
-
-        for (i in 0 until needToAdd.size) {
-            if (needToAdd[i]) {
-                members.add(phoneNumbers[i])
-            }
+    private fun initAdapter() {
+        this.recyclerAdapter = CreateConversationMembersRecyclerViewAdapter(ArrayList())
+        with(dialog_create_conversation_recyclerview) {
+            this.adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(requireContext(),
+                    LinearLayoutManager.VERTICAL, false)
         }
 
-        return members
+        familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch(Dispatchers.Default) {
+                when (it) {
+                    is Resource.Success -> {
+                        val members = it.data
+                                .filter { it.fullPhoneNumber != getUserPhone() }
+                                .map(::ConversationMember)
+                                .toArrayList()
+
+                        withContext(Dispatchers.Main) {
+                            recyclerAdapter.refreshData(members)
+                        }
+                    }
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Failure -> {
+                        withContext(Dispatchers.Main) {
+                            dismiss()
+                        }
+                    }
+                }
+            }
+        })
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.apply {
+            setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        }
+    }
+
+    companion object {
+
+        private val TAG = CreateConversationDialog::class.java.simpleName
+
+        fun newInstance() = CreateConversationDialog()
     }
 }

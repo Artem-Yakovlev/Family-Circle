@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.domain.messenger.conversationlistener
 
-import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.ChatMessage
 
 interface ConversationListenerCallback {
 

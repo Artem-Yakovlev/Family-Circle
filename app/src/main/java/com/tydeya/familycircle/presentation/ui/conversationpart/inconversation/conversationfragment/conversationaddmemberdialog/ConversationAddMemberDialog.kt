@@ -17,23 +17,22 @@ class ConversationAddMemberDialog(private val conversationId: String
 ) :
         DialogFragment(), ConversationAddMemberDialogRecyclerViewClickListener {
 
-    @Inject
-    lateinit var messengerInteractor: MessengerInteractor
-
-    @Inject
-    lateinit var familyInteractor: FamilyInteractor
+//    @Inject
+//    lateinit var messengerInteractor: MessengerInteractor
+//
+//    @Inject
+//    lateinit var familyInteractor: FamilyInteractor
 
     private val names = ArrayList<String>()
     private val phoneNumbers = ArrayList<String>()
 
     init {
-        App.getComponent().injectDialog(this)
+//        App.getComponent().injectDialog(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
-        val view = activity!!.layoutInflater.inflate(R.layout.dialog_conversation_add_member, null)
-
+        val view = requireActivity().layoutInflater.inflate(R.layout.dialog_conversation_add_member, null)
 
         setRecyclerView(view.dialog_conversation_add_member_recyclerview)
 
@@ -46,24 +45,24 @@ class ConversationAddMemberDialog(private val conversationId: String
     }
 
     private fun setRecyclerView(recyclerView: RecyclerView) {
-        messengerInteractor.conversationById(conversationId)?.let { conversation ->
-            familyInteractor.actualFamily.familyMembers.forEach {
-                if (!conversation.members.contains(it.fullPhoneNumber)) {
-                    names.add(it.description.name)
-                    phoneNumbers.add(it.fullPhoneNumber)
-                }
-            }
-        }
-        recyclerView.adapter =
-                ConversationAddMemberDialogRecyclerViewAdapter(context!!, names, this)
-        recyclerView.layoutManager =
-                LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+//        messengerInteractor.conversationById(conversationId)?.let { conversation ->
+//            familyInteractor.actualFamily.familyMembers.forEach {
+//                if (!conversation.members.contains(it.fullPhoneNumber)) {
+//                    names.add(it.description.name)
+//                    phoneNumbers.add(it.fullPhoneNumber)
+//                }
+//            }
+//        }
+//        recyclerView.adapter =
+//                ConversationAddMemberDialogRecyclerViewAdapter(requireContext(), names, this)
+//        recyclerView.layoutManager =
+//                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
     }
 
     override fun onAddMemberButtonClick(position: Int) {
-        messengerInteractor.addMemberInConversation(conversationId, phoneNumbers[position])
-        dismiss()
+//        messengerInteractor.addMemberInConversation(conversationId, phoneNumbers[position])
+//        dismiss()
     }
 }

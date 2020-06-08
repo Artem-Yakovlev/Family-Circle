@@ -62,6 +62,7 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
                 is Resource.Loading -> {
                 }
                 is Resource.Failure -> {
+
                 }
             }
         })

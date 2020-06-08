@@ -6,9 +6,8 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.messenger.conversation.Conversation
+import com.tydeya.familycircle.data.messenger.Conversation
 import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
 import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
@@ -32,13 +31,13 @@ class ConversationInfoDialog(private val conversationId: String,
     private val phoneNumbers = ArrayList<String>()
 
     init {
-        App.getComponent().injectDialog(this)
+//        App.getComponent().injectDialog(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val view = activity!!.layoutInflater.inflate(R.layout.dialog_conversation_info, null)
+        val view = requireActivity().layoutInflater.inflate(R.layout.dialog_conversation_info, null)
 
         messengerInteractor.conversationById(conversationId)?.let {
             view.dialog_conversation_info_input.value = it.title
@@ -73,9 +72,9 @@ class ConversationInfoDialog(private val conversationId: String,
             names.add(familyAssistant.getUserByPhone(it)!!.description.name)
             phoneNumbers.add(it)
         }
-        val adapter = ConversationInfoRecyclerViewAdapter(context!!, names)
+        val adapter = ConversationInfoRecyclerViewAdapter(requireContext(), names)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
     }
 }

@@ -9,7 +9,7 @@ import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_AUTHOR_PHONE
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_DATETIME
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_TEXT
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_UNREAD_PATTERN
-import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.ChatMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

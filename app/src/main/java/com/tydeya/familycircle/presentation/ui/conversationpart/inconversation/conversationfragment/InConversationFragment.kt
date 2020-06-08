@@ -22,14 +22,14 @@ class InConversationFragment
         Fragment(R.layout.fragment_in_conversation),
         MessengerInteractorCallback, ConversationInfoDialogListener {
 
-    @Inject
-    lateinit var messengerInteractor: MessengerInteractor
+//    @Inject
+//    lateinit var messengerInteractor: MessengerInteractor
 
     private lateinit var adapter: InConversationChatRecyclerViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.getComponent().injectFragment(this)
+//        App.getComponent().injectFragment(this)
         setAdapter()
         setSendButton()
         setInfoButton()
@@ -46,22 +46,22 @@ class InConversationFragment
     }
 
     private fun setCurrentData() {
-        messengerInteractor.readAllMessages(messengerInteractor.actualConversationId)
-        val conversation = messengerInteractor.conversationById(messengerInteractor.actualConversationId)!!
-
-        in_conversation_toolbar.title = conversation.title
-
-        adapter.refreshData(conversation.messages)
+//        messengerInteractor.readAllMessages(messengerInteractor.actualConversationId)
+//        val conversation = messengerInteractor.conversationById(messengerInteractor.actualConversationId)!!
+//
+//        in_conversation_toolbar.title = conversation.title
+//
+//        adapter.refreshData(conversation.messages)
     }
 
     private fun setSendButton() {
-        chat_send_message_button.setOnClickListener {
-            val messageText = chat_input_field.text.toString().trim()
-            if (messageText != "") {
-                messengerInteractor.sendMessage(messengerInteractor.actualConversationId, messageText)
-                chat_input_field.value = ""
-            }
-        }
+//        chat_send_message_button.setOnClickListener {
+//            val messageText = chat_input_field.text.toString().trim()
+//            if (messageText != "") {
+//                messengerInteractor.sendMessage(messengerInteractor.actualConversationId, messageText)
+//                chat_input_field.value = ""
+//            }
+//        }
     }
 
     /**
@@ -69,40 +69,48 @@ class InConversationFragment
      * */
 
     private fun setInfoButton() {
-        in_conversation_info_button.setOnClickListener {
-            val dialog = ConversationInfoDialog(messengerInteractor.actualConversationId, this)
-            dialog.show(parentFragmentManager, "conversation_info_dialog")
-        }
+//        in_conversation_info_button.setOnClickListener {
+//            val dialog = ConversationInfoDialog(messengerInteractor.actualConversationId, this)
+//            dialog.show(parentFragmentManager, "conversation_info_dialog")
+//        }
     }
 
     private fun setAddMemberButton() {
-        in_conversation_add_member_button.setOnClickListener {
-            val dialog = ConversationAddMemberDialog(messengerInteractor.actualConversationId)
-            dialog.show(parentFragmentManager, "conversation_add_member_dialog")
+//        in_conversation_add_member_button.setOnClickListener {
+//            val dialog = ConversationAddMemberDialog(messengerInteractor.actualConversationId)
+//            dialog.show(parentFragmentManager, "conversation_add_member_dialog")
         }
+
+    override fun messengerDataFromServerUpdated() {
+        TODO("Not yet implemented")
     }
 
     override fun leaveConversation() {
-        messengerInteractor.leaveConversation(messengerInteractor.actualConversationId)
-        requireActivity().finish()
+        TODO("Not yet implemented")
+    }
+}
+
+    fun leaveConversation() {
+//        messengerInteractor.leaveConversation(messengerInteractor.actualConversationId)
+//        requireActivity().finish()
     }
 
     /**
      * Callbacks
      * */
 
-    override fun messengerDataFromServerUpdated() {
-        setCurrentData()
-    }
+//    override fun messengerDataFromServerUpdated() {
+//        setCurrentData()
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        messengerInteractor.subscribe(this)
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        messengerInteractor.unsubscribe(this)
+//    }
 
-    override fun onResume() {
-        super.onResume()
-        messengerInteractor.subscribe(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        messengerInteractor.unsubscribe(this)
-    }
-
-}
+//}

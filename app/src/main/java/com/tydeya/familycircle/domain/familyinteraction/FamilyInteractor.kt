@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.familyinteraction
 
-import android.util.Log
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.utils.Resource
 

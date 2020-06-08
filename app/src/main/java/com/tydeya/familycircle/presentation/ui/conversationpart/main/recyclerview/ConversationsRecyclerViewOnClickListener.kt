@@ -1,6 +1,6 @@
 package com.tydeya.familycircle.presentation.ui.conversationpart.main.recyclerview
 
-interface MainConversationRecyclerViewOnClickListener {
+interface ConversationsRecyclerViewOnClickListener {
 
     fun onConversationClick(conversationId: String)
 

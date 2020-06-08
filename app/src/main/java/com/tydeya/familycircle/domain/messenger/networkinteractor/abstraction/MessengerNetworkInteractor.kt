@@ -1,10 +1,12 @@
 package com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction
 
-import com.tydeya.familycircle.data.messenger.chatmessage.ChatMessage
+import com.tydeya.familycircle.data.messenger.ChatMessage
 
 interface MessengerNetworkInteractor {
 
-    fun requireData()
+    fun connect()
+
+    fun disconnect()
 
     fun createConversation(title: String, members: ArrayList<String>)
 

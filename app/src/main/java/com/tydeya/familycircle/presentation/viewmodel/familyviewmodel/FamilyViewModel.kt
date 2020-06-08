@@ -1,9 +1,7 @@
 package com.tydeya.familycircle.presentation.viewmodel.familyviewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.domain.familyinteraction.FamilyInteractor

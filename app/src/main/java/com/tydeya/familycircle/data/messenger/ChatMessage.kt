@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.data.messenger.chatmessage
+package com.tydeya.familycircle.data.messenger
 
 import java.util.*
 
