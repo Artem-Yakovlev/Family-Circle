@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -121,14 +122,14 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
     }
 
     private fun updateBadges() {
-//        if (messengerInteractor.numberOfUnreadMessages == 0) {
-//            main_bottom_navigation_view.removeBadge(R.id.correspondence)
-//        } else {
-//            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-//                    .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
-//            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
-//                    .number = messengerInteractor.numberOfUnreadMessages
-//        }
+        if (MessengerInteractor.numberOfUnreadMessages == 0) {
+            main_bottom_navigation_view.removeBadge(R.id.correspondence)
+        } else {
+            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
+                    .backgroundColor = ContextCompat.getColor(this, R.color.colorConversationBadge)
+            main_bottom_navigation_view.getOrCreateBadge(R.id.correspondence)
+                    .number = MessengerInteractor.numberOfUnreadMessages
+        }
     }
 
     /**
@@ -163,8 +164,8 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         MessengerInteractor.disconnect()
     }
 

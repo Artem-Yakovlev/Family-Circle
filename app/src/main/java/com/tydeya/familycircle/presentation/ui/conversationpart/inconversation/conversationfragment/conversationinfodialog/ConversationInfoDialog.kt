@@ -1,80 +1,137 @@
 package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
-import com.tydeya.familycircle.domain.familyassistant.details.FamilyAssistantImpl
-import com.tydeya.familycircle.domain.oldfamilyinteractor.details.FamilyInteractor
+import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
+import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.popBackStack
+import com.tydeya.familycircle.utils.extensions.toArrayList
 import com.tydeya.familycircle.utils.extensions.value
-import kotlinx.android.synthetic.main.dialog_conversation_info.view.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.dialog_conversation_info.*
 
-class ConversationInfoDialog(private val conversationId: String,
-                             private val listener: ConversationInfoDialogListener
+class ConversationInfoDialog(
 
-) : DialogFragment() {
+) : DialogFragment(), MessengerInteractorCallback {
 
-    @Inject
-    lateinit var messengerInteractor: MessengerInteractor
+    private lateinit var familyViewModel: FamilyViewModel
 
-    @Inject
-    lateinit var familyInteractor: FamilyInteractor
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
 
-    private val names = ArrayList<String>()
-    private val phoneNumbers = ArrayList<String>()
+        familyViewModel = ViewModelProviders
+                .of(requireActivity(), FamilyViewModelFactory(requireActivity().currentFamilyId))
+                .get(FamilyViewModel::class.java)
 
-    init {
-//        App.getComponent().injectDialog(this)
+        return inflater.inflate(R.layout.dialog_conversation_info, container, false)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val view = requireActivity().layoutInflater.inflate(R.layout.dialog_conversation_info, null)
-
-        messengerInteractor.conversationById(conversationId)?.let {
-            view.dialog_conversation_info_input.value = it.title
-            setRecyclerViewAdapter(view.dialog_conversation_info_recyclerview, it)
-        }
-
-        view.dialog_conversation_info_leave_button.setOnClickListener {
-            listener.leaveConversation()
+        dialog_conversation_info_cancel_button.setOnClickListener {
             dismiss()
         }
 
-        view.dialog_conversation_info_cancel_button.setOnClickListener {
-            dismiss()
-        }
+        requireArguments().getString(CONVERSATION_ID)?.let { conversationId ->
 
-        view.dialog_conversation_info_save_button.setOnClickListener {
-            if (!DataConfirming.isEmptyNecessaryCheck(view.dialog_conversation_info_input, true)) {
-                messengerInteractor.editConversationTitle(conversationId,
-                        view.dialog_conversation_info_input.text.toString().trim())
-                dismiss()
+            MessengerInteractor.conversationById(conversationId)?.let {
+                dialog_conversation_info_input.value = it.title
+                setRecyclerViewAdapter(it)
             }
-        }
 
-        builder.setView(view)
-        return builder.create()
+            dialog_conversation_info_save_button.setOnClickListener {
+                if (!DataConfirming.isEmptyNecessaryCheck(
+                                dialog_conversation_info_input,
+                                true
+                        )
+                ) {
+                    MessengerInteractor.editConversationTitle(
+                            conversationId = conversationId,
+                            actualTitle = dialog_conversation_info_input.value.trim()
+                    )
+                    dismiss()
+                }
+            }
+
+            dialog_conversation_info_leave_button.setOnClickListener {
+                MessengerInteractor.leaveConversation(conversationId)
+                dismiss()
+                requireParentFragment().popBackStack()
+            }
+
+        } ?: dismiss()
     }
 
-    private fun setRecyclerViewAdapter(recyclerView: RecyclerView, conversation: Conversation) {
-        names.clear()
-        val familyAssistant = FamilyAssistantImpl(familyInteractor.actualFamily)
-        conversation.members.forEach {
-            names.add(familyAssistant.getUserByPhone(it)!!.description.name)
-            phoneNumbers.add(it)
-        }
-        val adapter = ConversationInfoRecyclerViewAdapter(requireContext(), names)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    private fun setRecyclerViewAdapter(conversation: Conversation) {
+        val adapter = ConversationInfoRecyclerViewAdapter()
+        dialog_conversation_info_recyclerview.adapter = adapter
+        dialog_conversation_info_recyclerview.layoutManager = LinearLayoutManager(
+                requireContext(), LinearLayoutManager.VERTICAL, false
+        )
+        familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer { familyMembers ->
+            when (familyMembers) {
+                is Resource.Success -> adapter.refreshData(familyMembers.data
+                        .filter { it.fullPhoneNumber in conversation.members }
+                        .toArrayList())
+                is Resource.Failure -> dismiss()
+            }
+        })
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+
+    override fun messengerDataFromServerUpdated() {
+        requireArguments().getString(CONVERSATION_ID)?.let {
+            MessengerInteractor.conversationById(it)?.let { conversation ->
+                setRecyclerViewAdapter(conversation)
+            } ?: dismiss()
+        } ?: dismiss()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MessengerInteractor.subscribe(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        MessengerInteractor.unsubscribe(this)
+    }
+
+    companion object {
+
+        val TAG = ConversationInfoDialog::class.java.simpleName
+
+        private const val CONVERSATION_ID = "conversation_id"
+
+        fun newInstance(conversationId: String) =
+                ConversationInfoDialog().apply {
+                    arguments = bundleOf(CONVERSATION_ID to conversationId)
+                }
+    }
+
 }

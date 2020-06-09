@@ -2,5 +2,5 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.
 
 interface ConversationAddMemberDialogRecyclerViewClickListener {
 
-    fun onAddMemberButtonClick(position: Int)
+    fun onAddMemberButtonClick(phoneNumber: String)
 }

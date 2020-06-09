@@ -2,6 +2,7 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.tydeya.familycircle.data.familymember.FamilyMember
 import kotlinx.android.synthetic.main.cardview_member_in_conversation_add_member_dialog.view.*
 
 class ConversationAddMemberDialogViewHolder(
@@ -10,10 +11,10 @@ class ConversationAddMemberDialogViewHolder(
 ) :
         RecyclerView.ViewHolder(itemView) {
 
-    fun bindData(name: String, position: Int) {
-        itemView.member_in_conversation_add_member_dialog_name.text = name
+    fun bindData(familyMember: FamilyMember) {
+        itemView.member_in_conversation_add_member_dialog_name.text = familyMember.description.name
         itemView.member_in_conversation_add_member_dialog_name_add_button.setOnClickListener {
-            listener.onAddMemberButtonClick(position)
+            listener.onAddMemberButtonClick(familyMember.fullPhoneNumber)
         }
     }
 }

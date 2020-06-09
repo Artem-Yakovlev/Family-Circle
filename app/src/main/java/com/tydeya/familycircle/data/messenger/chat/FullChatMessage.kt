@@ -5,6 +5,4 @@ data class FullChatMessage(
         val imageAddress: String = "",
         val isUserOnline: Boolean = false,
         val chatMessage: ChatMessage
-) {
-
-}
+)

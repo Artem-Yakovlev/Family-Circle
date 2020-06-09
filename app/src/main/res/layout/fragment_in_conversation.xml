@@ -16,10 +16,9 @@
 
         <ImageButton
             android:id="@+id/in_conversation_info_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="right"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
             android:paddingHorizontal="10dp"
@@ -28,10 +27,9 @@
 
         <ImageButton
             android:id="@+id/in_conversation_add_member_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="right"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
             android:paddingHorizontal="10dp"

@@ -69,7 +69,6 @@ object MessengerInteractor
             messages: ArrayList<ChatMessage>,
             unreadCounter: Int
     ) {
-        Log.d("ASMR", "In app")
         for (i in conversations.indices) {
             if (conversations[i].id == conversationId) {
                 conversations[i].unreadMessagesCounter = unreadCounter

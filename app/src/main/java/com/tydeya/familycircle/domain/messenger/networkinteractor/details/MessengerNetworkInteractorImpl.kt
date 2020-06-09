@@ -94,15 +94,13 @@ class MessengerNetworkInteractorImpl(
     }
 
     override fun readAllMessages(conversationId: String) {
-        conversationsPath
-                .document(conversationId)
-                .collection(CONVERSATION_MESSAGES).get()
+        conversationsPath.document(conversationId).collection(CONVERSATION_MESSAGES).get()
                 .addOnSuccessListener { querySnapshot: QuerySnapshot? ->
                     GlobalScope.launch(Dispatchers.Default) {
                         querySnapshot?.let { query ->
                             query.documents.forEach {
                                 it.reference.update(mutableMapOf<String, Any>(
-                                        "$MESSAGE_UNREAD_PATTERN ${getUserPhone()}" to false
+                                        "$MESSAGE_UNREAD_PATTERN${getUserPhone()}" to false
                                 ))
                             }
                         }
