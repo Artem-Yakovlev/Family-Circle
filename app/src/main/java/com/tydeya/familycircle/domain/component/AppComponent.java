@@ -6,13 +6,6 @@ import com.tydeya.familycircle.domain.oldfamilyinteractor.injection.FamilyIntera
 import com.tydeya.familycircle.domain.taskorganizer.inject.TasksOrganizerModule;
 import com.tydeya.familycircle.domain.taskorganizer.interactor.details.TasksOrganizerInteractor;
 import com.tydeya.familycircle.presentation.MainActivity;
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.InConversationFragment;
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog;
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog;
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter;
-import com.tydeya.familycircle.presentation.ui.conversationpart.main.ConversationsPage;
-import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.CreateConversationDialog;
-import com.tydeya.familycircle.presentation.ui.conversationpart.main.recyclerview.ConversationViewHolder;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.CreateTaskDialog;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.EditTasksTextDialog;
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasksbyuser.TasksByUserFragment;

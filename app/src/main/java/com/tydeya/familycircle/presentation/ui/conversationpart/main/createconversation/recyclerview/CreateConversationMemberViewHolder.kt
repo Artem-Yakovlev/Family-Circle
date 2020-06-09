@@ -2,7 +2,7 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.main.createconv
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.tydeya.familycircle.data.messenger.ConversationMember
+import com.tydeya.familycircle.data.messenger.conversation.ConversationMember
 import kotlinx.android.synthetic.main.cardview_member_in_create_conversation_dialog.view.*
 
 class CreateConversationMemberViewHolder(

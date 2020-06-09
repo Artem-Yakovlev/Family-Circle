@@ -3,94 +3,108 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tydeya.familycircle.App
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.constants.Application.CONVERSATION_ID
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
+import com.tydeya.familycircle.presentation.MainActivity
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialogListener
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationChatRecyclerViewAdapter
+import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.ChatRecyclerViewAdapter
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
+import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
+import com.tydeya.familycircle.utils.Resource
+import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.popBackStack
 import com.tydeya.familycircle.utils.extensions.value
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
-import javax.inject.Inject
 
 class InConversationFragment
     :
         Fragment(R.layout.fragment_in_conversation),
         MessengerInteractorCallback, ConversationInfoDialogListener {
 
-//    @Inject
-//    lateinit var messengerInteractor: MessengerInteractor
-
-    private lateinit var adapter: InConversationChatRecyclerViewAdapter
+    private lateinit var familyViewModel: FamilyViewModel
+    private lateinit var chatAdapter: ChatRecyclerViewAdapter
+    private lateinit var conversationId: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        App.getComponent().injectFragment(this)
-        setAdapter()
-        setSendButton()
-        setInfoButton()
-        setAddMemberButton()
-        setCurrentData()
+
+        arguments?.getString(CONVERSATION_ID)?.let {
+            conversationId = it
+        } ?: popBackStack()
+
+        familyViewModel = ViewModelProviders
+                .of(requireActivity(), FamilyViewModelFactory(requireActivity().currentFamilyId))
+                .get(FamilyViewModel::class.java)
+
+        initAdapter()
+        initSendButton()
+        initInfoButton()
+        initAddMemberButton()
     }
 
-    private fun setAdapter() {
-        adapter = InConversationChatRecyclerViewAdapter(requireContext(), ArrayList())
-
-        conversation_chat_recycler_view.adapter = adapter
+    private fun initAdapter() {
+        chatAdapter = ChatRecyclerViewAdapter()
+        conversation_chat_recycler_view.adapter = chatAdapter
         conversation_chat_recycler_view.layoutManager =
                 LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
+        familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    chatAdapter.refreshFamilyMembers(it.data)
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                }
+            }
+        })
+
     }
 
-    private fun setCurrentData() {
-//        messengerInteractor.readAllMessages(messengerInteractor.actualConversationId)
-//        val conversation = messengerInteractor.conversationById(messengerInteractor.actualConversationId)!!
-//
-//        in_conversation_toolbar.title = conversation.title
-//
-//        adapter.refreshData(conversation.messages)
-    }
-
-    private fun setSendButton() {
-//        chat_send_message_button.setOnClickListener {
-//            val messageText = chat_input_field.text.toString().trim()
-//            if (messageText != "") {
-//                messengerInteractor.sendMessage(messengerInteractor.actualConversationId, messageText)
-//                chat_input_field.value = ""
-//            }
-//        }
+    private fun initSendButton() {
+        chat_send_message_button.setOnClickListener {
+            val messageText = chat_input_field.text.toString().trim()
+            if (messageText != "") {
+                MessengerInteractor.sendMessage(conversationId, messageText)
+                chat_input_field.value = ""
+            }
+        }
     }
 
     /**
      * Toolbar buttons
      * */
 
-    private fun setInfoButton() {
+    private fun initInfoButton() {
 //        in_conversation_info_button.setOnClickListener {
 //            val dialog = ConversationInfoDialog(messengerInteractor.actualConversationId, this)
 //            dialog.show(parentFragmentManager, "conversation_info_dialog")
 //        }
     }
 
-    private fun setAddMemberButton() {
+    private fun initAddMemberButton() {
 //        in_conversation_add_member_button.setOnClickListener {
 //            val dialog = ConversationAddMemberDialog(messengerInteractor.actualConversationId)
 //            dialog.show(parentFragmentManager, "conversation_add_member_dialog")
-        }
+    }
 
     override fun messengerDataFromServerUpdated() {
-        TODO("Not yet implemented")
+        MessengerInteractor.conversationById(conversationId)?.let {
+            in_conversation_toolbar.title = it.title
+            chatAdapter.refreshChatMessages(it.messages)
+
+        } ?: popBackStack()
     }
+
 
     override fun leaveConversation() {
-        TODO("Not yet implemented")
-    }
-}
-
-    fun leaveConversation() {
 //        messengerInteractor.leaveConversation(messengerInteractor.actualConversationId)
 //        requireActivity().finish()
     }
@@ -99,18 +113,16 @@ class InConversationFragment
      * Callbacks
      * */
 
-//    override fun messengerDataFromServerUpdated() {
-//        setCurrentData()
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        messengerInteractor.subscribe(this)
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        messengerInteractor.unsubscribe(this)
-//    }
+    override fun onResume() {
+        super.onResume()
+        MessengerInteractor.subscribe(this)
+        (requireActivity() as MainActivity).setBottomNavigationVisibility(false)
+    }
 
-//}
+    override fun onPause() {
+        super.onPause()
+        MessengerInteractor.unsubscribe(this)
+        (requireActivity() as MainActivity).setBottomNavigationVisibility(true)
+    }
+
+}

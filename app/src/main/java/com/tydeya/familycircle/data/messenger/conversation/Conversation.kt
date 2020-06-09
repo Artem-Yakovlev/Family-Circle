@@ -1,6 +1,6 @@
-package com.tydeya.familycircle.data.messenger
+package com.tydeya.familycircle.data.messenger.conversation
 
-import com.tydeya.familycircle.data.messenger.ChatMessage
+import com.tydeya.familycircle.data.messenger.chat.ChatMessage
 
 data class Conversation(
         val id: String,

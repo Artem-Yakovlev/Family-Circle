@@ -22,4 +22,5 @@ public final class Application {
      * */
 
     public static String BUNDLE_FAMILY_ID = "family_id";
+    public static String CONVERSATION_ID = "conversation_id";
 }

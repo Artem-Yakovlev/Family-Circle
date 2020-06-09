@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.messenger.ConversationMember
-import com.tydeya.familycircle.presentation.ui.conversationpart.main.recyclerview.ConversationsRecyclerDiffUtil
+import com.tydeya.familycircle.data.messenger.conversation.ConversationMember
 
 class CreateConversationMembersRecyclerViewAdapter(
         val members: ArrayList<ConversationMember>

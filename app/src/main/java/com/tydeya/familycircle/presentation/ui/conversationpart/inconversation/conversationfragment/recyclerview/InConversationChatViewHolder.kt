@@ -2,31 +2,35 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.
 
 import android.text.format.DateFormat
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.messenger.ChatMessage
+import com.tydeya.familycircle.data.messenger.chat.ChatMessage
+import com.tydeya.familycircle.data.messenger.chat.FullChatMessage
 import com.tydeya.familycircle.utils.getDp
 import kotlinx.android.synthetic.main.message_card_received.view.*
 import kotlinx.android.synthetic.main.outgoing_message_card.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class InConversationChatViewHolder(itemView: View,
-                                   private val messageType: Int
+class InConversationChatViewHolder(
+        itemView: View,
+        private val messageType: Int
 ) :
         RecyclerView.ViewHolder(itemView) {
 
-    fun bindData(message: ChatMessage, name: String, imageAddress: String) {
+    fun bindData(fullChatMessage: FullChatMessage) {
 
         val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hh:mm aa")
         val formatForDateNow = SimpleDateFormat(pattern, Locale.getDefault())
-        val time = formatForDateNow.format(message.dateTime)
+        val time = formatForDateNow.format(fullChatMessage.chatMessage.dateTime)
 
         if (messageType == OUTGOING_MESSAGE_VIEW_TYPE) {
-            setOutGoingMessageData(message, time)
+            setOutGoingMessageData(fullChatMessage.chatMessage, time)
         } else {
-            setReceivedMessageData(message, time, name, imageAddress)
+            setReceivedMessageData(fullChatMessage.chatMessage, time, fullChatMessage.userName,
+                    fullChatMessage.imageAddress, fullChatMessage.isUserOnline)
         }
     }
 
@@ -35,8 +39,8 @@ class InConversationChatViewHolder(itemView: View,
         itemView.outgoing_message_text_time.text = time
     }
 
-    private fun setReceivedMessageData(message: ChatMessage, time: String,
-                                       name: String, imageAddress: String) {
+    private fun setReceivedMessageData(message: ChatMessage, time: String, name: String,
+                                       imageAddress: String, isUserOnline: Boolean) {
 
         itemView.received_message_text_body.text = message.text
         itemView.received_message_text_time.text = time
@@ -55,6 +59,13 @@ class InConversationChatViewHolder(itemView: View,
             itemView.received_message_author_image.setPadding(padding, padding, padding, padding)
         }
 
+        if (isUserOnline) {
+            itemView.received_message_author_image.setStrokeColor(ContextCompat
+                    .getColor(itemView.context, R.color.colorOnlineGreen))
+        } else {
+            itemView.received_message_author_image.setStrokeColor(ContextCompat
+                    .getColor(itemView.context, R.color.colorTransparentGray))
+        }
 
     }
 

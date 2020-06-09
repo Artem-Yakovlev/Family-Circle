@@ -24,15 +24,15 @@ class FamilyMembersRecyclerViewAdapter(
         holder.bindData(members[position])
     }
 
-    override fun getItemCount() = members.size
-
     fun refreshData(members: ArrayList<FamilyMember>) {
-        val diffResult = DiffUtil.calculateDiff(FamilyMembersRecyclerDiffUtil(this.members, members))
-
+        val diffResult = DiffUtil.calculateDiff(
+                FamilyMembersRecyclerDiffUtil(this.members, members)
+        )
         this.members.clear()
         this.members.addAll(members)
-
         diffResult.dispatchUpdatesTo(this)
     }
+
+    override fun getItemCount() = members.size
 
 }

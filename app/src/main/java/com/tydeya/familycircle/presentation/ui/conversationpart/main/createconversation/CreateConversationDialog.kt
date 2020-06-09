@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.messenger.ConversationMember
+import com.tydeya.familycircle.data.messenger.conversation.ConversationMember
 import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInteractor
 import com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview.CreateConversationMembersRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
@@ -124,7 +124,7 @@ class CreateConversationDialog : DialogFragment() {
 
     companion object {
 
-        private val TAG = CreateConversationDialog::class.java.simpleName
+        val TAG = CreateConversationDialog::class.java.simpleName
 
         fun newInstance() = CreateConversationDialog()
     }

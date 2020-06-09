@@ -12,8 +12,8 @@ import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_AUTHOR_PHONE
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_DATETIME
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_TEXT
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_UNREAD_PATTERN
-import com.tydeya.familycircle.data.messenger.ChatMessage
-import com.tydeya.familycircle.data.messenger.Conversation
+import com.tydeya.familycircle.data.messenger.chat.ChatMessage
+import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractorCallback
 import com.tydeya.familycircle.utils.extensions.getUserPhone

@@ -1,8 +1,8 @@
 package com.tydeya.familycircle.domain.messenger.interactor.details
 
-import com.google.firebase.auth.FirebaseAuth
-import com.tydeya.familycircle.data.messenger.ChatMessage
-import com.tydeya.familycircle.data.messenger.Conversation
+import android.util.Log
+import com.tydeya.familycircle.data.messenger.chat.ChatMessage
+import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListenerCallback
 import com.tydeya.familycircle.domain.messenger.interactor.abstraction.MessengerInteractorCallback
@@ -30,7 +30,7 @@ object MessengerInteractor
     var conversations = ArrayList<Conversation>()
     private var conversationsListeners = ArrayList<ConversationListener>()
 
-    var actualConversationId = ""
+    var familyId: String? = null
 
     val numberOfUnreadMessages: Int
         get() {
@@ -44,6 +44,7 @@ object MessengerInteractor
      * */
 
     fun connectToFamily(familyId: String) {
+        this.familyId = familyId
         this.networkInteractor = MessengerNetworkInteractorImpl(familyId, this)
         networkInteractor?.connect()
     }
@@ -58,7 +59,7 @@ object MessengerInteractor
             this@MessengerInteractor.conversations = conversations
             registerListenersOfAllConversations()
             withContext(Dispatchers.Main) {
-                notifyObserversKitchenDataUpdated()
+                notifyObserversMessengerDataUpdated()
             }
         }
     }
@@ -68,14 +69,15 @@ object MessengerInteractor
             messages: ArrayList<ChatMessage>,
             unreadCounter: Int
     ) {
-        for (i in 0 until conversations.size) {
+        Log.d("ASMR", "In app")
+        for (i in conversations.indices) {
             if (conversations[i].id == conversationId) {
                 conversations[i].unreadMessagesCounter = unreadCounter
                 conversations[i].messages = messages
                 conversations[i].messages.sortWith(Comparator { o1: ChatMessage, o2: ChatMessage ->
                     o1.dateTime.compareTo(o2.dateTime)
                 })
-                notifyObserversKitchenDataUpdated()
+                notifyObserversMessengerDataUpdated()
                 break
             }
         }
@@ -87,19 +89,16 @@ object MessengerInteractor
      * */
 
     private fun registerListenersOfAllConversations() {
-        this.conversations.forEach {
-            conversationsListeners.add(ConversationListener(it.id, this))
-        }
-
-        this.conversationsListeners.forEach {
-            it.register()
+        familyId?.let { familyId ->
+            this.conversations.forEach {
+                conversationsListeners.add(ConversationListener(familyId, it.id, this))
+            }
+            this.conversationsListeners.forEach(ConversationListener::register)
         }
     }
 
     private fun unregisterListenersOfAllConversations() {
-        this.conversationsListeners.forEach {
-            it.unregister()
-        }
+        this.conversationsListeners.forEach(ConversationListener::unregister)
     }
 
     /**
@@ -116,7 +115,7 @@ object MessengerInteractor
 
     fun leaveConversation(conversationId: String) {
         conversationById(conversationId)?.let {
-            it.members.remove(FirebaseAuth.getInstance().currentUser!!.phoneNumber)
+            it.members.remove(getUserPhone())
             networkInteractor?.changeConversationMembers(conversationId, it.members)
         }
     }
@@ -137,7 +136,7 @@ object MessengerInteractor
     fun sendMessage(conversationId: String, text: String) {
         networkInteractor?.sendMessage(
                 conversationId = conversationId,
-                message = ChatMessage(getUserPhone(), text, Date(), true),
+                message = ChatMessage("", getUserPhone(), text, Date(), true),
                 unreadByPhones = unreadPhoneNumbers(conversationId)
         )
     }
@@ -178,7 +177,7 @@ object MessengerInteractor
      * Callbacks
      * */
 
-    private fun notifyObserversKitchenDataUpdated() {
+    private fun notifyObserversMessengerDataUpdated() {
         for (callback in observers) {
             callback.messengerDataFromServerUpdated()
         }

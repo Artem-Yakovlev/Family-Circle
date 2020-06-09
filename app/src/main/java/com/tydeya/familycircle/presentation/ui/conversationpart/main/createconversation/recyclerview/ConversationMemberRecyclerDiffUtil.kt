@@ -1,7 +1,7 @@
 package com.tydeya.familycircle.presentation.ui.conversationpart.main.createconversation.recyclerview
 
 import androidx.recyclerview.widget.DiffUtil
-import com.tydeya.familycircle.data.messenger.ConversationMember
+import com.tydeya.familycircle.data.messenger.conversation.ConversationMember
 
 class ConversationMemberRecyclerDiffUtil(
         private val oldList: List<ConversationMember>,

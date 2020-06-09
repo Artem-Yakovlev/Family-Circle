@@ -9,5 +9,13 @@
         android:id="@+id/mainConversationPage"
         android:name="com.tydeya.familycircle.presentation.ui.conversationpart.main.ConversationsPage"
         tools:layout="@layout/fragment_main_conversation_page"
-        android:label="fragment_main_conversation_page" />
+        android:label="fragment_main_conversation_page" >
+        <action
+            android:id="@+id/action_mainConversationPage_to_inConversationFragment"
+            app:destination="@id/inConversationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inConversationFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.InConversationFragment"
+        android:label="InConversationFragment" />
 </navigation>
