@@ -2,7 +2,6 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,10 +18,7 @@ import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.c
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
-import com.tydeya.familycircle.utils.extensions.currentFamilyId
-import com.tydeya.familycircle.utils.extensions.getUserPhone
-import com.tydeya.familycircle.utils.extensions.popBackStack
-import com.tydeya.familycircle.utils.extensions.value
+import com.tydeya.familycircle.utils.extensions.*
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
 
 class InConversationFragment
@@ -78,8 +74,10 @@ class InConversationFragment
                 MessengerInteractor.sendMessage(conversationId, messageText)
                 chat_input_field.value = ""
             }
-            conversation_chat_recycler_view
-                    .smoothScrollToPosition(conversation_chat_recycler_view.size - 1)
+            if (chatAdapter.itemCount != 0) {
+                conversation_chat_recycler_view
+                        .smoothScrollToPosition(chatAdapter.itemCount - 1)
+            }
         }
     }
 
@@ -96,8 +94,22 @@ class InConversationFragment
 
     private fun initAddMemberButton() {
         in_conversation_add_member_button.setOnClickListener {
-            ConversationAddMemberDialog.newInstance(conversationId)
-                    .show(parentFragmentManager, ConversationAddMemberDialog.TAG)
+
+            MessengerInteractor.conversationById(conversationId)?.let { conversation ->
+
+                val familyMembers = familyViewModel.familyMembers.value
+
+                if (familyMembers is Resource.Success
+                        && familyMembers.data.size > conversation.members.size) {
+
+                    ConversationAddMemberDialog.newInstance(conversationId)
+                            .show(parentFragmentManager, ConversationAddMemberDialog.TAG)
+                } else {
+                    requireContext().showToast(R.string.messenger_full_conversation)
+                }
+
+            } ?: popBackStack()
+
         }
     }
 

@@ -156,6 +156,7 @@
     <string name="messenger_conversation_info">Conversation info</string>
     <string name="messenger_members">Members:</string>
     <string name="messenger_add_member">Add member</string>
+    <string name="messenger_last_message_placeholder">%1$s:\u0020</string>
 
 
     <!-- ================================================ -->
@@ -380,6 +381,7 @@
     <string name="success">Success</string>
     <string name="accept">Accept</string>
     <string name="refuse">Refuse</string>
+    <string name="messenger_full_conversation">Your whole family is here!</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

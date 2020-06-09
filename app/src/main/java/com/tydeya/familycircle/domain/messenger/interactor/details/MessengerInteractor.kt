@@ -1,6 +1,5 @@
 package com.tydeya.familycircle.domain.messenger.interactor.details
 
-import android.util.Log
 import com.tydeya.familycircle.data.messenger.chat.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.conversationlistener.ConversationListener
