@@ -18,7 +18,8 @@ const val INBOX_MESSAGE_VIEW_TYPE = 1
 class ChatRecyclerViewAdapter(
         private val chatMessages: ArrayList<ChatMessage> = ArrayList(),
         private val familyMembers: ArrayList<FamilyMember> = ArrayList(),
-        private val fullChatMessages: ArrayList<FullChatMessage> = ArrayList()
+        private val fullChatMessages: ArrayList<FullChatMessage> = ArrayList(),
+        private val listener: InConversationViewHolderListener
 ) : RecyclerView.Adapter<InConversationChatViewHolder>() {
 
     /**
@@ -39,7 +40,7 @@ class ChatRecyclerViewAdapter(
                         OUTGOING_MESSAGE_VIEW_TYPE -> R.layout.outgoing_message_card
                         else -> R.layout.message_card_received
                     },
-                    parent, false), viewType)
+                    parent, false), viewType, listener)
 
     override fun onBindViewHolder(holder: InConversationChatViewHolder, position: Int) {
         holder.bindData(fullChatMessages[position])

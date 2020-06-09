@@ -93,6 +93,11 @@ class MessengerNetworkInteractorImpl(
         )
     }
 
+    override fun deleteMessage(conversationId: String, messageId: String) {
+        conversationsPath.document(conversationId).collection(CONVERSATION_MESSAGES)
+                .document(messageId).delete()
+    }
+
     override fun readAllMessages(conversationId: String) {
         conversationsPath.document(conversationId).collection(CONVERSATION_MESSAGES).get()
                 .addOnSuccessListener { querySnapshot: QuerySnapshot? ->

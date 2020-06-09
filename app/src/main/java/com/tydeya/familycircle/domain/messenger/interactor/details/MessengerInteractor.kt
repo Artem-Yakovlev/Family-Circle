@@ -139,6 +139,13 @@ object MessengerInteractor
         )
     }
 
+    fun deleteMessage(conversationId: String, messageId: String) {
+        networkInteractor?.deleteMessage(
+                conversationId = conversationId,
+                messageId = messageId
+        )
+    }
+
     fun readAllMessages(conversationId: String) {
         conversationById(conversationId)?.let {
             if (it.unreadMessagesCounter != 0) {

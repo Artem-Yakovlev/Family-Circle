@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_NUMBER
 import com.tydeya.familycircle.databinding.FragmentMainLivePageBinding
@@ -19,7 +23,6 @@ import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyView
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
-import java.util.*
 
 class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
 
@@ -44,6 +47,7 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
         super.onViewCreated(view, savedInstanceState)
         initFamilyStoriesRecyclerView()
         initToolbar()
+        initPieChart()
     }
 
     private fun initFamilyStoriesRecyclerView() {
@@ -81,6 +85,34 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
             }
         })
     }
+
+    private fun initPieChart() {
+
+        val kitchenData = ArrayList<PieEntry>()
+        kitchenData.add(PieEntry(16f, "Fresh food"))
+        kitchenData.add(PieEntry(5f, "Ordinary food"))
+        kitchenData.add(PieEntry(3f, "Spoiled food"))
+        kitchenData.add(PieEntry(10f, "Unknown"))
+
+        val dataSet = PieDataSet(kitchenData, "")
+
+        val data = PieData(dataSet)
+        data.setValueTextColor(getColor(requireContext(), R.color.colorWhite))
+        data.setValueTextSize(16f)
+        binding.kitchenPieChart.data = data
+        dataSet.colors = listOf(
+                getColor(requireContext(), R.color.colorFreshFood),
+                getColor(requireContext(), R.color.colorOrdinaryFood),
+                getColor(requireContext(), R.color.colorSpoiledFood),
+                getColor(requireContext(), R.color.colorGray))
+        binding.kitchenPieChart.animateXY(500, 500)
+
+        binding.kitchenPieChart.legend.isEnabled = true
+        binding.kitchenPieChart.centerText = "Shelf life products"
+        binding.kitchenPieChart.setDrawEntryLabels(false)
+        binding.kitchenPieChart.description.isEnabled = false
+    }
+
 
     override fun onClickFamilyMember(phoneNumber: String) {
         NavHostFragment.findNavController(this).navigate(

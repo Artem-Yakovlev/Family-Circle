@@ -14,6 +14,8 @@ interface MessengerNetworkInteractor {
 
     fun sendMessage(conversationId: String, message: ChatMessage, unreadByPhones: ArrayList<String>)
 
+    fun deleteMessage(conversationId: String, messageId: String)
+
     fun readAllMessages(conversationId: String)
 
     fun changeConversationMembers(conversationId: String, members: ArrayList<String>)

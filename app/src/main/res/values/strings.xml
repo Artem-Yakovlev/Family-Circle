@@ -382,6 +382,7 @@
     <string name="accept">Accept</string>
     <string name="refuse">Refuse</string>
     <string name="messenger_full_conversation">Your whole family is here!</string>
+    <string name="delete_message">Delete message</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

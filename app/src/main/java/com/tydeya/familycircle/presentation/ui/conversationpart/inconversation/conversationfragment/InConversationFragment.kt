@@ -2,6 +2,7 @@ package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.
 
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,16 +16,20 @@ import com.tydeya.familycircle.presentation.MainActivity
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.ChatRecyclerViewAdapter
+import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationViewHolderListener
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.*
 import kotlinx.android.synthetic.main.fragment_in_conversation.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class InConversationFragment
     :
         Fragment(R.layout.fragment_in_conversation),
-        MessengerInteractorCallback {
+        MessengerInteractorCallback,
+        InConversationViewHolderListener {
 
     private lateinit var familyViewModel: FamilyViewModel
     private lateinit var chatAdapter: ChatRecyclerViewAdapter
@@ -48,7 +53,7 @@ class InConversationFragment
     }
 
     private fun initAdapter() {
-        chatAdapter = ChatRecyclerViewAdapter()
+        chatAdapter = ChatRecyclerViewAdapter(listener = this)
         conversation_chat_recycler_view.adapter = chatAdapter
         conversation_chat_recycler_view.layoutManager =
                 LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -139,6 +144,21 @@ class InConversationFragment
         super.onPause()
         MessengerInteractor.unsubscribe(this)
         (requireActivity() as MainActivity).setBottomNavigationVisibility(true)
+    }
+
+    override fun showMessageEditingMenu(messageId: String, view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.inflate(R.menu.edit_message_menu)
+
+        popupMenu.setOnMenuItemClickListener {
+            if (it.itemId == R.id.delete_message) {
+                GlobalScope.launch {
+                    MessengerInteractor.deleteMessage(conversationId, messageId)
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
+        popupMenu.show()
     }
 
 }

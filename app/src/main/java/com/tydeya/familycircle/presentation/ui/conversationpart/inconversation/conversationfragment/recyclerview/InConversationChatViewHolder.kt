@@ -16,32 +16,48 @@ import java.util.*
 
 class InConversationChatViewHolder(
         itemView: View,
-        private val messageType: Int
+        private val messageType: Int,
+        private val listener: InConversationViewHolderListener
 ) :
         RecyclerView.ViewHolder(itemView) {
 
     fun bindData(fullChatMessage: FullChatMessage) {
-
         val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hh:mm aa")
         val formatForDateNow = SimpleDateFormat(pattern, Locale.getDefault())
         val time = formatForDateNow.format(fullChatMessage.chatMessage.dateTime)
 
         if (messageType == OUTGOING_MESSAGE_VIEW_TYPE) {
-            setOutGoingMessageData(fullChatMessage.chatMessage, time)
+            setOutGoingMessageData(fullChatMessage.chatMessage, time, listener)
         } else {
             setReceivedMessageData(fullChatMessage.chatMessage, time, fullChatMessage.userName,
                     fullChatMessage.imageAddress, fullChatMessage.isUserOnline)
         }
     }
 
-    private fun setOutGoingMessageData(message: ChatMessage, time: String) {
-        itemView.outgoing_message_text_body.text = message.text
-        itemView.outgoing_message_text_time.text = time
+    private fun setOutGoingMessageData(
+            message: ChatMessage,
+            time: String,
+            listener: InConversationViewHolderListener
+    ) {
+        with(itemView) {
+            outgoing_message_text_body.text = message.text
+            outgoing_message_text_time.text = time
+
+            isLongClickable = true
+            setOnLongClickListener {
+                listener.showMessageEditingMenu(message.id, it)
+                return@setOnLongClickListener true
+            }
+        }
     }
 
-    private fun setReceivedMessageData(message: ChatMessage, time: String, name: String,
-                                       imageAddress: String, isUserOnline: Boolean) {
-
+    private fun setReceivedMessageData(
+            message: ChatMessage,
+            time: String,
+            name: String,
+            imageAddress: String,
+            isUserOnline: Boolean
+    ) {
         itemView.received_message_text_body.text = message.text
         itemView.received_message_text_time.text = time
         itemView.received_message_text_name.text = name

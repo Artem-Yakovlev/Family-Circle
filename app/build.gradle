@@ -72,7 +72,7 @@ dependencies {
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
 
     //Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
     //FireStore
@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:3.1.3'
 
     // Firebase cloud messaging
-    implementation 'com.google.firebase:firebase-messaging:20.1.7'
+    implementation 'com.google.firebase:firebase-messaging:20.2.0'
 
     // CameraX core library
     def camerax_version = '1.0.0-beta03'
@@ -126,12 +126,12 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
     // Java language implementation
-    implementation "androidx.navigation:navigation-fragment:2.3.0-alpha06"
-    implementation "androidx.navigation:navigation-ui:2.3.0-alpha06"
+    implementation "androidx.navigation:navigation-fragment:2.3.0-beta01"
+    implementation "androidx.navigation:navigation-ui:2.3.0-beta01"
 
     // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha06"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha06"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-beta01"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-beta01"
 
     // Floating action button
     implementation 'com.melnykov:floatingactionbutton:1.3.0'
@@ -179,4 +179,7 @@ dependencies {
     def groupie_version = "2.8.0"
     implementation "com.xwray:groupie:$groupie_version"
     implementation "com.xwray:groupie-kotlin-android-extensions:$groupie_version"
+
+    //Charts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
