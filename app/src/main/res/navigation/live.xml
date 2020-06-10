@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_familyMemberViewFragment_to_memberPersonEditFragment"
             app:destination="@id/memberPersonEditFragment" />
+        <action
+            android:id="@+id/action_familyMemberViewFragment_to_addTweetFragment"
+            app:destination="@id/addTweetFragment" />
     </fragment>
     <fragment
         android:id="@+id/memberPersonEditFragment"
@@ -30,4 +33,8 @@
             android:id="@+id/action_mainLivePage_to_familyMemberViewFragment"
             app:destination="@id/familyMemberViewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addTweetFragment"
+        android:name="com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.AddTweetFragment"
+        android:label="AddTweetFragment" />
 </navigation>

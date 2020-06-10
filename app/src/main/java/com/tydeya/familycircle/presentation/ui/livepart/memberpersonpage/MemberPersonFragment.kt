@@ -10,17 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.constants.NavigateConsts
 import com.tydeya.familycircle.data.familymember.FamilyMemberDto
 import com.tydeya.familycircle.databinding.FragmentFamilyMemberViewBinding
+import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.twitterrecycler.TwitterRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
 import com.tydeya.familycircle.utils.extensions.getUserPhone
 import com.tydeya.familycircle.utils.extensions.popBackStack
+import com.tydeya.familycircle.utils.extensions.toArrayList
 import com.tydeya.familycircle.utils.getDp
 
 class MemberPersonFragment : Fragment() {
@@ -32,19 +35,46 @@ class MemberPersonFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentFamilyMemberViewBinding.inflate(inflater, container, false)
-
         familyViewModel = ViewModelProviders
                 .of(requireActivity(), FamilyViewModelFactory(requireActivity().currentFamilyId))
                 .get(FamilyViewModel::class.java)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initFamilyView(requireArguments().getString(NavigateConsts.BUNDLE_FULL_PHONE_NUMBER)!!)
+        requireArguments().getString(NavigateConsts.BUNDLE_FULL_PHONE_NUMBER)?.let {
+            initFamilyView(it)
+            initTweetRibbon(it)
+        } ?: popBackStack()
+
         binding.toolbar.setNavigationOnClickListener {
             popBackStack()
         }
+        binding.familyMemberViewAddTweet.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.addTweetFragment)
+        }
+    }
+
+    private fun initTweetRibbon(phone: String) {
+        val twitterAdapter = TwitterRecyclerViewAdapter()
+        binding.twitterRecycler.adapter = twitterAdapter
+        binding.twitterRecycler.layoutManager = LinearLayoutManager(
+                requireContext(), LinearLayoutManager.HORIZONTAL, false
+        )
+
+        familyViewModel.tweets.observe(viewLifecycleOwner, Observer { tweets ->
+            when (tweets) {
+                is Resource.Success -> twitterAdapter.refreshTweets(
+                        tweets.data
+                                .filter { it.authorPhone == phone }
+                                .toArrayList()
+                )
+                is Resource.Loading -> twitterAdapter.refreshTweets(ArrayList())
+                is Resource.Failure -> popBackStack()
+            }
+        })
     }
 
     private fun initFamilyView(userPhoneNumber: String) {
@@ -66,7 +96,6 @@ class MemberPersonFragment : Fragment() {
     }
 
     private fun setCurrentData(dto: FamilyMemberDto) {
-
         binding.familyMemberViewNameText.text = dto.name
         if (dto.imageAddress != "") {
             binding.familyViewPhoto.setPadding(0, 0, 0, 0)
@@ -111,8 +140,10 @@ class MemberPersonFragment : Fragment() {
             binding.familyMemberViewSettings.visibility = View.VISIBLE
             binding.familyMemberViewSettings.isEnabled = true
             binding.familyMemberViewSettings.setOnClickListener { v: View -> showPopUpSettingsMenu(v) }
+            binding.familyMemberViewAddTweet.visibility = View.VISIBLE
         } else {
             binding.familyMemberViewSettings.visibility = View.INVISIBLE
+            binding.familyMemberViewAddTweet.visibility = View.INVISIBLE
             binding.familyMemberViewSettings.isEnabled = false
         }
     }

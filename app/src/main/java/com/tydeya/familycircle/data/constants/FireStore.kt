@@ -12,6 +12,16 @@ object FireStore {
     const val FAMILY_AUTHOR_PHONE_TAG = "author_phone"
 
     /**
+     * Const for firestore tweets
+     * */
+
+    const val TWEET_COLLECTION = "Twitter"
+    const val TWEET_TEXT = "text"
+    const val TWEET_PHONE = "author_phone"
+    const val TWEET_NAME = "author_name"
+    const val TWEET_TIME = "author_time"
+
+    /**
      * Const for firestore user object
      */
     const val USERS_COLLECTION = "Users"

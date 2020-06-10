@@ -1,28 +1,32 @@
 package com.tydeya.familycircle.domain.familyselection
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tydeya.familycircle.data.constants.FireStore.FAMILY_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.FAMILY_NUMBER_OF_MEMBERS_TAG
 import com.tydeya.familycircle.data.constants.FireStore.FAMILY_TITLE_TAG
+import com.tydeya.familycircle.data.constants.FireStore.TWEET_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_IDS
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_INVITES
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_SIZES
 import com.tydeya.familycircle.data.constants.FireStore.USERS_FAMILY_TITLES
+import com.tydeya.familycircle.data.familymember.Tweet
+import com.tydeya.familycircle.domain.familyinteraction.toFirestoreData
 import com.tydeya.familycircle.utils.extensions.firestoreFamily
+import com.tydeya.familycircle.utils.extensions.getUserPhone
 
 fun createFamilyInFirestore(title: String) {
 
     val firebaseFirestore = FirebaseFirestore.getInstance()
-    val authorPhone = FirebaseAuth.getInstance().currentUser?.phoneNumber!!
 
     firebaseFirestore.collection(FAMILY_COLLECTION)
-            .add(createNewFamilyFirestoreData(title, authorPhone))
+            .add(createNewFamilyFirestoreData(title, getUserPhone()))
             .addOnSuccessListener { familyDocument ->
 
                 firebaseFirestore.collection(USERS_COLLECTION)
-                        .document(authorPhone).get()
+                        .document(getUserPhone()).get()
                         .addOnSuccessListener {
                             it?.let { document ->
 
@@ -72,15 +76,18 @@ fun addFamilyMemberInFirestore(familyId: String, phoneNumber: String) {
             }
 }
 
+fun addTweetInFirestore(familyId: String, tweet: Tweet) {
+    firestoreFamily(familyId).collection(TWEET_COLLECTION).add(tweet.toFirestoreData())
+}
+
 fun acceptFamilyInvite(familyId: String) {
-    val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber ?: "_"
     firestoreFamily(familyId).get()
             .addOnSuccessListener { familyDoc ->
                 val title = familyDoc.getString(FAMILY_TITLE_TAG) ?: ""
                 val nMembers = familyDoc.getLong(FAMILY_NUMBER_OF_MEMBERS_TAG) ?: 1
                 FirebaseFirestore.getInstance()
                         .collection(USERS_COLLECTION)
-                        .document(phoneNumber).get()
+                        .document(getUserPhone()).get()
                         .addOnSuccessListener { userDoc ->
                             val invites = userDoc.getListByTag<String>(USERS_FAMILY_INVITES)
                             invites.remove(familyId)

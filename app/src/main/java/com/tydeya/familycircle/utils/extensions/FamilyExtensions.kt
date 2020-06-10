@@ -1,6 +1,7 @@
 package com.tydeya.familycircle.utils.extensions
 
 import com.tydeya.familycircle.data.familymember.FamilyMember
+import com.tydeya.familycircle.data.familymember.Tweet
 import com.tydeya.familycircle.data.messenger.chat.ChatMessage
 import com.tydeya.familycircle.data.messenger.chat.FullChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
@@ -51,4 +52,15 @@ fun List<Conversation>.toConversationsPreview(
             )
         }
     }.toArrayList()
+}
+
+fun List<Tweet>.fillWithMembersData(
+        familyMembers: ArrayList<FamilyMember>
+):
+        List<Tweet> {
+
+    val familyMembersMap = familyMembers.associateBy(FamilyMember::fullPhoneNumber)
+    return map {
+        it.copy(name = familyMembersMap[it.authorPhone]?.description?.name ?: "")
+    }
 }

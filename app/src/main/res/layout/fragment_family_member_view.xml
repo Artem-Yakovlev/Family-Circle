@@ -17,18 +17,27 @@
         app:title="@string/family_member_view_toolbar_title"
         app:titleTextColor="@color/colorWhite">
 
-
         <ImageButton
             android:id="@+id/family_member_view_settings"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="right"
-            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
             android:src="@drawable/ic_settings_white_24dp"
+            android:tint="@color/colorWhite"
             tools:ignore="RtlHardcoded" />
 
+        <ImageButton
+            android:id="@+id/family_member_view_add_tweet"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_playlist_add_24"
+            android:tint="@color/colorWhite"
+            tools:ignore="RtlHardcoded" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -81,17 +90,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Konstantin Grigorich Mecharyackov"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Konstantin Grigorich Mecharyackov" />
 
                     <TextView
                         android:id="@+id/family_member_view_birthdate_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="28.02.2002"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:text="28.02.2002" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -120,8 +129,8 @@
                             android:fontFamily="@font/poppins_medium"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
-                            android:text="HSE-NN"
-                            android:textColor="@color/colorWhite" />
+                            android:textColor="@color/colorWhite"
+                            tools:text="HSE-NN" />
 
                         <TextView
                             android:id="@+id/family_member_view_zodiac_sign"
@@ -132,8 +141,8 @@
                             android:fontFamily="@font/poppins_medium"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
-                            android:text="GEMINI"
-                            android:textColor="@color/colorWhite" />
+                            android:textColor="@color/colorWhite"
+                            tools:text="GEMINI" />
 
 
                     </LinearLayout>
@@ -207,10 +216,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2">
-
-
-                </LinearLayout>
+                    android:layout_weight="2"/>
 
             </LinearLayout>
 

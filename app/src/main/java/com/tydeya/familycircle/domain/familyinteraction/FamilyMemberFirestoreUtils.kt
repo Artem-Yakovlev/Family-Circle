@@ -2,6 +2,9 @@ package com.tydeya.familycircle.domain.familyinteraction
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.tydeya.familycircle.data.constants.FireStore.TWEET_PHONE
+import com.tydeya.familycircle.data.constants.FireStore.TWEET_TEXT
+import com.tydeya.familycircle.data.constants.FireStore.TWEET_TIME
 import com.tydeya.familycircle.data.constants.FireStore.USERS_BIRTH_TAG
 import com.tydeya.familycircle.data.constants.FireStore.USERS_COLLECTION
 import com.tydeya.familycircle.data.constants.FireStore.USERS_IMAGE_PATH
@@ -12,6 +15,7 @@ import com.tydeya.familycircle.data.constants.FireStore.USERS_WORK_TAG
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.data.familymember.FamilyMemberCareerData
 import com.tydeya.familycircle.data.familymember.FamilyMemberDescription
+import com.tydeya.familycircle.data.familymember.Tweet
 import com.tydeya.familycircle.framework.datepickerdialog.DateRefactoring
 import com.tydeya.familycircle.utils.extensions.getUserPhone
 import com.tydeya.familycircle.utils.extensions.ifNullToEmpty
@@ -52,3 +56,16 @@ fun serverInteractionDetect() {
     }
 }
 
+fun Tweet.toFirestoreData() = mutableMapOf<String, Any>(
+        TWEET_PHONE to authorPhone,
+        TWEET_TEXT to text,
+        TWEET_TIME to date
+)
+
+fun convertServerDataToTweet(document: DocumentSnapshot) = Tweet(
+        id = document.id,
+        authorPhone = document.getString(TWEET_PHONE) ?: "",
+        name = "",
+        text = document.getString(TWEET_TEXT) ?: "",
+        date = document.getDate(TWEET_TIME) ?: Date()
+)
