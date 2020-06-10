@@ -385,6 +385,7 @@
     <string name="delete_message">Delete message</string>
     <string name="what_do_you_think_about">What do you think about?</string>
     <string name="article">Article</string>
+    <string name="last_thoughts">Last thoughts:</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

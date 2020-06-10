@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import com.tydeya.familycircle.data.constants.NavigateConsts.BUNDLE_FULL_PHONE_N
 import com.tydeya.familycircle.databinding.FragmentMainLivePageBinding
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.FamilyMembersRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.livepart.main.details.familymembersrecyclerview.OnClickMemberStoryListener
+import com.tydeya.familycircle.presentation.ui.livepart.memberpersonpage.twitterrecycler.TwitterRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
@@ -47,6 +49,7 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
         super.onViewCreated(view, savedInstanceState)
         initFamilyStoriesRecyclerView()
         initToolbar()
+        initTwitterRecycler()
         initPieChart()
     }
 
@@ -68,6 +71,27 @@ class MainLiveFragment : Fragment(), OnClickMemberStoryListener {
                 is Resource.Failure -> {
 
                 }
+            }
+        })
+    }
+
+    private fun initTwitterRecycler() {
+        val twitterAdapter = TwitterRecyclerViewAdapter()
+        binding.twitterRecycler.adapter = twitterAdapter
+        binding.twitterRecycler.layoutManager = LinearLayoutManager(
+                requireContext(), LinearLayoutManager.VERTICAL, false
+        )
+        familyViewModel.tweets.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> twitterAdapter.refreshTweets(it.data)
+                is Resource.Loading -> twitterAdapter.refreshTweets(ArrayList())
+            }
+        })
+
+        familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> twitterAdapter.refreshFamilyMembers(it.data)
+                is Resource.Loading -> twitterAdapter.refreshFamilyMembers(ArrayList())
             }
         })
     }
