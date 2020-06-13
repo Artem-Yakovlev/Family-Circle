@@ -1,4 +1,4 @@
-package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview
+package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.messagesrecyclerview
 
 import android.view.View
 

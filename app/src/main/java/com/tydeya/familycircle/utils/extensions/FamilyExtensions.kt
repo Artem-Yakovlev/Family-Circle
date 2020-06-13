@@ -16,14 +16,16 @@ fun List<ChatMessage>.toFullMessages(
 
     val familyMembersMap = familyMembers.associateBy(FamilyMember::fullPhoneNumber)
 
-    return map {
-        val user = familyMembersMap[it.authorPhoneNumber]
+    return map { chatMessage ->
+        val user = familyMembersMap[chatMessage.authorPhoneNumber]
         FullChatMessage(
                 userName = user?.description?.name ?: "",
                 imageAddress = user?.description?.imageAddress ?: "",
                 isUserOnline = user?.isOnline ?: false,
-                chatMessage = it,
-                whoSawMessage = it.whoSawMessage
+                chatMessage = chatMessage,
+                whoSawMessage = chatMessage.whoSawMessage
+                        .filterNot(chatMessage.authorPhoneNumber::equals)
+                        .map { familyMembersMap[it]?.description?.imageAddress ?: "" }
         )
     }.toArrayList()
 }

@@ -1,8 +1,7 @@
-package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview
+package com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.messagesrecyclerview
 
 import androidx.recyclerview.widget.DiffUtil
 import com.tydeya.familycircle.data.messenger.chat.FullChatMessage
-import com.tydeya.familycircle.data.messenger.conversation.Conversation
 
 class FullMessagesRecyclerDiffUtil(
         private val oldList: List<FullChatMessage>,
@@ -13,7 +12,12 @@ class FullMessagesRecyclerDiffUtil(
             oldList[oldItemPosition].chatMessage.id == newList[newItemPosition].chatMessage.id
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        val oldItem = oldList[oldItemPosition]
+        val newItem = newList[newItemPosition]
+        return oldItem.isUserOnline == newItem.isUserOnline
+                && oldItem.chatMessage == newItem.chatMessage
+                && oldItem.imageAddress == newItem.imageAddress
+                && oldItem.whoSawMessage.size == newItem.whoSawMessage.size
     }
 
     override fun getOldListSize() = oldList.size

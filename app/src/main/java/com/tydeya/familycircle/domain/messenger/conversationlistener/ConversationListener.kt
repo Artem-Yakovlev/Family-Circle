@@ -57,7 +57,6 @@ class ConversationListener(
                     if (!message.isViewed) {
                         unreadCounter++
                     }
-                    Log.d("ASMR", message.toString())
                     messages.add(message)
                 }
 
