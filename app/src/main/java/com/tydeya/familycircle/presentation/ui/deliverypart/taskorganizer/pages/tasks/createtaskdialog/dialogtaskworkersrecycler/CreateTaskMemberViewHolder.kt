@@ -14,5 +14,6 @@ class CreateTaskMemberViewHolder(
         binding.checkboxMemberInDialogCheckbox.setOnClickListener {
             taskMember.isAdded = binding.checkboxMemberInDialogCheckbox.isChecked
         }
+        binding.checkboxMemberInDialogCheckbox.isChecked = taskMember.isAdded
     }
 }

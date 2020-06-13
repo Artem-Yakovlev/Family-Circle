@@ -297,8 +297,8 @@
     <!-- ================================================ -->
     <string name="task_organizer_toolbar_title">Task organizer</string>
     <string name="tasks_organizer_your_errands">Your errands</string>
-    <string name="all_tasks">Errands for you</string>
-    <string name="tasks_history">Errands history</string>
+    <string name="all_tasks">Pending</string>
+    <string name="tasks_history">Completed</string>
     <string name="create_task_dialog_title">Create new task</string>
     <string name="create_task_dialog_save_button">Create</string>
     <string name="create_task_title_input_hint">Title</string>
@@ -391,6 +391,9 @@
     <string name="article">Article</string>
     <string name="last_thoughts">Last thoughts:</string>
     <string name="create_task_dialog_add_member_title">For whom is this task:</string>
+    <string name="edit_task_dialog_title">Edit task</string>
+    <string name="edit_task_dialog_delete_button">Delete task</string>
+    <string name="create_task_dialog_apply_button">Apply</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

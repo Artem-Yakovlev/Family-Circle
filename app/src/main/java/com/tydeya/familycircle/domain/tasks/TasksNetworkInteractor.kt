@@ -11,7 +11,11 @@ fun createTaskInFirestore(familyId: String, familyTask: FamilyTask) {
             .add(familyTask.toFirestoreData())
 }
 
-fun completeTaskInFirestore(familyId: String, familyTask: FamilyTask) {
+fun updateTaskInFirestore(familyId: String, familyTask: FamilyTask) {
     firestoreFamily(familyId).collection(TASKS_COLLECTION).document(familyTask.id)
-            .update(familyTask.copy(status = TaskStatus.COMPLETED).toFirestoreData())
+            .update(familyTask.toFirestoreData())
+}
+
+fun deleteTaskInFirestore(familyId: String, taskId: String) {
+    firestoreFamily(familyId).collection(TASKS_COLLECTION).document(taskId).delete()
 }

@@ -12,7 +12,7 @@ import com.tydeya.familycircle.R
 import com.tydeya.familycircle.data.taskorganizer.TaskMember
 import com.tydeya.familycircle.databinding.DialogTasksCreateBinding
 import com.tydeya.familycircle.framework.simplehelpers.DataConfirming
-import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.createtaskdialog.dialogtaskworkersrecycler.CreateTaskMembersRecyclerViewAdapter
+import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.createtaskdialog.dialogtaskworkersrecycler.TaskAddMembersRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModel
@@ -24,13 +24,14 @@ import com.tydeya.familycircle.utils.extensions.toArrayList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CreateTaskDialogFragment : DialogFragment() {
 
     private var _binding: DialogTasksCreateBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var createTaskMembersAdapter: CreateTaskMembersRecyclerViewAdapter
+    private lateinit var createTaskMembersAdapter: TaskAddMembersRecyclerViewAdapter
     private lateinit var familyViewModel: FamilyViewModel
     private lateinit var tasksViewModel: TasksViewModel
 
@@ -64,6 +65,7 @@ class CreateTaskDialogFragment : DialogFragment() {
             if (!DataConfirming.isEmptyCheck(binding.createTaskDialogTitleInput, true)
                     and !DataConfirming.isEmptyCheck(binding.createTaskDialogTextInput, true)
             ) {
+
                 if (createTaskMembersAdapter.members.none(TaskMember::isAdded)) {
                     requireContext().showToast(R.string.create_task_dialog_add_someone_text)
                 } else {
@@ -76,15 +78,17 @@ class CreateTaskDialogFragment : DialogFragment() {
                                         .map(TaskMember::phoneNumber)
                                         .toArrayList()
                         )
+                        withContext(Dispatchers.Main) {
+                            dismiss()
+                        }
                     }
-                    dismiss()
                 }
             }
         }
     }
 
     private fun initAddMembersRecyclerView() {
-        createTaskMembersAdapter = CreateTaskMembersRecyclerViewAdapter()
+        createTaskMembersAdapter = TaskAddMembersRecyclerViewAdapter()
         binding.createTaskDialogWorkersRecyclerview.layoutManager = LinearLayoutManager(
                 requireContext(), LinearLayoutManager.VERTICAL, false
         )

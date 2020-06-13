@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.TaskStatus
-import com.tydeya.familycircle.domain.tasks.completeTaskInFirestore
+import com.tydeya.familycircle.domain.tasks.updateTaskInFirestore
 import com.tydeya.familycircle.domain.tasks.createTaskInFirestore
+import com.tydeya.familycircle.domain.tasks.deleteTaskInFirestore
 import com.tydeya.familycircle.domain.tasks.eventlistener.TasksNetworkListener
 import com.tydeya.familycircle.domain.tasks.eventlistener.TasksNetworkListenerCallback
 import com.tydeya.familycircle.utils.Resource
@@ -54,8 +55,12 @@ class TasksViewModel(
         )
     }
 
-    fun completeTask(familyTask: FamilyTask) {
-        completeTaskInFirestore(familyId, familyTask)
+    fun updateTask(familyTask: FamilyTask) {
+        updateTaskInFirestore(familyId, familyTask)
+    }
+
+    fun deleteTask(taskId: String) {
+        deleteTaskInFirestore(familyId, taskId)
     }
 
 }

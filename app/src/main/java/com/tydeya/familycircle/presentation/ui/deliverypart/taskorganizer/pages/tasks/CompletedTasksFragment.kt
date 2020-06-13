@@ -93,12 +93,4 @@ class CompletedTasksFragment
         _binding = null
     }
 
-    override fun taskIsChecked(familyTask: FamilyTask) {
-        TODO("Not yet implemented")
-    }
-
-    override fun editTask() {
-        TODO("Not yet implemented")
-    }
-
 }

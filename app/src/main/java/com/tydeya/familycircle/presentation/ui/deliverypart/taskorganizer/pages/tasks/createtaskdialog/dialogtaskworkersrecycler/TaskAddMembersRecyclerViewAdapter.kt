@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.taskorganizer.TaskMember
 import com.tydeya.familycircle.databinding.RecyclerItemCheckboxMemberInDialogBinding
 
-class CreateTaskMembersRecyclerViewAdapter(
+class TaskAddMembersRecyclerViewAdapter(
         val members: ArrayList<TaskMember> = ArrayList()
 ) :
         RecyclerView.Adapter<CreateTaskMemberViewHolder>() {

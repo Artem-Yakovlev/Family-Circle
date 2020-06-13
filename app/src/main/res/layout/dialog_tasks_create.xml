@@ -70,7 +70,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/create_task_text_input_hint"
             android:inputType="textMultiLine"
-            android:lines="3"
+            android:lines="1"
             android:singleLine="true"
             android:textColor="@color/colorGray"
             android:textColorHint="@color/colorTransparentGray"

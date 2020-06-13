@@ -4,8 +4,8 @@ import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 
 interface TasksRecyclerViewClickListener {
 
-    fun taskIsChecked(familyTask: FamilyTask)
+    fun taskIsChecked(familyTask: FamilyTask) {}
 
-    fun editTask(familyTask: FamilyTask)
+    fun editTask(familyTask: FamilyTask) {}
 
 }

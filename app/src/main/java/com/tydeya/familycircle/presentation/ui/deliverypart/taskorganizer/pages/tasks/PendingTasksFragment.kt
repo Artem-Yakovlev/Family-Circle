@@ -13,6 +13,7 @@ import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.TaskStatus
 import com.tydeya.familycircle.databinding.FragmentTasksForUserBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.createtaskdialog.CreateTaskDialogFragment
+import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.edittaskdialog.EditTaskDialogFragment
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewClickListener
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
@@ -93,11 +94,12 @@ class PendingTasksFragment
     }
 
     override fun taskIsChecked(familyTask: FamilyTask) {
-        tasksViewModel.completeTask(familyTask)
+        tasksViewModel.updateTask(familyTask.copy(status = TaskStatus.COMPLETED))
     }
 
-    override fun editTask() {
-
+    override fun editTask(familyTask: FamilyTask) {
+        EditTaskDialogFragment.newInstance(familyTask)
+                .show(parentFragmentManager, EditTaskDialogFragment.TAG)
     }
 
     override fun onDestroy() {
