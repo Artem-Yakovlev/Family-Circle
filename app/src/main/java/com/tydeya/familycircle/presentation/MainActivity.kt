@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), MessengerInteractorCallback, AccountEx
 
     override fun accountIsExist(userId: String, families: List<String>) {
         if (currentFamilyId in families) {
-            App.getComponent().injectActivity(this)
+
             if (isSavedInstanceNull) {
                 isEntrySuccessful = true
                 setupBottomNavigationBar()

@@ -6,6 +6,8 @@ import com.tydeya.familycircle.data.messenger.chat.ChatMessage
 import com.tydeya.familycircle.data.messenger.chat.FullChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.data.messenger.conversation.ConversationPreview
+import com.tydeya.familycircle.data.taskorganizer.FamilyTask
+import com.tydeya.familycircle.data.taskorganizer.FamilyTaskDto
 
 fun List<ChatMessage>.toFullMessages(
         familyMembers: ArrayList<FamilyMember>
@@ -62,5 +64,17 @@ fun List<Tweet>.fillWithMembersData(
     val familyMembersMap = familyMembers.associateBy(FamilyMember::fullPhoneNumber)
     return map {
         it.copy(name = familyMembersMap[it.authorPhone]?.description?.name ?: "")
+    }
+}
+
+fun List<FamilyTask>.toFamilyTasksDTO(
+        familyMembers: ArrayList<FamilyMember>
+):
+        List<FamilyTaskDto> {
+    val familyMembersMap = familyMembers.associateBy(FamilyMember::fullPhoneNumber)
+    return map {
+        FamilyTaskDto(it, it.workers.map { workerPhone ->
+            familyMembersMap[workerPhone]?.description?.name ?: ""
+        }.toArrayList())
     }
 }

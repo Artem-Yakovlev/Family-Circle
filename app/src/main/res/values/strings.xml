@@ -297,8 +297,8 @@
     <!-- ================================================ -->
     <string name="task_organizer_toolbar_title">Task organizer</string>
     <string name="tasks_organizer_your_errands">Your errands</string>
-    <string name="tasks_organizer_errands_for_you">Errands for you</string>
-    <string name="tasks_organizer_errands_history">Errands history</string>
+    <string name="all_tasks">Errands for you</string>
+    <string name="tasks_history">Errands history</string>
     <string name="create_task_dialog_title">Create new task</string>
     <string name="create_task_dialog_save_button">Create</string>
 

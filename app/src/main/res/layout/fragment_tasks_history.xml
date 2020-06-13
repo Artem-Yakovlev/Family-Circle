@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.deliverypart.taskorganizer.pages.taskshistory.TasksHistoryFragment">
+    tools:context=".presentation.ui.deliverypart.taskorganizer.pages.tasks.CompletedTasksFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/history_tasks_recyclerview"

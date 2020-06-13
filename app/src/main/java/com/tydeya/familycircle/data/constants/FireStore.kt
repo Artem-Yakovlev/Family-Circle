@@ -96,10 +96,10 @@ object FireStore {
      */
     const val TASKS_COLLECTION = "Tasks"
     const val TASKS_AUTHOR = "author"
-    const val TASKS_WORKER = "worker"
+    const val TASKS_WORKER = "workers"
+    const val TASKS_TITLE = "title"
     const val TASKS_TEXT = "text"
     const val TASKS_STATUS = "status"
-    const val TASKS_TIME = "time"
 
     /**
      * Const of firestore conversation
