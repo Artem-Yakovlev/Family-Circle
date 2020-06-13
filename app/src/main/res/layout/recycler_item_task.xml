@@ -13,16 +13,26 @@
 
         <TextView
             android:id="@+id/task_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:fontFamily="@font/poppins_medium"
             android:singleLine="true"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/task_edit_button"
+            app:layout_constraintEnd_toStartOf="@+id/task_edit_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Собрать шкаф" />
+
+        <ImageButton
+            android:id="@+id/task_edit_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:src="@drawable/ic_edit_gray_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/task_workers_recycler_view"

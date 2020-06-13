@@ -6,6 +6,6 @@ interface TasksRecyclerViewClickListener {
 
     fun taskIsChecked(familyTask: FamilyTask)
 
-    fun removeTask()
+    fun editTask(familyTask: FamilyTask)
 
 }

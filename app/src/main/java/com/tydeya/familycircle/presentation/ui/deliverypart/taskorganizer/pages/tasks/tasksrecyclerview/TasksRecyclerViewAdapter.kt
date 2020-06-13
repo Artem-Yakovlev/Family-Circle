@@ -17,19 +17,19 @@ class TasksRecyclerViewAdapter(
         private val familyTasksDTO: ArrayList<FamilyTaskDto> = ArrayList(),
         private var listener: TasksRecyclerViewClickListener)
     :
-        RecyclerView.Adapter<TasksForUserViewHolder>() {
+        RecyclerView.Adapter<TaskViewHolder>() {
 
     private val familyMembers: ArrayList<FamilyMember> = ArrayList()
     private val familyTasks: ArrayList<FamilyTask> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksForUserViewHolder =
-            TasksForUserViewHolder(RecyclerItemTaskBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder =
+            TaskViewHolder(RecyclerItemTaskBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false),
                     listener,
                     mainTaskStatus
             )
 
-    override fun onBindViewHolder(holder: TasksForUserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.bindData(familyTasksDTO[position])
     }
 

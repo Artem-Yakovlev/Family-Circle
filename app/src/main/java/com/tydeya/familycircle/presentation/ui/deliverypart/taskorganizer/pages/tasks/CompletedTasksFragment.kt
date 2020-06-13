@@ -97,7 +97,7 @@ class CompletedTasksFragment
         TODO("Not yet implemented")
     }
 
-    override fun removeTask() {
+    override fun editTask() {
         TODO("Not yet implemented")
     }
 

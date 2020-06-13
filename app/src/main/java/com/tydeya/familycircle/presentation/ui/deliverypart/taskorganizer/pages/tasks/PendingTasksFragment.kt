@@ -96,7 +96,7 @@ class PendingTasksFragment
         tasksViewModel.completeTask(familyTask)
     }
 
-    override fun removeTask() {
+    override fun editTask() {
 
     }
 

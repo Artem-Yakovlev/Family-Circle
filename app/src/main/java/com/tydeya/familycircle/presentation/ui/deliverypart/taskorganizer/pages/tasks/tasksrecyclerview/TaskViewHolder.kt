@@ -1,12 +1,13 @@
 package com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskDto
 import com.tydeya.familycircle.data.taskorganizer.TaskStatus
 import com.tydeya.familycircle.databinding.RecyclerItemTaskBinding
 
-class TasksForUserViewHolder(
+class TaskViewHolder(
         private val binding: RecyclerItemTaskBinding,
         private val listener: TasksRecyclerViewClickListener,
         private val mainTaskStatus: TaskStatus
@@ -22,9 +23,14 @@ class TasksForUserViewHolder(
             binding.taskCheckbox.setOnCheckedChangeListener { _, _ ->
                 listener.taskIsChecked(familyTaskDto.familyTask)
             }
+            binding.taskEditButton.setOnClickListener {
+                listener.editTask(familyTaskDto.familyTask)
+            }
+            binding.taskEditButton.visibility = View.VISIBLE
         } else {
             binding.taskCheckbox.isEnabled = false
             binding.taskCheckbox.isChecked = true
+            binding.taskEditButton.visibility = View.INVISIBLE
         }
 
         binding.taskWorkersRecyclerView.adapter = WorkersRecyclerViewAdapter(
