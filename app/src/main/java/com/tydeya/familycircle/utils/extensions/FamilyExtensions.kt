@@ -22,7 +22,8 @@ fun List<ChatMessage>.toFullMessages(
                 userName = user?.description?.name ?: "",
                 imageAddress = user?.description?.imageAddress ?: "",
                 isUserOnline = user?.isOnline ?: false,
-                chatMessage = it
+                chatMessage = it,
+                whoSawMessage = it.whoSawMessage
         )
     }.toArrayList()
 }

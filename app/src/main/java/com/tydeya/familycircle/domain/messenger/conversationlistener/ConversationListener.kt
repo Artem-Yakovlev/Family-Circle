@@ -12,6 +12,7 @@ import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_TEXT
 import com.tydeya.familycircle.data.constants.FireStore.MESSAGE_UNREAD_PATTERN
 import com.tydeya.familycircle.data.messenger.chat.ChatMessage
 import com.tydeya.familycircle.utils.extensions.getUserPhone
+import com.tydeya.familycircle.utils.extensions.toArrayList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -45,18 +46,24 @@ class ConversationListener(
 
     override fun onEvent(querySnapshot: QuerySnapshot?, p1: FirebaseFirestoreException?) {
         GlobalScope.launch(Dispatchers.Default) {
-            val messages = ArrayList<ChatMessage>()
-            var unreadCounter = 0
+            querySnapshot?.let { querySnapshot ->
+                val messages = ArrayList<ChatMessage>()
+                var unreadCounter = 0
 
-            for (document in querySnapshot!!.documents) {
-                val message = parseMessageFromServer(document)
-                if (!message.isViewed) {
-                    unreadCounter++
+                for (document in querySnapshot.documents) {
+                    val whoSawMessage = ArrayList<String>()
+
+                    val message = parseMessageFromServer(document)
+                    if (!message.isViewed) {
+                        unreadCounter++
+                    }
+                    Log.d("ASMR", message.toString())
+                    messages.add(message)
                 }
-                messages.add(message)
-            }
-            withContext(Dispatchers.Main) {
-                callback.conversationMessagesUpdated(conversationId, messages, unreadCounter)
+
+                withContext(Dispatchers.Main) {
+                    callback.conversationMessagesUpdated(conversationId, messages, unreadCounter)
+                }
             }
 
         }
@@ -67,11 +74,23 @@ class ConversationListener(
             document.getString(MESSAGE_AUTHOR_PHONE) ?: "+0",
             document.getString(MESSAGE_TEXT) ?: "",
             document.getDate(MESSAGE_DATETIME) ?: Date(),
-            !isMessageUnread(document)
+            !isMessageUnread(document),
+            getMembersWhoSawMessage(document)
     )
+
+    private fun getMembersWhoSawMessage(document: DocumentSnapshot) =
+            (document.data?.keys ?: ArrayList<String>())
+                    .filter { it.matches(UNREAD_BY_PHONE_REGEX) }
+                    .filterNot { document.getBoolean(it) ?: false }
+                    .map { it.subSequence(MESSAGE_UNREAD_PATTERN.length, it.length).toString() }
+                    .toArrayList()
+
 
     private fun isMessageUnread(document: DocumentSnapshot) = document
             .getBoolean(MESSAGE_UNREAD_PATTERN + getUserPhone()) ?: false
 
+    companion object {
+        private val UNREAD_BY_PHONE_REGEX = "$MESSAGE_UNREAD_PATTERN[+0-9]+".toRegex()
+    }
 
 }
