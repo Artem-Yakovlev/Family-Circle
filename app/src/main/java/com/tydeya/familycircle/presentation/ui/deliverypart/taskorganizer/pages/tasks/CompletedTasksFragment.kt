@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.databinding.FragmentTasksForUserBinding
+import com.tydeya.familycircle.databinding.FragmentTasksHistoryBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewClickListener
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
@@ -24,14 +24,14 @@ class CompletedTasksFragment
     :
         Fragment(R.layout.fragment_tasks_history), TasksRecyclerViewClickListener {
 
-    private var _binding: FragmentTasksForUserBinding? = null
+    private var _binding: FragmentTasksHistoryBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var familyViewModel: FamilyViewModel
     private lateinit var tasksViewModel: TasksViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentTasksForUserBinding.inflate(
+        _binding = FragmentTasksHistoryBinding.inflate(
                 LayoutInflater.from(requireContext()), container, false
         )
 
@@ -48,7 +48,6 @@ class CompletedTasksFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initTasksRecyclerAdapter()
     }
 
@@ -58,10 +57,10 @@ class CompletedTasksFragment
 
     private fun initTasksRecyclerAdapter() {
         val tasksAdapter = TasksRecyclerViewAdapter(listener = this)
-        tasks_for_user_recycler_view.layoutManager = LinearLayoutManager(
+        binding.tasksHistoryRecyclerView.layoutManager = LinearLayoutManager(
                 requireContext(), LinearLayoutManager.VERTICAL, false
         )
-        tasks_for_user_recycler_view.adapter = tasksAdapter
+        binding.tasksHistoryRecyclerView.adapter = tasksAdapter
 
         familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
             when (it) {

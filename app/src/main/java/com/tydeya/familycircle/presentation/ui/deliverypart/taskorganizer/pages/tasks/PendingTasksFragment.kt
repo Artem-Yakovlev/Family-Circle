@@ -48,7 +48,6 @@ class PendingTasksFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initTasksRecyclerAdapter()
     }
 
@@ -58,10 +57,10 @@ class PendingTasksFragment
 
     private fun initTasksRecyclerAdapter() {
         val tasksAdapter = TasksRecyclerViewAdapter(listener = this)
-        tasks_for_user_recycler_view.layoutManager = LinearLayoutManager(
+        binding.tasksForUserRecyclerView.layoutManager = LinearLayoutManager(
                 requireContext(), LinearLayoutManager.VERTICAL, false
         )
-        tasks_for_user_recycler_view.adapter = tasksAdapter
+        binding.tasksForUserRecyclerView.adapter = tasksAdapter
 
         familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
             when (it) {
