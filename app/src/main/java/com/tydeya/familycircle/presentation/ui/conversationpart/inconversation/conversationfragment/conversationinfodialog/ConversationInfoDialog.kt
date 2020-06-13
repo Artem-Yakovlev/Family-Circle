@@ -57,7 +57,7 @@ class ConversationInfoDialog(
             }
 
             dialog_conversation_info_save_button.setOnClickListener {
-                if (!DataConfirming.isEmptyNecessaryCheck(
+                if (!DataConfirming.isEmptyCheck(
                                 dialog_conversation_info_input,
                                 true
                         )

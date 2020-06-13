@@ -9,7 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.taskorganizer.FamilyTask
+import com.tydeya.familycircle.data.taskorganizer.TaskStatus
 import com.tydeya.familycircle.databinding.FragmentTasksForUserBinding
+import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.createtaskdialog.CreateTaskDialogFragment
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewClickListener
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
@@ -18,7 +21,6 @@ import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModel
 import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
-import kotlinx.android.synthetic.main.fragment_tasks_for_user.*
 
 class PendingTasksFragment
     :
@@ -49,6 +51,10 @@ class PendingTasksFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTasksRecyclerAdapter()
+        binding.floatingButton.setOnClickListener {
+            CreateTaskDialogFragment.newInstance()
+                    .show(parentFragmentManager, CreateTaskDialogFragment.TAG)
+        }
     }
 
     /**
@@ -56,7 +62,10 @@ class PendingTasksFragment
      * */
 
     private fun initTasksRecyclerAdapter() {
-        val tasksAdapter = TasksRecyclerViewAdapter(listener = this)
+        val tasksAdapter = TasksRecyclerViewAdapter(
+                listener = this,
+                mainTaskStatus = TaskStatus.PENDING
+        )
         binding.tasksForUserRecyclerView.layoutManager = LinearLayoutManager(
                 requireContext(), LinearLayoutManager.VERTICAL, false
         )
@@ -72,7 +81,7 @@ class PendingTasksFragment
             }
         })
 
-        tasksViewModel.completedTasksLiveData.observe(viewLifecycleOwner, Observer {
+        tasksViewModel.pendingTasksLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> tasksAdapter.refreshTasks(it.data)
                 is Resource.Loading -> {
@@ -83,8 +92,8 @@ class PendingTasksFragment
         })
     }
 
-    override fun taskIsChecked(isChecked: Boolean) {
-
+    override fun taskIsChecked(familyTask: FamilyTask) {
+        tasksViewModel.completeTask(familyTask)
     }
 
     override fun removeTask() {

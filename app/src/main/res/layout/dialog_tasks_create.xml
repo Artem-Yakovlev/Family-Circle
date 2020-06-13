@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:focusableInTouchMode="true"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -17,27 +17,44 @@
         android:textColor="@color/colorPrimary"
         android:textSize="16sp" />
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="8dp">
+        android:layout_marginTop="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_task_dialog_title_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="Task for" />
+            android:fontFamily="@font/poppins_medium"
+            android:hint="@string/create_task_title_input_hint"
+            android:inputType="textMultiLine"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorGray"
+            android:textColorHint="@color/colorTransparentGray"
+            android:textSize="15sp"
+            android:theme="@style/CommonOnWhiteInputStyle" />
 
-        <Spinner
-            android:id="@+id/create_task_dialog_spinner"
-            style="@style/Widget.AppCompat.DropDownItem.Spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="RtlHardcoded" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/create_task_dialog_add_member_title"
+        android:textColor="@color/colorPrimary" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/create_task_dialog_workers_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="300dp"
+        tools:listitem="@layout/recycler_item_checkbox_member_in_dialog" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -47,11 +64,11 @@
         android:paddingRight="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/create_task_dialog_main_text"
+            android:id="@+id/create_task_dialog_text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/your_errand_edit_text_dialog_input_hint"
+            android:hint="@string/create_task_text_input_hint"
             android:inputType="textMultiLine"
             android:lines="3"
             android:singleLine="true"
@@ -86,11 +103,11 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/create_task_dialog_save_button"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:textColor="@color/colorWhite"
-            android:theme="@style/FormButton"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/create_task_dialog_save_button" />
+            android:theme="@style/FormButton" />
 
     </LinearLayout>
 

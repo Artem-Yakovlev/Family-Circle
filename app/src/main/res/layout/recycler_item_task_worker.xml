@@ -6,8 +6,8 @@
     android:layout_marginLeft="5dp"
     android:background="@color/colorEventDarkBlue"
     android:fontFamily="@font/poppins_medium"
-    android:padding="5dp"
+    android:padding="3dp"
     android:textColor="@color/colorWhite"
-    android:textSize="14sp"
+    android:textSize="12sp"
     tools:text="Кристофор"
     tools:ignore="RtlHardcoded"/>

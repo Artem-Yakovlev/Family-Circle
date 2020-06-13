@@ -8,7 +8,8 @@ import com.tydeya.familycircle.databinding.RecyclerItemTaskBinding
 
 class TasksForUserViewHolder(
         private val binding: RecyclerItemTaskBinding,
-        private val listener: TasksRecyclerViewClickListener
+        private val listener: TasksRecyclerViewClickListener,
+        private val mainTaskStatus: TaskStatus
 ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -16,8 +17,14 @@ class TasksForUserViewHolder(
         binding.taskTitle.text = familyTaskDto.familyTask.title
         binding.taskText.text = familyTaskDto.familyTask.text
         binding.taskCheckbox.isChecked = familyTaskDto.familyTask.status == TaskStatus.COMPLETED
-        binding.taskCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            listener.taskIsChecked(isChecked)
+
+        if (mainTaskStatus != TaskStatus.COMPLETED) {
+            binding.taskCheckbox.setOnCheckedChangeListener { _, _ ->
+                listener.taskIsChecked(familyTaskDto.familyTask)
+            }
+        } else {
+            binding.taskCheckbox.isEnabled = false
+            binding.taskCheckbox.isChecked = true
         }
 
         binding.taskWorkersRecyclerView.adapter = WorkersRecyclerViewAdapter(

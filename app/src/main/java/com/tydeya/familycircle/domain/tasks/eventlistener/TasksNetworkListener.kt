@@ -1,5 +1,6 @@
 package com.tydeya.familycircle.domain.tasks.eventlistener
 
+import android.util.Log
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
@@ -26,7 +27,6 @@ class TasksNetworkListener(
 
     private val tasksRef = firestoreFamily(familyId)
             .collection(TASKS_COLLECTION)
-            .whereEqualTo(TASKS_STATUS, TaskStatus.PENDING.ordinal)
 
     private lateinit var tasksRegistration: ListenerRegistration
 

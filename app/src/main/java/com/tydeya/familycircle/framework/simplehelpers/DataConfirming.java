@@ -5,8 +5,8 @@ import com.tydeya.familycircle.R;
 
 public class DataConfirming {
 
-    public static boolean isEmptyNecessaryCheck(TextInputEditText textInputEditText,
-                                                boolean attention) {
+    public static boolean isEmptyCheck(TextInputEditText textInputEditText,
+                                       boolean attention) {
         assert textInputEditText.getText() != null;
 
         if (textInputEditText.getText().toString().trim().equals("")) {

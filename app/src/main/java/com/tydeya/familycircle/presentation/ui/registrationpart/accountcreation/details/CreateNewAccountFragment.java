@@ -127,7 +127,7 @@ public class CreateNewAccountFragment extends Fragment implements DatePickerUsab
 
     @Override
     public void invalidName() {
-        DataConfirming.isEmptyNecessaryCheck(nameText, true);
+        DataConfirming.isEmptyCheck(nameText, true);
     }
 
     @Override

@@ -15,7 +15,7 @@ class CreateConversationMembersRecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             CreateConversationMemberViewHolder(
                     LayoutInflater.from(parent.context)
-                            .inflate(R.layout.cardview_member_in_create_conversation_dialog,
+                            .inflate(R.layout.recycler_item_checkbox_member_in_dialog,
                                     parent, false))
 
     override fun onBindViewHolder(holder: CreateConversationMemberViewHolder, position: Int) {

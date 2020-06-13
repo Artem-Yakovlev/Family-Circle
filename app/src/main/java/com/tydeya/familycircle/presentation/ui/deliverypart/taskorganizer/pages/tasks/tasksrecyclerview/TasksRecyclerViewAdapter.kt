@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.FamilyTaskDto
+import com.tydeya.familycircle.data.taskorganizer.TaskStatus
 import com.tydeya.familycircle.databinding.RecyclerItemTaskBinding
 import com.tydeya.familycircle.utils.extensions.toArrayList
 import com.tydeya.familycircle.utils.extensions.toFamilyTasksDTO
 
 class TasksRecyclerViewAdapter(
+        private val mainTaskStatus: TaskStatus,
         private val familyTasksDTO: ArrayList<FamilyTaskDto> = ArrayList(),
         private var listener: TasksRecyclerViewClickListener)
     :
@@ -22,7 +24,9 @@ class TasksRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksForUserViewHolder =
             TasksForUserViewHolder(RecyclerItemTaskBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false), listener
+                    LayoutInflater.from(parent.context), parent, false),
+                    listener,
+                    mainTaskStatus
             )
 
     override fun onBindViewHolder(holder: TasksForUserViewHolder, position: Int) {

@@ -18,3 +18,11 @@ fun convertServerDataToFamilyTask(document: DocumentSnapshot) = FamilyTask(
         text = document.getString(TASKS_TEXT) ?: "",
         status = TaskStatus.values()[(document.getLong(TASKS_STATUS) ?: 0).toInt()]
 )
+
+fun FamilyTask.toFirestoreData() = mutableMapOf<String, Any>(
+        TASKS_AUTHOR to author,
+        TASKS_WORKER to workers,
+        TASKS_TITLE to title,
+        TASKS_TEXT to text,
+        TASKS_STATUS to status.ordinal
+)

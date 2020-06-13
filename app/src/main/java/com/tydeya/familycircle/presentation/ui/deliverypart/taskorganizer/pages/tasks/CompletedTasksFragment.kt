@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
+import com.tydeya.familycircle.data.taskorganizer.FamilyTask
+import com.tydeya.familycircle.data.taskorganizer.TaskStatus
 import com.tydeya.familycircle.databinding.FragmentTasksHistoryBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewAdapter
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewClickListener
@@ -56,7 +58,10 @@ class CompletedTasksFragment
      * */
 
     private fun initTasksRecyclerAdapter() {
-        val tasksAdapter = TasksRecyclerViewAdapter(listener = this)
+        val tasksAdapter = TasksRecyclerViewAdapter(
+                listener = this,
+                mainTaskStatus = TaskStatus.COMPLETED
+        )
         binding.tasksHistoryRecyclerView.layoutManager = LinearLayoutManager(
                 requireContext(), LinearLayoutManager.VERTICAL, false
         )
@@ -72,7 +77,7 @@ class CompletedTasksFragment
             }
         })
 
-        tasksViewModel.pendingTasksLiveData.observe(viewLifecycleOwner, Observer {
+        tasksViewModel.completedTasksLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> tasksAdapter.refreshTasks(it.data)
                 is Resource.Loading -> {
@@ -88,7 +93,7 @@ class CompletedTasksFragment
         _binding = null
     }
 
-    override fun taskIsChecked(isChecked: Boolean) {
+    override fun taskIsChecked(familyTask: FamilyTask) {
         TODO("Not yet implemented")
     }
 
