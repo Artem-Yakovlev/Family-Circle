@@ -11,6 +11,7 @@ class FullMessagesRecyclerDiffUtil(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
             oldList[oldItemPosition].chatMessage.id == newList[newItemPosition].chatMessage.id
 
+
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]

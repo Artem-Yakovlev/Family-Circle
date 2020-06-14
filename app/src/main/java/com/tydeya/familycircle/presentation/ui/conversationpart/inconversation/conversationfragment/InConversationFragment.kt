@@ -79,10 +79,7 @@ class InConversationFragment
                 MessengerInteractor.sendMessage(conversationId, messageText)
                 chat_input_field.value = ""
             }
-            if (chatAdapter.itemCount != 0) {
-                conversation_chat_recycler_view
-                        .smoothScrollToPosition(chatAdapter.itemCount - 1)
-            }
+            scrollAdapterToBottom()
         }
     }
 
@@ -128,6 +125,13 @@ class InConversationFragment
             MessengerInteractor.readAllMessages(conversationId)
 
         } ?: popBackStack()
+    }
+
+    private fun scrollAdapterToBottom() {
+        if (chatAdapter.itemCount != 0) {
+            conversation_chat_recycler_view
+                    .smoothScrollToPosition(chatAdapter.itemCount - 1)
+        }
     }
 
     /**

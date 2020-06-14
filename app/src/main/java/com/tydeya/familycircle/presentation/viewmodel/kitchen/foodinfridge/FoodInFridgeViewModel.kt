@@ -17,7 +17,7 @@ class FoodInFridgeViewModel(
 ) :
         FirestoreViewModel(), FoodInFridgeEventListenerCallback {
 
-    private val foodInFridgeEventListener: FoodInFridgeEventListener = FoodInFridgeEventListener(familyId, this)
+    private val foodInFridgeEventListener = FoodInFridgeEventListener(familyId, this)
 
     val products: MutableLiveData<Resource<ArrayList<Food>>> = MutableLiveData(Resource.Loading())
 

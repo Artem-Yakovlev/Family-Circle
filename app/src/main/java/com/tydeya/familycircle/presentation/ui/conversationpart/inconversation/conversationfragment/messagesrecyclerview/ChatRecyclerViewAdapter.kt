@@ -14,6 +14,7 @@ import com.tydeya.familycircle.presentation.ui.utils.BaseViewHolder
 import com.tydeya.familycircle.utils.extensions.getUserPhone
 import com.tydeya.familycircle.utils.extensions.toArrayList
 import com.tydeya.familycircle.utils.extensions.toFullMessages
+import org.joda.time.DateTimeComparator
 
 
 class ChatRecyclerViewAdapter(
@@ -75,13 +76,28 @@ class ChatRecyclerViewAdapter(
     }
 
     private fun refreshData(fullChatMessages: ArrayList<FullChatMessage>) {
+
+        val dateComparator = DateTimeComparator.getDateOnlyInstance()
+        val formattedMessages = fullChatMessages
+                .fold(ArrayList<FullChatMessage>()) { acc, message ->
+
+                    if (acc.isEmpty() || dateComparator.compare(acc.last().chatMessage.dateTime,
+                                    message.chatMessage.dateTime) != 0) {
+
+                        acc.add(FullChatMessage(chatMessage = ChatMessage(
+                                authorPhoneNumber = INFORMATION_MESSAGE_TAG,
+                                dateTime = message.chatMessage.dateTime
+                        )))
+                    }
+                    acc.apply { add(message) }
+                }
+
         val diffResult = DiffUtil.calculateDiff(FullMessagesRecyclerDiffUtil(
-                this.fullChatMessages, fullChatMessages
+                this.fullChatMessages, formattedMessages
         ))
 
         this.fullChatMessages.clear()
-        this.fullChatMessages.addAll(fullChatMessages)
-
+        this.fullChatMessages.addAll(formattedMessages)
         diffResult.dispatchUpdatesTo(this)
     }
 
