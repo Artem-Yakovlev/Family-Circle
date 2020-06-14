@@ -15,8 +15,8 @@ import com.tydeya.familycircle.domain.messenger.interactor.details.MessengerInte
 import com.tydeya.familycircle.presentation.MainActivity
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationaddmemberdialog.ConversationAddMemberDialog
 import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.conversationinfodialog.ConversationInfoDialog
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.ChatRecyclerViewAdapter
-import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.recyclerview.InConversationViewHolderListener
+import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.messagesrecyclerview.ChatRecyclerViewAdapter
+import com.tydeya.familycircle.presentation.ui.conversationpart.inconversation.conversationfragment.messagesrecyclerview.InConversationViewHolderListener
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModel
 import com.tydeya.familycircle.presentation.viewmodel.familyviewmodel.FamilyViewModelFactory
 import com.tydeya.familycircle.utils.Resource
@@ -79,10 +79,7 @@ class InConversationFragment
                 MessengerInteractor.sendMessage(conversationId, messageText)
                 chat_input_field.value = ""
             }
-            if (chatAdapter.itemCount != 0) {
-                conversation_chat_recycler_view
-                        .smoothScrollToPosition(chatAdapter.itemCount - 1)
-            }
+            scrollAdapterToBottom()
         }
     }
 
@@ -128,6 +125,13 @@ class InConversationFragment
             MessengerInteractor.readAllMessages(conversationId)
 
         } ?: popBackStack()
+    }
+
+    private fun scrollAdapterToBottom() {
+        if (chatAdapter.itemCount != 0) {
+            conversation_chat_recycler_view
+                    .smoothScrollToPosition(chatAdapter.itemCount - 1)
+        }
     }
 
     /**

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pageradapter.TasksOrganizerAdapter
 import kotlinx.android.synthetic.main.fragment_tasks_organizer_main.*
 
 class TasksOrganizerMainFragment : Fragment(R.layout.fragment_tasks_organizer_main) {
@@ -23,9 +22,8 @@ class TasksOrganizerMainFragment : Fragment(R.layout.fragment_tasks_organizer_ma
 
         TabLayoutMediator(task_organizer_main_tab_layout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.tasks_organizer_errands_for_you)
-                1 -> getString(R.string.tasks_organizer_your_errands)
-                2 -> getString(R.string.tasks_organizer_errands_history)
+                0 -> getString(R.string.all_tasks)
+                1 -> getString(R.string.tasks_history)
                 else -> throw (IllegalArgumentException("The adapter is designed for only 3 fragments"))
             }
         }.attach()

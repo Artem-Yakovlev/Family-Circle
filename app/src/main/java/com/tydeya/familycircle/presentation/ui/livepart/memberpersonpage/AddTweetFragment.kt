@@ -42,7 +42,7 @@ class AddTweetFragment : Fragment(R.layout.fragment_add_tweet) {
             popBackStack()
         }
         binding.tweetDone.setOnClickListener {
-            if (!DataConfirming.isEmptyNecessaryCheck(binding.dialogTweetInput, true)) {
+            if (!DataConfirming.isEmptyCheck(binding.dialogTweetInput, true)) {
                 GlobalScope.launch(Dispatchers.Default) {
                     familyViewModel.addTweet(
                             requireContext().currentFamilyId,

@@ -229,7 +229,6 @@ class BarcodeScannerActivity : AppCompatActivity() {
         override fun onDisplayRemoved(displayId: Int) = Unit
         override fun onDisplayChanged(displayId: Int) = binding.root.let { view ->
             if (displayId == this@BarcodeScannerActivity.displayId) {
-                Log.d(TAG, "Rotation changed: ${view.display.rotation}")
                 imageCapture?.targetRotation = view.display.rotation
                 imageAnalyzer?.targetRotation = view.display.rotation
             }

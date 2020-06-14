@@ -49,6 +49,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    // Joda time
+    implementation 'joda-time:joda-time:2.9.9'
+
     // Circle ImageView
     implementation 'cn.gavinliu:ShapedImageView:0.8.7'
 

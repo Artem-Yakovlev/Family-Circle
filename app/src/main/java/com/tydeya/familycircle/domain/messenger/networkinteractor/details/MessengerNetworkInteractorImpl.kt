@@ -16,6 +16,7 @@ import com.tydeya.familycircle.data.messenger.chat.ChatMessage
 import com.tydeya.familycircle.data.messenger.conversation.Conversation
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractor
 import com.tydeya.familycircle.domain.messenger.networkinteractor.abstraction.MessengerNetworkInteractorCallback
+import com.tydeya.familycircle.utils.extensions.firestoreFamily
 import com.tydeya.familycircle.utils.extensions.getUserPhone
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -27,9 +28,7 @@ class MessengerNetworkInteractorImpl(
 ) :
         MessengerNetworkInteractor {
 
-    private val conversationsPath = FirebaseFirestore.getInstance()
-            .collection(FAMILY_COLLECTION)
-            .document(familyId)
+    private val conversationsPath = firestoreFamily(familyId)
             .collection(CONVERSATION_COLLECTION)
 
     private lateinit var conversationsRegistration: ListenerRegistration

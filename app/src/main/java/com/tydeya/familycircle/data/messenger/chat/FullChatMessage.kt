@@ -4,5 +4,6 @@ data class FullChatMessage(
         val userName: String = "",
         val imageAddress: String = "",
         val isUserOnline: Boolean = false,
-        val chatMessage: ChatMessage
+        val chatMessage: ChatMessage,
+        val whoSawMessage: List<String> = emptyList()
 )

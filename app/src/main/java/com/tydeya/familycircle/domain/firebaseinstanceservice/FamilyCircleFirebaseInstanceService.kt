@@ -9,7 +9,6 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.tydeya.familycircle.data.constants.CLOUD_MESSAGING_KITCHEN_FRIDGE_DATA_TAG
-import com.tydeya.familycircle.domain.oldfamilyinteractor.utils.updateUserTokenInFirebase
 
 
 class FamilyCircleFirebaseInstanceService : FirebaseMessagingService() {
@@ -47,7 +46,7 @@ class FamilyCircleFirebaseInstanceService : FirebaseMessagingService() {
     private fun updateToken(token: String) {
         val phoneNumber = FirebaseAuth.getInstance().currentUser?.phoneNumber
         phoneNumber?.let {
-            updateUserTokenInFirebase(phoneNumber, token)
+//            updateUserTokenInFirebase(phoneNumber, token)
         }
     }
 

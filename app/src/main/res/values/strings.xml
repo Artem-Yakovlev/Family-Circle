@@ -297,11 +297,13 @@
     <!-- ================================================ -->
     <string name="task_organizer_toolbar_title">Task organizer</string>
     <string name="tasks_organizer_your_errands">Your errands</string>
-    <string name="tasks_organizer_errands_for_you">Errands for you</string>
-    <string name="tasks_organizer_errands_history">Errands history</string>
+    <string name="all_tasks">Pending</string>
+    <string name="tasks_history">Completed</string>
     <string name="create_task_dialog_title">Create new task</string>
     <string name="create_task_dialog_save_button">Create</string>
-
+    <string name="create_task_title_input_hint">Title</string>
+    <string name="create_task_text_input_hint">Description</string>
+    <string name="create_task_dialog_add_someone_text">Add someone to the task</string>
     <!-- Errands -->
     <string name="errand_for_you_cardview_performed_button_text">Performed</string>
     <string name="errand_for_you_cardview_refuse_text">Refuse</string>
@@ -314,6 +316,8 @@
     <string name="your_errand_cardview_delete_button_text">Delete</string>
     <string name="your_errand_edit_text_dialog_title">Edit tasks text</string>
     <string name="your_errand_edit_text_dialog_input_hint">Text of task</string>
+
+
     <string name="history_errand_cardview_interaction_placeholder">%1$s gave an order %2$s</string>
     <string name="dialog_new_food_products_amount_hint">Amount</string>
     <string name="food_in_fridge_add_speed_dial_button_menu_barcode">Add by barcode</string>
@@ -386,6 +390,10 @@
     <string name="what_do_you_think_about">What do you think about?</string>
     <string name="article">Article</string>
     <string name="last_thoughts">Last thoughts:</string>
+    <string name="create_task_dialog_add_member_title">For whom is this task:</string>
+    <string name="edit_task_dialog_title">Edit task</string>
+    <string name="edit_task_dialog_delete_button">Delete task</string>
+    <string name="create_task_dialog_apply_button">Apply</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>

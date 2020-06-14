@@ -6,8 +6,8 @@ import com.tydeya.familycircle.data.family.Family
 import com.tydeya.familycircle.data.familymember.FamilyMember
 import com.tydeya.familycircle.data.familymember.Tweet
 import com.tydeya.familycircle.domain.familyinteraction.FamilyInteractor
-import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractor
-import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkInteractorCallback
+import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkListener
+import com.tydeya.familycircle.domain.familyinteraction.FamilyNetworkListenerCallback
 import com.tydeya.familycircle.domain.familyselection.addFamilyMemberInFirestore
 import com.tydeya.familycircle.domain.familyselection.addTweetInFirestore
 import com.tydeya.familycircle.domain.tweets.TweetsNetworkInteractor
@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 class FamilyViewModel(
         familyId: String
 ) :
-        FirestoreViewModel(), FamilyNetworkInteractorCallback, TweetsNetworkInteractorCallback {
+        FirestoreViewModel(), FamilyNetworkListenerCallback, TweetsNetworkInteractorCallback {
 
     private val familyDataLiveData = MutableLiveData<Resource<Family>>(Resource.Loading())
     val familyData: LiveData<Resource<Family>> get() = familyDataLiveData
@@ -29,7 +29,7 @@ class FamilyViewModel(
     private val familyMembersLiveData = MutableLiveData<Resource<ArrayList<FamilyMember>>>(Resource.Loading())
     val familyMembers: LiveData<Resource<ArrayList<FamilyMember>>> get() = familyMembersLiveData
 
-    private val familyNetworkInteractor = FamilyNetworkInteractor(familyId, this)
+    private val familyNetworkInteractor = FamilyNetworkListener(familyId, this)
     private var familyInteractor = FamilyInteractor(ArrayList())
 
     private val tweetsNetworkInteractor = TweetsNetworkInteractor(familyId, this)
