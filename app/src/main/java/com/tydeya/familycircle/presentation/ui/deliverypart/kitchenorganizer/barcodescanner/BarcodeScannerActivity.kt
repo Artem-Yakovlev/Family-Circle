@@ -75,19 +75,12 @@ class BarcodeScannerActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewFinder = binding.viewFinder
 
-        // Initialize our background executor
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        // Every time the orientation of device changes, update rotation for use cases
         displayManager.registerDisplayListener(displayListener, null)
 
-        // Wait for the views to be properly laid out
         viewFinder.post {
-
-            // Keep track of the display in which this view is attached
             displayId = viewFinder.display.displayId
-
-            // Bind use cases
             bindCameraUseCases()
         }
         initScannerCallbackProcessing()
@@ -135,64 +128,43 @@ class BarcodeScannerActivity : AppCompatActivity() {
     /** Declare and bind preview, capture and analysis use cases */
     private fun bindCameraUseCases() {
 
-        // Get screen metrics used to setup camera for full screen resolution
         val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
 
         val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
 
         val rotation = viewFinder.display.rotation
 
-        // Bind the CameraProvider to the LifeCycleOwner
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener(Runnable {
 
-            // CameraProvider
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-            // Preview
             preview = Preview.Builder()
-                    // We request aspect ratio but no resolution
                     .setTargetAspectRatio(screenAspectRatio)
-                    // Set initial target rotation
                     .setTargetRotation(rotation)
                     .build()
 
-            // ImageCapture
             imageCapture = ImageCapture.Builder()
                     .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                    // We request aspect ratio but no resolution to match preview config, but letting
-                    // CameraX optimize for whatever specific resolution best fits our use cases
                     .setTargetAspectRatio(screenAspectRatio)
-                    // Set initial target rotation, we will have to call this again if rotation changes
-                    // during the lifecycle of this use case
                     .setTargetRotation(rotation)
                     .build()
 
-            // ImageAnalysis
             imageAnalyzer = ImageAnalysis.Builder()
-                    // We request aspect ratio but no resolution
                     .setTargetAspectRatio(screenAspectRatio)
-                    // Set initial target rotation, we will have to call this again if rotation changes
-                    // during the lifecycle of this use case
                     .setTargetRotation(rotation)
                     .build()
-                    // The analyzer can then be assigned to the instance
                     .also {
                         it.setAnalyzer(cameraExecutor, BarcodeAnalyzer())
                     }
 
-            // Must unbind the use-cases before rebinding them
             cameraProvider.unbindAll()
 
             try {
-                // A variable number of use-cases can be passed here -
-                // camera provides access to CameraControl & CameraInfo
                 camera = cameraProvider.bindToLifecycle(
                         this, cameraSelector, preview, imageCapture, imageAnalyzer)
-
-                // Attach the viewfinder's surface provider to preview use case
                 preview?.setSurfaceProvider(viewFinder.createSurfaceProvider(camera?.cameraInfo))
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
@@ -282,7 +254,6 @@ class BarcodeScannerActivity : AppCompatActivity() {
     }
 
     companion object {
-
         private const val TAG = "CameraXBasic"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
