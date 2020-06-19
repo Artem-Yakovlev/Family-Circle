@@ -59,8 +59,7 @@
                     android:id="@+id/kitchen_pie_chart"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp" />
+                    android:layout_marginHorizontal="16dp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -80,8 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:scrollbars="none"
-                android:paddingHorizontal="10dp"/>
+                android:paddingHorizontal="10dp"
+                android:scrollbars="none" />
 
         </LinearLayout>
 
