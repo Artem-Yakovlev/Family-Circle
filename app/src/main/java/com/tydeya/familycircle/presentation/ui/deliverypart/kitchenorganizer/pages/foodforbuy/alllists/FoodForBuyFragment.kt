@@ -19,6 +19,7 @@ import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuy
 import com.tydeya.familycircle.presentation.viewmodel.kitchen.allcatalogs.AllBuyCatalogsViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.popBackStack
 import kotlinx.android.synthetic.main.fragment_food_for_buy.*
 
 class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
@@ -57,10 +58,13 @@ class FoodForBuyFragment : Fragment(), OnBuyCatalogClickListener {
         allBuyCatalogsViewModel.buyCatalogsResource.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
-
+                    binding.loadingCircle.visibility = View.VISIBLE
+                    binding.foodForBuyRecyclerview.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     adapter.refreshData(it.data)
+                    binding.loadingCircle.visibility = View.GONE
+                    binding.foodForBuyRecyclerview.visibility = View.VISIBLE
                 }
                 is Resource.Failure -> {
 

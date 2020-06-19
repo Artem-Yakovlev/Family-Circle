@@ -78,8 +78,12 @@ class FoodInFridgeFragment
             when (it) {
                 is Resource.Success -> {
                     adapter.refreshData(it.data)
+                    binding.loadingCircle.visibility = View.GONE
+                    binding.foodInFridgeRecyclerview.visibility = View.VISIBLE
                 }
                 is Resource.Loading -> {
+                    binding.loadingCircle.visibility = View.VISIBLE
+                    binding.foodInFridgeRecyclerview.visibility = View.GONE
                 }
                 is Resource.Failure -> {
                 }

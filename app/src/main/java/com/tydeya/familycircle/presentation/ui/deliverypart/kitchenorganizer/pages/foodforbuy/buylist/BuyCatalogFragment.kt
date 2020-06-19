@@ -94,13 +94,16 @@ class BuyCatalogFragment : Fragment(), FoodInBuyListViewHolderClickListener {
         buyCatalogViewModel.products.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
-
+                    binding.loadingCircle.visibility = View.VISIBLE
+                    binding.productsRecyclerview.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     adapter.refreshData(it.data)
+                    binding.loadingCircle.visibility = View.GONE
+                    binding.productsRecyclerview.visibility = View.VISIBLE
                 }
                 is Resource.Failure -> {
-
+                    popBackStack()
                 }
             }
         })

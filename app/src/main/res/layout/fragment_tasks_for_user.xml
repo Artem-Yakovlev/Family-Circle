@@ -9,7 +9,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_for_user_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/floating_button"
@@ -23,5 +24,11 @@
         app:fab_colorPressed="@color/colorPrimaryDark"
         app:fab_colorRipple="@color/colorPrimaryDark"
         tools:ignore="RtlHardcoded" />
+
+    <ProgressBar
+        android:id="@+id/loading_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </FrameLayout>

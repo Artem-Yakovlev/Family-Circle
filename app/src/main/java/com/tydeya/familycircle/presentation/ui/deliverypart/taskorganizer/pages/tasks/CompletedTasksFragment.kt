@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tydeya.familycircle.R
-import com.tydeya.familycircle.data.taskorganizer.FamilyTask
 import com.tydeya.familycircle.data.taskorganizer.TaskStatus
 import com.tydeya.familycircle.databinding.FragmentTasksHistoryBinding
 import com.tydeya.familycircle.presentation.ui.deliverypart.taskorganizer.pages.tasks.tasksrecyclerview.TasksRecyclerViewAdapter
@@ -20,7 +19,7 @@ import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModel
 import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
-import kotlinx.android.synthetic.main.fragment_tasks_for_user.*
+import com.tydeya.familycircle.utils.extensions.popBackStack
 
 class CompletedTasksFragment
     :
@@ -69,20 +68,28 @@ class CompletedTasksFragment
 
         familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Success -> tasksAdapter.refreshFamilyMembers(it.data)
-                is Resource.Loading -> {
+                is Resource.Success -> {
+                    tasksAdapter.refreshFamilyMembers(it.data)
                 }
                 is Resource.Failure -> {
+                    popBackStack()
                 }
             }
         })
 
         tasksViewModel.completedTasksLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Success -> tasksAdapter.refreshTasks(it.data)
+                is Resource.Success -> {
+                    tasksAdapter.refreshTasks(it.data)
+                    binding.loadingCircle.visibility = View.GONE
+                    binding.tasksHistoryRecyclerView.visibility = View.VISIBLE
+                }
                 is Resource.Loading -> {
+                    binding.loadingCircle.visibility = View.VISIBLE
+                    binding.tasksHistoryRecyclerView.visibility = View.GONE
                 }
                 is Resource.Failure -> {
+                    popBackStack()
                 }
             }
         })

@@ -22,6 +22,7 @@ import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModel
 import com.tydeya.familycircle.presentation.viewmodel.tasks.TasksViewModelFactory
 import com.tydeya.familycircle.utils.Resource
 import com.tydeya.familycircle.utils.extensions.currentFamilyId
+import com.tydeya.familycircle.utils.extensions.popBackStack
 
 class PendingTasksFragment
     :
@@ -74,20 +75,28 @@ class PendingTasksFragment
 
         familyViewModel.familyMembers.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Success -> tasksAdapter.refreshFamilyMembers(it.data)
-                is Resource.Loading -> {
+                is Resource.Success -> {
+                    tasksAdapter.refreshFamilyMembers(it.data)
                 }
                 is Resource.Failure -> {
+                    popBackStack()
                 }
             }
         })
 
         tasksViewModel.pendingTasksLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Success -> tasksAdapter.refreshTasks(it.data)
+                is Resource.Success -> {
+                    tasksAdapter.refreshTasks(it.data)
+                    binding.loadingCircle.visibility = View.GONE
+                    binding.tasksForUserRecyclerView.visibility = View.VISIBLE
+                }
                 is Resource.Loading -> {
+                    binding.loadingCircle.visibility = View.VISIBLE
+                    binding.tasksForUserRecyclerView.visibility = View.GONE
                 }
                 is Resource.Failure -> {
+                    popBackStack()
                 }
             }
         })

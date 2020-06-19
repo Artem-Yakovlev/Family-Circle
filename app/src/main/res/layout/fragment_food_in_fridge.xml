@@ -32,4 +32,10 @@
         app:sdMainFabOpenedSrc="@drawable/ic_close_black_24dp"
         app:sdOverlayLayout="@id/overlay" />
 
+    <ProgressBar
+        android:id="@+id/loading_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

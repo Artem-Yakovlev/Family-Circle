@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.deliverypart.kitchenorganizer.pages.foodforbuy.buylist.BuyCatalogFragment">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                tools:listitem="@layout/cardview_buycatalog_food" />
+                android:visibility="gone"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buy_list_add_button"
@@ -79,6 +78,11 @@
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_colorRipple="@color/colorPrimaryDark" />
 
+        <ProgressBar
+            android:id="@+id/loading_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 
