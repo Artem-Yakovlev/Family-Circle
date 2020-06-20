@@ -109,4 +109,16 @@ object FireStore {
     const val COOPERATION_TYPE = "type"
     const val COOPERATION_ITEM = "item"
     const val COOPERATION_TIME = "time"
+
+    /**
+     * const of firestore statistic
+     * */
+    const val STATISTIC_SHELF_LIFE = "kitchen_shelf_life_statistic"
+    const val GOOD_SHELF_LIFE = "kitchen_shelf_life_good"
+    const val ORD_SHELF_LIFE = "kitchen_shelf_life_ord"
+    const val BAD_SHELF_LIFE = "kitchen_shelf_life_bad"
+
+    const val STATISTIC_ADDED_PRODUCTS = "kitchen_added_product_statistic"
+    const val STATISTIC_PLANNED_PRODUCTS = "kitchen_planned_products_statistic"
+
 }

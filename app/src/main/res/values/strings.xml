@@ -324,7 +324,7 @@
     <string name="food_in_fridge_add_speed_dial_button_menu_manually">Add manually</string>
     <string name="barcode_scanner_activity_title">Point the camera at the product barcode</string>
     <string name="barcode_scanner_activity_end_scan_button">End scan</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="barcode_scanner_activity_product_added">Product successfully added</string>
     <string name="dialog_eat_food_in_fridge_accept">Accept</string>
@@ -394,6 +394,7 @@
     <string name="edit_task_dialog_title">Edit task</string>
     <string name="edit_task_dialog_delete_button">Delete task</string>
     <string name="create_task_dialog_apply_button">Apply</string>
+    <string name="tweet_intent_placeholder">%1$s - %2$s</string>
 
     <string-array name="event_reminder_repeat_types">
         <item>Not repeated</item>
